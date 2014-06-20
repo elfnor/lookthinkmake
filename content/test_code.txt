@@ -1,0 +1,50 @@
+Title: Small post to test inline code and code blocks
+Date: 2014-06-14 22:20
+Tags: think
+Category: think
+Author: elfnor
+
+
+This is `inline code`.
+
+This is python block code.
+
+```python
+"""
+document comment
+"""
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+#short unnecessry comment
+soup = BeautifulSoup(urlopen('http://www.timeanddate.com/worldclock/astronomy.html?n=78').read())
+
+for row in soup('table', {'class' : 'spad'})[0].tbody('tr'):
+  tds = row('td')
+  print(tds[0].string, tds[1].string)
+  # will print date and sunrise
+```
+This is an attempt at a python code block with numbers.
+
+	#!/usr/bin/python
+	# python code, line numbers and shebang line shown
+	print 'Hello world'
+
+
+And again
+
+~~~~ 
+#!/usr/bin/python
+# python code, line numbers and shebang line shown
+print 'Hello world'
+~~~~ 
+
+And again
+
+``` 
+#!/usr/bin/python
+# python code, line numbers and shebang line shown
+print 'Hello world'
+```
+
+And some plain text to finish.

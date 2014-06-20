@@ -1,0 +1,9 @@
+Title: Hello World in Markdown
+Date: 2014-06-13 17:25
+Tags: thats, awesome
+Category: yeah
+Slug: example-markdown 2
+Author: elfnor
+
+
+This is the content of my super blog post.

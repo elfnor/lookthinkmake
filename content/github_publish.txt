@@ -1,0 +1,11 @@
+
+
+Links on generating github pages
+
+http://mathamy.com/migrating-to-github-pages-using-pelican.html
+
+Project pages vs. User pages
+http://docs.getpelican.com/en/3.3.0/tips.html
+
+
+http://www.circuidipity.com/github-pages.html

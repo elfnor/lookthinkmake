@@ -34,40 +34,38 @@
 
 
       <article>
-        <h1><a href="http://elfnor.github.io/lookthinkmake/pelican-and-markdown-cheat-sheet.html">Pelican and markdown cheat-sheet</a></h1>
-        <p>A Pelican blog consists of:  </p>
-<ul>
-<li><strong>markdown</strong> text files containing <strong>content</strong></li>
-<li><strong> jinga2</strong> html template files defining the pages <strong>layout</strong></li>
-<li><strong>CSS</strong> style file that determine how the page elements <strong>look</strong></li>
-</ul>
-<p>These elements are processed by the Pelican python software to produce the static html pages that make up this blog.</p>
-<p>Lots of blogs have very good information on installing Pelican. Many also have the markdown codes used in text files to define what parts of the text are code blocks, what parts are quotes. But I couldn't find a post that described where and how to edit the CSS style files that determine how the the different elements look on the finished blog.</p>
-<p>I'll try and write that post. </p>
-<p>A warning: I'm fairly new and no expert on html or CSS and most of this information comes from poking pelican themes and seeing what happens. I'll try and test my conclusions on more than one theme, but mostly I'll be fiddling with the pelican-simplegrey theme.</p>
-<h2>In-line Code</h2>
-<p>This is text such as <code>this</code> that is normally used for a short piece of code in a a paragraph. </p>
-<p>It might also be used when a variable name or file name <code>~\file.txt</code> is referred to in a paragraph.</p>
-<div class="highlight"><pre><span class="n">This</span> <span class="n">is</span> <span class="n">text</span> <span class="n">such</span> <span class="n">as</span> <span class="err">`</span><span class="n">this</span><span class="err">`</span> <span class="n">that</span> <span class="n">is</span> <span class="n">normally</span><span class="p">...</span>
-</pre></div>
-
-
-<p>The static html produced by Pelican is:  </p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>This is text such as <span class="nt">&lt;code&gt;</span>this<span class="nt">&lt;/code&gt;</span> that is normally used for a short piece of code in a a paragraph. <span class="nt">&lt;/p&gt;</span>
-</pre></div>
-
-
-<p>This format of the in-line code element is given by a piece of CSS such as this, included in the theme <code>main.css</code> or <code>style.css</code> file</p>
-<div class="highlight"><pre><span class="nt">code</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
-  <span class="k">font-style</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
-  <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">0.015em</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>[http://www.krisyu.org/blog/posts/2013/06/markdown-and-latex-reference]</p>
+        <h1><a href="http://elfnor.github.io/lookthinkmake/Cat Scan.html">Cat Scan</a></h1>
+        <p>The next step on from all the <a href="http://elfnor.github.io/lookthinkmake/material-cats.html">Material Cats</a> was to make a cat on my 3D printer (an <a href="https://www.ultimaker.com/">Ultimaker original</a>). This required a 3D model of the cat. Years ago I played around with  a home built laser scanner using the software from this project (<a href="http://www.david-3d.com/">David laser scanner</a>), but the model results required a lot of painstaking clean up and I moved on to something else. Also 3d scanning is a bit close to my day job to spend too much of my own time on it.</p>
+<p>More recently I've seen lots of blog posts on making 3D models from large collections of photos as well as using devices based on Kinect sensor.</p>
+<p>The most mentioned software for making a model from photos (photogrametry) is <a href="http://www.123dapp.com/catch">Autodesk's 123d Catch</a>. I gave it a go using the plaster cat as a model and was really surprised at the quality of the mesh I got for the effort put in.</p>
+<p>Basically you take a large number of photos of an object from all angles, then feed these into the software which analyses them. By matching points in the photos, the software determines where the camera was for each shot and what the 3D shape of the object is.</p>
+<p>The first step is to take photos. Like a lot of photo shoots its best to put some effort in to getting this right as fixing bad photos always takes longer than taking good photos in the first place. These <a href="https://i.materialise.com/blog/entry/guest-blog-deepak-mehta-123dcatch-it-if-you-can">tips</a> and <a href="http://forum.123dapp.com/123d/topics/shooting_tips_for_123d_catch">these</a> are a good place to start. I choose to take photos of the plaster model of the cat because it had an evenly coloured non reflective surface. I used some plasticine to stick it to the top of a bottle so I'd be able to get photos of the underside of the cat.</p>
+<p>Some people use fancy rigs for the camera but I just used a mini-tripod and worked on the floor. I drew a circle on the newspaper and marked of 18 positions even divisions around the circle. For each photo I placed the front leg of the tripod on a division and took a photo. The newspaper gives lots of detail in each shot for the software to work out camera positions. I took photos at three heights, one level with the cat, one looking doen on it and one looking up. I used a couple of desk lamps to evenly light the model. I made sure each photo was taken with the same zoom level, but didn't take any precautions to fix the exposure or aperture. (I was using an Olympus mu 790).</p>
+<p><img alt="Cat Scan Setup" src="http://elfnor.github.io/lookthinkmake/images/setup_cat_scan.jpeg" /></p>
+<p>This gave me 54 photos. Some of these photos were out of focus so I deleted them. This left me with 49 OK photos.</p>
+<p><img alt="Example Photo" src="http://elfnor.github.io/lookthinkmake/images/example_photo.jpg" /></p>
+<p>The autodesk web app requires google chrome on a windows machine. This was a nuisaance as I almost only run linux at home. But using a borrowed machine I used the web app to upload the photos. The instructions provided are pretty straight forward.</p>
+<p>Upload the photos:</p>
+<p><img alt="Upload screenshot" src="http://elfnor.github.io/lookthinkmake/images/123_screen-02.png" /></p>
+<p>The model produced has the 3D mesh with the colours from the photos mapped onto the mesh.</p>
+<p><img alt="123D screenshot" src="http://elfnor.github.io/lookthinkmake/images/123_screen-01.png" /></p>
+<p>The 3D model produced includes the newspaper part of the bookcase and some of the couch. The cat sitting on its bottle is the very small white piece in the centre of the above screen capture.</p>
+<p>I installed and played around with the autodesk tools for cleaning up the image, but found them a bit cumbersome to use. Instead I exported the model as a stl file and cleaned it up in <a href="http://www.blender.org">Blender</a>.</p>
+<p><img alt="Blender screenshot" src="http://elfnor.github.io/lookthinkmake/images/screen-02_web.png" /></p>
+<p>The model mesh imported into blender with the cat and support selected.</p>
+<p><img alt="Blender screenshot 2" src="http://elfnor.github.io/lookthinkmake/images/screen-03_web.png" /></p>
+<p>Everything but the cat and support deleted</p>
+<p>First I deleted everything extra in the imported mesh.</p>
+<p>I then used a boolean operation with a cube to remove the support from the cat and give it a flat base suitable for printing.</p>
+<p><img alt="Blender screenshot 3" src="http://elfnor.github.io/lookthinkmake/images/screen-04_web.png" /></p>
+<p>There were a few pimple shaped artifacts and a few dings which I cleaned up by deleting mesh triangles and then filling the gap. I also smoothed the mesh a bit and scaled it to match the original size.</p>
+<p>To distinguish cats made from the digital model from the cats made from the silicon mould, I transformed the mesh to its mirror image.</p>
+<p><img alt="Blender screenshot 4" src="http://elfnor.github.io/lookthinkmake/images/cat_scan5-blend_web.png" /></p>
+<p>Here's the final digital model and a set of three printed cats at 100%, 75% and 50% of original size. Making scale copies is so much easier in a digital process.</p>
+<p><img alt="PLA Cat prints" src="http://elfnor.github.io/lookthinkmake/images/cat_scan_pla.jpg" /></p>
+<p>The printed cat is reasonably similar to the original, the indent above the tail is not nearly as deep or as sharp as the original. A concave indent in a object is harder for photogrametry to capture than the outside contour of the object.</p>
+<p>Overall I was very pleased with how well the model turned out for the effort involved. Particularly how little clean up the mesh required.</p>
+<p>Next I'd like to try the <a href="http://arc-team-open-research.blogspot.com.br/2012/12/how-to-make-3d-scan-with-pictures-and.html">open source alternatives</a>, particularly the python photogrametry toolbox </p>
       </article>
 
       <hr />
@@ -76,18 +74,6 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
-
-
-      <li>
-<a href="http://elfnor.github.io/lookthinkmake/notes-on-pelican-and-markdown.html" rel="bookmark" title="Permalink to Notes on Pelican and markdown">Notes on Pelican and markdown</a>
-  <time datetime="2014-06-14T22:00:00" pubdate>Sat 14 June 2014</time>
-<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/make.html">make  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://elfnor.github.io/lookthinkmake/Cat Scan.html" rel="bookmark" title="Permalink to Cat Scan">Cat Scan</a>
-  <time datetime="2014-06-13T22:00:00" pubdate>Fri 13 June 2014</time>
-<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/cats.html">cats  </a><a href="http://elfnor.github.io/lookthinkmake/tag/make.html">make  </a><a href="http://elfnor.github.io/lookthinkmake/tag/materials.html">materials  </a><a href="http://elfnor.github.io/lookthinkmake/tag/3d-printing.html">3D printing  </a></p></a>      </li>
 
 
       <li>
@@ -108,6 +94,10 @@
 <p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/ebook.html">ebook  </a><a href="http://elfnor.github.io/lookthinkmake/tag/reading.html">reading  </a></p></a>      </li>
 
 
+      <li>
+<a href="http://elfnor.github.io/lookthinkmake/reading-lists.html" rel="bookmark" title="Permalink to Reading Lists">Reading Lists</a>
+  <time datetime="2014-01-26T22:00:00" pubdate>Sun 26 January 2014</time>
+<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/ebook.html">ebook  </a><a href="http://elfnor.github.io/lookthinkmake/tag/reading.html">reading  </a></p></a>      </li>
 
 
           </ol>
@@ -122,18 +112,6 @@
 			<ul class="archive">
 	
 			      <li>
-<a href="http://elfnor.github.io/lookthinkmake/pelican-and-markdown-cheat-sheet.html" rel="bookmark" title="Permalink to Pelican and markdown cheat-sheet">Pelican and markdown cheat-sheet</a>
-  <time datetime="2014-06-19T22:00:00" pubdate>Thu 19 June 2014</time>
-<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/pelican.html">pelican  </a><a href="http://elfnor.github.io/lookthinkmake/tag/markdown.html">markdown  </a></p></a>      			      </li>
-		
-	
-			      <li>
-<a href="http://elfnor.github.io/lookthinkmake/notes-on-pelican-and-markdown.html" rel="bookmark" title="Permalink to Notes on Pelican and markdown">Notes on Pelican and markdown</a>
-  <time datetime="2014-06-14T22:00:00" pubdate>Sat 14 June 2014</time>
-<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/make.html">make  </a></p></a>      			      </li>
-		
-	
-			      <li>
 <a href="http://elfnor.github.io/lookthinkmake/Cat Scan.html" rel="bookmark" title="Permalink to Cat Scan">Cat Scan</a>
   <time datetime="2014-06-13T22:00:00" pubdate>Fri 13 June 2014</time>
 <p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/cats.html">cats  </a><a href="http://elfnor.github.io/lookthinkmake/tag/make.html">make  </a><a href="http://elfnor.github.io/lookthinkmake/tag/materials.html">materials  </a><a href="http://elfnor.github.io/lookthinkmake/tag/3d-printing.html">3D printing  </a></p></a>      			      </li>
@@ -144,7 +122,17 @@
   <time datetime="2014-02-23T22:00:00" pubdate>Sun 23 February 2014</time>
 <p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/cats.html">cats  </a><a href="http://elfnor.github.io/lookthinkmake/tag/materials.html">materials  </a></p></a>      			      </li>
 		
+	
+			      <li>
+<a href="http://elfnor.github.io/lookthinkmake/the-almost-invisible-kite.html" rel="bookmark" title="Permalink to The almost invisible kite">The almost invisible kite</a>
+  <time datetime="2014-01-31T22:00:00" pubdate>Fri 31 January 2014</time>
+<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/kites.html">kites  </a></p></a>      			      </li>
 		
+	
+			      <li>
+<a href="http://elfnor.github.io/lookthinkmake/software-for-managing-ebooks.html" rel="bookmark" title="Permalink to Software for managing (e)books">Software for managing (e)books</a>
+  <time datetime="2014-01-28T22:00:00" pubdate>Tue 28 January 2014</time>
+<p class="tags">tags: <a href="http://elfnor.github.io/lookthinkmake/tag/ebook.html">ebook  </a><a href="http://elfnor.github.io/lookthinkmake/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 		
 	
@@ -157,7 +145,6 @@
 		      <li> <a href="http://elfnor.github.io/lookthinkmake/archives.html">everything </a></li>	
 	              <li ><a href="http://elfnor.github.io/lookthinkmake/category/look.html">look</a></li>
 	              <li ><a href="http://elfnor.github.io/lookthinkmake/category/make.html">make</a></li>
-	              <li ><a href="http://elfnor.github.io/lookthinkmake/category/think.html">think</a></li>
 	          </ul>
 	        
 

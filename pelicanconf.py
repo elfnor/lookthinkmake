@@ -11,7 +11,7 @@ TIMEZONE = 'Pacific/Auckland'
 DEFAULT_LANG = u'en'
 
 #THEME  = 'simple-bootstrap'
-THEME = 'pelican-simplegrey-efh'
+THEME = 'themes/pelican-simplegrey-efh'
 #BOOTSTRAP_THEME = 'spacelab'
 #PYGMENTS_STYLE = 'default'
 

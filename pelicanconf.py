@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'elfnor'
 SITENAME = u'Look Think Make'
-SITEURL = ''
+SITEURL = 'elfnor.github.io/lookthinkmake/'
 
 TIMEZONE = 'Pacific/Auckland'
 

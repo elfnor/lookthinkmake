@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Pelican and markdown cheat-sheet - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="A Pelican blog consists of: markdown text files containing content jinga2 html template files defining the pages layout CSS style file that determine how the page elements look These elements are processed by the Pelican python software to produce the static html pages that make up this blog. Lots of ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="/pages/about-me.html">About Me</a>
+	      </nav>
+		<a href="" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Pelican and markdown cheat-sheet</h1>
+		
+<div class="metadata">
+  <time datetime="2014-06-19T22:00:00" pubdate>Thu 19 June 2014</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="/category/think.html">think</a>
+<p class="tags">tagged <a href="/tag/pelican.html">pelican</a>, <a href="/tag/markdown.html">markdown</a></p></div>		
+		<p>A Pelican blog consists of:  </p>
+<ul>
+<li><strong>markdown</strong> text files containing <strong>content</strong></li>
+<li><strong> jinga2</strong> html template files defining the pages <strong>layout</strong></li>
+<li><strong>CSS</strong> style file that determine how the page elements <strong>look</strong></li>
+</ul>
+<p>These elements are processed by the Pelican python software to produce the static html pages that make up this blog.</p>
+<p>Lots of blogs have very good information on installing Pelican. Many also have the markdown codes used in text files to define what parts of the text are code blocks, what parts are quotes. But I couldn't find a post that described where and how to edit the CSS style files that determine how the the different elements look on the finished blog.</p>
+<p>I'll try and write that post. </p>
+<p>A warning: I'm fairly new and no expert on html or CSS and most of this information comes from poking pelican themes and seeing what happens. I'll try and test my conclusions on more than one theme, but mostly I'll be fiddling with the pelican-simplegrey theme.</p>
+<h2>In-line Code</h2>
+<p>This is text such as <code>this</code> that is normally used for a short piece of code in a a paragraph. </p>
+<p>It might also be used when a variable name or file name <code>~\file.txt</code> is referred to in a paragraph.</p>
+<div class="highlight"><pre><span class="n">This</span> <span class="n">is</span> <span class="n">text</span> <span class="n">such</span> <span class="n">as</span> <span class="err">`</span><span class="n">this</span><span class="err">`</span> <span class="n">that</span> <span class="n">is</span> <span class="n">normally</span><span class="p">...</span>
+</pre></div>
+
+
+<p>The static html produced by Pelican is:  </p>
+<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>This is text such as <span class="nt">&lt;code&gt;</span>this<span class="nt">&lt;/code&gt;</span> that is normally used for a short piece of code in a a paragraph. <span class="nt">&lt;/p&gt;</span>
+</pre></div>
+
+
+<p>This format of the in-line code element is given by a piece of CSS such as this, included in the theme <code>main.css</code> or <code>style.css</code> file</p>
+<div class="highlight"><pre><span class="nt">code</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
+  <span class="k">font-style</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+  <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">0.015em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>[http://www.krisyu.org/blog/posts/2013/06/markdown-and-latex-reference]</p>	
+
+	</article>
+
+
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="/pelican-and-markdown-cheat-sheet.html" rel="bookmark" title="Permalink to Pelican and markdown cheat-sheet">Pelican and markdown cheat-sheet</a>
+  <time datetime="2014-06-19T22:00:00" pubdate>Thu 19 June 2014</time>
+<p class="tags">tags: <a href="/tag/pelican.html">pelican  </a><a href="/tag/markdown.html">markdown  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="/notes-on-pelican-and-markdown.html" rel="bookmark" title="Permalink to Notes on Pelican and markdown">Notes on Pelican and markdown</a>
+  <time datetime="2014-06-14T22:00:00" pubdate>Sat 14 June 2014</time>
+<p class="tags">tags: <a href="/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="/Cat Scan.html" rel="bookmark" title="Permalink to Cat Scan">Cat Scan</a>
+  <time datetime="2014-06-13T22:00:00" pubdate>Fri 13 June 2014</time>
+<p class="tags">tags: <a href="/tag/cats.html">cats  </a><a href="/tag/make.html">make  </a><a href="/tag/materials.html">materials  </a><a href="/tag/3d-printing.html">3D printing  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="/material-cats.html" rel="bookmark" title="Permalink to Material Cats">Material Cats</a>
+  <time datetime="2014-02-23T22:00:00" pubdate>Sun 23 February 2014</time>
+<p class="tags">tags: <a href="/tag/cats.html">cats  </a><a href="/tag/materials.html">materials  </a></p></a>      			      </li>
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="/archives.html">everything </a></li>	
+	              <li ><a href="/category/look.html">look</a></li>
+	              <li ><a href="/category/make.html">make</a></li>
+	              <li class="active"><a href="/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+			    </ul>
+			  </aside>
+
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> modified pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

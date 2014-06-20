@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="/" rel="alternate"></link><link href="/feeds/make.atom.xml" rel="self"></link><id>/</id><updated>2014-06-14T22:00:00+12:00</updated><entry><title>Notes on Pelican and markdown</title><link href="/notes-on-pelican-and-markdown.html" rel="alternate"></link><updated>2014-06-14T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:,2014-06-14:notes-on-pelican-and-markdown.html</id><summary type="html">&lt;p&gt;I'm now using Pelican to generate this blog from content stored in plain tect files. It's installation is well explained on the &lt;a href="http://docs.getpelican.com/en/3.1.1/getting_started.html"&gt;Pelican&lt;/a&gt; website and many blogs (&lt;a href="http://www.circuidipity.com/pelican.html"&gt;the one I used&lt;/a&gt;). I used the method where you set up a virtualenv and install pelican into that.&lt;/p&gt;
+&lt;p&gt;The only problem I had was that after I'd cloned the standard themes from github:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone --recursive https://github.com/getpelican/pelican-themes ~/pelican-themes
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I couldn't get the path to the themes &lt;code&gt;~/pelican-themes&lt;/code&gt; to work in the &lt;code&gt;pelicanconf.py&lt;/code&gt; file. The hack solution was to copy all the theme folders and files from &lt;code&gt;~/pelican-themes/&lt;/code&gt; to &lt;code&gt;~/virtualenvs/lookthinkmake/lib/python2.7/site-packages/pelican/themes/&lt;/code&gt;  and use the following line in &lt;code&gt;pelicanconf.py&lt;/code&gt;. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;pelican-bootstrap3&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;where the folder of the desired theme is specified.&lt;/p&gt;
+&lt;p&gt;To restart a devlopment session:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/lookthinkmake
+&lt;span class="nb"&gt;source&lt;/span&gt; ~/virtualenvs/lookthinkmake/bin/activate
+make devserver
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and point firefox to &lt;code&gt;localhost:8000&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;I also swapped this version of &lt;a href="https://github.com/robulouski/pelican/blob/301268f67f1a6751a3c9ac51d099fae10b808f8b/pelican/server.py"&gt;&lt;code&gt;server.py&lt;/code&gt;&lt;/a&gt; for the one in &lt;code&gt;~/virtualenvs/lookthinkmake/lib/python2.7/site-packages/pelican/&lt;/code&gt; to fix some &lt;code&gt;Broken Pipe Errors&lt;/code&gt;.&lt;/p&gt;
+&lt;h1&gt;Markdown&lt;/h1&gt;
+&lt;p&gt;Try &lt;a href="http://dillinger.io/"&gt;dillinger&lt;/a&gt; for an online markdown editor with real time viewer. &lt;/p&gt;
+&lt;p&gt;The use of references for links looks like good practice.&lt;/p&gt;
+&lt;p&gt;A good &lt;a href="http://plutowski.com/"&gt;cheat sheet&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Tables kind of work without a plugin, layout may be theme dependent.&lt;/p&gt;
+&lt;p&gt;Colons can be used to align columns.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tables&lt;/th&gt;
+&lt;th align="center"&gt;Are&lt;/th&gt;
+&lt;th align="right"&gt;Cool&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;col 3 is&lt;/td&gt;
+&lt;td align="center"&gt;right-aligned&lt;/td&gt;
+&lt;td align="right"&gt;$1600&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;col 2 is&lt;/td&gt;
+&lt;td align="center"&gt;centered&lt;/td&gt;
+&lt;td align="right"&gt;$12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zebra stripes&lt;/td&gt;
+&lt;td align="center"&gt;are neat&lt;/td&gt;
+&lt;td align="right"&gt;$1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Markdown&lt;/th&gt;
+&lt;th&gt;Less&lt;/th&gt;
+&lt;th&gt;Pretty&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;Still&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;renders&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;nicely&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1&gt;Pygments&lt;/h1&gt;
+&lt;p&gt;For the &lt;code&gt;pelican-bootstrap3&lt;/code&gt; theme. There are some settings that can be added to the &lt;code&gt;pelicanconf.py&lt;/code&gt; file. See &lt;a href="https://github.com/DandyDev/pelican-bootstrap3"&gt;here&lt;/a&gt;. In particular:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;PYGMENTS_STYLE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;manni&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;changes the pygments css. Most themes have the pygments css built in.&lt;/p&gt;
+&lt;p&gt;Some random python to test this on:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;document comment&lt;/span&gt;
+&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;urllib.request&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;urlopen&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;
+
+&lt;span class="c"&gt;#short unnecessry comment&lt;/span&gt;
+&lt;span class="n"&gt;soup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;http://www.timeanddate.com/worldclock/astronomy.html?n=78&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;soup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;table&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;class&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;spad&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;})[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tbody&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;tr&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="n"&gt;tds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;td&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tds&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tds&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="c"&gt;# will print date and sunrise&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Themes&lt;/h1&gt;
+&lt;p&gt;I'm still settling on a theme for the blog.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pelican-simplegrey&lt;/li&gt;
+&lt;li&gt;pelican-bootstrap3&lt;/li&gt;
+&lt;li&gt;pelican-octopress&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;pelican-simplegrey with recent posts on right side bar would be great&lt;/p&gt;
+&lt;p&gt;Blogs I like the &lt;strong&gt;look&lt;/strong&gt; of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://matija.suklje.name/5th-incarnation-of-hooks-humble-homepage"&gt;http://matija.suklje.name/5th-incarnation-of-hooks-humble-homepage&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;layout is good but don't like the colour of code blocks (inline or blocks).  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/"&gt;http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/&lt;/a&gt;  &lt;ul&gt;
+&lt;li&gt;again I'd choose a different (light-grey) colour for the code blocks.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Flow Text around image&lt;/h2&gt;
+&lt;p&gt;Use html in markdown file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;align=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;left&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;style=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;margin: 0px 20px&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;alt=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;parasled&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/images/parasled.jpg?w=121&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;width=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;278&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;height=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;686&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;To Work Out&lt;/h1&gt;
+&lt;p&gt;I'm still trying to work out:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;how to flow text around an image  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;zotero citations?  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;math notation (latex?)&lt;/li&gt;
+&lt;li&gt;how to get full articles on 1st page - done using pelican-simplegrey them&lt;/li&gt;
+&lt;li&gt;add an archive page to pelican-simplegrey-efh theme. Lots of other themes have them&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="http://andresjruiz.com/theming-pelican-with-a-little-boostrap.html"&gt;http://andresjruiz.com/theming-pelican-with-a-little-boostrap.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This site has an all category&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://pirsquared.org/blog/pelican-tags-vs-categories.html"&gt;http://pirsquared.org/blog/pelican-tags-vs-categories.html&lt;/a&gt;&lt;/p&gt;</summary><category term="make"></category></entry><entry><title>Cat Scan</title><link href="/Cat%20Scan.html" rel="alternate"></link><updated>2014-06-13T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:,2014-06-13:Cat Scan.html</id><summary type="html">&lt;p&gt;The next step on from all the &lt;a href="/material-cats.html"&gt;Material Cats&lt;/a&gt; was to make a cat on my 3D printer (an &lt;a href="https://www.ultimaker.com/"&gt;Ultimaker original&lt;/a&gt;). This required a 3D model of the cat. Years ago I played around with  a home built laser scanner using the software from this project (&lt;a href="http://www.david-3d.com/"&gt;David laser scanner&lt;/a&gt;), but the model results required a lot of painstaking clean up and I moved on to something else. Also 3d scanning is a bit close to my day job to spend too much of my own time on it.&lt;/p&gt;
+&lt;p&gt;More recently I've seen lots of blog posts on making 3D models from large collections of photos as well as using devices based on Kinect sensor.&lt;/p&gt;
+&lt;p&gt;The most mentioned software for making a model from photos (photogrametry) is &lt;a href="http://www.123dapp.com/catch"&gt;Autodesk's 123d Catch&lt;/a&gt;. I gave it a go using the plaster cat as a model and was really surprised at the quality of the mesh I got for the effort put in.&lt;/p&gt;
+&lt;p&gt;Basically you take a large number of photos of an object from all angles, then feed these into the software which analyses them. By matching points in the photos, the software determines where the camera was for each shot and what the 3D shape of the object is.&lt;/p&gt;
+&lt;p&gt;The first step is to take photos. Like a lot of photo shoots its best to put some effort in to getting this right as fixing bad photos always takes longer than taking good photos in the first place. These &lt;a href="https://i.materialise.com/blog/entry/guest-blog-deepak-mehta-123dcatch-it-if-you-can"&gt;tips&lt;/a&gt; and &lt;a href="http://forum.123dapp.com/123d/topics/shooting_tips_for_123d_catch"&gt;these&lt;/a&gt; are a good place to start. I choose to take photos of the plaster model of the cat because it had an evenly coloured non reflective surface. I used some plasticine to stick it to the top of a bottle so I'd be able to get photos of the underside of the cat.&lt;/p&gt;
+&lt;p&gt;Some people use fancy rigs for the camera but I just used a mini-tripod and worked on the floor. I drew a circle on the newspaper and marked of 18 positions even divisions around the circle. For each photo I placed the front leg of the tripod on a division and took a photo. The newspaper gives lots of detail in each shot for the software to work out camera positions. I took photos at three heights, one level with the cat, one looking doen on it and one looking up. I used a couple of desk lamps to evenly light the model. I made sure each photo was taken with the same zoom level, but didn't take any precautions to fix the exposure or aperture. (I was using an Olympus mu 790).&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Cat Scan Setup" src="/images/setup_cat_scan.jpeg" /&gt;&lt;/p&gt;
+&lt;p&gt;This gave me 54 photos. Some of these photos were out of focus so I deleted them. This left me with 49 OK photos.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Example Photo" src="/images/example_photo.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;The autodesk web app requires google chrome on a windows machine. This was a nuisaance as I almost only run linux at home. But using a borrowed machine I used the web app to upload the photos. The instructions provided are pretty straight forward.&lt;/p&gt;
+&lt;p&gt;Upload the photos:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Upload screenshot" src="/images/123_screen-02.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The model produced has the 3D mesh with the colours from the photos mapped onto the mesh.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="123D screenshot" src="/images/123_screen-01.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The 3D model produced includes the newspaper part of the bookcase and some of the couch. The cat sitting on its bottle is the very small white piece in the centre of the above screen capture.&lt;/p&gt;
+&lt;p&gt;I installed and played around with the autodesk tools for cleaning up the image, but found them a bit cumbersome to use. Instead I exported the model as a stl file and cleaned it up in &lt;a href="http://www.blender.org"&gt;Blender&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Blender screenshot" src="/images/screen-02_web.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The model mesh imported into blender with the cat and support selected.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Blender screenshot 2" src="/images/screen-03_web.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Everything but the cat and support deleted&lt;/p&gt;
+&lt;p&gt;First I deleted everything extra in the imported mesh.&lt;/p&gt;
+&lt;p&gt;I then used a boolean operation with a cube to remove the support from the cat and give it a flat base suitable for printing.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Blender screenshot 3" src="/images/screen-04_web.png" /&gt;&lt;/p&gt;
+&lt;p&gt;There were a few pimple shaped artifacts and a few dings which I cleaned up by deleting mesh triangles and then filling the gap. I also smoothed the mesh a bit and scaled it to match the original size.&lt;/p&gt;
+&lt;p&gt;To distinguish cats made from the digital model from the cats made from the silicon mould, I transformed the mesh to its mirror image.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Blender screenshot 4" src="/images/cat_scan5-blend_web.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Here's the final digital model and a set of three printed cats at 100%, 75% and 50% of original size. Making scale copies is so much easier in a digital process.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PLA Cat prints" src="/images/cat_scan_pla.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;The printed cat is reasonably similar to the original, the indent above the tail is not nearly as deep or as sharp as the original. A concave indent in a object is harder for photogrametry to capture than the outside contour of the object.&lt;/p&gt;
+&lt;p&gt;Overall I was very pleased with how well the model turned out for the effort involved. Particularly how little clean up the mesh required.&lt;/p&gt;
+&lt;p&gt;Next I'd like to try the &lt;a href="http://arc-team-open-research.blogspot.com.br/2012/12/how-to-make-3d-scan-with-pictures-and.html"&gt;open source alternatives&lt;/a&gt;, particularly the python photogrametry toolbox &lt;/p&gt;</summary><category term="cats"></category><category term="make"></category><category term="materials"></category><category term="3D printing"></category></entry><entry><title>Material Cats</title><link href="/material-cats.html" rel="alternate"></link><updated>2014-02-23T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:,2014-02-23:material-cats.html</id><summary type="html">&lt;p&gt;I had a friend who after some self-reflection decided his primary hobby wasn't wood work but was collecting wood working tools. This left him feeling much less guilty about the number of wood working planes he had in his shed.&lt;/p&gt;
+&lt;p&gt;If I was honest my major hobby or interest is collecting techniques for making things as much as actually making stuff. I've been to a lot of workshops and researched a lot of techniques on the web. A while back I started documenting some of these using the same cat mould for any technique that I possibly could.&lt;/p&gt;
+&lt;p&gt;Here's the collection so far:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="collected cats" src="/images/collected_cats.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;The original cat is the grey and brown cat shown here. She was modeled in clay, burnished and saggar fired in an electric kiln.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="raku cat" src="/images/raku_cat.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;For a saggar firing the piece is placed inside a larger pot filled with sawdust, wood shavings and colourants such as copper sulphate and copper wire. The pot is sealed and fired in an electric kiln. This give a reducing atmosphere (not enough oxygen for clean burning). The colourants used in ceramics, produce different colours in a reducing atmosphere than they do in a normal electric kiln firing. The process produces a bit of smoke outside the kiln. The kiln I fired this in was in a garage on a school site so we got away with it. The kilns I use now are in a community arts facility inside a building and I can't do saggar firings there. I like the randomness of this type of process, the result isn't known until the piece is taken from the kiln. Pit firing and raku firing are other processes I enjoy for their random or serendipitous results.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="cat mould" src="/images/cat_mould.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;The mould is made in two parts. The inner part is flexible and is made with co-polymer sealant (the clear stuff you buy at the hardware store for sealing bathroom tiles). Professional mould makers use expensive (at least here in NZ) two-part silicon moulding compounds. Sealant is way cheaper and easier to get. The cons are its thick consistency make it easy to trap air against the mould, giving unsightly pimples on the casting. Also the  sealant sets by releasing a gas, so thick layers can take a long time (or forever) to cure. Years ago I picked up a tip* to add mineral turpentine to the sealant to thin it. This can then be painted on as a thin layer on to the object being cast. Allow this first thin layer to dry. It will take a lot longer than plain sealant due to the turps. When its dry build up the mould with more plain sealant filling in all the gaps until there are no undercuts. Let this dry again.&lt;/p&gt;
+&lt;p&gt;When the sealant is dry an outer "mother mould" of plaster is made to support the sealant inner mould.&lt;/p&gt;
+&lt;p&gt;I follow this post up with a cat photo and explanation for each material. There's bronze and aluminum, leather and paper mache as well as various plastics and ceramics. The next step is to produce a digital model to try with different digital fabrication (3d printing, laser cutting layers, milling?...) processes.&lt;/p&gt;
+&lt;p&gt;*I got this tip on thinning the sealant with turps, years ago from the blog of a trans-gender engineer who was experimenting with cheap ways to make falsies. The blog was a fascinating mix of their work on the west coast of the US, their experiments with mould making and their trips to Las Vegas to test the latest version.&lt;/p&gt;</summary><category term="cats"></category><category term="materials"></category></entry><entry><title>The almost invisible kite</title><link href="/the-almost-invisible-kite.html" rel="alternate"></link><updated>2014-01-31T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:,2014-01-31:the-almost-invisible-kite.html</id><summary type="html">&lt;p&gt;&lt;img align="left" style="margin: 0px 20px" alt="parasled" src="/images/parasled.jpg?w=121" width="278" height="686" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Polythene sheeting, the type you buy at a garden shop that's about 125 μm thick, is great for kite making. It comes in black and clear, the black is boring but the clear can be a bit hard to photograph against the sky.&lt;/p&gt;
+&lt;p&gt;This kite is a cross between a sled and a para foil. I based it on plans found &lt;a href="http://www.kiteplans.org/pln_1074/"&gt;here&lt;/a&gt;. The instructions are in French but fairly easy to follow with the help of a dictionary or google translate if you don't read French.&lt;/p&gt;
+&lt;p&gt;I combined the pattern for the Dos (back) and the tubes into one piece. Draw them up directly onto the polythene with a felt pen. If you're likely to make more than one it might be worth making a paper pattern. Draw the seam lines onto the sheet. Then cut the two pieces out of the polythene and sew them together with four lines of machine stitching.&lt;/p&gt;
+&lt;p&gt;The polythene is pretty slippery on the sewing machine. Use a long stitch length and keep one hand behind the needle and one in front feeding the material through.&lt;/p&gt;
+&lt;p&gt;I reinforced the front edge with some left over end lengths of line trimmer line. This is nylon line about 2.5 mm in diameter used in line trimmer for cutting weeds. Pick some up at the garden shop when you get the polythene if you haven' got any sitting about.  I stuck the line to the front edges with squares of duct tape. These didn't hold all that well so I stapled through each square to hold it in place.&lt;/p&gt;
+&lt;p&gt;You'll also need a drogue, mine is a truncated cone, about 400 mm long, top circumference 500 mm, bottom circumference 300 mm. Sew two sections together and add line trimmer line along the leading edge as for the main kite.&lt;/p&gt;
+&lt;p&gt;That's it. No spars, or dowels. It flies fairly well in most winds. I intend to use it to do some kite photography. Maybe with some first person view camera gear.&lt;/p&gt;</summary><category term="kites"></category></entry></feed>

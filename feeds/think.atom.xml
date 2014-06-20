@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="/" rel="alternate"></link><link href="/feeds/think.atom.xml" rel="self"></link><id>/</id><updated>2014-06-19T22:00:00+12:00</updated><entry><title>Pelican and markdown cheat-sheet</title><link href="/pelican-and-markdown-cheat-sheet.html" rel="alternate"></link><updated>2014-06-19T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:,2014-06-19:pelican-and-markdown-cheat-sheet.html</id><summary type="html">&lt;p&gt;A Pelican blog consists of:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;markdown&lt;/strong&gt; text files containing &lt;strong&gt;content&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; jinga2&lt;/strong&gt; html template files defining the pages &lt;strong&gt;layout&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CSS&lt;/strong&gt; style file that determine how the page elements &lt;strong&gt;look&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These elements are processed by the Pelican python software to produce the static html pages that make up this blog.&lt;/p&gt;
+&lt;p&gt;Lots of blogs have very good information on installing Pelican. Many also have the markdown codes used in text files to define what parts of the text are code blocks, what parts are quotes. But I couldn't find a post that described where and how to edit the CSS style files that determine how the the different elements look on the finished blog.&lt;/p&gt;
+&lt;p&gt;I'll try and write that post. &lt;/p&gt;
+&lt;p&gt;A warning: I'm fairly new and no expert on html or CSS and most of this information comes from poking pelican themes and seeing what happens. I'll try and test my conclusions on more than one theme, but mostly I'll be fiddling with the pelican-simplegrey theme.&lt;/p&gt;
+&lt;h2&gt;In-line Code&lt;/h2&gt;
+&lt;p&gt;This is text such as &lt;code&gt;this&lt;/code&gt; that is normally used for a short piece of code in a a paragraph. &lt;/p&gt;
+&lt;p&gt;It might also be used when a variable name or file name &lt;code&gt;~\file.txt&lt;/code&gt; is referred to in a paragraph.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="n"&gt;such&lt;/span&gt; &lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;normally&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The static html produced by Pelican is:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;This is text such as &lt;span class="nt"&gt;&amp;lt;code&amp;gt;&lt;/span&gt;this&lt;span class="nt"&gt;&amp;lt;/code&amp;gt;&lt;/span&gt; that is normally used for a short piece of code in a a paragraph. &lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This format of the in-line code element is given by a piece of CSS such as this, included in the theme &lt;code&gt;main.css&lt;/code&gt; or &lt;code&gt;style.css&lt;/code&gt; file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;code&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;font-family&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Source Code Pro&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="k"&gt;monospace&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-size&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.9em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-style&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;letter-spacing&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.015em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;[http://www.krisyu.org/blog/posts/2013/06/markdown-and-latex-reference]&lt;/p&gt;</summary><category term="pelican"></category><category term="markdown"></category></entry></feed>

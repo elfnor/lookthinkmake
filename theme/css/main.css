@@ -175,6 +175,10 @@ code {
   letter-spacing: 0.015em;
 }
 
+code.red {color:red;}
+code.green {color: green;}
+
+
 pre {
   font-family: 'Source Code Pro', monospace;
   background: none repeat scroll 0 0 #F0F0F0;
@@ -187,6 +191,16 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+blockquote {
+    font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    padding-left: 15px;
+    border-left: 3px solid #ccc;
+}
+
 
 hr {
   margin: 40px 5% 60px 5%;

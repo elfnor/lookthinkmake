@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://elfnor.github.io/lookthinkmake/" rel="alternate"></link><link href="http://elfnor.github.io/lookthinkmake/feeds/think.atom.xml" rel="self"></link><id>http://elfnor.github.io/lookthinkmake/</id><updated>2014-06-19T22:00:00+12:00</updated><entry><title>Pelican and markdown styling cheat-sheet</title><link href="http://elfnor.github.io/lookthinkmake/pelican-and-markdown-styling-cheat-sheet.html" rel="alternate"></link><updated>2014-06-19T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:elfnor.github.io/lookthinkmake,2014-06-19:pelican-and-markdown-styling-cheat-sheet.html</id><summary type="html">&lt;p&gt;A &lt;a href="http://docs.getpelican.com"&gt;Pelican&lt;/a&gt; blog consists of:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;markdown&lt;/strong&gt; text files containing &lt;strong&gt;content&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt; jinga2&lt;/strong&gt; html template files defining the pages &lt;strong&gt;layout&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CSS&lt;/strong&gt; style file that determine how the page elements &lt;strong&gt;look&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These elements are processed by the Pelican python software to produce the static html pages that make up this blog.&lt;/p&gt;
+&lt;p&gt;Lots of blogs (I used &lt;a href="http://www.circuidipity.com/github-pages.html"&gt;this one&lt;/a&gt; mainly) have very good information on installing Pelican. Many &lt;a href="http://www.krisyu.org/blog/posts/2013/06/markdown-and-latex-reference"&gt;for example&lt;/a&gt; also have the markdown codes used in text files to define what parts of the text are code blocks, what parts are quotes. But I couldn't find a post that described where and how to edit the CSS style files that determine how the the different elements look on the finished blog.&lt;/p&gt;
+&lt;p&gt;I'll try and write that post. &lt;/p&gt;
+&lt;p&gt;A warning: I'm fairly new and no expert on html or CSS and most of this information comes from poking pelican themes and seeing what happens. Most of this should apply to any Pelican theme, but mostly I'll be fiddling about with the pelican-simplegrey theme.&lt;/p&gt;
+&lt;h2&gt;In-line Code&lt;/h2&gt;
+&lt;p&gt;This is text such as &lt;code&gt;this&lt;/code&gt; that is normally used for a short piece of code in a a paragraph. It is enclosed in back quote marks, the key in the extreme top left of a US keyboard.&lt;/p&gt;
+&lt;p&gt;It might also be used when a variable name or file name &lt;code&gt;~\file.txt&lt;/code&gt; is referred to in a paragraph.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;This is text such as `this` that is normally...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The static html produced by Pelican is:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;This is text such as &lt;span class="nt"&gt;&amp;lt;code&amp;gt;&lt;/span&gt;this&lt;span class="nt"&gt;&amp;lt;/code&amp;gt;&lt;/span&gt; that is normally used for a short piece of code in a a paragraph. &lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This format of the in-line code element is given by a piece of CSS such as this, included in the theme &lt;code&gt;main.css&lt;/code&gt; or &lt;code&gt;style.css&lt;/code&gt; file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;code&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;font-family&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Source Code Pro&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="k"&gt;monospace&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-size&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.9em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-style&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;letter-spacing&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.015em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Code Blocks&lt;/h2&gt;
+&lt;p&gt;This is a block set of from the main text, normally containing a longer piece of code.
+The blocks can be defined in a number of different ways, indenting, four &lt;code&gt;~~~~&lt;/code&gt;, but I'll show examples with triple back quote marks (```).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;```  
+# python code  
+mystr = &amp;#39;Hello world&amp;#39;  
+print(&amp;#39;%s&amp;#39;%(mystr))  
+```   
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;produces this html:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;highlight&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;pre&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;c&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;# python code&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;n&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;mystr&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class="nt"&gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;o&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;=&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class="nt"&gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;s&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;&lt;span class="ni"&gt;&amp;amp;#39;&lt;/span&gt;Hello world&lt;span class="ni"&gt;&amp;amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;k&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;print&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;p&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;(&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;s&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;&lt;span class="ni"&gt;&amp;amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;si&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;%s&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;s&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;&lt;span class="ni"&gt;&amp;amp;#39;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;o&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;%&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;p&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;(&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;n&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;mystr&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&amp;lt;span&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;p&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;))&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/pre&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and this output&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# python code&lt;/span&gt;
+&lt;span class="n"&gt;mystr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mystr&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The style for the &lt;code&gt;pre&lt;/code&gt; element is defined in the &lt;code&gt;main.css&lt;/code&gt;. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;pre&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;font-family&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Source Code Pro&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="k"&gt;monospace&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;background&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;none&lt;/span&gt; &lt;span class="k"&gt;repeat&lt;/span&gt; &lt;span class="k"&gt;scroll&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;#F0F0F0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;border&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;radius&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;2px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-size&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.9em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;font-style&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;letter-spacing&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.015em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;line-height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;130&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;padding&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.7em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;white-space&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;wrap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;wrap&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;break&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and mostly defines fonts and backgrounds. All the span elements are produced by pygments code and coloured according to the css normally stored in &lt;code&gt;pygments.css&lt;/code&gt;.  The easiest way to change this is to use a predefined css from another style (pelican-bootstrap3 has lots).&lt;/p&gt;
+&lt;p&gt;To add line numbers to the displayed code block use &lt;code&gt;#!&lt;/code&gt; at the start of the first line of code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;```python  
+#! python code  
+mystr = &amp;#39;Hello world&amp;#39;  
+print(&amp;#39;%s&amp;#39;%(mystr))  
+```   
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#! python code  &lt;/span&gt;
+&lt;span class="n"&gt;mystr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt;  
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;mystr&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;h2&gt;Block Quotes&lt;/h2&gt;
+&lt;p&gt;Blockquotes can be indicated with &amp;gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Here's a blockquote.&lt;/p&gt;
+&lt;p&gt;This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; Here&amp;#39;s a blockquote.
+
+&amp;gt; This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;produced by this html:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;blockquote&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;Here&amp;#39;s a blockquote.&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. &lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/blockquote&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The style for the &lt;code&gt;blockquote&lt;/code&gt; element is defined in the &lt;code&gt;main.css&lt;/code&gt;. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;blockquote&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;font-style&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;italic&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;margin-top&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;10px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;margin-bottom&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;10px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;margin-left&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;20px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;padding-left&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;15px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;border-left&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;3px&lt;/span&gt; &lt;span class="k"&gt;solid&lt;/span&gt; &lt;span class="m"&gt;#ccc&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Attribute lists&lt;/h2&gt;
+&lt;p&gt;If you want to have several different types of an element, each with its own style, you can use attribute lists. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;For example different coloured in-line `code in red`{: .red} and `green`{: .green}.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For example different coloured in-line &lt;code class="red"&gt;code in red&lt;/code&gt; and &lt;code class="green"&gt;green&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Html:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;For example different coloured in-line &lt;span class="nt"&gt;&amp;lt;code&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;code in red&lt;span class="nt"&gt;&amp;lt;/code&amp;gt;&lt;/span&gt; and &lt;span class="nt"&gt;&amp;lt;code&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;green&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;green&lt;span class="nt"&gt;&amp;lt;/code&amp;gt;&lt;/span&gt;.&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Along with the following css in &lt;code&gt;main.css&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;code&lt;/span&gt;&lt;span class="nc"&gt;.red&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;red&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;
+&lt;span class="nt"&gt;code&lt;/span&gt;&lt;span class="nc"&gt;.green&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;green&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Headings&lt;/h2&gt;
+&lt;p&gt;Headings can be made in markdown by underlining with equal signs (===========) to give h1 tags, underlining with underscores (---------) to give h2 tags, or by enclosing the headings with hash (#Heading#) symbols. The number of hash symbols gives the heading depth.&lt;/p&gt;
+&lt;h1&gt;H1&lt;/h1&gt;
+&lt;h1&gt;H1&lt;/h1&gt;
+&lt;h2&gt;H2&lt;/h2&gt;
+&lt;h2&gt;H2&lt;/h2&gt;
+&lt;h3&gt;H3&lt;/h3&gt;
+&lt;p&gt;markdown&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;#H1#
+H1
+==
+##H2##
+H2
+--
+###H3###
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;HTML&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;H1&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;H1&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;H2&lt;span class="nt"&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;h2&amp;gt;&lt;/span&gt;H2&lt;span class="nt"&gt;&amp;lt;/h2&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;H3&lt;span class="nt"&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;CSS&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;h2&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;h3&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;h4&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;h5&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;h6&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;#711&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    
+    &lt;span class="k"&gt;font-family&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Source Sans Pro&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sans-serif&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;font-weight&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;400&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;text-shadow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.1em&lt;/span&gt; &lt;span class="m"&gt;0.1em&lt;/span&gt; &lt;span class="m"&gt;0.1em&lt;/span&gt; &lt;span class="m"&gt;#EFEFEF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;line-height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;125&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nt"&gt;h1&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;font-size&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;2em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.67em&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;padding&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.7em&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;0.3em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Learning more&lt;/h2&gt;
+&lt;p&gt;I could carry on with examples for styling other elements such as lists and links, but the learning process is fairly straight forward.
+On your blog, or someone else's, right click on an element (Firefox or Chrome) and choose inspect element. A window opens at the bottom of the screen with the html for the element highlighted on the left and the style css highlighted on the right. If the element has its own css, look that up in your theme's css files and alter it to suit. A web search will give you lots of examples for styling each element. If all of the css is inherited from &lt;code&gt;body&lt;/code&gt; for your chosen element then look at the tags that wrap the element in the html file. Add a section to the css for that type of element tag and continue as above.&lt;/p&gt;
+&lt;p&gt;I'll follow this up with a post on the basics of layout using Jinja2 templates.&lt;/p&gt;</summary><category term="pelican"></category><category term="markdown"></category></entry></feed>

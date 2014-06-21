@@ -32,7 +32,8 @@ LINKS =  (('Pelican', 'http://getpelican.com/'),
 
 # Social widget
 SOCIAL = (('on deviant art', 'http://elfnor.deviantart.com'),
-          ('on thingiverse', 'http://www.thingiverse.com/elfnor'),)
+          ('on thingiverse', 'http://www.thingiverse.com/elfnor'),
+	  ('on github', 'https://github.com/elfnor'))
 
 DEFAULT_PAGINATION = False
 

@@ -45,6 +45,12 @@ code {
 }
 ```
 
+Code Blocks
+-----------
+
+This is a block set of from the main text, normally containg a longer piece of code.
+The blocks can be defined in a number of differnt ways, indenting, four `~~~~`, but I'll show examples with back quote marks (```), normally the key in the extreme top left of the keyboard.
+
 
 [http://www.krisyu.org/blog/posts/2013/06/markdown-and-latex-reference]
 

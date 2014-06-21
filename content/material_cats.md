@@ -21,13 +21,13 @@ For a saggar firing the piece is placed inside a larger pot filled with sawdust,
 
 ![cat mould][cat mould]
 
-The mould is made in two parts. The inner part is flexible and is made with co-polymer sealant (the clear stuff you buy at the hardware store for sealing bathroom tiles). Professional mould makers use expensive (at least here in NZ) two-part silicon moulding compounds. Sealant is way cheaper and easier to get. The cons are its thick consistency make it easy to trap air against the mould, giving unsightly pimples on the casting. Also the  sealant sets by releasing a gas, so thick layers can take a long time (or forever) to cure. Years ago I picked up a tip* to add mineral turpentine to the sealant to thin it. This can then be painted on as a thin layer on to the object being cast. Allow this first thin layer to dry. It will take a lot longer than plain sealant due to the turps. When its dry build up the mould with more plain sealant filling in all the gaps until there are no undercuts. Let this dry again.
+The mould is made in two parts. The inner part is flexible and is made with co-polymer sealant (the clear stuff you buy at the hardware store for sealing bathroom tiles). Professional mould makers use expensive (at least here in NZ) two-part silicon moulding compounds. Sealant is way cheaper and easier to get. The cons are its thick consistency make it easy to trap air against the mould, giving unsightly pimples on the casting. Also the  sealant sets by releasing a gas, so thick layers can take a long time (or forever) to cure. Years ago I picked up a tip[^1] to add mineral turpentine to the sealant to thin it. This can then be painted on as a thin layer on to the object being cast. Allow this first thin layer to dry. It will take a lot longer than plain sealant due to the turps. When its dry build up the mould with more plain sealant filling in all the gaps until there are no undercuts. Let this dry again.
 
 When the sealant is dry an outer "mother mould" of plaster is made to support the sealant inner mould.
 
 I follow this post up with a cat photo and explanation for each material. There's bronze and aluminum, leather and paper mache as well as various plastics and ceramics. The next step is to produce a digital model to try with different digital fabrication (3d printing, laser cutting layers, milling?...) processes.
 
-*I got this tip on thinning the sealant with turps, years ago from the blog of a trans-gender engineer who was experimenting with cheap ways to make falsies. The blog was a fascinating mix of their work on the west coast of the US, their experiments with mould making and their trips to Las Vegas to test the latest version.
+[^1]: I got this tip on thinning the sealant with turps, years ago from the blog of a trans-gender engineer who was experimenting with cheap ways to make falsies. The blog was a fascinating mix of their work on the west coast of the US, their experiments with mould making and their trips to Las Vegas to test the latest version.
 
 [collected cats]: {filename}/images/collected_cats.jpg
 [raku cat]: {filename}/images/raku_cat.jpg

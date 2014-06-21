@@ -2,6 +2,8 @@ Title: About Me
 Date: 2014-06-18 21:20
 Author: elfnor
 
+![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: .floatright}
+
 The name of this blog came from a realisation I had growing up. Even when thing were hard, I felt I'd had a good week if I'd done something out of each of the following groups.
 
 Talk - met friends, socialised  

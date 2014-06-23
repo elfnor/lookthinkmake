@@ -18,6 +18,8 @@ CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 
 DELETE_OUTPUT_DIRECTORY = True
 
+ARTICLE_EXCLUDES: (('content/notes',))
+
 # Following items are often useful when publishing
 
 #DISQUS_SITENAME = ""

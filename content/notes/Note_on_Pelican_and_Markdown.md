@@ -1,6 +1,6 @@
 Title: Notes on Pelican and markdown
 Date: 2014-06-14 22:00
-Tags: make
+Tags: make, notes only
 Category: make
 Author: elfnor
 

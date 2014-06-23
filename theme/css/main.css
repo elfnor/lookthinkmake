@@ -222,6 +222,34 @@ hr {
     border: 2px solid #ccc;
 }
 
+/*tables test */
+
+table {
+	font-size: 0.9em;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+	width: 100%;
+}
+table th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ccc;
+}
+table td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
+table.redtable {
+	background-color: red;
+}
 
 /* Article */
 

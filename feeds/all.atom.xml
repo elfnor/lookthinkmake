@@ -1,5 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://elfnor.github.io/lookthinkmake/" rel="alternate"></link><link href="http://elfnor.github.io/lookthinkmake/feeds/all.atom.xml" rel="self"></link><id>http://elfnor.github.io/lookthinkmake/</id><updated>2014-06-21T22:00:00+12:00</updated><entry><title>Image alignment with markdown</title><link href="http://elfnor.github.io/lookthinkmake/image-alignment-with-markdown.html" rel="alternate"></link><updated>2014-06-21T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:elfnor.github.io/lookthinkmake,2014-06-21:image-alignment-with-markdown.html</id><summary type="html">&lt;p&gt;The standard syntax for inserting an image into a markdown document &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://elfnor.github.io/lookthinkmake/" rel="alternate"></link><link href="http://elfnor.github.io/lookthinkmake/feeds/all.atom.xml" rel="self"></link><id>http://elfnor.github.io/lookthinkmake/</id><updated>2014-07-05T22:00:00+12:00</updated><entry><title>Symmetry Tile plug-in for GIMP</title><link href="http://elfnor.github.io/lookthinkmake/Symmetry%20Tile%20plug-in%20for%20GIMP.html" rel="alternate"></link><updated>2014-07-05T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:elfnor.github.io/lookthinkmake,2014-07-05:Symmetry Tile plug-in for GIMP.html</id><summary type="html">&lt;p&gt;These are the docs for my Symmetry Tile plug-in for GIMP.&lt;/p&gt;
+&lt;p&gt;The plug-in can be obtained &lt;a href="https://www.github.com/elfnor/symmetrytile"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This plug-in takes the selection from an image ("cell") and produces a new image according to 
+one of the &lt;a href="http://en.wikipedia.org/wiki/Wallpaper_groups"&gt;17 plane symmetry groups &lt;/a&gt;. These are also known as wallpaper groups or plane crystallographic groups. &lt;/p&gt;
+&lt;p&gt;Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image.&lt;/p&gt;
+&lt;p&gt;Some galleries of images produced with this plug-in can be found &lt;a href="http://elfnor.github.io/symmetrytilegallery"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Requires &lt;a href="http://www.gimp.org/"&gt;GIMP&lt;/a&gt; to be installed.&lt;/p&gt;
+&lt;p&gt;From within GIMP find out where your plug-in directory is:&lt;/p&gt;
+&lt;p&gt;Edit&amp;gt;Preferences&amp;gt;Folders&amp;gt;Plug-ins&lt;/p&gt;
+&lt;p&gt;For Linux the plug-in directory will probably be &lt;code&gt;~/.gimp-2.8/plugins&lt;/code&gt;
+Copy the file &lt;code&gt;symmetry_tile.py&lt;/code&gt; to this folder and make it "executable". To do this: select the plug-in from your file browser, click properties and check the box "Allow executable" under the permissions tab.&lt;/p&gt;
+&lt;p&gt;For Windows the plug-in directory will be probably be &lt;code&gt;C:\Users\username\gimp-2.8\plug-ins&lt;/code&gt;. Copy the file &lt;code&gt;symmetry_tile.py&lt;/code&gt; to this folder.&lt;/p&gt;
+&lt;p&gt;Restart GIMP to activate the plugin.&lt;/p&gt;
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;Select an area on an image using the rectangle select tool.
+Start the plug-in via Filters&amp;gt;Render&amp;gt;Symmetry Tile&lt;/p&gt;
+&lt;p&gt;You should see the following dialog. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="plugin dialog" src="images/plugin_dialog.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Height&lt;/code&gt; and &lt;code&gt;Width&lt;/code&gt; parameters determine the size of the new image.
+The &lt;code&gt;Symmetry group&lt;/code&gt; drop down gives you the choice of one of the 17 symmetry groups p1, p2 through to p6m. The last three entries I'll cover later. &lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Multiple Images&lt;/code&gt; toggle is set by default to &lt;code&gt;No&lt;/code&gt;. In this mode it produces one image for the chosen symmetry group. Some groups (p2, pm, cm, cmm, pg, pgg, pmg, p4, p4g, p6) can produce different patterns depending on, for example, which corner of the cell a copy is rotated around to form the tile. If the &lt;code&gt;Multiple Images&lt;/code&gt; toogle is set to &lt;code&gt;Yes&lt;/code&gt;, a separate image is produced for each of these different patterns.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;bdpq string&lt;/code&gt; entry box is covered below under Escher's Potato Game.&lt;/p&gt;
+&lt;h3&gt;Deriving the initial cell&lt;/h3&gt;
+&lt;p&gt;Many of the symmetry groups can be produced from a rectangular cell (p1, p2, pm, cm, cmm, pg, pgg, pmg, pmm). These groups use the user selection unmodified. Some groups (p4, p4g) require an initial square cell. In this case, a square primary cell is derived from the user's initial rectangular selection. The left most side of the rectangle is used as the left edge of the square.&lt;/p&gt;
+&lt;p&gt;Two groups (p3m1, p6) are produced from a equilateral triangle shaped cell. This cell is derived from the user's rectangular selection with the triangle sharing the rectangle's left side, and the triangle pointing to the right.&lt;/p&gt;
+&lt;p&gt;The p4m group requires a half square triangle for the initial cell.  The left most side of the user's rectangle is used as the left edge of the triangle, with the rectangle and triangle sharing the top left corner.&lt;/p&gt;
+&lt;p&gt;The p6m group requires a triangle with internal angles of 90, 60 and 30 degrees for the initial cell. The left most side of the rectangle is used as the left longer edge of the triangle, with the rectangle and triangle sharing the top left corner. &lt;/p&gt;
+&lt;p&gt;The p3 group needs a diamond shape (rhombus) with internal angles of 30 and 60 degrees for the initial cell. The diamond shares the rectangle's left side and the diamond points down and to the right.&lt;/p&gt;
+&lt;p&gt;The p31m group uses a kite shape for the initial cell. The kite shares the rectangle's left side and the top left corner.&lt;/p&gt;
+&lt;p&gt;The figure below  illustrates this, with the user's rectangular selection shown as a dotted line and the derived initial cell as a solid line.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Derived Cells" src="images/derived_cells.png" /&gt;&lt;/p&gt;
+&lt;h2&gt;Last 3 Symmetry group options&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;17 groups&lt;/code&gt; option makes all the patterns from the same user selection. If &lt;code&gt;Multiple Images&lt;/code&gt; is set to &lt;code&gt;No&lt;/code&gt; this will produce 17 images. If it is set to &lt;code&gt;Yes&lt;/code&gt;, 40 images will be produced. Depending on your machine's capability its probably not a good idea to make 40 very large images!&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;all square cells&lt;/code&gt; option derives a square cell and uses it for all the groups that can be made with a square cell. There are 11 images produced without &lt;code&gt;Multiple Images&lt;/code&gt; set and 32 images when &lt;code&gt;Multiple Images&lt;/code&gt; is set.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Escher's Potato Game&lt;/code&gt; is briefly described &lt;a href="http://www.eschertiles.com/index.html"&gt;here&lt;/a&gt; along with an interactive app. This paper &lt;a href="http://www.combinatorics.org/Volume_4/PDF/v4i2r17.pdf"&gt;(pdf)&lt;/a&gt; by Doris Schattschneider describes the idea more fully. In the Symmetry Tile plug-in, if the &lt;code&gt;bdpq string&lt;/code&gt; entry is left blank, choosing the &lt;code&gt;Escher's Potato Game&lt;/code&gt; option will produce from the user's selection a random pattern conforming to the rules of the Potato Game.&lt;/p&gt;
+&lt;p&gt;If the &lt;code&gt;bdpq string&lt;/code&gt; entry is filled with an appropriate string that string will be used to construct an image from the user's selection.&lt;/p&gt;
+&lt;h3&gt;How to write a bdpq string&lt;/h3&gt;
+&lt;p&gt;The "bdpq" notation is a useful shorthand to describe patterns built from square and rectangular cells.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;bdpq string&lt;/code&gt; entry takes a string similar  to &lt;code&gt;bq|qb&lt;/code&gt; and builds a tile for a pattern based on the user selected rectangular cell.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;syntax&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  
+    &lt;span class="n"&gt;b&lt;/span&gt;  &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;original&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="n"&gt;selected&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt;
+    &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;flipped&lt;/span&gt; &lt;span class="n"&gt;horizontally&lt;/span&gt;  
+    &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;flipped&lt;/span&gt; &lt;span class="n"&gt;vertically&lt;/span&gt;  
+    &lt;span class="n"&gt;q&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;rotated&lt;/span&gt; &lt;span class="mi"&gt;180&lt;/span&gt; &lt;span class="n"&gt;deg&lt;/span&gt;
+
+    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;denotes&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;
+
+&lt;span class="n"&gt;That&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;bq&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;qb&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;tile&lt;/span&gt;
+
+&lt;span class="n"&gt;bq&lt;/span&gt;  
+&lt;span class="n"&gt;qb&lt;/span&gt;
+
+&lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;hence&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;pattern&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;symmetry&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="n"&gt;p2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;bqbqbq&lt;/span&gt;
+&lt;span class="n"&gt;qbqbqb&lt;/span&gt;
+&lt;span class="n"&gt;bqbqbq&lt;/span&gt;
+&lt;span class="n"&gt;qbqbqb&lt;/span&gt;
+
+&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;  &lt;span class="n"&gt;represent&lt;/span&gt; &lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;rotated&lt;/span&gt; &lt;span class="mi"&gt;90&lt;/span&gt; &lt;span class="n"&gt;deg&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clockwise&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If the original user selection contains the letter 'b', then if the cell is flipped around a vertical axis it will look like the letter 'd'. If the letter 'b' is flipped around the horizontal axis it will look like the letter 'p'. if the letter 'b' is rotated 180 degrees it will look like the letter 'q'. (this depends a bit on the font of course).&lt;/p&gt;
+&lt;p&gt;If the original cell is square then 90 degree rotations of copies of it can also be used to build a tile from the cell. Unfortunately there are no suitable letters to easily describe these and I've chosen to call these cells 'b+', 'd+', 'p+' and 'q+'. Each is the respective cell rotated 90 degrees clockwise.&lt;/p&gt;
+&lt;p&gt;The eight different variations of the original tile are shown here.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="bdpq cells" src="images/bdpq_cells.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The string can be arbitrarily long, but each row should have the same number of cells. The plug-in does not check to see whether the bdpq string is properly formed. Odd results will probably occur for odd strings.&lt;/p&gt;
+&lt;p&gt;If the &lt;code&gt;bdpq string&lt;/code&gt; entry is blank when the &lt;code&gt;Escher's Potato Game&lt;/code&gt; option is chosen the plug-in will make up a tile from  4 cells in 2 rows of 2. Each cell will be picked from a random selection of the b, b+, d, d+, p, p+, q, q+ transformations of the original selection. The string used can be seen in the file name of the new image. (the '+' sign is replaced by a 't' and the '|' by a 'l')&lt;/p&gt;
+&lt;p&gt;As an example this initial cell.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="epg_cell.png" src="images/epg_cell.png" /&gt;&lt;/p&gt;
+&lt;p&gt;and &lt;code&gt;bdb+d+|pqp+q+&lt;/code&gt; entered into the &lt;code&gt;bdpq string&lt;/code&gt; entry, produces this pattern&lt;/p&gt;
+&lt;p&gt;&lt;img alt="epg_bdbtdtlpqptqt.png" src="images/epg_bdbtdtlpqptqt.png" /&gt;&lt;/p&gt;
+&lt;h3&gt;Extra tip:&lt;/h3&gt;
+&lt;p&gt;If after generating 40 images you want to save them all, here is some code to type into the python console. (Filters&amp;gt;Python-Fu&amp;gt;Console)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s-Atom"&gt;for&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt; &lt;span class="s-Atom"&gt;in&lt;/span&gt; &lt;span class="s-Atom"&gt;gimp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;image_list&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="s-Atom"&gt;:&lt;/span&gt;
+   &lt;span class="s-Atom"&gt;new_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/tmp/&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;name&lt;/span&gt;&lt;span class="p"&gt;[:-&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;.png&amp;quot;&lt;/span&gt;
+   &lt;span class="s-Atom"&gt;pdb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;gimp_file_save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="s-Atom"&gt;new_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s-Atom"&gt;new_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There ought to be a plug-in for saving all the images...&lt;/p&gt;</summary><category term="make"></category><category term="think"></category><category term="symmetrytile"></category></entry><entry><title>Image alignment with markdown</title><link href="http://elfnor.github.io/lookthinkmake/image-alignment-with-markdown.html" rel="alternate"></link><updated>2014-06-21T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:elfnor.github.io/lookthinkmake,2014-06-21:image-alignment-with-markdown.html</id><summary type="html">&lt;p&gt;The standard syntax for inserting an image into a markdown document &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;![avatar]({filename}/images/El_Avatar2.jpeg)
 &lt;/pre&gt;&lt;/div&gt;
 

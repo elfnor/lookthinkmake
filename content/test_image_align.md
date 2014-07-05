@@ -3,6 +3,7 @@ Date: 2014-06-21 22:00
 Tags: think, pelican, markdown
 Category: make
 Author: elfnor
+Summary: Markdown synatx and main.css styling to float images to the left and right.
 
 The standard syntax for inserting an image into a markdown document 
 

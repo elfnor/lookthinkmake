@@ -22,5 +22,5 @@ ARTICLE_EXCLUDES = (('notes',))
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = ""
+DISQUS_SITENAME = "lookthinkmake"
 #GOOGLE_ANALYTICS = ""

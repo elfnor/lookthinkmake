@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>About Me - Look Think Make</title>	
+	<title>Using the Symmetry Tile plug-in for Quilt Design - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="The name of this blog came from a realisation I had growing up. Even when thing were hard, I felt I'd had a good week if I'd done something out of each of the following groups. Talk - met friends, socialised Make - created something, writing, sculpture, craft, digital, Think ...">
+	<meta name="description" content="The block patterns used in quilts are a great example of a pattern with repeating symmetry. Using a computer to play with these repeating symmetry patterns is a great way to design quilts. I've written a plug-in for a image editing program called GIMP. GIMP is an acronym for ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -35,33 +35,51 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>About Me</h1>
+		<h1>Using the Symmetry Tile plug-in for Quilt Design</h1>
 		
 <div class="metadata">
-  <time datetime="2014-05-18T21:20:00" pubdate>Sun 18 May 2014</time>
+  <time datetime="2014-07-12T22:00:00" pubdate>Sat 12 July 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="./author/elfnor.html">elfnor</a>
     </address>
-  in <a href="./category/pages.html">pages</a>
-</div>		
-		<p><img alt="avatar" class="floatright" src="./images/El_Avatar2_face_left.jpeg" /></p>
-<p>The name of this blog came from a realisation I had growing up. Even when thing were hard, I felt I'd had a good week if I'd done something out of each of the following groups.</p>
-<p>Talk - met friends, socialised<br />
-Make - created something, writing, sculpture, craft, digital,<br />
-Think - solved something, learnt something<br />
-Look - seen a new movie, play, exhibition, read a book<br />
-Walk - been outdoors, in nature, got some exercise  </p>
-<p>Of these look, think, make, is a good description of the creative process whether its science:</p>
-<p>Look/observe - why is it like that?<br />
-Think/hypothesize - maybe it's because..., if I did this then this should happen<br />
-Make/experiment - well.., that didn't do what I expected but it's interesting, loop back to Look.  </p>
-<p>Or making a dress:</p>
-<p>Look - I like that dress she's wearing, but I'd make the sleeves a bit shorter<br />
-Think - and I can't quite see how they did the crossover top bit, maybe its cut on the diagonal<br />
-Make - this small prototype works, so now I'll make the real dress.  </p>
-<p>You can find me other places on the web, mostly using the name elfnor.  </p>
-<p><a title="elfnor.deviantart.com" href="http://elfnor.deviantart.com">elfnor.deviantart.com</a><br />
-<a title="www.thingiverse.com/elfnor" href="http://www.thingiverse.com/elfnor">www.thingiverse.com/elfnor</a></p>	
+  in <a href="./category/think.html">think</a>
+<p class="tags">tagged <a href="./tag/make.html">make</a>, <a href="./tag/think.html">think</a>, <a href="./tag/symmetrytile.html">symmetrytile</a></p></div>		
+		<p>The block patterns used in quilts are a great example of a pattern with repeating symmetry. Using a computer to play with these repeating symmetry patterns is a great way to design quilts. </p>
+<p>I've written a plug-in for a image editing program called <a href="http://www.gimp.org/">GIMP</a>.</p>
+<blockquote>
+<p>GIMP is an acronym for GNU Image Manipulation Program. It is a freely distributed program for such tasks as photo retouching, image composition and image authoring.</p>
+<p>It has many capabilities. It can be used as a simple paint program, an expert quality photo retouching program, an online batch processing system, a mass production image renderer, an image format converter, etc.</p>
+<p>GIMP is expandable and extensible. It is designed to be augmented with plug-ins and extensions to do just about anything. The advanced scripting interface allows everything from the simplest task to the most complex image manipulation procedures to be easily scripted.</p>
+<p>GIMP is written and developed under X11 on UNIX platforms. But basically the same code also runs on MS Windows and Mac OS X. </p>
+</blockquote>
+<p>The plug-in I've written is called Symmetry Tile and instructions on downloading and installing it can be found <a href="http://elfnor.github.io/lookthinkmake/Symmetry%20Tile%20plug-in%20for%20GIMP.html">here</a>.</p>
+<p>This plug-in takes the selection from an image ("cell") and produces a new image according to 
+one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane crystallographic groups. </p>
+<p>Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image.</p>
+<p>Some galleries of images produced with this plug-in can be found <a href="http://elfnor.github.io/symmetrytilegallery">here</a>.</p>
+<p>This post gives some examples of how you might use Symmetry Tile for quilt design. It presumes you're familiar with the basics of using GIMP, but should be able to be followed by someone who has used similar programs such as Photoshop or Photopaint.</p>
+<h2>The basic block element of the design.</h2>
+<p>Create a new image from the file menu. Start off fairly small say 200 x 200 pixels. We're going to end up with lots of copies of this across the screen, and there's not a lot of point in working at very high resolution.</p>
+<p>Turn on the grid and 'snap to grid' from the edit menu. Choose the pencil from the toolbox and set it to maybe 1 or 2 pixels in size.</p>
+<p>Draw a square 120 X 120 pixels, and then some straight lines inside to make the seam lines on a basic block. You'll make more different patterns if your basic block is non-symmetric. The block on the left is non-symmetric. The block on the right would look the same if it was flipped or mirrored about the dotted blue line. </p>
+<p><img alt="line blocks" src="images/two_cells_lines.png" /></p>
+<p>Use the fill tool (bucket) to fill each piece with a colour or pattern. Once coloured in a symmetric block can become non-symmetric. The block on the right with the coloured fill, no longer looks the same if it is flipped or mirrored. </p>
+<p><img alt="filled blocks" src="images/two_cells.png" /></p>
+<h2>Playing with symmetry</h2>
+<p>Use the rectangular select tool to select the block. Find the Symmetry Tile Plug-in under Render on the Filters menu.
+Choose the image size to be a multiple of the block size, say 720 x 720 pixels. Choose one of the symmetry groups and click OK to see the result. Experiment with different symmetry groups to see what they do. For the complete effect choose <code>all square cells</code> from the Symmetry Groups menu and set Multiple images to <code>Yes</code>. Your screen should fill up with 32 images (they may all be hiding under the top image). </p>
+<p>If you used the original cell, I used above, then amongst all those images will be some familiar to traditional quilters. </p>
+<h3>Pinwheels</h3>
+<p><img alt="pinwheels" src="images/p4_bbtlqtq.png" /></p>
+<h3>Flying Geese</h3>
+<p><img alt="flying geese" src="images/cm_bplpb.png" /></p>
+<h3>Double Zigzag</h3>
+<p><img alt="double zigzag" src="images/cmm_bdlqpldblpq.png" /></p>
+<h3>Hourglass</h3>
+<p><img alt="hourglass" src="images/p4g_bbtptdlqtqpdtlptdbbtlpdtqtq.png" /></p>
+<p>Where you go from here is up to you. A sampler quilt with a selection of these design separated by borders is one possibility. </p>
+<p>I next opened a new much larger image and copied then pasted as layer some of the designs I liked the look of. With each designed as a separate layer they can be moved around and under each other until a potential quilt design is arrived at. The design below has about 5 different patterns arranged so the design morphs from one pattern to the next. It takes a little bit of time to catch on that only one basic block is used to achieve the different patterns.</p>
+<p><img alt="quilt design" src="images/quilt_02.png" /></p>	
 
 	</article>
 
@@ -69,7 +87,7 @@ Make - this small prototype works, so now I'll make the real dress.  </p>
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "about-me.html";
+	       var disqus_identifier = "Using the Symmetry Tile plug-in for Quilt Design.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -140,8 +158,8 @@ Make - this small prototype works, so now I'll make the real dress.  </p>
 		      <li> <a href="./archives.html">everything </a></li>	
 	              <li ><a href="./category/look.html">look</a></li>
 	              <li ><a href="./category/make.html">make</a></li>
-	              <li class="active"><a href="./category/pages.html">pages</a></li>
-	              <li ><a href="./category/think.html">think</a></li>
+	              <li ><a href="./category/pages.html">pages</a></li>
+	              <li class="active"><a href="./category/think.html">think</a></li>
 	          </ul>
 	        
 

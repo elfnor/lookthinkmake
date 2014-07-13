@@ -34,45 +34,40 @@
 
 
       <article>
-        <h1><a href="./Using the Symmetry Tile plug-in for Quilt Design.html">Using the Symmetry Tile plug-in for Quilt Design</a></h1>
-        <p>The block patterns used in quilts are a great example of a pattern with repeating symmetry. Using a computer to play with these repeating symmetry patterns is a great way to design quilts. </p>
-<p>I've written a plug-in for a image editing program called <a href="http://www.gimp.org/">GIMP</a>.</p>
-<blockquote>
-<p>GIMP is an acronym for GNU Image Manipulation Program. It is a freely distributed program for such tasks as photo retouching, image composition and image authoring.</p>
-<p>It has many capabilities. It can be used as a simple paint program, an expert quality photo retouching program, an online batch processing system, a mass production image renderer, an image format converter, etc.</p>
-<p>GIMP is expandable and extensible. It is designed to be augmented with plug-ins and extensions to do just about anything. The advanced scripting interface allows everything from the simplest task to the most complex image manipulation procedures to be easily scripted.</p>
-<p>GIMP is written and developed under X11 on UNIX platforms. But basically the same code also runs on MS Windows and Mac OS X. </p>
-</blockquote>
-<p>The plug-in I've written is called Symmetry Tile and instructions on downloading and installing it can be found <a href="http://elfnor.github.io/lookthinkmake/Symmetry%20Tile%20plug-in%20for%20GIMP.html">here</a>.</p>
-<p>This plug-in takes the selection from an image ("cell") and produces a new image according to 
-one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane crystallographic groups. </p>
-<p>Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image.</p>
-<p>Some galleries of images produced with this plug-in can be found <a href="http://elfnor.github.io/symmetrytilegallery">here</a>.</p>
-<p>This post gives some examples of how you might use Symmetry Tile for quilt design. It presumes you're familiar with the basics of using GIMP, but should be able to be followed by someone who has used similar programs such as Photoshop or Photopaint.</p>
-<h2>The basic block element of the design.</h2>
-<p>Create a new image from the file menu. Start off fairly small say 200 x 200 pixels. We're going to end up with lots of copies of this across the screen, and there's not a lot of point in working at very high resolution.</p>
-<p>Turn on the grid and 'snap to grid' from the edit menu. Choose the pencil from the toolbox and set it to maybe 1 or 2 pixels in size.</p>
-<p>Draw a square 120 X 120 pixels, and then some straight lines inside to make the seam lines on a basic block. You'll make more different patterns if your basic block is non-symmetric. The block on the left is non-symmetric. The block on the right would look the same if it was flipped or mirrored about the dotted blue line. </p>
-<p><img alt="line blocks" src="images/two_cells_lines.png" /></p>
-<p>Use the fill tool (bucket) to fill each piece with a colour or pattern. Once coloured in a symmetric block can become non-symmetric. The block on the right with the coloured fill, no longer looks the same if it is flipped or mirrored. </p>
-<p><img alt="filled blocks" src="images/two_cells.png" /></p>
-<h2>Playing with symmetry</h2>
-<p>Use the rectangular select tool to select the block. Find the Symmetry Tile Plug-in under Render on the Filters menu.
-Choose the image size to be a multiple of the block size, say 720 x 720 pixels. Choose one of the symmetry groups and click OK to see the result. Experiment with different symmetry groups to see what they do. For the complete effect choose <code>all square cells</code> from the Symmetry Groups menu and set Multiple images to <code>Yes</code>. Your screen should fill up with 32 images (they may all be hiding under the top image). </p>
-<p>If you used the original cell, I used above, then amongst all those images will be some familiar to traditional quilters. </p>
-<h3>Pinwheels</h3>
-<p><img alt="pinwheels" src="images/p4_bbtlqtq.png" /></p>
-<h3>Flying Geese</h3>
-<p><img alt="flying geese" src="images/cm_bplpb.png" /></p>
-<h3>Double Zigzag</h3>
-<p><img alt="double zigzag" src="images/cmm_bdlqpldblpq.png" /></p>
-<h3>Hourglass</h3>
-<p><img alt="hourglass" src="images/p4g_bbtptdlqtqpdtlptdbbtlpdtqtq.png" /></p>
-<p>Where you go from here is up to you. A sampler quilt with a selection of these design separated by borders is one possibility. </p>
-<p>I next opened a new much larger image and copied then pasted as layer some of the designs I liked the look of. With each designed as a separate layer they can be moved around and under each other until a potential quilt design is arrived at. The design below has about 5 different patterns arranged so the design morphs from one pattern to the next. It takes a little bit of time to catch on that only one basic block is used to achieve the different patterns.</p>
-<p><img alt="quilt design" src="images/quilt_02.png" /></p>
-	<a href="./Using the Symmetry Tile plug-in for Quilt Design.html">Permalink, </a>
-	<a href="./Using the Symmetry Tile plug-in for Quilt Design.html#disqus_thread">Comments</a>
+        <h1><a href="./Symmetry Tile with non-rectangular cells.html">Symmetry Tile with non-rectangular cells</a></h1>
+        <p>With the Symmetry Tile plug-in the user selects an area using the rectangle select tool, before running the plug-in. The plug-in then derives a cell to use to form the user's choice of symmetry pattern. For many of the symmetries that derived cell is the same as the selected rectangle. Some of the symmetries need a cell shape other than the rectangle. Those cell shapes and their relation to the user's rectangle are shown below, along with the symmetry groups that use that cell shape.</p>
+<p><img alt="Derived Cells" src="images/derived_cells.png" /></p>
+<p><strong>Square</strong> - p4, p4g, pg (some)<br />
+<strong>Equilateral Triangle</strong> - p3m1, p6<br />
+<strong>Half square triangle</strong> - p4m<br />
+<strong>90, 60 and 30 degree triangle</strong> - p6m<br />
+<strong>Diamond</strong> - p3<br />
+<strong>Kite</strong> - p31m  </p>
+<p>In many cases the user may want to create specific content to fill the required cell shape. It would be easier to have this shape on the screen to help you to draw the cell content in the correct place. Here's how to do that. I'll use the kite shaped cell here as an example but this method applies to any of the non-rectangular cells.</p>
+<ul>
+<li>Create a new image with a transparent background. </li>
+<li>Select a rectangle about the size you want your cell to be. </li>
+</ul>
+<p><img alt="odd_cells_01" src="images/Screenshot-GIMP-odd_cells_01.png" /></p>
+<ul>
+<li>Run the Symmetry Tile plug-in, choosing a symmetry group that uses the desired cell (p31m for the kite). This will produce a blank transparent image which can be discarded. The plug-in will also leave the correct shaped cell selected in the original image.</li>
+</ul>
+<p><img alt="odd_cells_02" src="images/Screenshot-GIMP-odd_cells_02.png" /></p>
+<ul>
+<li>Convert that selection to a path. (Select&gt; To Path). </li>
+</ul>
+<p><img alt="odd_cells_03" src="images/Screenshot-GIMP-odd_cells_03.png" /></p>
+<ul>
+<li>The path can now be used as a guide to the cell shape. Use it to draw the cell content in the correct place, filling the cell area with brush strokes etc.</li>
+</ul>
+<p><img alt="odd_cells_04" src="images/Screenshot-GIMP-odd_cells_04.png" /></p>
+<ul>
+<li>Select the path, convert it back to a selection  and re run the plug-in.</li>
+</ul>
+<p><img alt="odd_cells_05" src="images/Screenshot-GIMP-odd_cells_05.png" /></p>
+<p>Credit for this method is due to lylejk who posted it over on <a href="http://www.gimpchat.com/viewtopic.php?f=9&amp;t=10683&amp;start=30#p141775">gimpchat</a>.</p>
+	<a href="./Symmetry Tile with non-rectangular cells.html">Permalink, </a>
+	<a href="./Symmetry Tile with non-rectangular cells.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -81,6 +76,12 @@ Choose the image size to be a multiple of the block size, say 720 x 720 pixels. 
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="./Using the Symmetry Tile plug-in for Quilt Design.html" rel="bookmark" title="Permalink to Using the Symmetry Tile plug-in for Quilt Design">Using the Symmetry Tile plug-in for Quilt Design</a>
+  <time datetime="2014-07-12T22:00:00" pubdate>Sat 12 July 2014</time>
+<p class="tags">tags: <a href="./tag/make.html">make  </a><a href="./tag/think.html">think  </a><a href="./tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
 
 
       <li>
@@ -107,10 +108,6 @@ Choose the image size to be a multiple of the block size, say 720 x 720 pixels. 
 <p class="tags">tags: <a href="./tag/cats.html">cats  </a><a href="./tag/make.html">make  </a><a href="./tag/materials.html">materials  </a><a href="./tag/3d-printing.html">3D printing  </a></p></a>      </li>
 
 
-      <li>
-<a href="./about-me.html" rel="bookmark" title="Permalink to About Me">About Me</a>
-  <time datetime="2014-05-18T21:20:00" pubdate>Sun 18 May 2014</time>
-</a>      </li>
 
 
 
@@ -131,6 +128,12 @@ Choose the image size to be a multiple of the block size, say 720 x 720 pixels. 
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="./Symmetry Tile with non-rectangular cells.html" rel="bookmark" title="Permalink to Symmetry Tile with non-rectangular cells">Symmetry Tile with non-rectangular cells</a>
+  <time datetime="2014-07-13T22:00:00" pubdate>Sun 13 July 2014</time>
+<p class="tags">tags: <a href="./tag/make.html">make  </a><a href="./tag/think.html">think  </a><a href="./tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="./Using the Symmetry Tile plug-in for Quilt Design.html" rel="bookmark" title="Permalink to Using the Symmetry Tile plug-in for Quilt Design">Using the Symmetry Tile plug-in for Quilt Design</a>
@@ -167,11 +170,6 @@ Choose the image size to be a multiple of the block size, say 720 x 720 pixels. 
   <time datetime="2014-05-18T21:20:00" pubdate>Sun 18 May 2014</time>
 </a>      			      </li>
 		
-	
-			      <li>
-<a href="./material-cats.html" rel="bookmark" title="Permalink to Material Cats">Material Cats</a>
-  <time datetime="2014-02-23T22:00:00" pubdate>Sun 23 February 2014</time>
-<p class="tags">tags: <a href="./tag/cats.html">cats  </a><a href="./tag/materials.html">materials  </a></p></a>      			      </li>
 		
 		
 		

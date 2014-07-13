@@ -1,5 +1,7 @@
 *.pid
 *.pyc
 *.txt
+fabfile.py
+develop_server.sh
 output/
 notes/

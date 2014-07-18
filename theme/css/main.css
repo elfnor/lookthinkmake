@@ -48,9 +48,10 @@ header {
     linear-gradient(
       #c14c4c, #711
     );
+  font-family: 'Rock Salt', cursive;
   height: 100px;
   line-height: 100px;
-  padding: 0 1em;
+  padding: 0em 2em;
 }
 
 
@@ -117,10 +118,14 @@ header .feeds a:active {
 
 header .pages {
   float: right;
+font-family: 'Bitter', serif;
+
+
 }
 
 header .pages a {
   font-size: 1.1em;
+
 }
 
 
@@ -131,7 +136,7 @@ header .pages a {
 
 h1, h2, h3, h4, h5, h6 {
     color: #711; 	
-    font-family: "Source Sans Pro",sans-serif;
+    font-family: 'Bitter', serif;
     font-weight: 400;
     text-shadow: 0.1em 0.1em 0.1em #EFEFEF;
     line-height: 125%;

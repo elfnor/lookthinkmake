@@ -7,6 +7,8 @@
 	
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="./theme/css/main.css" type="text/css" />
 		
 
@@ -34,40 +36,177 @@
 
 
       <article>
-        <h1><a href="./Symmetry Tile with non-rectangular cells.html">Symmetry Tile with non-rectangular cells</a></h1>
-        <p>With the Symmetry Tile plug-in the user selects an area using the rectangle select tool, before running the plug-in. The plug-in then derives a cell to use to form the user's choice of symmetry pattern. For many of the symmetries that derived cell is the same as the selected rectangle. Some of the symmetries need a cell shape other than the rectangle. Those cell shapes and their relation to the user's rectangle are shown below, along with the symmetry groups that use that cell shape.</p>
-<p><img alt="Derived Cells" src="images/derived_cells.png" /></p>
-<p><strong>Square</strong> - p4, p4g, pg (some)<br />
-<strong>Equilateral Triangle</strong> - p3m1, p6<br />
-<strong>Half square triangle</strong> - p4m<br />
-<strong>90, 60 and 30 degree triangle</strong> - p6m<br />
-<strong>Diamond</strong> - p3<br />
-<strong>Kite</strong> - p31m  </p>
-<p>In many cases the user may want to create specific content to fill the required cell shape. It would be easier to have this shape on the screen to help you to draw the cell content in the correct place. Here's how to do that. I'll use the kite shaped cell here as an example but this method applies to any of the non-rectangular cells.</p>
+        <h1><a href="./Symmetry Group Links and Notation.html">Symmetry Group Links and Notation</a></h1>
+        <p>There are many great resources on the 17 plane symmetry groups.</p>
+<p>I made great use of a couple of online apps while writing my <a href="./Symmetry Tile plug-in for GIMP.html">Symmetry Tile plug-in.</a></p>
+<h2>Morenaments</h2>
+<p><img alt="morenaments" src="./images/morenaments.png" /></p>
+<p>This great java applet can either be used <a href="http://www.morenaments.de/euc/applet">here online</a> or <a href="http://www.morenaments.de/euc/">downloaded</a> as a <code>jar</code> file and run locally.</p>
+<p>It allows you to draw on a canvas that automatically completes the choosen symmetry group.Be sure to investigate the menu on the top-right. Selecting tile and/or cell under the grid menu will show these on the pattern canvas and help with seeing the structure underlying a particular symmetry. Look in the manual under help for more information. Be sure to try dragging the coloured dots in the tile view around. These can show how the same symmetry pattern can have different shaped cell or tile.</p>
+<h2>Kali</h2>
+<p><img alt="kali" src="./images/kali.png" /></p>
+<p>This online java applet can be used <a href="http://www.scienceu.com/geometry/handson/kali/">here</a>. Its much easier to do straight lines in this app. It uses the orbifold notation for the symmetry groups.</p>
+<h2>Books</h2>
+<p>The two books I consulted the most while working on this plug-in were:  </p>
 <ul>
-<li>Create a new image with a transparent background. </li>
-<li>Select a rectangle about the size you want your cell to be. </li>
+<li><a href="http://www.amazon.com/Handbook-Regular-Patterns-Introduction-Dimensions/dp/0262690888">"Handbook of Regular Patterns: An Introduction to Symmetry in Two Dimensions" by Peter S. Stevens</a>  </li>
+<li><a href="http://www.amazon.com/Designing-Tessellations-Secrets-Interlocking-Patterns/dp/0809228661/">"Designing Tessalations: The Secret of Interlocking Patterns" by Jinny Beyer</a></li>
 </ul>
-<p><img alt="odd_cells_01" src="images/Screenshot-GIMP-odd_cells_01.png" /></p>
-<ul>
-<li>Run the Symmetry Tile plug-in, choosing a symmetry group that uses the desired cell (p31m for the kite). This will produce a blank transparent image which can be discarded. The plug-in will also leave the correct shaped cell selected in the original image.</li>
-</ul>
-<p><img alt="odd_cells_02" src="images/Screenshot-GIMP-odd_cells_02.png" /></p>
-<ul>
-<li>Convert that selection to a path. (Select&gt; To Path). </li>
-</ul>
-<p><img alt="odd_cells_03" src="images/Screenshot-GIMP-odd_cells_03.png" /></p>
-<ul>
-<li>The path can now be used as a guide to the cell shape. Use it to draw the cell content in the correct place, filling the cell area with brush strokes etc.</li>
-</ul>
-<p><img alt="odd_cells_04" src="images/Screenshot-GIMP-odd_cells_04.png" /></p>
-<ul>
-<li>Select the path, convert it back to a selection  and re run the plug-in.</li>
-</ul>
-<p><img alt="odd_cells_05" src="images/Screenshot-GIMP-odd_cells_05.png" /></p>
-<p>Credit for this method is due to lylejk who posted it over on <a href="http://www.gimpchat.com/viewtopic.php?f=9&amp;t=10683&amp;start=30#p141775">gimpchat</a>.</p>
-	<a href="./Symmetry Tile with non-rectangular cells.html">Permalink, </a>
-	<a href="./Symmetry Tile with non-rectangular cells.html#disqus_thread">Comments</a>
+<p>All of these references use different notations and descriptions for the symmetry groups. I've summarised them in the folowing table for easy reference. The Symmetry Tile plug-in uses the notation in the left most column.</p>
+<h2>Notation for Symmetry Groups</h2>
+<table>
+<thead>
+<tr>
+<th>Crystallography</th>
+<th>full</th>
+<th>Terrazo</th>
+<th>Jinny Beyer's description</th>
+<th>Orbifold</th>
+<th>Peter S. Stevens's description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p1</td>
+<td>p1</td>
+<td>Gold Brick</td>
+<td>Translation</td>
+<td>o</td>
+<td>Two Nonparallel Translations</td>
+</tr>
+<tr>
+<td>p2</td>
+<td>p211</td>
+<td>Hither &amp; Yon</td>
+<td>Midpoint or Half-Turn Rotation</td>
+<td>2222</td>
+<td>Four Half-Turns</td>
+</tr>
+<tr>
+<td>pm</td>
+<td>p1m1</td>
+<td>Wings</td>
+<td>Mirror</td>
+<td>**</td>
+<td>Two Parallel Mirrors</td>
+</tr>
+<tr>
+<td>pg</td>
+<td>p1g1</td>
+<td>Card Tricks</td>
+<td>Glide</td>
+<td>xx</td>
+<td>Two Parallel Glide Refelections</td>
+</tr>
+<tr>
+<td>pgg</td>
+<td>p2gg</td>
+<td>Honey Bees</td>
+<td>Double Glide</td>
+<td>22x</td>
+<td>Two Perpendicular Glide Reflections</td>
+</tr>
+<tr>
+<td>pmm</td>
+<td>p2mm</td>
+<td>Prickly Pear</td>
+<td>Double Mirror</td>
+<td>*2222</td>
+<td>Reflections in Four Sides of a Rectangle</td>
+</tr>
+<tr>
+<td>pmg</td>
+<td>p2mg</td>
+<td>Lightning</td>
+<td>Glided Staggered Mirror</td>
+<td>22*</td>
+<td>A Mirror and a Perpendicular Reflection</td>
+</tr>
+<tr>
+<td>cm</td>
+<td>c1m1</td>
+<td>Crab Claws</td>
+<td>Staggered Mirror</td>
+<td>*x</td>
+<td>A Reflection and a Parallel Glide Reflection</td>
+</tr>
+<tr>
+<td>cmm</td>
+<td>c2mm</td>
+<td>Spider Web</td>
+<td>Staggered Double Mirror</td>
+<td>2*22</td>
+<td>Perpendicular Mirrors and Perpendicular Glide Reflections</td>
+</tr>
+<tr>
+<td>p4</td>
+<td>p4gm</td>
+<td>Pinwheel</td>
+<td>Pinwheel or Quarter-Turn Rotation</td>
+<td>442</td>
+<td>Quarter-Turns</td>
+</tr>
+<tr>
+<td>p3m1</td>
+<td>p3m1</td>
+<td>Winding Ways</td>
+<td>Mirror and Three Rotations</td>
+<td>*333</td>
+<td>Reflections in an Equilateral Triangle</td>
+</tr>
+<tr>
+<td>p3</td>
+<td>p3</td>
+<td>Storm at Sea</td>
+<td>Three Rotation</td>
+<td>333</td>
+<td>Three Rotations through 120°</td>
+</tr>
+<tr>
+<td>p4g</td>
+<td>p4gm</td>
+<td>Primrose Path</td>
+<td>Mirrored Pinwheel</td>
+<td>4*2</td>
+<td>Reflections of Quarter-Turns</td>
+</tr>
+<tr>
+<td>p4m</td>
+<td>p4mm</td>
+<td>Sunflower</td>
+<td>Traditional Block</td>
+<td>*442</td>
+<td>Reflections on the Sides of a 45°-45°-90° Triangle</td>
+</tr>
+<tr>
+<td>p6</td>
+<td>p6</td>
+<td>Whirlpool</td>
+<td>Six Rotation</td>
+<td>632</td>
+<td>Sixfold Rotation</td>
+</tr>
+<tr>
+<td>p31m</td>
+<td>p31m</td>
+<td>Monkey Wrench</td>
+<td>Three Roatations and a Mirror</td>
+<td>3*3</td>
+<td>Refections of 120° Turns</td>
+</tr>
+<tr>
+<td>p6m</td>
+<td>p6mm</td>
+<td>Turnstile</td>
+<td>Kalieidoscope</td>
+<td>*632</td>
+<td>Refections in the Sides of a 30°-60°-90° Triangle</td>
+</tr>
+</tbody>
+</table>
+<hr />
+	<a href="./Symmetry Group Links and Notation.html">Permalink, </a>
+	<a href="./Symmetry Group Links and Notation.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -76,6 +215,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="./Symmetry Tile with non-rectangular cells.html" rel="bookmark" title="Permalink to Symmetry Tile with non-rectangular cells">Symmetry Tile with non-rectangular cells</a>
+  <time datetime="2014-07-13T22:00:00" pubdate>Sun 13 July 2014</time>
+<p class="tags">tags: <a href="./tag/make.html">make  </a><a href="./tag/think.html">think  </a><a href="./tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
 
 
       <li>
@@ -102,10 +247,6 @@
 <p class="tags">tags: <a href="./tag/pelican.html">pelican  </a><a href="./tag/markdown.html">markdown  </a></p></a>      </li>
 
 
-      <li>
-<a href="./Cat Scan.html" rel="bookmark" title="Permalink to Cat Scan">Cat Scan</a>
-  <time datetime="2014-06-13T22:00:00" pubdate>Fri 13 June 2014</time>
-<p class="tags">tags: <a href="./tag/cats.html">cats  </a><a href="./tag/make.html">make  </a><a href="./tag/materials.html">materials  </a><a href="./tag/3d-printing.html">3D printing  </a></p></a>      </li>
 
 
 
@@ -128,6 +269,12 @@
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="./Symmetry Group Links and Notation.html" rel="bookmark" title="Permalink to Symmetry Group Links and Notation">Symmetry Group Links and Notation</a>
+  <time datetime="2014-07-18T22:00:00" pubdate>Fri 18 July 2014</time>
+<p class="tags">tags: <a href="./tag/make.html">make  </a><a href="./tag/think.html">think  </a><a href="./tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="./Symmetry Tile with non-rectangular cells.html" rel="bookmark" title="Permalink to Symmetry Tile with non-rectangular cells">Symmetry Tile with non-rectangular cells</a>
@@ -164,11 +311,6 @@
   <time datetime="2014-06-13T22:00:00" pubdate>Fri 13 June 2014</time>
 <p class="tags">tags: <a href="./tag/cats.html">cats  </a><a href="./tag/make.html">make  </a><a href="./tag/materials.html">materials  </a><a href="./tag/3d-printing.html">3D printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="./about-me.html" rel="bookmark" title="Permalink to About Me">About Me</a>
-  <time datetime="2014-05-18T21:20:00" pubdate>Sun 18 May 2014</time>
-</a>      			      </li>
 		
 		
 		

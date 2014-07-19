@@ -75,6 +75,7 @@ The `all square cells` option derives a square cell and uses it for all the grou
 
 If the `bdpq string` entry is filled with an appropriate string that string will be used to construct an image from the user's selection.
 
+<a name="bdpq"></a>
 ###How to write a bdpq string###
 The "bdpq" notation is a useful shorthand to describe patterns built from square and rectangular cells.
  
@@ -133,3 +134,5 @@ for img in gimp.image_list():
 ```
 
 There ought to be a plug-in for saving all the images...
+
+----------------

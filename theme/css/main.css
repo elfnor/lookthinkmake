@@ -48,7 +48,6 @@ header {
     linear-gradient(
       #c14c4c, #711
     );
-  font-family: 'Rock Salt', cursive;
   height: 100px;
   line-height: 100px;
   padding: 0em 2em;
@@ -94,6 +93,7 @@ header a {
 
 header a.title {
   font-size: 2.25em;
+  font-family: 'Rock Salt', cursive;
 }
 
 header .feeds {

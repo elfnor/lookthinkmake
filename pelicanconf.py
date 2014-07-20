@@ -38,13 +38,14 @@ SOCIAL = (('on deviant art', 'http://elfnor.deviantart.com'),
 DEFAULT_PAGINATION = False
 
 # static paths will be copied under the same name
-STATIC_PATHS = ["images"]
+STATIC_PATHS = ["images", "extra"]
+
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-PLUGIN_PATH = 'plugins'
-PLUGINS = ['gallery',]
+
 
 

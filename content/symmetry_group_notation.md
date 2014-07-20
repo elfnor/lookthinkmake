@@ -4,6 +4,8 @@ Tags: make, think, symmetrytile
 Category: think
 Slug: Symmetry Group Links and Notation
 Author: elfnor
+Summary: There are many great resources on the 17 plane symmetry groups. I made great use of a couple of on-line apps while writing my [Symmetry Tile plug-in.]({filename}/symmetry_tile_docs.md), Morenaments and Kalis. I also used a couple of great books...
+
 
 There are many great resources on the 17 plane symmetry groups.
 
@@ -55,7 +57,7 @@ All of these references use different notations and descriptions for the symmetr
 | p6m             | p6mm | Turnstile     | Kaleidoscope                     | *632     | Refections in the Sides of a 30°-60°-90° Triangle         |
 
 
-The symmetry groups that can be made with rectangular or square cells can be defined using the ["bdpq" notation](./Symmetry Tile plug-in for GIMP.html#bdpq). If the "bdpq" string contains a plus sign then the cell must be square. The strings for all the symmetry groups start with a "b". Each of the symmetry groups could be created with an alternative string starting with one of the other letters.
+The symmetry groups that can be made with rectangular or square cells can be defined using the ["bdpq" notation]({filename}symmetry_tile_docs.md#bdpq). If the "bdpq" string contains a plus sign then the cell must be square. The strings for all the symmetry groups start with a "b". Each of the symmetry groups could be created with an alternative string starting with one of the other letters.
 
 The 32 strings here are this produced by the Symmetry Tile plugin when "all square cells" is selected and "Multiple" is set to "Yes". When "Multiple" is set to "No" only one string from each symmetry group is used.
 

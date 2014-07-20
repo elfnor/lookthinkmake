@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Image alignment with markdown - Look Think Make</title>	
+	<title>Notes on github publishing - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="Markdown synatx and main.css styling to float images to the left and right.">
+	<meta name="description" content="Links on generating github pages: mostly followed http://www.circuidipity.com/github-pages.html Other usefull sites http://mathamy.com/migrating-to-github-pages-using-pelican.html Project pages vs. User pages http://docs.getpelican.com/en/3.3.0/tips.html http://magically.us/2013-02-03/creating-a-pelican-powered-site-on-github-pages.html needed to change SITEURL = 'http://elfnor.github.io ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -37,74 +37,106 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Image alignment with markdown</h1>
+		<h1>Notes on github publishing</h1>
 		
 <div class="metadata">
-  <time datetime="2014-06-21T22:00:00" pubdate>Sat 21 June 2014</time>
+  <time datetime="2014-06-23T22:00:00" pubdate>Mon 23 June 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="http://elfnor.github.io/lookthinkmake/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://elfnor.github.io/lookthinkmake/category/make.html">make</a>
-<p class="tags">tagged <a href="http://elfnor.github.io/lookthinkmake/tag/think.html">think</a>, <a href="http://elfnor.github.io/lookthinkmake/tag/pelican.html">pelican</a>, <a href="http://elfnor.github.io/lookthinkmake/tag/markdown.html">markdown</a></p></div>		
-		<p>The standard syntax for inserting an image into a markdown document </p>
-<div class="highlight"><pre>![avatar]({filename}/images/El_Avatar2.jpeg)
+<p class="tags">tagged <a href="http://elfnor.github.io/lookthinkmake/tag/make.html">make</a>, <a href="http://elfnor.github.io/lookthinkmake/tag/notes-only.html">notes only</a></p></div>		
+		<p>Links on generating github pages:</p>
+<p>mostly followed <a href="http://www.circuidipity.com/github-pages.html">http://www.circuidipity.com/github-pages.html</a></p>
+<p>Other usefull sites
+<a href="http://mathamy.com/migrating-to-github-pages-using-pelican.html">http://mathamy.com/migrating-to-github-pages-using-pelican.html</a></p>
+<p>Project pages vs. User pages
+<a href="http://docs.getpelican.com/en/3.3.0/tips.html">http://docs.getpelican.com/en/3.3.0/tips.html</a></p>
+<p><a href="http://magically.us/2013-02-03/creating-a-pelican-powered-site-on-github-pages.html">http://magically.us/2013-02-03/creating-a-pelican-powered-site-on-github-pages.html</a></p>
+<p>needed to change</p>
+<div class="highlight"><pre><span class="n">SITEURL</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//elfnor.github.io/lookthinkmake&#39;</span>
 </pre></div>
 
 
-<p>produces this html:</p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;&lt;img</span> <span class="na">alt=</span><span class="s">&quot;avatar&quot;</span> <span class="na">src=</span><span class="s">&quot;./images/El_Avatar2.jpeg&quot;</span> <span class="nt">/&gt;&lt;/p&gt;</span>
+<p>in <code>publishconf.py</code></p>
+<p>process:</p>
+<p>edit files in ~/lookthinkmake/content etc.</p>
+<p>check it looks OK</p>
+<div class="highlight"><pre><span class="n">source</span> <span class="o">~/</span><span class="n">virtualenvs</span><span class="o">/</span><span class="n">lookthinkmake</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">make</span> <span class="n">devserver</span>
 </pre></div>
 
 
-<p>and aligns an image to the left margin.</p>
-<p><img alt="avatar" src="http://elfnor.github.io/lookthinkmake/images/El_Avatar2.jpeg" /></p>
-<p>The text then continues underneath the image.</p>
-<p>To float an image left or right so that the text flows around the image you can include a style in the attribute list after the image filename.  Pelican automatically has the Attribute Lists extension to markdown enabled.</p>
-<div class="highlight"><pre>![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: style=&quot;float:right; margin: 20px 20px&quot;}
+<p>point browser at <a href="localhost:8000">localhost:8000</a></p>
+<p>to publish</p>
+<div class="highlight"><pre><span class="p">.</span><span class="o">/</span><span class="n">develop_server</span><span class="p">.</span><span class="n">sh</span> <span class="n">stop</span> <span class="err">#</span> <span class="k">if</span> <span class="n">devserver</span> <span class="n">running</span>
+<span class="n">source</span> <span class="o">~/</span><span class="n">virtualenvs</span><span class="o">/</span><span class="n">lookthinkmake</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">activate</span> <span class="err">#</span><span class="k">if</span> <span class="n">not</span> <span class="n">already</span> <span class="n">in</span> <span class="n">virtual</span> <span class="n">env</span>
+<span class="n">cd</span> <span class="n">lookthinkmake</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">content</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;comment on changes&quot;</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
+<span class="n">make</span> <span class="n">github</span>
 </pre></div>
 
 
-<p>produces this html:</p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;&lt;img</span> <span class="na">alt=</span><span class="s">&quot;avatar&quot;</span> <span class="na">src=</span><span class="s">&quot;./images/El_Avatar2_face_left.jpeg&quot;</span> <span class="na">style=</span><span class="s">&quot;float:right; margin: 20px 20px&quot;</span> <span class="nt">/&gt;&lt;/p&gt;</span>
+<p>point browser at <a href="http://elfnor.github.io/lookthinkmake">http://elfnor.github.io/lookthinkmake</a></p>
+<h2>to make a new git repository on github</h2>
+<p>In the directory on my machine:
+add a <code>.gitignore</code> file and a <code>readme.md</code> file to the directory (both optional)</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">init</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">status</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;useful comment&quot;</span>
+<span class="n">git</span> <span class="n">log</span>
 </pre></div>
 
 
-<hr />
-<p><img alt="avatar" src="http://elfnor.github.io/lookthinkmake/images/El_Avatar2_face_left.jpeg" style="float:right; margin: 20px 20px" /></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-<hr />
-<p><img alt="avatar" src="http://elfnor.github.io/lookthinkmake/images/El_Avatar2.jpeg" style="float:left; margin: 20px 20px" /></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<hr />
-<p>Better practive would be to define a pair of styles in the <code>main.css</code> file:</p>
-<div class="highlight"><pre><span class="c">/* Images */</span>
-<span class="nc">.floatright</span> <span class="p">{</span>
-    <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
-    <span class="k">margin</span><span class="o">:</span> <span class="m">20px</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nc">.floatleft</span> <span class="p">{</span>
-    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
-    <span class="k">margin</span><span class="o">:</span> <span class="m">20px</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
-<span class="p">}</span>
+<p>This has created the local repository. Go to github <a href="https://www.github.com/elfnor">https://www.github.com/elfnor</a> login and make a new repository there.</p>
+<p>In the directory on my machine:</p>
+<div class="highlight"><pre><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/elfnor/newreponame.git</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
 </pre></div>
 
 
-<p>Then reference this in the markdown as follows:</p>
-<div class="highlight"><pre>![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: .floatright}
-</pre></div>
-
-
-<hr />
-<p><img alt="avatar" class="floatright" src="http://elfnor.github.io/lookthinkmake/images/El_Avatar2_face_left.jpeg" /></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-<hr />
-<p>There is a pelican plugin called <a href="http://duncanlock.net/blog/2013/05/29/better-figures-images-plugin-for-pelican/">Better Figures and Images</a> but it seems only designed for writing in reStructured Text not markdown.</p>	
+<p>This labels the repo on github as origin. (could be any name) and pushes the repo in the local directory to github.</p>
+<p>The github repo can be deleted from github if you mess up.</p>
+<h2>Project Pages</h2>
+<p>after creating gallery</p>
+<p>with structure</p>
+<p>/home/elfnor/Documents/GIMP </p>
+<p>To make this into project pages, that is viewable with a browser:</p>
+<p><a href="https://help.github.com/articles/creating-project-pages-manually">https://help.github.com/articles/creating-project-pages-manually</a></p>
+<p>$ git clone https://github.com/user/repository.git</p>
+<p>change user and repository to actual names 
+git clone makes a copy of the repo on github on my computer in the sub folder repository. ignore this if the repository already exists locally</p>
+<p>$ cd repository</p>
+<p>$ git checkout --orphan gh-pages</p>
+<p>this makes a new branch of that repository called gh-pages which is an "orphan", not sure what this means, maybe that its empty?</p>
+<blockquote>
+<p>git checkout --orphan newbranch
+Create a new orphan branch, named <new_branch>, and switch to it. The first commit made on this new branch will have no parents and it will be the root of a new history totally disconnected from all the other branches and commits.</p>
+</blockquote>
+<p>git rm -rf .
+Remove all files from the old working tree. This empties the local directory </p>
+<p>copy the files you want on the project pages back into the local directory</p>
+<p>git add .
+add the content to the index for gh-pages branch</p>
+<p>git commit -a -m "First pages commit"
+commit the content to the gh-pages branch</p>
+<p>git push origin gh-pages</p>
+<p>now the github branch gh-pages contains the html files for the gallery</p>
+<p>after this the master branch still contains all the files I put there by accident? need to remove locally and push it back to github?</p>
+<p>Maybe ????</p>
+<p>git checkout master</p>
+<p>delete all the files</p>
+<p>git add -u .</p>
+<p>git commit -a -m "delete master"</p>
+<p>git push origin master</p>
+<p>Yes this worked</p>
+<p>then get the files back in the local directory linked to gh-pages branch</p>
+<p>git checkout gh-pages</p>
+<p>http://yehudakatz.com/2010/05/13/common-git-workflows/</p>	
 
 	</article>
 
@@ -112,7 +144,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "image-alignment-with-markdown.html";
+	       var disqus_identifier = "notes-on-github-publishing.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

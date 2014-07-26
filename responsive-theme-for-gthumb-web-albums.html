@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Reading Lists - Look Think Make</title>	
+	<title>Responsive Theme for gthumb Web Albums - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="I love to read and reading lists fascinate me. I bought a Kindle ereader in 2011 and its resulted in some large changes in my reading habits. I own a lot of paper books, there's 1300+ in the house according to our Readerware database (databases are even fancier lists ...">
+	<meta name="description" content="I want to include a lot of the art works stuff I have on my Deviant Art on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -37,30 +37,40 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Reading Lists</h1>
+		<h1>Responsive Theme for gthumb Web Albums</h1>
 		
 <div class="metadata">
-  <time datetime="2014-01-26T22:00:00" pubdate>Sun 26 January 2014</time>
+  <time datetime="2014-07-26T22:00:00" pubdate>Sat 26 July 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
-  in <a href="http://www.elfnor.com/category/look.html">look</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/ebook.html">ebook</a>, <a href="http://www.elfnor.com/tag/reading.html">reading</a></p></div>		
-		<p>I love to read and reading lists fascinate me.</p>
-<p>I bought a Kindle ereader in 2011 and its resulted in some large changes in my reading habits. I own a lot of paper books, there's 1300+ in the house according to our <a href="http://www.readerware.com">Readerware</a> database (databases are even fancier lists), but pre ereader most of what I read came from the local library. Every three weeks I'd come back with a pile of 6 to 8 books, at least one non-fiction and one book for looking at (art, craft photography). I'd look on the recently returned shelves, the books the librarians had put on display, and keep a special look out for local authors and witers outside the WEIRD (western, educated, industrialised, rich, democratic). So there was a lot of serendipity in what I bought home. I don't think I've been back to the library since I got the ereader.</p>
-<p>Post Kindle, the choice of potential books is huge. Not just from amazon.com. I also make use of <a href="http://www.dotepub.com">dotepub</a> and <a href="http://grabmybooks.com">grabmybooks</a> to make copies of online short stories and blogs to read later. This large choice has a downside in that I'm sure<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> I now read less local authors and more in the science fiction fantasy (sff) genre than previously. The upside is that if I hear about a book then I can be reading it that day<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>.</p>
-<p>Reading lists can be about what someone else thinks you should read (eg. "The Western Canon") or about challenges to change what or how much you read. This blogger's project <a href="http://ayearofreadingtheworld.com">http://ayearofreadingtheworld.com</a> where she read one book from each of the 196 countries in one year and her previus project <a href="http://ayearofreadingwomen.wordpress.com/">http://ayearofreadingwomen.wordpress.com/</a> really inspire me to widen my reading. Being a data freak and a rule bender I'm in the process of going through my ebook collection (stored in <a href="http://calibre-ebook.com/">Calibre</a> - more lists) and tagging the books with the author's country and gender. Any countries I've already bagged in the last year (maybe two years) I'll discount from the 196. After that I'm going to try and fill in the rest not with full novels but as many short stories as possible, preferably ones avaliable online so I can share. I'm sure my bias to sff will prevail and I'll also try for a 50/50 male/female split.</p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>I think if I log on the the local library site I can download a copy of my borrowing history (more lists) and do a comparison of pre and post ereader reading. No, too geeky.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p>Most books. I'll write a post soon about the odd gaps in availability of ebooks for non-USA customers on amazon.com. Also the differences in pricing and how to set up a proxy server on the amazon e3 cloud to help with these issues.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>	
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></p></div>		
+		<p>I want to include a lot of the art works stuff I have on my <a href="http://elfnor.deviantart.com/">Deviant Art</a> on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including <a href="https://github.com/saimn/sigal">sigal</a> and <a href="http://home.gna.org/llgal/">llgal</a> but settled on <a href="https://wiki.gnome.org/Apps/gthumb">gthumb</a>.</p>
+<p>Gthumb is mainly a image viewer and browser for the GNOME desktop, but it also includes a static web album generator. It has themes based on a set of templates and CSS files. </p>
+<p>Of course I couldn't help fiddling with the templates and the Responsive Dark theme is the result. On a wide screen the description is to the right of the image, on a narrow screen the description is below the image. </p>
+<p>The theme requires the description and title for each image to be entered into their respective exif tags. This is easy to do using gthumb itself. You can use some basic html such as <code>&lt;br&gt;</code> tags in the description field to give basic formatting.</p>
+<p>To install the theme, download this <a href="https://github.com/elfnor/gthumb_responsive_theme">repository</a> (see download zip button on the right of the github page). Unzip and copy the <code>Responsive_Dark</code> folder to the gthumb theme location. On my Linux Mint installation this is <code>/usr/share/gthumb/albumthemes/</code></p>
+<p>Start gthumb, choose the files for the web album, select <code>File&gt;Export To&gt;Web Album</code>. Select the <code>Responsive Dark</code> theme from the Theme box. Make sure <code>Adapt to the window width</code> is set on the <code>Index Page</code> tab.</p>
+<p>Other settings I also used:</p>
+<p><code>Index Page</code> tab:</p>
+<ul>
+<li><code>Thumbnail Caption</code>  set to <code>Title</code></li>
+<li><code>All images on a single page</code> set</li>
+</ul>
+<p><code>Image Page</code> tab:</p>
+<ul>
+<li><code>Show the description, if available</code> set</li>
+<li><code>Show the following attributes:</code> set to <code>Title</code></li>
+</ul>
+<h2>Screenshots</h2>
+<h3>Index Page</h3>
+<p><img alt="index screen shots" src="http://www.elfnor.com/images/index_screen.png" /></p>
+<h3>Image Page</h3>
+<p><img alt="image screen shots" src="http://www.elfnor.com/images/image_screen.png" /></p>
+<h2>Demo Album</h2>
+<p>Coming to this blog soon...</p>
+<hr />	
 
 	</article>
 
@@ -68,7 +78,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "reading-lists.html";
+	       var disqus_identifier = "responsive-theme-for-gthumb-web-albums.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -139,9 +149,9 @@
 	          <h2>Categories</h2>
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
-	              <li class="active"><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

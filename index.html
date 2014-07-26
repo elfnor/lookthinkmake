@@ -36,314 +36,34 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/Symmetry Group Links and Notation.html">Symmetry Group Links and Notation</a></h1>
-        <p>There are many great resources on the 17 plane symmetry groups.</p>
-<p>I made great use of a couple of on-line apps while writing my <a href="http://www.elfnor.com/Symmetry Tile plug-in for GIMP.html">Symmetry Tile plug-in.</a></p>
-<h2>Morenaments</h2>
-<p><img alt="morenaments" src="http://www.elfnor.com/images/morenaments.png" /></p>
-<p>This great Java applet can either be used <a href="http://www.morenaments.de/euc/applet">here on-line</a> or <a href="http://www.morenaments.de/euc/">downloaded</a> as a <code>jar</code> file and run locally.</p>
-<p>It allows you to draw on a canvas that automatically completes the chosen symmetry group.Be sure to investigate the menu on the top-right. Selecting tile and/or cell under the grid menu will show these on the pattern canvas and help with seeing the structure underlying a particular symmetry. Look in the manual under help for more information. Be sure to try dragging the coloured dots in the tile view around. These can show how the same symmetry pattern can have different shaped cell or tile.</p>
-<h2>Kali</h2>
-<p><img alt="kali" src="http://www.elfnor.com/images/kali.png" /></p>
-<p>This on-line Java applet can be used <a href="http://www.scienceu.com/geometry/handson/kali/">here</a>. Its much easier to do straight lines in this app. It uses the orbifold notation for the symmetry groups.</p>
-<h2>Books</h2>
-<p>The two books I consulted the most while working on this plug-in were:  </p>
+        <h1><a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html">Responsive Theme for gthumb Web Albums</a></h1>
+        <p>I want to include a lot of the art works stuff I have on my <a href="http://elfnor.deviantart.com/">Deviant Art</a> on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including <a href="https://github.com/saimn/sigal">sigal</a> and <a href="http://home.gna.org/llgal/">llgal</a> but settled on <a href="https://wiki.gnome.org/Apps/gthumb">gthumb</a>.</p>
+<p>Gthumb is mainly a image viewer and browser for the GNOME desktop, but it also includes a static web album generator. It has themes based on a set of templates and CSS files. </p>
+<p>Of course I couldn't help fiddling with the templates and the Responsive Dark theme is the result. On a wide screen the description is to the right of the image, on a narrow screen the description is below the image. </p>
+<p>The theme requires the description and title for each image to be entered into their respective exif tags. This is easy to do using gthumb itself. You can use some basic html such as <code>&lt;br&gt;</code> tags in the description field to give basic formatting.</p>
+<p>To install the theme, download this <a href="https://github.com/elfnor/gthumb_responsive_theme">repository</a> (see download zip button on the right of the github page). Unzip and copy the <code>Responsive_Dark</code> folder to the gthumb theme location. On my Linux Mint installation this is <code>/usr/share/gthumb/albumthemes/</code></p>
+<p>Start gthumb, choose the files for the web album, select <code>File&gt;Export To&gt;Web Album</code>. Select the <code>Responsive Dark</code> theme from the Theme box. Make sure <code>Adapt to the window width</code> is set on the <code>Index Page</code> tab.</p>
+<p>Other settings I also used:</p>
+<p><code>Index Page</code> tab:</p>
 <ul>
-<li><a href="http://www.amazon.com/Handbook-Regular-Patterns-Introduction-Dimensions/dp/0262690888">"Handbook of Regular Patterns: An Introduction to Symmetry in Two Dimensions" by Peter S. Stevens</a>  </li>
-<li><a href="http://www.amazon.com/Designing-Tessellations-Secrets-Interlocking-Patterns/dp/0809228661/">"Designing Tessellations: The Secret of Interlocking Patterns" by Jinny Beyer</a></li>
+<li><code>Thumbnail Caption</code>  set to <code>Title</code></li>
+<li><code>All images on a single page</code> set</li>
 </ul>
-<p>All of these references use different notations and descriptions for the symmetry groups. I've summarised them in the following table for easy reference. The Symmetry Tile plug-in uses the notation in the left most column.</p>
-<h2>Notation for Symmetry Groups</h2>
-<table>
-<thead>
-<tr>
-<th>Crystallography</th>
-<th>full</th>
-<th>Terrazo</th>
-<th>Jinny Beyer's description</th>
-<th>Orbifold</th>
-<th>Peter S. Stevens's description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>p1</td>
-<td>p1</td>
-<td>Gold Brick</td>
-<td>Translation</td>
-<td>o</td>
-<td>Two Nonparallel Translations</td>
-</tr>
-<tr>
-<td>p2</td>
-<td>p211</td>
-<td>Hither &amp; Yon</td>
-<td>Midpoint or Half-Turn Rotation</td>
-<td>2222</td>
-<td>Four Half-Turns</td>
-</tr>
-<tr>
-<td>pm</td>
-<td>p1m1</td>
-<td>Wings</td>
-<td>Mirror</td>
-<td>**</td>
-<td>Two Parallel Mirrors</td>
-</tr>
-<tr>
-<td>pg</td>
-<td>p1g1</td>
-<td>Card Tricks</td>
-<td>Glide</td>
-<td>xx</td>
-<td>Two Parallel Glide Reflections</td>
-</tr>
-<tr>
-<td>pgg</td>
-<td>p2gg</td>
-<td>Honey Bees</td>
-<td>Double Glide</td>
-<td>22x</td>
-<td>Two Perpendicular Glide Reflections</td>
-</tr>
-<tr>
-<td>pmm</td>
-<td>p2mm</td>
-<td>Prickly Pear</td>
-<td>Double Mirror</td>
-<td>*2222</td>
-<td>Reflections in Four Sides of a Rectangle</td>
-</tr>
-<tr>
-<td>pmg</td>
-<td>p2mg</td>
-<td>Lightning</td>
-<td>Glided Staggered Mirror</td>
-<td>22*</td>
-<td>A Mirror and a Perpendicular Reflection</td>
-</tr>
-<tr>
-<td>cm</td>
-<td>c1m1</td>
-<td>Crab Claws</td>
-<td>Staggered Mirror</td>
-<td>*x</td>
-<td>A Reflection and a Parallel Glide Reflection</td>
-</tr>
-<tr>
-<td>cmm</td>
-<td>c2mm</td>
-<td>Spider Web</td>
-<td>Staggered Double Mirror</td>
-<td>2*22</td>
-<td>Perpendicular Mirrors and Perpendicular Glide Reflections</td>
-</tr>
-<tr>
-<td>p4</td>
-<td>p4gm</td>
-<td>Pinwheel</td>
-<td>Pinwheel or Quarter-Turn Rotation</td>
-<td>442</td>
-<td>Quarter-Turns</td>
-</tr>
-<tr>
-<td>p3m1</td>
-<td>p3m1</td>
-<td>Winding Ways</td>
-<td>Mirror and Three Rotations</td>
-<td>*333</td>
-<td>Reflections in an Equilateral Triangle</td>
-</tr>
-<tr>
-<td>p3</td>
-<td>p3</td>
-<td>Storm at Sea</td>
-<td>Three Rotation</td>
-<td>333</td>
-<td>Three Rotations through 120°</td>
-</tr>
-<tr>
-<td>p4g</td>
-<td>p4gm</td>
-<td>Primrose Path</td>
-<td>Mirrored Pinwheel</td>
-<td>4*2</td>
-<td>Reflections of Quarter-Turns</td>
-</tr>
-<tr>
-<td>p4m</td>
-<td>p4mm</td>
-<td>Sunflower</td>
-<td>Traditional Block</td>
-<td>*442</td>
-<td>Reflections on the Sides of a 45°-45°-90° Triangle</td>
-</tr>
-<tr>
-<td>p6</td>
-<td>p6</td>
-<td>Whirlpool</td>
-<td>Six Rotation</td>
-<td>632</td>
-<td>Sixfold Rotation</td>
-</tr>
-<tr>
-<td>p31m</td>
-<td>p31m</td>
-<td>Monkey Wrench</td>
-<td>Three Rotations and a Mirror</td>
-<td>3*3</td>
-<td>Refections of 120° Turns</td>
-</tr>
-<tr>
-<td>p6m</td>
-<td>p6mm</td>
-<td>Turnstile</td>
-<td>Kaleidoscope</td>
-<td>*632</td>
-<td>Refections in the Sides of a 30°-60°-90° Triangle</td>
-</tr>
-</tbody>
-</table>
-<p>The symmetry groups that can be made with rectangular or square cells can be defined using the <a href="http://www.elfnor.com/Symmetry Tile plug-in for GIMP.html#bdpq">"bdpq" notation</a>. If the "bdpq" string contains a plus sign then the cell must be square. The strings for all the symmetry groups start with a "b". Each of the symmetry groups could be created with an alternative string starting with one of the other letters.</p>
-<p>The 32 strings here are this produced by the Symmetry Tile plugin when "all square cells" is selected and "Multiple" is set to "Yes". When "Multiple" is set to "No" only one string from each symmetry group is used.</p>
-<table>
-  <tr>
-    <th>Symmetry Group</th>
-    <th>bdpq string</th>
-  </tr>
-  <tr>
-    <td>p1</td>
-    <td>b</td>
-  </tr>
-  <tr>
-    <td>p2</td>
-    <td>bq</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>b|q</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bq|qb</td>
-  </tr>
-  <tr>
-    <td>pm</td>
-    <td>bd</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>b|p</td>
-  </tr>
-  <tr>
-    <td>cm</td>
-    <td>bp|pb</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bd|db</td>
-  </tr>
-  <tr>
-    <td>cmm</td>
-    <td>bdpq|pqbd</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bd|qp|db|pq</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bqpd|pdbq</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bd|pq|db|qp</td>
-  </tr>
-  <tr>
-    <td>pg</td>
-    <td>bp</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>b|d</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bd+|d+b</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bp+|p+b</td>
-  </tr>
-  <tr>
-    <td>pgg</td>
-    <td>bp|dq</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bq|dp</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bp|qd</td>
-  </tr>
-  <tr>
-    <td>pmg</td>
-    <td>bd|qp</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>b|p|d|q</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>b|q|d|p</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bdpq</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bqpd</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bq|pd</td>
-  </tr>
-  <tr>
-    <td>pmm</td>
-    <td>bd|pq</td>
-  </tr>
-  <tr>
-    <td>p4</td>
-    <td>bb+|q+q</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bq+|b+q</td>
-  </tr>
-  <tr>
-    <td>p4g</td>
-    <td>bdp+b+|pqq+d+|p+b+bd|q+d+pq</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bdd+q+|b+p+pq|d+q+bd|pqb+p+</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bb+p+d|q+qpd+|p+dbb+|pd+q+q</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>bq+d+d|pp+b+q|d+dbq+|b+qpp+</td>
-  </tr>
-</table>
-
+<p><code>Image Page</code> tab:</p>
+<ul>
+<li><code>Show the description, if available</code> set</li>
+<li><code>Show the following attributes:</code> set to <code>Title</code></li>
+</ul>
+<h2>Screenshots</h2>
+<h3>Index Page</h3>
+<p><img alt="index screen shots" src="http://www.elfnor.com/images/index_screen.png" /></p>
+<h3>Image Page</h3>
+<p><img alt="image screen shots" src="http://www.elfnor.com/images/image_screen.png" /></p>
+<h2>Demo Album</h2>
+<p>Coming to this blog soon...</p>
 <hr />
-	<a href="http://www.elfnor.com/Symmetry Group Links and Notation.html">Permalink, </a>
-	<a href="http://www.elfnor.com/Symmetry Group Links and Notation.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html">Permalink, </a>
+	<a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -352,6 +72,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/Symmetry Group Links and Notation.html" rel="bookmark" title="Permalink to Symmetry Group Links and Notation">Symmetry Group Links and Notation</a>
+  <time datetime="2014-07-18T22:00:00" pubdate>Fri 18 July 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
 
 
       <li>
@@ -378,10 +104,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/pelican.html">pelican  </a><a href="http://www.elfnor.com/tag/markdown.html">markdown  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/pelican-and-markdown-styling-cheat-sheet.html" rel="bookmark" title="Permalink to Pelican and markdown styling cheat-sheet">Pelican and markdown styling cheat-sheet</a>
-  <time datetime="2014-06-19T22:00:00" pubdate>Thu 19 June 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/pelican.html">pelican  </a><a href="http://www.elfnor.com/tag/markdown.html">markdown  </a></p></a>      </li>
 
 
 
@@ -404,6 +126,12 @@
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html" rel="bookmark" title="Permalink to Responsive Theme for gthumb Web Albums">Responsive Theme for gthumb Web Albums</a>
+  <time datetime="2014-07-26T22:00:00" pubdate>Sat 26 July 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/webalbum.html">webalbum  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/Symmetry Group Links and Notation.html" rel="bookmark" title="Permalink to Symmetry Group Links and Notation">Symmetry Group Links and Notation</a>
@@ -440,11 +168,6 @@
   <time datetime="2014-06-19T22:00:00" pubdate>Thu 19 June 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/pelican.html">pelican  </a><a href="http://www.elfnor.com/tag/markdown.html">markdown  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/Cat Scan.html" rel="bookmark" title="Permalink to Cat Scan">Cat Scan</a>
-  <time datetime="2014-06-13T22:00:00" pubdate>Fri 13 June 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/cats.html">cats  </a><a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/materials.html">materials  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D printing  </a></p></a>      			      </li>
 		
 		
 		

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'elfnor'
 SITENAME = u'Look Think Make'
-SITEURL = 'http://elfnor.github.io/lookthinkmake/'
+SITEURL = ''
 
 TIMEZONE = 'Pacific/Auckland'
 
@@ -40,8 +40,10 @@ DEFAULT_PAGINATION = False
 # static paths will be copied under the same name
 STATIC_PATHS = ["images", "extra"]
 
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 
+EXTRA_PATH_METADATA = {
+        'extra/CNAME': {'path': 'CNAME'},
+        }
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True

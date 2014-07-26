@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Archives for {{ SITENAME }}</h1>
+
+
+{% for article in dates %}
+    {% include 'article_summary.inc.html' %}
+{% endfor %}
+
+{% include 'pagination.inc.html' %}
+{% endblock %}
+
+
+

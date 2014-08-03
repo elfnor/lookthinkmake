@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 26 Jul 2014 22:00:00 +1200</lastBuildDate><item><title>Responsive Theme for gthumb Web Albums</title><link>http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html</link><description>&lt;p&gt;I want to include a lot of the art works stuff I have on my &lt;a href="http://elfnor.deviantart.com/"&gt;Deviant Art&lt;/a&gt; on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; and &lt;a href="http://home.gna.org/llgal/"&gt;llgal&lt;/a&gt; but settled on &lt;a href="https://wiki.gnome.org/Apps/gthumb"&gt;gthumb&lt;/a&gt;.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 03 Aug 2014 22:00:00 +1200</lastBuildDate><item><title>Parametric Surfaces in Blender</title><link>http://www.elfnor.com/parametric-surfaces-in-blender.html</link><description>&lt;p&gt;The &lt;a href="http://www.blender.org/"&gt;Blender&lt;/a&gt; 3D modeling and rendering package has an add-on for mathematically defined surfaces. It is enabled via the Extra Objects add-on under &lt;code&gt;File &amp;gt; User Preferences&amp;gt; Addons&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;XYZ Math Surface&lt;/code&gt; can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables &lt;mathjax&gt;$u$&lt;/mathjax&gt; and &lt;mathjax&gt;$v$&lt;/mathjax&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;mathjax&gt;$$
+x = X(u,v)
+$$&lt;/mathjax&gt;
+&lt;mathjax&gt;$$
+y = Y(u,v)
+$$&lt;/mathjax&gt;
+&lt;mathjax&gt;$$
+z = Z(u,v)
+$$&lt;/mathjax&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;a href="http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Add_Mesh/Add_3d_Function_Surface"&gt;documentation page&lt;/a&gt; for the add-on has a number of example surfaces, but there are a lot more interesting named surfaces out there.&lt;/p&gt;
+&lt;p&gt;Its fairly easy to enter any formulae you find for a parametric 3D surface into Blender and save it as an &lt;code&gt;Operator Preset&lt;/code&gt;. I've uploaded my collection of saved presets to a github &lt;a href="https://github.com/elfnor/blender_XYZ_surface_presets"&gt;repo&lt;/a&gt;. I haven't included every named surface out there, just ones I think might make interesting images. &lt;/p&gt;
+&lt;p&gt;Here are a couple of images produced using the XYZ Math Surface add-on.&lt;/p&gt;
+&lt;h2&gt;Dini&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="Dini Surface" src="images/dini_01.png" /&gt;&lt;/p&gt;
+&lt;h2&gt;Twisted Torus&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="twisted torus" src="images/twisted_torus_02.png" /&gt;&lt;/p&gt;
+&lt;h2&gt;Stereosphere&lt;/h2&gt;
+&lt;p&gt;A stereosphere is the projection of a plane grid onto a sphere with the projection lines going through the top pole of the sphere. In the following image there is a point source light at the north pole of the stereosphere (the light is represented by the yellow dot). This light then does a stereographic projection of the sphere back onto the plane producing the grid present on the ground plane.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="stereosphere" src="images/stereosphere_01.png" /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;div&gt;&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https:' == document.location.protocol
+                ? 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+                : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Sun, 03 Aug 2014 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2014-08-03:parametric-surfaces-in-blender.html</guid><category>make</category><category>think</category><category>blender</category></item><item><title>Responsive Theme for gthumb Web Albums</title><link>http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html</link><description>&lt;p&gt;I want to include a lot of the art works stuff I have on my &lt;a href="http://elfnor.deviantart.com/"&gt;Deviant Art&lt;/a&gt; on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; and &lt;a href="http://home.gna.org/llgal/"&gt;llgal&lt;/a&gt; but settled on &lt;a href="https://wiki.gnome.org/Apps/gthumb"&gt;gthumb&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Gthumb is mainly a image viewer and browser for the GNOME desktop, but it also includes a static web album generator. It has themes based on a set of templates and CSS files. &lt;/p&gt;
 &lt;p&gt;Of course I couldn't help fiddling with the templates and the Responsive Dark theme is the result. On a wide screen the description is to the right of the image, on a narrow screen the description is below the image. &lt;/p&gt;
 &lt;p&gt;The theme requires the description and title for each image to be entered into their respective exif tags. This is easy to do using gthumb itself. You can use some basic html such as &lt;code&gt;&amp;lt;br&amp;gt;&lt;/code&gt; tags in the description field to give basic formatting.&lt;/p&gt;

@@ -37,60 +37,44 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/parametric-surfaces-in-blender.html">Parametric Surfaces in Blender</a></h1>
-        <p>The <a href="http://www.blender.org/">Blender</a> 3D modeling and rendering package has an add-on for mathematically defined surfaces. It is enabled via the Extra Objects add-on under <code>File &gt; User Preferences&gt; Addons</code>.</p>
-<p>The <code>XYZ Math Surface</code> can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables <mathjax>$u$</mathjax> and <mathjax>$v$</mathjax>:</p>
-<p><mathjax>$$
-x = X(u,v)
-$$</mathjax>
-<mathjax>$$
-y = Y(u,v)
-$$</mathjax>
-<mathjax>$$
-z = Z(u,v)
-$$</mathjax></p>
-<p>The <a href="http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Add_Mesh/Add_3d_Function_Surface">documentation page</a> for the add-on has a number of example surfaces, but there are a lot more interesting named surfaces out there.</p>
-<p>Its fairly easy to enter any formulae you find for a parametric 3D surface into Blender and save it as an <code>Operator Preset</code>. I've uploaded my collection of saved presets to a github <a href="https://github.com/elfnor/blender_XYZ_surface_presets">repo</a>. I haven't included every named surface out there, just ones I think might make interesting images. </p>
-<p>Here are a couple of images produced using the XYZ Math Surface add-on.</p>
-<h2>Dini</h2>
-<p><img alt="Dini Surface" src="images/dini_01.png" /></p>
-<h2>Twisted Torus</h2>
-<p><img alt="twisted torus" src="images/twisted_torus_02.png" /></p>
-<h2>Stereosphere</h2>
-<p>A stereosphere is the projection of a plane grid onto a sphere with the projection lines going through the top pole of the sphere. In the following image there is a point source light at the north pole of the stereosphere (the light is represented by the yellow dot). This light then does a stereographic projection of the sphere back onto the plane producing the grid present on the ground plane.</p>
-<p><img alt="stereosphere" src="images/stereosphere_01.png" /></p>
-<hr />
-<div><script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https:' == document.location.protocol
-                ? 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-                : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: 'center'," +
-        "    displayIndent: '0em'," +
-        "    showMathMenu: true," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['$','$'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
-        "    } " +
-        "}); ";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script></div>
-	<a href="http://www.elfnor.com/parametric-surfaces-in-blender.html">Permalink, </a>
-	<a href="http://www.elfnor.com/parametric-surfaces-in-blender.html#disqus_thread">Comments</a>
+        <h1><a href="http://www.elfnor.com/copy-2-add-on-for-blender.html">Copy 2 add-on for blender</a></h1>
+        <p>After forgetting about it for a few years I found my old "copy 2" blender python script. (there's an old thread <a href="http://blenderartists.org/forum/showthread.php?193616-Copy-object-to-face-edge-or-vertex-script-%28updated-to-2-5-3-1%29">here</a>).</p>
+<p>I've completely rewritten it into a proper add-on with a panel interface. It now works in Blender 2.71. It can be downloaded from my github repository <a href="https://github.com/elfnor/copy2_blender_addon">here</a>.</p>
+<p>The add-on copies an object to either the selected vertices, edges or faces of another object. Here are a couple of examples of the kind of output possible.</p>
+<p><img alt="radiolaria" src="images/radiolaria.png" /></p>
+<p>To produce this image an icosphere with a single subdivision was used as the destination object. The spike is an edited cone and was copied to the vertices, the silver torus was copied to the faces and the gold rings to the edges of the icosphere. The icosphere was then deleted.</p>
+<p>By making use of the random select in edit mode prior to using Copy 2 and the randomize transform afterwards, the add-on can be used to quickly greeble objects.</p>
+<p>It can also be used to make ball and stick models of a mesh. Copy a sphere to the vertices and a cylinder to the edges. When copy to an edge is selected, the additional option to scale an object to the edge length is given.</p>
+<p><img alt="twisted torus" src="images/twisted_torus.png" /></p>
+<h2>Basic steps</h2>
+<p><img alt="screenshot" src="images/screenshot.png" /></p>
+<p>Install the add-on through the User Preferences dialog.</p>
+<p>Create a destination object, use <code>CTRL-A</code> to apply any scale and rotation to the object.<br />
+In <code>EDIT</code> mode select the vertices, edges or faces to which you want to copy the source object.  </p>
+<p>Create a source object,<br />
+In <code>EDIT</code> mode move the object relative to the object origin. The object origin is the point that is copied onto the mesh.<br />
+In <code>OBJECT</code> mode use <code>CTRL-A</code> to apply any scale and rotation to the source object.  </p>
+<p>Select the destination object, and run the add-on, <code>Object &gt; Copy 2</code>.<br />
+A sub panel will appear on the tool panel.<br />
+Choose the source object from the drop down menu.<br />
+Choose by selecting the appropriate icon, whether to copy to the vertices, edges or faces of the destination object.<br />
+Select the primary and secondary axes to determine the orientation of the source object with respect to the normals of the destination object.  </p>
+<p>For the vertex option;<br />
+the primary axis is aligned along the vertex normal;<br />
+the secondary axis is aligned to point along one edge of the mesh.</p>
+<p>For the edge option;<br />
+the primary axis is aligned along the average of the edge's vertex normals;<br />
+the secondary axis is aligned along the edge.</p>
+<p>In edge mode, the option to scale the source object to the length of the edge appears.
+One can also change the scale factor.</p>
+<p>For the face option; <br />
+the primary axis is aligned along the face normal;<br />
+the secondary axis is aligned to point to one vertex of the face.</p>
+<p>Otherwise click the axes alignment buttons until it looks right.</p>
+<p>When finished the copied objects are selected, if desired further operators can be applied such as the <code>Object &gt; Transform &gt; Randomize Transform</code>.</p>
+<p>The copied objects' data are also linked to the source object.  This is useful to make further refinements to the scale or position of the source mesh relative to the source object origin.  If this is not desired they can easily be unlinked. Select them all (select one, then <code>Select &gt; Linked &gt; Object Data</code>) then <code>Object &gt; Make Single User &gt; Object &amp; Data</code> for one mesh per object.</p>
+	<a href="http://www.elfnor.com/copy-2-add-on-for-blender.html">Permalink, </a>
+	<a href="http://www.elfnor.com/copy-2-add-on-for-blender.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -99,6 +83,12 @@ $$</mathjax></p>
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/parametric-surfaces-in-blender.html" rel="bookmark" title="Permalink to Parametric Surfaces in Blender">Parametric Surfaces in Blender</a>
+  <time datetime="2014-08-03T22:00:00" pubdate>Sun 03 August 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
 
 
       <li>
@@ -125,10 +115,6 @@ $$</mathjax></p>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/Symmetry Tile plug-in for GIMP.html" rel="bookmark" title="Permalink to Symmetry Tile plug-in for GIMP">Symmetry Tile plug-in for GIMP</a>
-  <time datetime="2014-07-05T22:00:00" pubdate>Sat 05 July 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
 
 
 
@@ -155,6 +141,12 @@ $$</mathjax></p>
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/copy-2-add-on-for-blender.html" rel="bookmark" title="Permalink to Copy 2 add-on for blender">Copy 2 add-on for blender</a>
+  <time datetime="2014-09-02T22:00:00" pubdate>Tue 02 September 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/copy2.html">copy2  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/parametric-surfaces-in-blender.html" rel="bookmark" title="Permalink to Parametric Surfaces in Blender">Parametric Surfaces in Blender</a>
@@ -191,11 +183,6 @@ $$</mathjax></p>
   <time datetime="2014-07-05T22:00:00" pubdate>Sat 05 July 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/image-alignment-with-markdown.html" rel="bookmark" title="Permalink to Image alignment with markdown">Image alignment with markdown</a>
-  <time datetime="2014-06-21T22:00:00" pubdate>Sat 21 June 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/pelican.html">pelican  </a><a href="http://www.elfnor.com/tag/markdown.html">markdown  </a></p></a>      			      </li>
 		
 		
 		

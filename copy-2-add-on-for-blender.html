@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>The almost invisible kite - Look Think Make</title>	
+	<title>Copy 2 add-on for blender - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="Polythene sheeting, the type you buy at a garden shop that's about 125 μm thick, is great for kite making. It comes in black and clear, the black is boring but the clear can be a bit hard to photograph against the sky.">
+	<meta name="description" content="After forgetting about it for a few years I found my old "copy 2" blender python script. (there's an old thread here). I've completely rewritten it into a proper add-on with a panel interface. It now works in Blender 2.71. It can be downloaded from my github ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,23 +38,50 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>The almost invisible kite</h1>
+		<h1>Copy 2 add-on for blender</h1>
 		
 <div class="metadata">
-  <time datetime="2014-01-31T22:00:00" pubdate>Fri 31 January 2014</time>
+  <time datetime="2014-09-02T22:00:00" pubdate>Tue 02 September 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
-  in <a href="http://www.elfnor.com/category/make.html">make</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/kites.html">kites</a></p></div>		
-		<p><img alt="parasled" class="floatleft" src="http://www.elfnor.com/images/parasled.jpg" /></p>
-<p>Polythene sheeting, the type you buy at a garden shop that's about 125 μm thick, is great for kite making. It comes in black and clear, the black is boring but the clear can be a bit hard to photograph against the sky.</p>
-<p>This kite is a cross between a sled and a para foil. I based it on plans found <a href="http://www.kiteplans.org/pln_1074/">here</a>. The instructions are in French but fairly easy to follow with the help of a dictionary or google translate if you don't read French.</p>
-<p>I combined the pattern for the Dos (back) and the tubes into one piece. Draw them up directly onto the polythene with a felt pen. If you're likely to make more than one it might be worth making a paper pattern. Draw the seam lines onto the sheet. Then cut the two pieces out of the polythene and sew them together with four lines of machine stitching.</p>
-<p>The polythene is pretty slippery on the sewing machine. Use a long stitch length and keep one hand behind the needle and one in front feeding the material through.</p>
-<p>I reinforced the front edge with some left over end lengths of line trimmer line. This is nylon line about 2.5 mm in diameter used in line trimmer for cutting weeds. Pick some up at the garden shop when you get the polythene if you haven' got any sitting about.  I stuck the line to the front edges with squares of duct tape. These didn't hold all that well so I stapled through each square to hold it in place.</p>
-<p>You'll also need a drogue, mine is a truncated cone, about 400 mm long, top circumference 500 mm, bottom circumference 300 mm. Sew two sections together and add line trimmer line along the leading edge as for the main kite.</p>
-<p>That's it. No spars, or dowels. It flies fairly well in most winds. I intend to use it to do some kite photography. Maybe with some first person view camera gear.</p>	
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/copy2.html">copy2</a></p></div>		
+		<p>After forgetting about it for a few years I found my old "copy 2" blender python script. (there's an old thread <a href="http://blenderartists.org/forum/showthread.php?193616-Copy-object-to-face-edge-or-vertex-script-%28updated-to-2-5-3-1%29">here</a>).</p>
+<p>I've completely rewritten it into a proper add-on with a panel interface. It now works in Blender 2.71. It can be downloaded from my github repository <a href="https://github.com/elfnor/copy2_blender_addon">here</a>.</p>
+<p>The add-on copies an object to either the selected vertices, edges or faces of another object. Here are a couple of examples of the kind of output possible.</p>
+<p><img alt="radiolaria" src="images/radiolaria.png" /></p>
+<p>To produce this image an icosphere with a single subdivision was used as the destination object. The spike is an edited cone and was copied to the vertices, the silver torus was copied to the faces and the gold rings to the edges of the icosphere. The icosphere was then deleted.</p>
+<p>By making use of the random select in edit mode prior to using Copy 2 and the randomize transform afterwards, the add-on can be used to quickly greeble objects.</p>
+<p>It can also be used to make ball and stick models of a mesh. Copy a sphere to the vertices and a cylinder to the edges. When copy to an edge is selected, the additional option to scale an object to the edge length is given.</p>
+<p><img alt="twisted torus" src="images/twisted_torus.png" /></p>
+<h2>Basic steps</h2>
+<p><img alt="screenshot" src="images/screenshot.png" /></p>
+<p>Install the add-on through the User Preferences dialog.</p>
+<p>Create a destination object, use <code>CTRL-A</code> to apply any scale and rotation to the object.<br />
+In <code>EDIT</code> mode select the vertices, edges or faces to which you want to copy the source object.  </p>
+<p>Create a source object,<br />
+In <code>EDIT</code> mode move the object relative to the object origin. The object origin is the point that is copied onto the mesh.<br />
+In <code>OBJECT</code> mode use <code>CTRL-A</code> to apply any scale and rotation to the source object.  </p>
+<p>Select the destination object, and run the add-on, <code>Object &gt; Copy 2</code>.<br />
+A sub panel will appear on the tool panel.<br />
+Choose the source object from the drop down menu.<br />
+Choose by selecting the appropriate icon, whether to copy to the vertices, edges or faces of the destination object.<br />
+Select the primary and secondary axes to determine the orientation of the source object with respect to the normals of the destination object.  </p>
+<p>For the vertex option;<br />
+the primary axis is aligned along the vertex normal;<br />
+the secondary axis is aligned to point along one edge of the mesh.</p>
+<p>For the edge option;<br />
+the primary axis is aligned along the average of the edge's vertex normals;<br />
+the secondary axis is aligned along the edge.</p>
+<p>In edge mode, the option to scale the source object to the length of the edge appears.
+One can also change the scale factor.</p>
+<p>For the face option; <br />
+the primary axis is aligned along the face normal;<br />
+the secondary axis is aligned to point to one vertex of the face.</p>
+<p>Otherwise click the axes alignment buttons until it looks right.</p>
+<p>When finished the copied objects are selected, if desired further operators can be applied such as the <code>Object &gt; Transform &gt; Randomize Transform</code>.</p>
+<p>The copied objects' data are also linked to the source object.  This is useful to make further refinements to the scale or position of the source mesh relative to the source object origin.  If this is not desired they can easily be unlinked. Select them all (select one, then <code>Select &gt; Linked &gt; Object Data</code>) then <code>Object &gt; Make Single User &gt; Object &amp; Data</code> for one mesh per object.</p>	
 
 	</article>
 
@@ -62,7 +89,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "the-almost-invisible-kite.html";
+	       var disqus_identifier = "copy-2-add-on-for-blender.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -136,8 +163,8 @@
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
-	              <li class="active"><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

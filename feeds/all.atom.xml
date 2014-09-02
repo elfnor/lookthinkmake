@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/all.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2014-08-03T22:00:00+12:00</updated><entry><title>Parametric Surfaces in Blender</title><link href="http://www.elfnor.com/parametric-surfaces-in-blender.html" rel="alternate"></link><updated>2014-08-03T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2014-08-03:parametric-surfaces-in-blender.html</id><summary type="html">&lt;p&gt;The &lt;a href="http://www.blender.org/"&gt;Blender&lt;/a&gt; 3D modeling and rendering package has an add-on for mathematically defined surfaces. It is enabled via the Extra Objects add-on under &lt;code&gt;File &amp;gt; User Preferences&amp;gt; Addons&lt;/code&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/all.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2014-09-02T22:00:00+12:00</updated><entry><title>Copy 2 add-on for blender</title><link href="http://www.elfnor.com/copy-2-add-on-for-blender.html" rel="alternate"></link><updated>2014-09-02T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2014-09-02:copy-2-add-on-for-blender.html</id><summary type="html">&lt;p&gt;After forgetting about it for a few years I found my old "copy 2" blender python script. (there's an old thread &lt;a href="http://blenderartists.org/forum/showthread.php?193616-Copy-object-to-face-edge-or-vertex-script-%28updated-to-2-5-3-1%29"&gt;here&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;I've completely rewritten it into a proper add-on with a panel interface. It now works in Blender 2.71. It can be downloaded from my github repository &lt;a href="https://github.com/elfnor/copy2_blender_addon"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The add-on copies an object to either the selected vertices, edges or faces of another object. Here are a couple of examples of the kind of output possible.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="radiolaria" src="images/radiolaria.png" /&gt;&lt;/p&gt;
+&lt;p&gt;To produce this image an icosphere with a single subdivision was used as the destination object. The spike is an edited cone and was copied to the vertices, the silver torus was copied to the faces and the gold rings to the edges of the icosphere. The icosphere was then deleted.&lt;/p&gt;
+&lt;p&gt;By making use of the random select in edit mode prior to using Copy 2 and the randomize transform afterwards, the add-on can be used to quickly greeble objects.&lt;/p&gt;
+&lt;p&gt;It can also be used to make ball and stick models of a mesh. Copy a sphere to the vertices and a cylinder to the edges. When copy to an edge is selected, the additional option to scale an object to the edge length is given.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="twisted torus" src="images/twisted_torus.png" /&gt;&lt;/p&gt;
+&lt;h2&gt;Basic steps&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="screenshot" src="images/screenshot.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Install the add-on through the User Preferences dialog.&lt;/p&gt;
+&lt;p&gt;Create a destination object, use &lt;code&gt;CTRL-A&lt;/code&gt; to apply any scale and rotation to the object.&lt;br /&gt;
+In &lt;code&gt;EDIT&lt;/code&gt; mode select the vertices, edges or faces to which you want to copy the source object.  &lt;/p&gt;
+&lt;p&gt;Create a source object,&lt;br /&gt;
+In &lt;code&gt;EDIT&lt;/code&gt; mode move the object relative to the object origin. The object origin is the point that is copied onto the mesh.&lt;br /&gt;
+In &lt;code&gt;OBJECT&lt;/code&gt; mode use &lt;code&gt;CTRL-A&lt;/code&gt; to apply any scale and rotation to the source object.  &lt;/p&gt;
+&lt;p&gt;Select the destination object, and run the add-on, &lt;code&gt;Object &amp;gt; Copy 2&lt;/code&gt;.&lt;br /&gt;
+A sub panel will appear on the tool panel.&lt;br /&gt;
+Choose the source object from the drop down menu.&lt;br /&gt;
+Choose by selecting the appropriate icon, whether to copy to the vertices, edges or faces of the destination object.&lt;br /&gt;
+Select the primary and secondary axes to determine the orientation of the source object with respect to the normals of the destination object.  &lt;/p&gt;
+&lt;p&gt;For the vertex option;&lt;br /&gt;
+the primary axis is aligned along the vertex normal;&lt;br /&gt;
+the secondary axis is aligned to point along one edge of the mesh.&lt;/p&gt;
+&lt;p&gt;For the edge option;&lt;br /&gt;
+the primary axis is aligned along the average of the edge's vertex normals;&lt;br /&gt;
+the secondary axis is aligned along the edge.&lt;/p&gt;
+&lt;p&gt;In edge mode, the option to scale the source object to the length of the edge appears.
+One can also change the scale factor.&lt;/p&gt;
+&lt;p&gt;For the face option; &lt;br /&gt;
+the primary axis is aligned along the face normal;&lt;br /&gt;
+the secondary axis is aligned to point to one vertex of the face.&lt;/p&gt;
+&lt;p&gt;Otherwise click the axes alignment buttons until it looks right.&lt;/p&gt;
+&lt;p&gt;When finished the copied objects are selected, if desired further operators can be applied such as the &lt;code&gt;Object &amp;gt; Transform &amp;gt; Randomize Transform&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The copied objects' data are also linked to the source object.  This is useful to make further refinements to the scale or position of the source mesh relative to the source object origin.  If this is not desired they can easily be unlinked. Select them all (select one, then &lt;code&gt;Select &amp;gt; Linked &amp;gt; Object Data&lt;/code&gt;) then &lt;code&gt;Object &amp;gt; Make Single User &amp;gt; Object &amp;amp; Data&lt;/code&gt; for one mesh per object.&lt;/p&gt;</summary><category term="make"></category><category term="think"></category><category term="copy2"></category></entry><entry><title>Parametric Surfaces in Blender</title><link href="http://www.elfnor.com/parametric-surfaces-in-blender.html" rel="alternate"></link><updated>2014-08-03T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2014-08-03:parametric-surfaces-in-blender.html</id><summary type="html">&lt;p&gt;The &lt;a href="http://www.blender.org/"&gt;Blender&lt;/a&gt; 3D modeling and rendering package has an add-on for mathematically defined surfaces. It is enabled via the Extra Objects add-on under &lt;code&gt;File &amp;gt; User Preferences&amp;gt; Addons&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;XYZ Math Surface&lt;/code&gt; can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables &lt;mathjax&gt;$u$&lt;/mathjax&gt; and &lt;mathjax&gt;$v$&lt;/mathjax&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;mathjax&gt;$$
 x = X(u,v)

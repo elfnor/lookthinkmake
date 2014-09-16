@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Drop down and button select menus for Blender Operator add-ons - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="Note: Examples were tested in Blender 2.71 running on Linux Mint. While making the fancy new interface for my copy2 add-on I needed to work out how to display choices to the user. There are many examples around for drop down menus etc. So many examples that I got ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/drop-down-and-button-select-menus-for-blender-operator-add-ons.html">Drop down and button select menus for Blender Operator add-ons</a></h1>
-        <p>Note: Examples were tested in Blender 2.71 running on Linux Mint.</p>
+	<article class="full">
+			
+		<h1>Drop down and button select menus for Blender Operator add-ons</h1>
+		
+<div class="metadata">
+  <time datetime="2014-09-14T22:00:00" pubdate>Sun 14 September 2014</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/copy2.html">copy2</a></p></div>		
+		<p>Note: Examples were tested in Blender 2.71 running on Linux Mint.</p>
 <p>While making the fancy new interface for my <a href="http://elfnor.com/copy-2-add-on-for-blender.html">copy2 add-on</a> I needed to work out how to display choices to the user. There are many examples around for drop down menus etc. So many examples that I got rather confused to start with. Here is my best attempt at simplifying this to the essentials.</p>
 <p>If you're new to writing an operator add-on this is the best place to start is with this add-on tutorial at <a href="http://www.blender.org/documentation/blender_python_api_2_71_release/info_tutorial_addon.html">blender.org</a></p>
 <p>Any add-on tool you write to add new objects or manipulate objects will typically be a blender <code>Operator</code> class. This will give you a tool that can be accessed from the existing menus or via a keyboard shortcut. This class gives heaps of functionality such as an easily constructed options panel for the user to interact with and automatically see their changes update.  </p>
@@ -312,69 +321,22 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 
 <h2>Selections changing which properties are displayed</h2>
 <p>Another way the panel can be made responsive to user selection, is to offer additional properties based on what selections are already made. In the Copy2 plugin the scale options only work in edge mode, so I made it so they are only drawn when edge mode is selected. This is done with some <code>if</code> statements in the draw method.</p>
-<p>For a example of all these ideas in a real add-on have a look at the source code of the <a href="">Copy2 add-on</a></p>
-	<a href="http://www.elfnor.com/drop-down-and-button-select-menus-for-blender-operator-add-ons.html">Permalink, </a>
-	<a href="http://www.elfnor.com/drop-down-and-button-select-menus-for-blender-operator-add-ons.html#disqus_thread">Comments</a>
-      </article>
+<p>For a example of all these ideas in a real add-on have a look at the source code of the <a href="">Copy2 add-on</a></p>	
 
-      <hr />
+	</article>
 
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/copy-2-add-on-for-blender.html" rel="bookmark" title="Permalink to Copy 2 add-on for blender">Copy 2 add-on for blender</a>
-  <time datetime="2014-09-02T22:00:00" pubdate>Tue 02 September 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/copy2.html">copy2  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/parametric-surfaces-in-blender.html" rel="bookmark" title="Permalink to Parametric Surfaces in Blender">Parametric Surfaces in Blender</a>
-  <time datetime="2014-08-03T22:00:00" pubdate>Sun 03 August 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html" rel="bookmark" title="Permalink to Responsive Theme for gthumb Web Albums">Responsive Theme for gthumb Web Albums</a>
-  <time datetime="2014-07-26T22:00:00" pubdate>Sat 26 July 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/webalbum.html">webalbum  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/Symmetry Group Links and Notation.html" rel="bookmark" title="Permalink to Symmetry Group Links and Notation">Symmetry Group Links and Notation</a>
-  <time datetime="2014-07-18T22:00:00" pubdate>Fri 18 July 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/Symmetry Tile with non-rectangular cells.html" rel="bookmark" title="Permalink to Symmetry Tile with non-rectangular cells">Symmetry Tile with non-rectangular cells</a>
-  <time datetime="2014-07-13T22:00:00" pubdate>Sun 13 July 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "drop-down-and-button-select-menus-for-blender-operator-add-ons.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -443,7 +405,7 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

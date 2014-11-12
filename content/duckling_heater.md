@@ -8,6 +8,8 @@ My partner came home from his run on Saturday with a box full of baby ducklings 
 
 This worked well for a couple of days until I got to thinking of a more efficient way to keep them warm...
 
+![design]({filename}/images/DuckWarmer.png)
+
 A while ago I'd built a heated bed for my Ultimaker 3D printer following a design similar to [this one](http://www.thingiverse.com/thing:12727). Mine had stripboard soldered in parallel in sets of four then those sets wired in series to give and overall resistance of about 3.5 Ohms. I sandwiched the board between the glass from the door of a small bench top oven (with thermal paste) and some wool insulation and MDF board on the other side. 
 
 With 19 V across the stripboard, the glass surface could reach 230 deg C after a long warm up time (20+ minutes) and was controlled by the provided circuit on the Ultimaker board. It worked, but was mostly unused as I mainly print in PLA and I got better at the tricks to make prints stick to the original unheated acrylic bed.  

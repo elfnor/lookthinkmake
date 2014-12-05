@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Using the Symmetry Tile plug-in for Quilt Design - Look Think Make</title>	
+	<title>Notes to Father Christmas re 3D Printer Filament - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="The block patterns used in quilts are a great example of a pattern with repeating symmetry. Using a computer to play with these repeating symmetry patterns is a great way to design quilts. I've written a plug-in for a image editing program called GIMP. GIMP is an acronym for ...">
+	<meta name="description" content="I was doing some research to help Father Christmas fill my request for "some interesting printer filament" in my Christmas stocking. I thought I'd share that research here in case its useful to anyone else. Feel free to include or modify it for your own Christmas letter to Santa ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,51 +38,61 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Using the Symmetry Tile plug-in for Quilt Design</h1>
+		<h1>Notes to Father Christmas re 3D Printer Filament</h1>
 		
 <div class="metadata">
-  <time datetime="2014-07-12T22:00:00" pubdate>Sat 12 July 2014</time>
+  <time datetime="2014-11-30T22:00:00" pubdate>Sun 30 November 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
-  in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></p></div>		
-		<p>The block patterns used in quilts are a great example of a pattern with repeating symmetry. Using a computer to play with these repeating symmetry patterns is a great way to design quilts. </p>
-<p>I've written a plug-in for a image editing program called <a href="http://www.gimp.org/">GIMP</a>.</p>
-<blockquote>
-<p>GIMP is an acronym for GNU Image Manipulation Program. It is a freely distributed program for such tasks as photo retouching, image composition and image authoring.</p>
-<p>It has many capabilities. It can be used as a simple paint program, an expert quality photo retouching program, an online batch processing system, a mass production image renderer, an image format converter, etc.</p>
-<p>GIMP is expandable and extensible. It is designed to be augmented with plug-ins and extensions to do just about anything. The advanced scripting interface allows everything from the simplest task to the most complex image manipulation procedures to be easily scripted.</p>
-<p>GIMP is written and developed under X11 on UNIX platforms. But basically the same code also runs on MS Windows and Mac OS X. </p>
-</blockquote>
-<p>The plug-in I've written is called Symmetry Tile and instructions on downloading and installing it can be found <a href="http://elfnor.github.io/lookthinkmake/Symmetry%20Tile%20plug-in%20for%20GIMP.html">here</a>.</p>
-<p>This plug-in takes the selection from an image ("cell") and produces a new image according to 
-one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane crystallographic groups. </p>
-<p>Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image.</p>
-<p>Some galleries of images produced with this plug-in can be found <a href="http://elfnor.github.io/symmetrytilegallery">here</a>.</p>
-<p>This post gives some examples of how you might use Symmetry Tile for quilt design. It presumes you're familiar with the basics of using GIMP, but should be able to be followed by someone who has used similar programs such as Photoshop or Photopaint.</p>
-<h2>The basic block element of the design.</h2>
-<p>Create a new image from the file menu. Start off fairly small say 200 x 200 pixels. We're going to end up with lots of copies of this across the screen, and there's not a lot of point in working at very high resolution.</p>
-<p>Turn on the grid and 'snap to grid' from the edit menu. Choose the pencil from the toolbox and set it to maybe 1 or 2 pixels in size.</p>
-<p>Draw a square 120 X 120 pixels, and then some straight lines inside to make the seam lines on a basic block. You'll make more different patterns if your basic block is non-symmetric. The block on the left is non-symmetric. The block on the right would look the same if it was flipped or mirrored about the dotted blue line. </p>
-<p><img alt="line blocks" src="images/two_cells_lines.png" /></p>
-<p>Use the fill tool (bucket) to fill each piece with a colour or pattern. Once coloured in a symmetric block can become non-symmetric. The block on the right with the coloured fill, no longer looks the same if it is flipped or mirrored. </p>
-<p><img alt="filled blocks" src="images/two_cells.png" /></p>
-<h2>Playing with symmetry</h2>
-<p>Use the rectangular select tool to select the block. Find the Symmetry Tile Plug-in under Render on the Filters menu.
-Choose the image size to be a multiple of the block size, say 720 x 720 pixels. Choose one of the symmetry groups and click OK to see the result. Experiment with different symmetry groups to see what they do. For the complete effect choose <code>all square cells</code> from the Symmetry Groups menu and set Multiple images to <code>Yes</code>. Your screen should fill up with 32 images (they may all be hiding under the top image). </p>
-<p>If you used the original cell, I used above, then amongst all those images will be some familiar to traditional quilters. </p>
-<h3>Pinwheels</h3>
-<p><img alt="pinwheels" src="images/p4_bbtlqtq.png" /></p>
-<h3>Flying Geese</h3>
-<p><img alt="flying geese" src="images/cm_bplpb.png" /></p>
-<h3>Double Zigzag</h3>
-<p><img alt="double zigzag" src="images/cmm_bdlqpldblpq.png" /></p>
-<h3>Hourglass</h3>
-<p><img alt="hourglass" src="images/p4g_bbtptdlqtqpdtlptdbbtlpdtqtq.png" /></p>
-<p>Where you go from here is up to you. A sampler quilt with a selection of these design separated by borders is one possibility. </p>
-<p>I next opened a new much larger image and copied then pasted as layer some of the designs I liked the look of. With each designed as a separate layer they can be moved around and under each other until a potential quilt design is arrived at. The design below has about 5 different patterns arranged so the design morphs from one pattern to the next. It takes a little bit of time to catch on that only one basic block is used to achieve the different patterns.</p>
-<p><img alt="quilt design" src="images/quilt_02.png" /></p>	
+  in <a href="http://www.elfnor.com/category/make.html">make</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></p></div>		
+		<p>I was doing some research to help Father Christmas fill my request for "some interesting printer filament" in my Christmas stocking. I thought I'd share that research here in case its useful to anyone else. Feel free to include or modify it for your own Christmas letter to Santa. (Under a creative commons share alike license.)</p>
+<p>I have an Ultimaker original which takes 3 mm diameter filament and as my heated bed is currently in use <a href="http://www.elfnor.com/a-novel-use-for-a-3d-heated-printer-bed.html">keeping the ducklings warm</a>, I'm mainly looking at filaments that will print on an unheated bed.</p>
+<p>As I'm in New Zealand I've looked at filaments available locally. I have to consider the <a href="http://visual.ly/santas-carbon-footprint">carbon emissions</a> for sleigh travel from the North Pole. </p>
+<p>I'm also looking for "interesting" filament by this I mean something other than plain coloured ABS or PLA. If a supplier also stocks the plain stuff I've normally included their base price in the list below, but I haven't included any suppliers that just stock ABS and PLA.</p>
+<p>If you know of any other NZ stockists of interesting filament please add a comment.
+I've tried to get the prices correct, including GST but not necessarily shipping. Add any corrections in a comment and I'll fix.</p>
+<h2><a href="http://diamondage.co.nz">Diamond Age</a></h2>
+<p>Diamond Age have ASA ($78.20/125 m) a UV stabilised version of ABS which needs the same equipment to print as ABS.</p>
+<p>HIPS (High Impact Polystyrene) ($71.88/125 m) which is used in dual extrudes as a support material for ABS.</p>
+<p>PET-G (no heated bed required) ($94.88/125 m) is a transparent clear.</p>
+<p>IMPLA and HIPLA ($57.50/125 m), these are PLA with additives to increase strength and reduce brittleness. I've tried the HIPLA and its certainly flexible in the filament but can delaminate when a printed piece is flexed too much.  </p>
+<p>Diamond Age has PLA for ($50.88/125 m). The Ivory prints very nicely. The 125 m spools of 3 mm diameter filament are approximately 1 kg.  </p>
+<p>Diamond Age have the best tips on printing each filament of any of the NZ suppliers. They make their own filaments here in NZ and have a lot of experience in 3D printing. </p>
+<h2><a href="http://www.mindkits.co.nz">Mindkits</a></h2>
+<p>Mindkits probably have the largest range of filament types, all non-branded.  </p>
+<p>Mindkits have:</p>
+<ul>
+<li>3 mm wood PLA ($50.47/kg), </li>
+<li>TPE Flexible filament ($87.92/kg), </li>
+<li>PLA filament that changes color with temperature ($64.50/kg), </li>
+<li>PETG T-glase ($69.30/kg), </li>
+<li>Nylon ($59.75/kg), </li>
+<li>Conductive ABS ($69.44/kg).  </li>
+</ul>
+<p>Mindkits price for ordinary PLA is around $50/kg.  </p>
+<h2><a href="http://nicegear.co.nz/3d-printing/">Nicegear</a></h2>
+<p>Nicegear have NinjaFlex in 3 mm diameter (black and white) ($110/0.75 kg). I've seen some nice stuff printed in this. I've got some FilaFlex which I've found hard but not impossible to print with the Ultimaker's Bowden tube extruder. When my partner's Reprap is done I'll try the direct extruder and see if I get better results. Until then I'll pass on getting more flexible filament.</p>
+<p>Nicegear's price for ordinary PLA is $84/kg.</p>
+<h2><a href="https://www.noelleeming.co.nz">Noel Lemming</a></h2>
+<p>Noel Lemming's have Makerbot PETG ($69.99/kg).</p>
+<h2><a href="http://www.reeltoreal.co.nz">Reel to Real</a></h2>
+<p>Reel to Real only have black and white ABS/PLA in 3mm ($42/kg). They also have:</p>
+<ul>
+<li>wood ABS ($65/kg) in 1.75 mm diameter </li>
+<li>flexi ABS (1.75 mm)</li>
+<li>conductive ABS (1.75 mm) ($65/0.5kg).</li>
+</ul>
+<h2><a href="http://www.vivenda.co.nz/buildingMaterial/">Vivenda</a></h2>
+<p>Vivenda have </p>
+<ul>
+<li>Taulman 618 Nylon ($55/0.45 kg), </li>
+<li>645 Nylon ($72.50/0.45 kg) </li>
+<li>t-glase ($79.90/0.45 kg) all in 3 mm diameter (and 1.75 mm). </li>
+</ul>
+<p>The T-glase looks like it might require a heated printer bed. </p>
+<hr />	
 
 	</article>
 
@@ -90,7 +100,7 @@ Choose the image size to be a multiple of the block size, say 720 x 720 pixels. 
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "Using the Symmetry Tile plug-in for Quilt Design.html";
+	       var disqus_identifier = "notes-to-father-christmas-re-3d-printer-filament.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -169,8 +179,8 @@ Choose the image size to be a multiple of the block size, say 720 x 720 pixels. 
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

@@ -37,61 +37,55 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/translate-cache-descriptions-and-logs.html">Translate cache descriptions and logs</a></h1>
-        <p>I recently did a European cycle trip and as described <a href="http://www.elfnor.com/off-line-caching-along-a-route.html">here</a> I made some gpx files of geocaches along my intended route. </p>
-<p>The trouble is most of the cache descriptions were in German and my German is practically non-existent. I wanted to do all my caching offline so I wrote a small python script to use Google Translate to translate all the descriptions and logs in the GPX file.</p>
-<p>The code uses the <code>minidom</code> module in the python standard library to parse the <code>xml</code> in the GPX file.    </p>
-<p>It uses the <a href="http://pythonhosted.org/goslate/">goslate</a> library to query Google translate. The <code>codecs</code> module also in the python standard library is used to correctly write out the unicode characters.</p>
-<p>The script attempts to translate the description and logs for each geocache into English and append them after the original text.</p>
-<p>WARNING: This code only translates some descriptions and logs, if there is a lot of formatting in the description it fails to translate and just returns a second copy of the original text. I haven't spent much time trying to resolve this bug. Feel welcome to improve the script for your on use. Also use at your own discretion after reading Google Translate's terms and conditions.</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">xml.dom</span> <span class="kn">import</span> <span class="n">minidom</span>
-<span class="kn">import</span> <span class="nn">codecs</span>
-<span class="kn">import</span> <span class="nn">goslate</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">gs</span> <span class="o">=</span> <span class="n">goslate</span><span class="o">.</span><span class="n">Goslate</span><span class="p">()</span>
-<span class="n">fn</span> <span class="o">=</span> <span class="s">&#39;route-caches.gpx&#39;</span>
-
-
-<span class="n">xmldoc</span> <span class="o">=</span> <span class="n">minidom</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>    
-<span class="n">descs</span> <span class="o">=</span>  <span class="n">xmldoc</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;groundspeak:long_description&#39;</span><span class="p">)</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">descs</span><span class="p">)</span>    
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">descs</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> 
-        <span class="n">endesc</span> <span class="o">=</span>  <span class="n">gs</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="s">&#39;en&#39;</span><span class="p">)</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>  <span class="o">=</span> <span class="p">(</span><span class="n">desc</span> <span class="o">+</span> <span class="s">&#39; &lt;hr&gt; &#39;</span> <span class="o">+</span> <span class="n">endesc</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> of </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-
-
-<span class="n">texts</span> <span class="o">=</span> <span class="n">xmldoc</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;groundspeak:text&#39;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>    
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">texts</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> 
-        <span class="n">entext</span> <span class="o">=</span>  <span class="n">gs</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s">&#39;en&#39;</span><span class="p">)</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>  <span class="o">=</span> <span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="s">&#39; &lt;hr&gt; &#39;</span> <span class="o">+</span> <span class="n">entext</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> of </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;route-caches-en.gpx&#39;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">,</span> <span class="s">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
-    <span class="n">xmldoc</span><span class="o">.</span><span class="n">writexml</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-</pre></div>
-
-
+        <h1><a href="http://www.elfnor.com/notes-to-father-christmas-re-3d-printer-filament.html">Notes to Father Christmas re 3D Printer Filament</a></h1>
+        <p>I was doing some research to help Father Christmas fill my request for "some interesting printer filament" in my Christmas stocking. I thought I'd share that research here in case its useful to anyone else. Feel free to include or modify it for your own Christmas letter to Santa. (Under a creative commons share alike license.)</p>
+<p>I have an Ultimaker original which takes 3 mm diameter filament and as my heated bed is currently in use <a href="http://www.elfnor.com/a-novel-use-for-a-3d-heated-printer-bed.html">keeping the ducklings warm</a>, I'm mainly looking at filaments that will print on an unheated bed.</p>
+<p>As I'm in New Zealand I've looked at filaments available locally. I have to consider the <a href="http://visual.ly/santas-carbon-footprint">carbon emissions</a> for sleigh travel from the North Pole. </p>
+<p>I'm also looking for "interesting" filament by this I mean something other than plain coloured ABS or PLA. If a supplier also stocks the plain stuff I've normally included their base price in the list below, but I haven't included any suppliers that just stock ABS and PLA.</p>
+<p>If you know of any other NZ stockists of interesting filament please add a comment.
+I've tried to get the prices correct, including GST but not necessarily shipping. Add any corrections in a comment and I'll fix.</p>
+<h2><a href="http://diamondage.co.nz">Diamond Age</a></h2>
+<p>Diamond Age have ASA ($78.20/125 m) a UV stabilised version of ABS which needs the same equipment to print as ABS.</p>
+<p>HIPS (High Impact Polystyrene) ($71.88/125 m) which is used in dual extrudes as a support material for ABS.</p>
+<p>PET-G (no heated bed required) ($94.88/125 m) is a transparent clear.</p>
+<p>IMPLA and HIPLA ($57.50/125 m), these are PLA with additives to increase strength and reduce brittleness. I've tried the HIPLA and its certainly flexible in the filament but can delaminate when a printed piece is flexed too much.  </p>
+<p>Diamond Age has PLA for ($50.88/125 m). The Ivory prints very nicely. The 125 m spools of 3 mm diameter filament are approximately 1 kg.  </p>
+<p>Diamond Age have the best tips on printing each filament of any of the NZ suppliers. They make their own filaments here in NZ and have a lot of experience in 3D printing. </p>
+<h2><a href="http://www.mindkits.co.nz">Mindkits</a></h2>
+<p>Mindkits probably have the largest range of filament types, all non-branded.  </p>
+<p>Mindkits have:</p>
+<ul>
+<li>3 mm wood PLA ($50.47/kg), </li>
+<li>TPE Flexible filament ($87.92/kg), </li>
+<li>PLA filament that changes color with temperature ($64.50/kg), </li>
+<li>PETG T-glase ($69.30/kg), </li>
+<li>Nylon ($59.75/kg), </li>
+<li>Conductive ABS ($69.44/kg).  </li>
+</ul>
+<p>Mindkits price for ordinary PLA is around $50/kg.  </p>
+<h2><a href="http://nicegear.co.nz/3d-printing/">Nicegear</a></h2>
+<p>Nicegear have NinjaFlex in 3 mm diameter (black and white) ($110/0.75 kg). I've seen some nice stuff printed in this. I've got some FilaFlex which I've found hard but not impossible to print with the Ultimaker's Bowden tube extruder. When my partner's Reprap is done I'll try the direct extruder and see if I get better results. Until then I'll pass on getting more flexible filament.</p>
+<p>Nicegear's price for ordinary PLA is $84/kg.</p>
+<h2><a href="https://www.noelleeming.co.nz">Noel Lemming</a></h2>
+<p>Noel Lemming's have Makerbot PETG ($69.99/kg).</p>
+<h2><a href="http://www.reeltoreal.co.nz">Reel to Real</a></h2>
+<p>Reel to Real only have black and white ABS/PLA in 3mm ($42/kg). They also have:</p>
+<ul>
+<li>wood ABS ($65/kg) in 1.75 mm diameter </li>
+<li>flexi ABS (1.75 mm)</li>
+<li>conductive ABS (1.75 mm) ($65/0.5kg).</li>
+</ul>
+<h2><a href="http://www.vivenda.co.nz/buildingMaterial/">Vivenda</a></h2>
+<p>Vivenda have </p>
+<ul>
+<li>Taulman 618 Nylon ($55/0.45 kg), </li>
+<li>645 Nylon ($72.50/0.45 kg) </li>
+<li>t-glase ($79.90/0.45 kg) all in 3 mm diameter (and 1.75 mm). </li>
+</ul>
+<p>The T-glase looks like it might require a heated printer bed. </p>
 <hr />
-	<a href="http://www.elfnor.com/translate-cache-descriptions-and-logs.html">Permalink, </a>
-	<a href="http://www.elfnor.com/translate-cache-descriptions-and-logs.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/notes-to-father-christmas-re-3d-printer-filament.html">Permalink, </a>
+	<a href="http://www.elfnor.com/notes-to-father-christmas-re-3d-printer-filament.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -100,6 +94,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/translate-cache-descriptions-and-logs.html" rel="bookmark" title="Permalink to Translate cache descriptions and logs">Translate cache descriptions and logs</a>
+  <time datetime="2014-11-16T22:00:00" pubdate>Sun 16 November 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/geocaching.html">geocaching  </a></p></a>      </li>
 
 
       <li>
@@ -126,10 +126,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/copy2.html">copy2  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/parametric-surfaces-in-blender.html" rel="bookmark" title="Permalink to Parametric Surfaces in Blender">Parametric Surfaces in Blender</a>
-  <time datetime="2014-08-03T22:00:00" pubdate>Sun 03 August 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
 
 
 
@@ -168,6 +164,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/notes-to-father-christmas-re-3d-printer-filament.html" rel="bookmark" title="Permalink to Notes to Father Christmas re 3D Printer Filament">Notes to Father Christmas re 3D Printer Filament</a>
+  <time datetime="2014-11-30T22:00:00" pubdate>Sun 30 November 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/translate-cache-descriptions-and-logs.html" rel="bookmark" title="Permalink to Translate cache descriptions and logs">Translate cache descriptions and logs</a>
   <time datetime="2014-11-16T22:00:00" pubdate>Sun 16 November 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/geocaching.html">geocaching  </a></p></a>      			      </li>
@@ -202,11 +204,6 @@
   <time datetime="2014-08-03T22:00:00" pubdate>Sun 03 August 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html" rel="bookmark" title="Permalink to Responsive Theme for gthumb Web Albums">Responsive Theme for gthumb Web Albums</a>
-  <time datetime="2014-07-26T22:00:00" pubdate>Sat 26 July 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/webalbum.html">webalbum  </a></p></a>      			      </li>
 		
 		
 		

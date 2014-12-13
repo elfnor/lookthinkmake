@@ -24,3 +24,5 @@ ARTICLE_EXCLUDES = ['notes',]
 
 DISQUS_SITENAME = "lookthinkmake"
 #GOOGLE_ANALYTICS = ""
+
+STATCOUNTER = True

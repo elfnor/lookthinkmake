@@ -37,67 +37,39 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/simple-sverchok-centers-polygons.html">Simple Sverchok - Centers Polygons</a></h1>
-        <p><a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> is an add-on for Blender. It allows you to generate geometry in Blender in a parametric way by wiring visual nodes together rather than programming in Blender python.</p>
-<p>This is the first of hopefully a series on very simple examples of using Sverchok. I'm learning this as I blog about it (the best way of learning something is to try and teach someone else) so if I make mistakes or find a better way of doing something later I'll try and come back and update these posts.</p>
-<h2>Installation and setup</h2>
-<p>Get the latest version of Sverchok from github.</p>
-<ul>
-<li>Download Sverchok from github <a href="https://github.com/nortikin/sverchok/archive/master.zip">https://github.com/nortikin/sverchok/archive/master.zip</a></li>
-<li>User Preferences &gt; Addons &gt; install from file &gt;</li>
-<li>Choose zip-archive &gt; activate flag beside Sverchok</li>
-<li>Enable permanently in the startup.blend using Ctrl + U and Save User Settings from the  Addons menu. </li>
-</ul>
-<p>My preferred layout for working in Sverchok is to start with the Compositing screen layout and change the bottom left window to a Text Editor. At the bottom of the Node Editor select the node tree type to Sverchok and add a new node tree.</p>
-<h2>Centers Polygons</h2>
-<p>Here is the first node set up we're going to look at.</p>
-<p><a href="http://www.elfnor.com/images/centers_polygons1.blend.png"><img alt="centers polygons node example" src="images/centers_polygons1.blend_low_res.png" /></a></p>
-<p>This is a very simple node diagram. All it does is copy one object from the scene onto the centers' of the polygons of another object in the scene.</p>
-<p>I'll explain it in some detail to help us get a feel for how Sverchok handles the data for a mesh.</p>
-<p>The two green "Objects_in" Scene nodes allow access to the data from objects in the scene. Select the scene object and press the "Get Selection" button to read in the data.</p>
-<p>Each of the "Object_in" nodes outputs some of the mesh data for its object. To see what this data looks like connect a "Viewer_text" Text node to one of the outputs. Change one of  the panels in the blender window to a  text editor and select  the "Sverchok_viewer" from the data block selector. When the "VIEW" button on the "Viewer_text" node is pressed the data stream connected to the node will be written to this panel.</p>
-<p><img alt="Viewer text node" src="/images/centers_polygons1a.blend.png" /></p>
-<p>A blender mesh is described as the (x, y, z) coordinates of the vertices of the object. These are given relative to the origin of the object.</p>
-<p>The edges and polygons describe how the vertices are connected to form the mesh. The edges are list of pairs that are connected by an edge. For instances (1, 5) means there is an edge between the <code>obj.data.vertices[1]</code> and <code>obj.data.vertices[5]</code>*. The polygons are similarly a list of the vertices connected by each polygon in the mesh.</p>
-<p>In Sverchok it only makes sense to wire the same colored nodes together. Orange vertices coordinates  to orange vertices coordinates, Green lists of vertices (edges or polygons) to other lists etc.</p>
-<p>The matrix of an object describes the position, scale and rotation of the object. The position is given as the position of the object's origin with respect to the Scene origin. "Get Selection" the data from a simple cube and look at its matrix with a "Viewer_text" node. Move, rotate and scale the cube and compare the values in the "Transform" panel to the matrix that Sverchok displays. (You'll need to use the "Get Selection" and "VIEW" buttons to update the data after each change to the object).</p>
-<p>A little playing will show that the location and scale are stored in the matrix</p>
-<div class="highlight"><pre><span class="k">[sx, 0,  0, x]</span>
-<span class="k">[0, sy,  0, y]</span>
-<span class="k">[0,  0, sz, z]</span>
-<span class="k">[0,  0,  0, 1]</span>
-</pre></div>
-
-
-<p>where x, y, z are the location and sx, sy, sz, are the scale values.</p>
-<p>Rotations affect the 3 x 3 top left corner of the matrix. If you're interested in more detail on how transform matrices really work see these <a href="http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/geometry/geo-tran.html">notes</a>.</p>
-<p>To separate out the various parts of the transform matrix use the "Matrix out" node from the "Matrix" node set.  This takes a matrix (or many matrices) and outputs separately the location, scale, rotation and angle represented by that transform matrix. </p>
-<p><img alt="Matrix out node" src="/images/centers_polygons1b.blend.png" /></p>
-<p>The rotation output of the node is a list of three numbers which correspond to the X, Y, Z values of the rotation given in the transform panel of the 3D view when the "Axis Angle" display option is selected. The Angle  output of the node is the W value (in degrees) from the transform panel. In the "Axis Angle" mode,  X, Y, Z describe an axis and W describes a angle that the object is rotated about this axis. </p>
-<p>If you apply the transform (CTRL-A) (location, scale and rotation to the object the transfrom matrix will be reset to the identity matrix (diagonal 1s, 0s everywhere else), the origin of the object will be moved to the scene origin and the vertices of the object will be recalculated to reflect this change in origin. The edges and polygons do not need to be updated through any of these transforms as they are only lists of the connections between vertices and as such contain no positional information.</p>
-<p>Also play with moving, rotating or scaling the mesh in "EDIT" mode. You will find that this effects the vertex coordinates but not the transform matrix.</p>
-<p>Getting back to the "Centers Polygons" node from the "Analysers" node set. It takes a set of vertex coordinates and a list of polygon connections as its inputs and outputs data about the centers of each of those polygons.</p>
-<p><img alt="centers polygon nodes only" src="/images/centers_polygons1.blend_diagram.png" /></p>
-<p>The "Centers" output of the node is colored blue, meaning its going to output matrices. 
-In the node diagram the "Centers" output from the "Centers Polygons" node is connected to the matrix input of a "Viewer Draw" node. Connecting another mesh to the "Vertices" "Edge pol" inputs produces a copy of the second mesh at the center of each polygon on the first mesh.</p>
-<p>Moving the second mesh with respect to its own origin will move (when everything is updated) the copies with respect to the polygon on the second mesh. The orientation of the copy is such that the copied objects z-direction is normal to the face. To see how the x and y directions map to the face select a face of the first object and change the transformation display to "Normal" mode. A little experimentation will show that the x axis of the second object is mapped to the y axis of the face normal.</p>
-<p>The origins output of the "Centers Polygons" node output just a list of the centers of each polygon. The "Normals" and "Norm_abs" outputs are as described in the <a href="http://sverchok.readthedocs.org/en/latest/main.html">docs</a>:</p>
-<blockquote>
-<p>Normals is normals from global zero coordinates, vector. Norm_abs is normals shifted to centers of polygons. </p>
-</blockquote>
-<p>To turn the output of the "Viewer Draw" node into ordinary Blender meshes click the "Bake" button on the node. If its not showing check the properties in the right hand panel.</p>
-<p>Alternatively if a "Viewer Bmesh" node is used instead of the "Viewer Draw" node, SV will update Blender meshes as changes are made. (Still need to click the "Update" button on the right hand panel.</p>
-<p><img alt="final render sverchok centres polygon demo" src="/images/centers_polygon_demo_image.png" /></p>
+        <h1><a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html">Simple Sverchok 03 - Slope Dependent Trees</a></h1>
+        <p><img alt="landscape with slope dependent trees" src="/images/forest_mountain_15.png" /></p>
+<p>The first two posts (<a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html">01</a>, <a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html">02</a> ) in this gentle introduction to Sverchok covered copying objects to the centers of polygons and scaling the copied objects according to some pattern. </p>
+<p>In this post we'll look at applying what we've learnt to planting trees across a landscape. We'll make the trees only grow on reasonably flat land and make different types of trees grow at different heights.</p>
+<p>First off activate the Ant Landscape add-on available under user preferences. (It should be included in the default install). Use Add &gt; Mesh &gt; Landscape to generate a mesh. Fiddle with the landscape parameters in the tool panel until the landscape looks good. Add some flat spots using the Strata drop down near the bottom of the tool panel. These will be where we'll plant the trees.</p>
+<p><img alt="ant landscape" src="/images/slope_greeble_01.png" /></p>
+<p>We could copy the trees to the centers of the polygons of our mesh similar to the previous two posts but to try something new this time we'll copy them onto the vertices of the mesh instead.</p>
+<p>To copy an object on to every vertex just requires this simple node diagram. All the copied objects z vectors point in the same direction as the original object, as we've only provided information about location and none about rotation.</p>
+<p><img alt="copy to vertices" src="/images/slope_greeble_02_a.png" /></p>
+<h2>Slope Dependence</h2>
+<p>To determine the slope at any point on the landscape we use the "Vertex Normals" node found under "Analyzers". This node outputs a list of vectors, one for each vertex. The angle between the vertex normal and the z-axis will give us a value for the slope that is zero degrees for flat land and 90 degrees for vertical cliffs. To calculate this angle use the "Vector Math" node from the "Vector" group and set its function to "Angle degrees". Use the "Vector X|Y|Z" node as the other input. Check with the "Viewer text" node that this gives a list of angles for each vertex of the landscape.</p>
+<p><img alt="slope sverchok" src="/images/slope_greeble_03_a.png" /></p>
+<p>Next we want to select some of these vertices depending on this slope value. Add a "Logic" node and set its function to "&lt;" (less than).  Set a suitable value (say 10) for the second input. This will output  a list of True or False values (booleans)  for each vertex of the landscape depending on its slope. </p>
+<p><img alt="slope sverchok" src="/images/slope_greeble_04_a.png" /></p>
+<p>The "Mask List" node takes a list of booleans (mask) and a data list and separates the data into two lists one for when the matching values in the mask are True and one for when they are False. </p>
+<p><img alt="slope sverchok" src="/images/slope_greeble_05_a.png" /></p>
+<p>The landscape should now have little cubes only on the flat spots. Changing the value in the "LESS X" logic node will change the maximum slope on which cubes are placed. </p>
+<h2>Height Dependence</h2>
+<p>To keep things simple I'll explain the construction of a node diagram for different types of trees at different heights separately then combine the two node diagrams at the end. </p>
+<p>Add a different low polygon object to the scene. I'd suggest a cube with the top four vertices merged at the center. For speed, I tend to use low polygon meshes at this early stage, later I will bake the Sverchok results using the same low polygon copies as placeholders. Then I link the data and materials of the desired real object to the copies produced by Sverchok.</p>
+<p>The node diagram for height dependence is roughly similar to that for slope dependence. The z-component of the vertex position is compared to a float value with a logic node. This list of booleans is fed to a "Mask List" node which separates the matrices for transforming an object to the vertex position into two lists. The "dataTrue" list is fed to the matrix input of one "Viewer Draw" node, the "dataFalse" list is fed to a different "Viewer Draw" node. Each "Viewer Draw" node gets its vertices and polygons from a different "Object In" node. The low elevation vertices ("dataTrue") are connected to the cube and the high elevation vertices ("dataFalse") are connected to  the pyramid.</p>
+<p><img alt="height dependence sverchok" src="/images/slope_greeble_06_a.png" /></p>
+<p>The node diagram including both slope and height dependence is shown here. (Click for a larger view). </p>
+<p><a href="http://www.elfnor.com/images/slope_greeble_07.png"><img alt="height and slope node tree" src="/images/slope_greeble_07_a.png" /></a></p>
+<p>Unless its a plantation forest, our trees will look better with some variation in the x and y locations,  z-scale and rotation about the z-axis. This is done with a number of "Random" nodes similar to how we randomized the z-scale of the objects in the last post. This node diagram gets very messy so I've colapsed all the nodes except those for randomizing the rotation about the z-axis. You can examine the full diagram after downloading the blend file. The "Map Range" node is used to map the [0, 1] range of the output of the "Random" node to the needed range of [0, 360] for the angle input of the "Matrix Deform" node.</p>
+<p><img alt="random height dependence sverchok" src="/images/slope_greeble_08.png" /></p>
+<p>An aerial view of the landscape showing the random location and rotation of the objects.</p>
+<p><img alt="aerial view of landscape" src="/images/slope_greeble_09.png" /></p>
+<p>Download <a href="/downloads/slope_greeble.blend">blend file</a></p>
+<p>Note: Credit and thanks to <a href="http://www.techmonkeybusiness.com/">TechMonkey</a> for the textures and tree models used in the image at the top of the post. The slope dependent texturing in that image was done following <a href="http://vimeo.com/28922937">this tutorial</a> by David Miller.</p>
 <hr />
-<p><code>*</code> I've used the python code here that you could use to access the same data in the python console.</p>
-<div class="highlight"><pre>    <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="p">.</span><span class="n">context</span><span class="p">,</span><span class="n">active_object</span>
-    <span class="n">print</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">co</span><span class="p">)</span>
-</pre></div>
-
-
-<hr />
-	<a href="http://www.elfnor.com/simple-sverchok-centers-polygons.html">Permalink, </a>
-	<a href="http://www.elfnor.com/simple-sverchok-centers-polygons.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html">Permalink, </a>
+	<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -106,6 +78,18 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html" rel="bookmark" title="Permalink to Simple Sverchok 02 - Matrix Deform">Simple Sverchok 02 - Matrix Deform</a>
+  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
+
+
+      <li>
+<a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html" rel="bookmark" title="Permalink to Simple Sverchok 01 - Centers Polygons">Simple Sverchok 01 - Centers Polygons</a>
+  <time datetime="2014-12-20T22:00:00" pubdate>Sat 20 December 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
       <li>
@@ -126,16 +110,8 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/geocaching.html">geocaching  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/a-novel-use-for-a-3d-heated-printer-bed.html" rel="bookmark" title="Permalink to A novel use for a 3D heated printer bed.">A novel use for a 3D heated printer bed.</a>
-  <time datetime="2014-11-12T22:00:00" pubdate>Wed 12 November 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/off-line-caching-along-a-route.html" rel="bookmark" title="Permalink to Off-line caching along a route">Off-line caching along a route</a>
-  <time datetime="2014-11-09T22:00:00" pubdate>Sun 09 November 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/geocaching.html">geocaching  </a></p></a>      </li>
 
 
 
@@ -180,7 +156,19 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 			<ul class="archive">
 	
 			      <li>
-<a href="http://www.elfnor.com/simple-sverchok-centers-polygons.html" rel="bookmark" title="Permalink to Simple Sverchok - Centers Polygons">Simple Sverchok - Centers Polygons</a>
+<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html" rel="bookmark" title="Permalink to Simple Sverchok 03 - Slope Dependent Trees">Simple Sverchok 03 - Slope Dependent Trees</a>
+  <time datetime="2014-12-30T22:00:00" pubdate>Tue 30 December 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html" rel="bookmark" title="Permalink to Simple Sverchok 02 - Matrix Deform">Simple Sverchok 02 - Matrix Deform</a>
+  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html" rel="bookmark" title="Permalink to Simple Sverchok 01 - Centers Polygons">Simple Sverchok 01 - Centers Polygons</a>
   <time datetime="2014-12-20T22:00:00" pubdate>Sat 20 December 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
@@ -208,17 +196,7 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
   <time datetime="2014-11-12T22:00:00" pubdate>Wed 12 November 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/off-line-caching-along-a-route.html" rel="bookmark" title="Permalink to Off-line caching along a route">Off-line caching along a route</a>
-  <time datetime="2014-11-09T22:00:00" pubdate>Sun 09 November 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/geocaching.html">geocaching  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/drop-down-and-button-select-menus-for-blender-operator-add-ons.html" rel="bookmark" title="Permalink to Drop down and button select menus for Blender Operator add-ons">Drop down and button select menus for Blender Operator add-ons</a>
-  <time datetime="2014-09-14T22:00:00" pubdate>Sun 14 September 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/copy2.html">copy2  </a></p></a>      			      </li>
 		
 		
 		

@@ -2,7 +2,7 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Simple Sverchok - Centers Polygons - Look Think Make</title>	
+	<title>Simple Sverchok 01 - Centers Polygons - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
@@ -38,7 +38,7 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Simple Sverchok - Centers Polygons</h1>
+		<h1>Simple Sverchok 01 - Centers Polygons</h1>
 		
 <div class="metadata">
   <time datetime="2014-12-20T22:00:00" pubdate>Sat 20 December 2014</time>
@@ -47,7 +47,8 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> is an add-on for Blender. It allows you to generate geometry in Blender in a parametric way by wiring visual nodes together rather than programming in Blender python.</p>
+		<p><img alt="final render sverchok centres polygon demo" src="/images/centers_polygon_demo_image.png" /></p>
+<p><a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> is an add-on for Blender. It allows you to generate geometry in Blender in a parametric way by wiring visual nodes together rather than programming in Blender python.</p>
 <p>This is the first of hopefully a series on very simple examples of using Sverchok. I'm learning this as I blog about it (the best way of learning something is to try and teach someone else) so if I make mistakes or find a better way of doing something later I'll try and come back and update these posts.</p>
 <h2>Installation and setup</h2>
 <p>Get the latest version of Sverchok from github.</p>
@@ -61,10 +62,10 @@
 <h2>Centers Polygons</h2>
 <p>Here is the first node set up we're going to look at.</p>
 <p><a href="http://www.elfnor.com/images/centers_polygons1.blend.png"><img alt="centers polygons node example" src="images/centers_polygons1.blend_low_res.png" /></a></p>
-<p>This is a very simple node diagram. All it does is copy one object from the scene onto the centers' of the polygons of another object in the scene.</p>
+<p>This is a very simple node diagram (click for a larger image). All it does is copy one object from the scene onto the centers' of the polygons of another object in the scene.</p>
 <p>I'll explain it in some detail to help us get a feel for how Sverchok handles the data for a mesh.</p>
 <p>The two green "Objects_in" Scene nodes allow access to the data from objects in the scene. Select the scene object and press the "Get Selection" button to read in the data.</p>
-<p>Each of the "Object_in" nodes outputs some of the mesh data for its object. To see what this data looks like connect a "Viewer_text" Text node to one of the outputs. Change one of  the panels in the blender window to a  text editor and select  the "Sverchok_viewer" from the data block selector. When the "VIEW" button on the "Viewer_text" node is pressed the data stream connected to the node will be written to this panel.</p>
+<p>Each of the connections on the right side of the "Object_in" node outputs some of the mesh data for its object. To see what this data looks like connect a "Viewer_text" Text node to one of the outputs. Change one of  the panels in the blender window to a  text editor and select  the "Sverchok_viewer" from the data block selector. When the "VIEW" button on the "Viewer_text" node is pressed the data stream connected to the node will be written to this panel.</p>
 <p><img alt="Viewer text node" src="/images/centers_polygons1a.blend.png" /></p>
 <p>A blender mesh is described as the (x, y, z) coordinates of the vertices of the object. These are given relative to the origin of the object.</p>
 <p>The edges and polygons describe how the vertices are connected to form the mesh. The edges are list of pairs that are connected by an edge. For instances (1, 5) means there is an edge between the <code>obj.data.vertices[1]</code> and <code>obj.data.vertices[5]</code>*. The polygons are similarly a list of the vertices connected by each polygon in the mesh.</p>
@@ -96,7 +97,6 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 </blockquote>
 <p>To turn the output of the "Viewer Draw" node into ordinary Blender meshes click the "Bake" button on the node. If its not showing check the properties in the right hand panel.</p>
 <p>Alternatively if a "Viewer Bmesh" node is used instead of the "Viewer Draw" node, SV will update Blender meshes as changes are made. (Still need to click the "Update" button on the right hand panel.</p>
-<p><img alt="final render sverchok centres polygon demo" src="/images/centers_polygon_demo_image.png" /></p>
 <hr />
 <p><code>*</code> I've used the python code here that you could use to access the same data in the python console.</p>
 <div class="highlight"><pre>    <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="p">.</span><span class="n">context</span><span class="p">,</span><span class="n">active_object</span>
@@ -112,7 +112,7 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "simple-sverchok-centers-polygons.html";
+	       var disqus_identifier = "simple-sverchok-01-centers-polygons.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -130,7 +130,19 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 			<ul class="archive">
 	
 			      <li>
-<a href="http://www.elfnor.com/simple-sverchok-centers-polygons.html" rel="bookmark" title="Permalink to Simple Sverchok - Centers Polygons">Simple Sverchok - Centers Polygons</a>
+<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html" rel="bookmark" title="Permalink to Simple Sverchok 03 - Slope Dependent Trees">Simple Sverchok 03 - Slope Dependent Trees</a>
+  <time datetime="2014-12-30T22:00:00" pubdate>Tue 30 December 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html" rel="bookmark" title="Permalink to Simple Sverchok 02 - Matrix Deform">Simple Sverchok 02 - Matrix Deform</a>
+  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html" rel="bookmark" title="Permalink to Simple Sverchok 01 - Centers Polygons">Simple Sverchok 01 - Centers Polygons</a>
   <time datetime="2014-12-20T22:00:00" pubdate>Sat 20 December 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
@@ -158,17 +170,7 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
   <time datetime="2014-11-12T22:00:00" pubdate>Wed 12 November 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/off-line-caching-along-a-route.html" rel="bookmark" title="Permalink to Off-line caching along a route">Off-line caching along a route</a>
-  <time datetime="2014-11-09T22:00:00" pubdate>Sun 09 November 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/geocaching.html">geocaching  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/drop-down-and-button-select-menus-for-blender-operator-add-ons.html" rel="bookmark" title="Permalink to Drop down and button select menus for Blender Operator add-ons">Drop down and button select menus for Blender Operator add-ons</a>
-  <time datetime="2014-09-14T22:00:00" pubdate>Sun 14 September 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/copy2.html">copy2  </a></p></a>      			      </li>
 		
 		
 		

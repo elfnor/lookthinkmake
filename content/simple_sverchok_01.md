@@ -1,8 +1,10 @@
-Title: Simple Sverchok - Centers Polygons
+Title: Simple Sverchok 01 - Centers Polygons
 Date: 2014-12-20 22:00
 Tags: make, think, blender, sverchok
 Category: think
 Author: elfnor
+
+![final render sverchok centres polygon demo](/images/centers_polygon_demo_image.png)
 
 [Sverchok](http://nikitron.cc.ua/sverchok_en.html) is an add-on for Blender. It allows you to generate geometry in Blender in a parametric way by wiring visual nodes together rather than programming in Blender python.
 
@@ -29,13 +31,13 @@ Here is the first node set up we're going to look at.
 
 
 
-This is a very simple node diagram. All it does is copy one object from the scene onto the centers' of the polygons of another object in the scene.
+This is a very simple node diagram (click for a larger image). All it does is copy one object from the scene onto the centers' of the polygons of another object in the scene.
 
 I'll explain it in some detail to help us get a feel for how Sverchok handles the data for a mesh.
 
 The two green "Objects_in" Scene nodes allow access to the data from objects in the scene. Select the scene object and press the "Get Selection" button to read in the data.
 
-Each of the "Object_in" nodes outputs some of the mesh data for its object. To see what this data looks like connect a "Viewer_text" Text node to one of the outputs. Change one of  the panels in the blender window to a  text editor and select  the "Sverchok_viewer" from the data block selector. When the "VIEW" button on the "Viewer_text" node is pressed the data stream connected to the node will be written to this panel.
+Each of the connections on the right side of the "Object_in" node outputs some of the mesh data for its object. To see what this data looks like connect a "Viewer_text" Text node to one of the outputs. Change one of  the panels in the blender window to a  text editor and select  the "Sverchok_viewer" from the data block selector. When the "VIEW" button on the "Viewer_text" node is pressed the data stream connected to the node will be written to this panel.
 
 ![Viewer text node](/images/centers_polygons1a.blend.png)
 
@@ -87,9 +89,6 @@ The origins output of the "Centers Polygons" node output just a list of the cent
 To turn the output of the "Viewer Draw" node into ordinary Blender meshes click the "Bake" button on the node. If its not showing check the properties in the right hand panel.
 
 Alternatively if a "Viewer Bmesh" node is used instead of the "Viewer Draw" node, SV will update Blender meshes as changes are made. (Still need to click the "Update" button on the right hand panel.
-
-
-![final render sverchok centres polygon demo](/images/centers_polygon_demo_image.png)
 
 
 -------------------------

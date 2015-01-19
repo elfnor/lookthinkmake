@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Arduino Bread Details - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="As mentioned in a previous post I've been working on a project to replace the "brain" of a bread-maker with an Arduino. The aim is to separate out the different stages in the breadmaker's cycle so I can make good sourdough bread. In general the sourdough takes longer ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/Arduino Bread Details.html">Arduino Bread Details</a></h1>
-        <p>As mentioned in a <a href="http://www.elfnor.com/Arduino Bread.html">previous post</a> I've been working on a project to replace the "brain" of a bread-maker with an Arduino. </p>
+	<article class="full">
+			
+		<h1>Arduino Bread Details</h1>
+		
+<div class="metadata">
+  <time datetime="2015-01-19T22:00:00" pubdate>Mon 19 January 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/make.html">make</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a></p></div>		
+		<p>As mentioned in a <a href="http://www.elfnor.com/Arduino Bread.html">previous post</a> I've been working on a project to replace the "brain" of a bread-maker with an Arduino. </p>
 <p>The aim is to separate out the different stages in the breadmaker's cycle so I can make good sourdough bread. In general the sourdough takes longer to rise than dough made using store bought dried yeast granules. The rise time can also vary depending on how the sourdough starter is on any day. Also the longer the rise time the stronger the sour flavour of the bread.</p>
 <p>This project is ongoing. Currently I have made a breadmaker with an Arduino brain where I can set up programs with my own times for any part of the breadmaker cycle. To make a loaf of sourdough, I put the ingredients in the pan and select a program that mixes and kneads the dough then keeps the pan at rise temperature indefinitely. When I've checked the bread is sufficiently risen, I stop that program and run a bake only program.  Eventually, I'd like some way of measuring the height of the dough so the Arduino can track when the bread is risen and then switch to the bake cycle. The current rise temperature is the same as for the original breadmaker cycle (~37 °C). I'll probably add an option to rise the bread at a lower temperature for longer to get a stronger sour flavour.</p>
 <p>The model of breadmaker I'm using is a fairly old Sanyo "The Bread Factory Plus" (Model SBM-20). From other people's projects I suspect many breadmakers are quite similar internally and these notes could be applicable to many other models and brands.</p>
@@ -142,89 +151,22 @@
 <p>The first program <code>pgrms[0]</code> bakes an ordinary loaf of bread, mixing it for 6 minutes, kneading for 29 minutes, rising for 30 mintute. Then it quickly "punches down" the bread (two short mixing pulse) and rises the bread for another 53 minutes. Then it heats the pan up and bakes the bread for 42 minutes. Any part of the program can be skipped by setting its value to zero. </p>
 <p>Add another program by increasing <code>N_PGRMS</code> and adding a line to <code>PGRMS</code> with the correct times for each part of the cycle.</p>
 <p>The next thing I'd like to add to this project is a sensor to determine when the bread is risen. Either a simple optical beam break when the bread reaches the top of the pan or some way of measuring the height of the dough. Choice of sensors will be limited by the high temperatures the breadmaker reaches. But for now my re-brained bread maker makes a pretty good loaf of bread.</p>
-<hr />
-	<a href="http://www.elfnor.com/Arduino Bread Details.html">Permalink, </a>
-	<a href="http://www.elfnor.com/Arduino Bread Details.html#disqus_thread">Comments</a>
-      </article>
+<hr />	
 
-      <hr />
+	</article>
 
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-04-apply-matrix.html" rel="bookmark" title="Permalink to Simple Sverchok 04 - Apply Matrix">Simple Sverchok 04 - Apply Matrix</a>
-  <time datetime="2015-01-04T22:00:00" pubdate>Sun 04 January 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html" rel="bookmark" title="Permalink to Simple Sverchok 03 - Slope Dependent Trees">Simple Sverchok 03 - Slope Dependent Trees</a>
-  <time datetime="2014-12-30T22:00:00" pubdate>Tue 30 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html" rel="bookmark" title="Permalink to Simple Sverchok 02 - Matrix Deform">Simple Sverchok 02 - Matrix Deform</a>
-  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html" rel="bookmark" title="Permalink to Simple Sverchok 01 - Centers Polygons">Simple Sverchok 01 - Centers Polygons</a>
-  <time datetime="2014-12-20T22:00:00" pubdate>Sat 20 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/Arduino Bread.html" rel="bookmark" title="Permalink to Arduino Bread">Arduino Bread</a>
-  <time datetime="2014-12-12T22:00:00" pubdate>Fri 12 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "Arduino Bread Details.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -302,7 +244,7 @@
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/make.html">make</a></li>
 	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        

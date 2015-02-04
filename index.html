@@ -37,115 +37,28 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/Arduino Bread Details.html">Arduino Bread Details</a></h1>
-        <p><img alt="arduino bread" src="http://www.elfnor.com/images/arduino_bread.png" /></p>
-<p>As mentioned in a <a href="http://www.elfnor.com/Arduino Bread.html">previous post</a> I've been working on a project to replace the "brain" of a bread-maker with an Arduino. </p>
-<p>The aim is to separate out the different stages in the breadmaker's cycle so I can make good sourdough bread. In general the sourdough takes longer to rise than dough made using store bought dried yeast granules. The rise time can also vary depending on how the sourdough starter is on any day. Also the longer the rise time the stronger the sour flavour of the bread.</p>
-<p>This project is ongoing. Currently I have made a breadmaker with an Arduino brain where I can set up programs with my own times for any part of the breadmaker cycle. To make a loaf of sourdough, I put the ingredients in the pan and select a program that mixes and kneads the dough then keeps the pan at rise temperature indefinitely. When I've checked the bread is sufficiently risen, I stop that program and run a bake only program.  Eventually, I'd like some way of measuring the height of the dough so the Arduino can track when the bread is risen and then switch to the bake cycle. The current rise temperature is the same as for the original breadmaker cycle (~37 °C). I'll probably add an option to rise the bread at a lower temperature for longer to get a stronger sour flavour.</p>
-<p>The model of breadmaker I'm using is a fairly old Sanyo "The Bread Factory Plus" (Model SBM-20). From other people's projects I suspect many breadmakers are quite similar internally and these notes could be applicable to many other models and brands.</p>
-<p>First of all pull your breadmaker apart to see how it works. Keep all the screws and take photos during the take apart. These are great when you need to put it back together again.</p>
-<p>A breadmaker is very simple, it has a motor to turn the paddle and a heater to warm the pan and a thermistor to give the pan's temperature. There's a set of buttons and a display to select a program and start the machine. All this is controlled by a micro controller. </p>
-<p><img alt="take apart breadmaker" src="/images/bm_insides.jpeg" /></p>
-<p>In the above photo the top board contains the buttons, the display and the micro controller. The bottom board controls the motor and heater. This makes our development simple and safe. We can replace the top board where the maximum voltage is 5 V without going any where near the nasty mains voltage on the motor and heater. The 5 pin connector goes from the control board to the lower motor and heater board. The two pin connector goes to the thermistor on the side of the baking area. </p>
-<p>For safety don't plug the machine into mains voltage when it looks like the above photo. Instead put it back together as much as possible while still having access to the control board.</p>
-<p><img alt="workable breadmaker" src="/images/bm_workable.jpeg" /></p>
-<p><img alt="control board" src="/images/control_board_original.jpeg" /></p>
-<p>Carefully poking around the 5 pin connector while the breadmaker is going, gives the following designations for the pins. Pin 1 is on the right in the above image.</p>
-<div class="highlight"><pre><span class="mi">1</span> <span class="o">-</span> <span class="n">GND</span>
-<span class="mi">2</span> <span class="o">-</span> <span class="o">+</span> <span class="mi">5</span><span class="n">V</span>
-<span class="mi">3</span> <span class="o">-</span> <span class="n">buzzer</span>
-<span class="mi">4</span> <span class="o">-</span> <span class="n">heater</span>
-<span class="mi">5</span> <span class="o">-</span> <span class="n">motor</span>
-</pre></div>
-
-
-<p>Pins 4 and 5 are normally held at 5V but are pulled to GND when the heater or motor are operating. Pin 3 is directly connected to a piezo buzzer.</p>
-<p>We can check the temperature sensor is a thermistor by heating the sensor up (disconnected from the board) and reading the resistance between the two contacts with a DVM. The resistance should drop with an increase in temperature. This shows the <a href="http://en.wikipedia.org/wiki/Thermistor#NTC">thermistor</a> has a negative temperature coefficient. The relationship between thermistor resistance and temperature will most likely be non-linear over the range of temperatures (20 °C to 230 °C) we are interested in. We could try and calibrate the thermistor at known temperatures to characterise its temperature versus resistance curve but we really only need to know the resistance at two points, the rising temperature and the baking temperature. We'll find these out by making a loaf of bread while we record what the breadmaker does.</p>
-<h2>Designing a system to record the bread maker</h2>
-<p>We will need to design a system to record the heater, motor and thermistor signals while the bread maker makes a loaf of bread. Having done this we can then duplicate those signals with our new Arduino control system. </p>
-<p>A thermistor has two connections and is usually read by micro controller using a voltage divider circuit like one of these (the thermistor can either be between the pin and ground or between +5V and the pin):</p>
-<p><img alt="thermistor read schematic" src="/images/thermistor_read_schem.png" /></p>
-<p>Checking the thermistor circuit shows pin 2 at +5V so we're looking at something like the left most schematic above. However the resistor on Pin 1 of the thermistor is connected to ground via a transistor. The base pin of this transistor is controlled via another micro controller pin. Below is a simplified schematic.</p>
-<p><img alt="thermistor original" src="/images/thermistor_original.png" /></p>
-<p>What's happening here is that the micro controller regularly enables the voltage divider via a set of clock pulses sent on the control pin. If we measure the voltage on Pin 1 of the thermistor it will jump between the correct voltage (when the control pin is high) and ground. </p>
-<p>This makes the design of the recording system a little bit harder. We could try to synchronize our measurements with the clock signal on the microelectronic but as we're mainly interested in the steady state value of the thermistor at the rise and bake temperatures we can simplify this and use a capacitor to convert the voltage to a steady value.</p>
-<p>An Arduino can also be used for the recording system. The circuit I used is shown below. As this is only needed once I made it up on a bread board. Keep the original control board connected to the bread maker and add in this recording system to the control and thermistor connectors. Load up the breadmaker_record.ino sketch from the <a href="https://github.com/elfnor/arduino-bread">github repository</a> and make a loaf of bread!</p>
-<p><img alt="breadmaker record schematic" src="/images/breadmaker_record.png" /></p>
-<h2>Reverse Engineering a control system</h2>
-<p>The output of the recording system is shown below.</p>
-<p><img alt="bread maker output" src="/images/breadmaker_graph.png" /></p>
-<p>The motor control signals are straight forward. The loaf program starts with 6 minutes of mixing where the motor is pulsed on for ~0.25 second and off for ~1 second. After mixing the bread is kneaded with the motor on continuously for ~29 minutes. There is another two short pulses of the motor about a third of the way through the rising time. </p>
-<p>The analog count on pin A0 of the Arduino has an average of 120 during the rising time. For baking it has an average of 330. To convert these counts to resistance values, connect up variable resistor to the recording circuit in place of the thermistor. Vary the resistor to find the resistance values that give analog counts on the Arduino of 120 and 330. Allow enough time after each change in resistance for the count to reach a steady value as the circuit has a long response time due to the large smoothing capacitor.</p>
-<p>During the rising time the heater is on for an average 3 seconds and off for 60 seconds. The on cycle varies between 1 second and 10 seconds. The variation in the on cycle time is  used to control the temperature. </p>
-<p>When the pan is being heated for the baking time the heater is on continuously. During the baking the heater pulses on every 15 seconds with the pulse width again varied to control the temperature. After the baking time the breadmaker keeps the bread pan warm. I haven't yet implemented this keep warm feature in my Arduino program as I don't tend to use it.</p>
-<p>Controlling the temperature of the breadmaker with the Arduino consists of reading the temperature sensor (the thermistor) and determining when and for how long to turn on the heater. I avoided getting into most of the complications of control theory by starting with a very simple control algorithm.  For example for the rise control:</p>
-<table>
-<thead>
-<tr>
-<th>Temperature T</th>
-<th>time on</th>
-<th>time off</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>T &lt; tlow</td>
-<td>10 s</td>
-<td>50 s</td>
-</tr>
-<tr>
-<td>tlow  &lt; T &lt; thigh</td>
-<td>6 s</td>
-<td>54 s</td>
-</tr>
-<tr>
-<td>T &gt; thigh</td>
-<td>1 s</td>
-<td>59 s</td>
-</tr>
-</tbody>
-</table>
-<p>This works well enough because of the long time constant between pulsing the heater and the thermistor responding, the large thermal mass of the system, and the low accuracy (~ +/- 5 °C) required to make bread.</p>
-<p>In the control system the thermistor is measured with a simple voltage divider. The motor and heater are controlled via transistors connected to digital lines on the Arduino.</p>
-<p>The final circuit is shown below:</p>
-<p><img alt="breadmaker circuit" src="/images/breadmaker_schem.png" /></p>
-<p>This includes 5 switches to match the switches in use on the original breadmaker and a 4 digit display. The switches use the internal pull-up resistors on the Arduino board and so only need to be connected between the Arduino pin and ground. The 4 digit display is one that includes a TM1637 control chip (<a href="">for example</a>) and can be controlled from 2 lines on the Arduino. The LEDs in parallel with the transistors are useful for debugging the circuit and program but can be omitted in the final build.</p>
-<p>I made the fairly simple circuit board up on a piece of perfboard cut to match the size of the original board. The switches were carefully positioned to be in the same place underneath the pads on the breadmaker cover. The display was hung off the board on longish wires as this was the easiest way to get it to sit underneath the see through area on the cover. The Arduino nano was inserted into headers soldered onto the back of the board. This was to allow easy access for reprogramming. </p>
-<p><img alt="new board" src="/images/breadmaker_board.png" /></p>
-<p>The full code for the Arduino is available <a href="https://github.com/elfnor/arduino-bread">here</a>. </p>
-<p>When the bread maker is switched on with its new brain it behaves very much like it used to. Only now it has new programs as defined in the Arduino code. The programs are selected by using the SELECT button to cycle through them. The up and down keys can be used as before to add a delay time to the start of the program. The program is then started with the START button. It can be stopped at any time with the STOP button. </p>
-<p>The given Arduino code currently includes the following bread programs:</p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">PGRMS</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">min_pulseMix</span><span class="p">;</span>  <span class="c1">// 1/4 second pulse every 1 second</span>
-    <span class="kt">int</span> <span class="n">min_contMix</span><span class="p">;</span>   <span class="c1">// continuous kneading</span>
-    <span class="kt">int</span> <span class="n">min_rise1</span><span class="p">;</span>     <span class="c1">// pan kept at rising temperature </span>
-    <span class="kt">int</span> <span class="n">min_punchDown</span><span class="p">;</span> <span class="c1">// two short mixing pulses </span>
-    <span class="kt">int</span> <span class="n">min_rise2</span><span class="p">;</span>     <span class="c1">// 2nd rise </span>
-    <span class="kt">int</span> <span class="n">min_heat</span><span class="p">;</span>      <span class="c1">// pan heated up to bake temperature </span>
-    <span class="kt">int</span> <span class="n">min_bake</span><span class="p">;</span>      <span class="c1">// pan kept at bake temperature </span>
-  <span class="p">};</span>
-
-<span class="k">const</span> <span class="kt">int</span> <span class="n">N_PGRMS</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
-
-<span class="k">const</span> <span class="n">PGRMS</span> <span class="n">pgrms</span><span class="p">[</span><span class="n">N_PGRMS</span><span class="p">]</span> <span class="o">=</span> 
-    <span class="p">{</span>
-      <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">42</span><span class="p">},</span>  <span class="c1">// 0 : normal loaf</span>
-      <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>     <span class="c1">// 1 : mix and knead only</span>
-      <span class="p">{</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>  <span class="c1">// 2 : very long rise</span>
-      <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>  <span class="c1">// 3 : mix, knead and long rise</span>
-      <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">42</span><span class="p">},</span>     <span class="c1">// 4 : bake only</span>
-      <span class="p">{</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">},</span>  <span class="c1">// 5 : test nonsense     </span>
-    <span class="p">};</span>
-</pre></div>
-
-
-<p>The first program <code>pgrms[0]</code> bakes an ordinary loaf of bread, mixing it for 6 minutes, kneading for 29 minutes, rising for 30 mintute. Then it quickly "punches down" the bread (two short mixing pulse) and rises the bread for another 53 minutes. Then it heats the pan up and bakes the bread for 42 minutes. Any part of the program can be skipped by setting its value to zero. </p>
-<p>Add another program by increasing <code>N_PGRMS</code> and adding a line to <code>PGRMS</code> with the correct times for each part of the cycle.</p>
-<p>The next thing I'd like to add to this project is a sensor to determine when the bread is risen. Either a simple optical beam break when the bread reaches the top of the pan or some way of measuring the height of the dough. Choice of sensors will be limited by the high temperatures the breadmaker reaches. But for now my re-brained bread maker makes a pretty good loaf of bread.</p>
+        <h1><a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html">Simple Sverchok 05 - Interpolate and Iterate Matrix</a></h1>
+        <p><img alt="matrix iterate sample image" src="/images/matrix_iterate_13.png" /></p>
+<p>This is part five of my introduction to <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> the parametric node geometry add-on for Blender. Other parts can be found <a href="http://elfnor.com/tag/sverchok.html">here</a></p>
+<p>So far we've used various nodes to produce list of matrices that we've used to give the location, scale and rotation of objects. This post continues that idea.</p>
+<p>The "Matrix Interpolation" node takes one or two matrices as input and produces a list of matrices that describe transformations interpolated between the two matrices. If only one matrix is input the identity matrix (no transform) is used for the other matrix. This is great for example to make a whole line of objects.</p>
+<p><img alt="matrix interpolate nodes sverchok" src="/images/matrix_interpolate_nodes.png" /></p>
+<p>The input matrix could also include a scale and rotation.</p>
+<p>The "Matrix Interpolation" node can also be used to produce a list of identity matrices that are then altered by a "Matrix Deform" node. This allows non-linear variation in the object scales and rotations as shown in the example below. Here we've produced 21 identity matrices. The "Map Range" Node is used to change the values from the "Float Series" from 0 to 5 (used for the locations) to 0 to 360 (used for the angle of rotation about the Z axis). The same range is also mapped to the interval 0 to pi. The sine of this function is then used to scale the objects in the y direction.</p>
+<p><img alt="matrix interpolate node identity sverchok" src="/images/matrix_interpolation_map_03.blend.png" /></p>
+<p>If we want to scale and shift the objects in the same direction, for example produce a stack of diminishing sized cubes sitting on top of each other, we can't do it with linear interpolation. In the image below the gaps between each cube centre are the same size. If the cubes are to sit on top of each other the gap has to decrease along with the cube size. </p>
+<p><img alt="matrix interpolate pyramid sverchok" src="/images/pyramid_interpolate_01.blend.png" /></p>
+<p>If we scale the 1st cube (size 2 units) by 0.75 to get our 2nd cube (size 1.5 units) we then need to move the 2nd cube 1.75 units to stack it on top of the 1st cube. What we need to do here is apply a transform matrix M that does a 0.75 scale and a 1.75 unit translation to the 1st object to get our second object.</p>
+<p>V2 = M * V1</p>
+<p>Then we apply the same transform again to V2 to get V3</p>
+<p>V3 = M * V2</p>
+<p>and so on. This will stack the cubes nicely on top of each other. Since version 0.5.1.0 Sverchok has a "Iterate Matrix Transform" node that does this repeated matrix transform. Its currently in the Beta node panel.</p>
+<p><img alt="matrix iterate pyramid sverchok" src="/images/pyramid_interpolate_iterate_04.blend.png" /></p>
+<p>Adding rotations to the matrix used as input to the iterate node will quickly produce some interesting structures. Below is the node diagram for the structure in the image at the top of this post. The same structure is used as the default start up script for the <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> application. Many of the other examples provided with Structure Synth could be used as starting points for exploration with Sverchok.</p>
+<p><img alt="structure synth default sverchok" src="/images/matrix_iterate_01_demo.blend.png" /></p>
 <hr />
-	<a href="http://www.elfnor.com/Arduino Bread Details.html">Permalink, </a>
-	<a href="http://www.elfnor.com/Arduino Bread Details.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html">Permalink, </a>
+	<a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -154,6 +67,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/Arduino Bread Details.html" rel="bookmark" title="Permalink to Arduino Bread Details">Arduino Bread Details</a>
+  <time datetime="2015-01-19T22:00:00" pubdate>Mon 19 January 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      </li>
 
 
       <li>
@@ -180,10 +99,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/Arduino Bread.html" rel="bookmark" title="Permalink to Arduino Bread">Arduino Bread</a>
-  <time datetime="2014-12-12T22:00:00" pubdate>Fri 12 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      </li>
 
 
 
@@ -236,6 +151,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html" rel="bookmark" title="Permalink to Simple Sverchok 05 - Interpolate and Iterate Matrix">Simple Sverchok 05 - Interpolate and Iterate Matrix</a>
+  <time datetime="2015-01-31T22:00:00" pubdate>Sat 31 January 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/Arduino Bread Details.html" rel="bookmark" title="Permalink to Arduino Bread Details">Arduino Bread Details</a>
   <time datetime="2015-01-19T22:00:00" pubdate>Mon 19 January 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
@@ -270,11 +191,6 @@
   <time datetime="2014-12-12T22:00:00" pubdate>Fri 12 December 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/notes-to-father-christmas-re-3d-printer-filament.html" rel="bookmark" title="Permalink to Notes to Father Christmas re 3D Printer Filament">Notes to Father Christmas re 3D Printer Filament</a>
-  <time datetime="2014-11-30T22:00:00" pubdate>Sun 30 November 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
 		
 		

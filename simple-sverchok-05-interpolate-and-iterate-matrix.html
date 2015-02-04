@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Simple Sverchok 02 - Matrix Deform - Look Think Make</title>	
+	<title>Simple Sverchok 05 - Interpolate and Iterate Matrix - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="My previous post introduced some of the basic concepts of Sverchok via the "Centers Polygons" node. Here we'll try to gradually increase the complexity of our node diagram to do some more interesting things. Things that become increasingly harder to do outside Sverchok without using Blender python directly. Last ...">
+	<meta name="description" content="This is part five of my introduction to Sverchok the parametric node geometry add-on for Blender. Other parts can be found here So far we've used various nodes to produce list of matrices that we've used to give the location, scale and rotation of objects. This post continues ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,40 +38,33 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Simple Sverchok 02 - Matrix Deform</h1>
+		<h1>Simple Sverchok 05 - Interpolate and Iterate Matrix</h1>
 		
 <div class="metadata">
-  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
+  <time datetime="2015-01-31T22:00:00" pubdate>Sat 31 January 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><img alt="demo sverchok image" src="/images/flower_head_18_top.png" /></p>
-<p>My  <a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html">previous post</a> introduced some of the basic concepts of <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> via the "Centers Polygons" node. </p>
-<p>Here we'll try to gradually increase the complexity of our node diagram to do some more interesting things. Things that become increasingly harder to do outside Sverchok without using Blender python directly.</p>
-<p>Last time we made a simple node diagram that copied one object of the scene onto the centers' of the polygons of another object in the scene. How would we apply a different scale to each of the copied objects? This scale could be random or structured in some way.</p>
-<p>We know from playing last time with the "Matrix Out" and the "Text Viewer" node that the scale information is stored in the objects transform matrix. The "Centres Polygon" node produces a list of transform matrices for each of the copied objects. So to scale each object we going to intercept this list of matrices on its way from the "Centers Polygons" node to the "Viewer Draw" node.</p>
-<p>A look around the nodes available finds a "Scale" node under Transforms and a "Matrix Deform" node under Matrix. </p>
-<p><img alt="sverchok scale node and Matrix deform node" src="/images/scale_matrix_nodes.png" /></p>
-<p>The "Scale" node has vertices as inputs and outputs. This would be useful for scaling the vertices of a single object (think of  working in "EDIT" mode) but isn't for working with the transform matrices (think of working in "OBJECT" mode).</p>
-<p>The "Matrix Deform" node looks more what we want. It has matrix (blue) inputs and outputs and further inputs for location, scale,  rotation and angle. To apply an individual scale to each object we need a vector (x, y, z) for each object. This is produced in the next diagram with a "Vector" node and a "Random" node.  The X and Y scales are set to 1 and the Z scale is connected to "Random" node.  The "Random" node produces uniformly distributed numbers of the interval [0, 1].  This node diagram  randomly scales each of the copied objects in their Z directions (along the normal of the polygon they've been copied to). </p>
-<p><img alt="sverchok random scale" src="/images/centers_polygons3.blend.png" /></p>
-<p><img alt="sverchok random scale result" src="/images/centers_polygons3.blend_result-crop.png" /></p>
-<p>Here we have set the "Count" of the "Random" node to 20 as we know that's how many faces our mesh has. If we change the mesh it would be nice if this updated automatically to the number of polygons in the mesh. This is done via the "List Length" node as shown below.</p>
-<p><img alt="sverchok random scale list length" src="/images/centers_polygons4.blend.png" /></p>
-<p>What if we wanted to scale the spike objects in a more structured way? Its just a matter of getting a list of scale vectors of the right length and feeding them to our matrix deform node.</p>
-<p><img alt="sverchok z scale" src="/images/centers_polygons6.blend.png" /></p>
-<p><img alt="sverchok z scale result" src="/images/centers_polygons6.blend_result.png" /></p>
-<p>Here we've scaled the length of the cylinders by the z location of the polygon the cylinder is copied to. This is done by using a "Matrix Out" node to separate out the location of the center of each polygon, then a "Vectors Out" node to separate out just the z component of the location vector.</p>
-<p>Hiding the Icosphere will show that the bottom half of the cylinders have negative scale due to the z location of their polygon being neagtive. One solution is to add a "Math" node to take the absolute value of the z location of the face before passing it to the "Matrix Deform" node.</p>
-<p><img alt="sverchok abs z scale " src="/images/centers_polygons7.blend.png" />
-<img alt="sverchok abs z scale result" src="/images/centers_polygons7.blend_result.png" /></p>
-<p>Node diagrams can quickly look busy. To make node diagrams easier to read Frames can be added and named. Select the nodes then "Join in New Frame" from the node menu. The whole frame can then be moved around as one item.</p>
-<p><img alt="sverchok abs z scale frame " src="/images/centers_polygons8.blend.png" /></p>
-<p>There is also a SV Groups feature on the right hand panel of the Node Editor window. This collapses a number of nodes down to a single node.</p>
-<h2>Example Image</h2>
-<p><img alt="demo sverchok image" src="/images/flower_head_07.png" /></p>
+		<p><img alt="matrix iterate sample image" src="/images/matrix_iterate_13.png" /></p>
+<p>This is part five of my introduction to <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> the parametric node geometry add-on for Blender. Other parts can be found <a href="http://elfnor.com/tag/sverchok.html">here</a></p>
+<p>So far we've used various nodes to produce list of matrices that we've used to give the location, scale and rotation of objects. This post continues that idea.</p>
+<p>The "Matrix Interpolation" node takes one or two matrices as input and produces a list of matrices that describe transformations interpolated between the two matrices. If only one matrix is input the identity matrix (no transform) is used for the other matrix. This is great for example to make a whole line of objects.</p>
+<p><img alt="matrix interpolate nodes sverchok" src="/images/matrix_interpolate_nodes.png" /></p>
+<p>The input matrix could also include a scale and rotation.</p>
+<p>The "Matrix Interpolation" node can also be used to produce a list of identity matrices that are then altered by a "Matrix Deform" node. This allows non-linear variation in the object scales and rotations as shown in the example below. Here we've produced 21 identity matrices. The "Map Range" Node is used to change the values from the "Float Series" from 0 to 5 (used for the locations) to 0 to 360 (used for the angle of rotation about the Z axis). The same range is also mapped to the interval 0 to pi. The sine of this function is then used to scale the objects in the y direction.</p>
+<p><img alt="matrix interpolate node identity sverchok" src="/images/matrix_interpolation_map_03.blend.png" /></p>
+<p>If we want to scale and shift the objects in the same direction, for example produce a stack of diminishing sized cubes sitting on top of each other, we can't do it with linear interpolation. In the image below the gaps between each cube centre are the same size. If the cubes are to sit on top of each other the gap has to decrease along with the cube size. </p>
+<p><img alt="matrix interpolate pyramid sverchok" src="/images/pyramid_interpolate_01.blend.png" /></p>
+<p>If we scale the 1st cube (size 2 units) by 0.75 to get our 2nd cube (size 1.5 units) we then need to move the 2nd cube 1.75 units to stack it on top of the 1st cube. What we need to do here is apply a transform matrix M that does a 0.75 scale and a 1.75 unit translation to the 1st object to get our second object.</p>
+<p>V2 = M * V1</p>
+<p>Then we apply the same transform again to V2 to get V3</p>
+<p>V3 = M * V2</p>
+<p>and so on. This will stack the cubes nicely on top of each other. Since version 0.5.1.0 Sverchok has a "Iterate Matrix Transform" node that does this repeated matrix transform. Its currently in the Beta node panel.</p>
+<p><img alt="matrix iterate pyramid sverchok" src="/images/pyramid_interpolate_iterate_04.blend.png" /></p>
+<p>Adding rotations to the matrix used as input to the iterate node will quickly produce some interesting structures. Below is the node diagram for the structure in the image at the top of this post. The same structure is used as the default start up script for the <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> application. Many of the other examples provided with Structure Synth could be used as starting points for exploration with Sverchok.</p>
+<p><img alt="structure synth default sverchok" src="/images/matrix_iterate_01_demo.blend.png" /></p>
 <hr />	
 
 	</article>
@@ -80,7 +73,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "simple-sverchok-02-matrix-deform.html";
+	       var disqus_identifier = "simple-sverchok-05-interpolate-and-iterate-matrix.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

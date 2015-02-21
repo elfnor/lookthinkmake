@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Shaders for Sverchok 01 - Object Info node. - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="I've called this post Shaders for Sverchok and it follows on from my Simple Sverchok series. It's mostly about Blender Cycles Materials and how I apply them to my Sverchok models rather than directly about Sverchok nodes. The structures I've been producing with Sverchok can have many ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/shaders-for-sverchok-01-object-info-node.html">Shaders for Sverchok 01 - Object Info node.</a></h1>
-        <p><img alt="hydrangea abstract" src="/images/abstract_21.png" /></p>
+	<article class="full">
+			
+		<h1>Shaders for Sverchok 01 - Object Info node.</h1>
+		
+<div class="metadata">
+  <time datetime="2015-02-22T22:00:00" pubdate>Sun 22 February 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
+		<p><img alt="hydrangea abstract" src="/images/abstract_21.png" /></p>
 <p>I've called this post Shaders for Sverchok and it follows on from  my <a href="http://elfnor.com/tag/sverchok.html">Simple Sverchok</a> series. It's mostly about Blender Cycles Materials and how I apply them to my <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> models rather than directly about Sverchok nodes.</p>
 <p>The structures I've been producing with Sverchok can have many elements. The one that featured in the title image for the <a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html">last post</a> has 2400 copies of the box element. With the position, rotation and scale of each object being varied parametrically it would be neat to also systematically vary the colour or transparency of the elements. Applying individual materials to 2400 elements by hand is well beyond my pain threshold. The techniques used here to make systematic or random material variations can also be used for models with many elements produced in other ways, for example using dupliverts.</p>
 <h1>Object Info Node</h1>
@@ -110,93 +119,22 @@
 <p>The fourth output of the "Object Info" node is labeled  "Random". It produces a different random number between (0, 1) for each object the material is assigned to.</p>
 <p>It can be used directly as input to a "Color Ramp" node or anywhere else a single value is required. </p>
 <p><img alt="random color ramp" src="/images/color_random.png" /></p>
-<hr />
-	<a href="http://www.elfnor.com/shaders-for-sverchok-01-object-info-node.html">Permalink, </a>
-	<a href="http://www.elfnor.com/shaders-for-sverchok-01-object-info-node.html#disqus_thread">Comments</a>
-      </article>
+<hr />	
 
-      <hr />
+	</article>
 
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html" rel="bookmark" title="Permalink to Simple Sverchok 05 - Interpolate and Iterate Matrix">Simple Sverchok 05 - Interpolate and Iterate Matrix</a>
-  <time datetime="2015-01-31T22:00:00" pubdate>Sat 31 January 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/Arduino Bread Details.html" rel="bookmark" title="Permalink to Arduino Bread Details">Arduino Bread Details</a>
-  <time datetime="2015-01-19T22:00:00" pubdate>Mon 19 January 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-04-apply-matrix.html" rel="bookmark" title="Permalink to Simple Sverchok 04 - Apply Matrix">Simple Sverchok 04 - Apply Matrix</a>
-  <time datetime="2015-01-04T22:00:00" pubdate>Sun 04 January 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html" rel="bookmark" title="Permalink to Simple Sverchok 03 - Slope Dependent Trees">Simple Sverchok 03 - Slope Dependent Trees</a>
-  <time datetime="2014-12-30T22:00:00" pubdate>Tue 30 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html" rel="bookmark" title="Permalink to Simple Sverchok 02 - Matrix Deform">Simple Sverchok 02 - Matrix Deform</a>
-  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "shaders-for-sverchok-01-object-info-node.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -277,7 +215,7 @@
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

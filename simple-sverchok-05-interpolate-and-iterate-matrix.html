@@ -55,6 +55,8 @@
 <p>The input matrix could also include a scale and rotation.</p>
 <p>The "Matrix Interpolation" node can also be used to produce a list of identity matrices that are then altered by a "Matrix Deform" node. This allows non-linear variation in the object scales and rotations as shown in the example below. Here we've produced 21 identity matrices. The "Map Range" Node is used to change the values from the "Float Series" from 0 to 5 (used for the locations) to 0 to 360 (used for the angle of rotation about the Z axis). The same range is also mapped to the interval 0 to pi. The sine of this function is then used to scale the objects in the y direction.</p>
 <p><img alt="matrix interpolate node identity sverchok" src="/images/matrix_interpolation_map_03.blend.png" /></p>
+<p>EDIT: We don't really need to use a "Matrix Interpolation" node in the above example. We can replace the "Matrix Deform" node with a "Matrix In" node as shown below and acheive the same result.</p>
+<p><img alt="matrix in nodeverchok" src="/images/matrix_interpolation_map_04.blend.png" /></p>
 <p>If we want to scale and shift the objects in the same direction, for example produce a stack of diminishing sized cubes sitting on top of each other, we can't do it with linear interpolation. In the image below the gaps between each cube centre are the same size. If the cubes are to sit on top of each other the gap has to decrease along with the cube size. </p>
 <p><img alt="matrix interpolate pyramid sverchok" src="/images/pyramid_interpolate_01.blend.png" /></p>
 <p>If we scale the 1st cube (size 2 units) by 0.75 to get our 2nd cube (size 1.5 units) we then need to move the 2nd cube 1.75 units to stack it on top of the 1st cube. What we need to do here is apply a transform matrix M that does a 0.75 scale and a 1.75 unit translation to the 1st object to get our second object.</p>
@@ -91,6 +93,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/shaders-for-sverchok-01-object-info-node.html" rel="bookmark" title="Permalink to Shaders for Sverchok 01 - Object Info node.">Shaders for Sverchok 01 - Object Info node.</a>
+  <time datetime="2015-02-22T22:00:00" pubdate>Sun 22 February 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html" rel="bookmark" title="Permalink to Simple Sverchok 05 - Interpolate and Iterate Matrix">Simple Sverchok 05 - Interpolate and Iterate Matrix</a>
   <time datetime="2015-01-31T22:00:00" pubdate>Sat 31 January 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
@@ -125,11 +133,6 @@
   <time datetime="2014-12-20T22:00:00" pubdate>Sat 20 December 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/Arduino Bread.html" rel="bookmark" title="Permalink to Arduino Bread">Arduino Bread</a>
-  <time datetime="2014-12-12T22:00:00" pubdate>Fri 12 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
 		
 		
 		

@@ -20,6 +20,11 @@ The "Matrix Interpolation" node can also be used to produce a list of identity m
 
 ![matrix interpolate node identity sverchok](/images/matrix_interpolation_map_03.blend.png)
 
+EDIT: We don't really need to use a "Matrix Interpolation" node in the above example. We can replace the "Matrix Deform" node with a "Matrix In" node as shown below and acheive the same result.
+
+![matrix in nodeverchok](/images/matrix_interpolation_map_04.blend.png)
+
+
 If we want to scale and shift the objects in the same direction, for example produce a stack of diminishing sized cubes sitting on top of each other, we can't do it with linear interpolation. In the image below the gaps between each cube centre are the same size. If the cubes are to sit on top of each other the gap has to decrease along with the cube size. 
 
 ![matrix interpolate pyramid sverchok](/images/pyramid_interpolate_01.blend.png)

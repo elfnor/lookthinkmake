@@ -38,6 +38,8 @@ In the following scene the spheres (dupliverted onto a torus) have locations fro
 
 Strange things happen when the rgb values are not within the range (0, 1). The top torus has no scaling bewteen the location and color while the torus on the bottom has the rgb values between (0, 1).
 
+EDIT: Jerryno's answer to my [question](http://blender.stackexchange.com/questions/26254/how-and-when-does-clipping-of-rgb-values-happen) on stack exchange explains these strange things very well. 
+
 ![torus location to rgb](/images/torus_color.png)
 
 We can also use the location as an index into a "Color Ramp" node. This requires reducing the three x, y, z coordinates to a single value between (0, 1). 

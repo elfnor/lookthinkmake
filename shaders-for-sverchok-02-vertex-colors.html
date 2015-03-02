@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Responsive Theme for gthumb Web Albums - Look Think Make</title>	
+	<title>Shaders for Sverchok 02 - Vertex Colors - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="I want to include a lot of the art works stuff I have on my Deviant Art on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including ...">
+	<meta name="description" content="This is the second of my Shaders for Sverchok tutorials. They follow on from my Simple Sverchok series. The Shaders for Sverchok posts are mostly about Blender Cycles Materials and how I apply them to my Sverchok models rather than directly about Sverchok nodes. This post will show how to ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,40 +38,56 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Responsive Theme for gthumb Web Albums</h1>
+		<h1>Shaders for Sverchok 02 - Vertex Colors</h1>
 		
 <div class="metadata">
-  <time datetime="2014-07-26T22:00:00" pubdate>Sat 26 July 2014</time>
+  <time datetime="2015-02-26T22:00:00" pubdate>Thu 26 February 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></p></div>		
-		<p>I want to include a lot of the art works stuff I have on my <a href="http://elfnor.deviantart.com/">Deviant Art</a> on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including <a href="https://github.com/saimn/sigal">sigal</a> and <a href="http://home.gna.org/llgal/">llgal</a> but settled on <a href="https://wiki.gnome.org/Apps/gthumb">gthumb</a>.</p>
-<p>Gthumb is mainly a image viewer and browser for the GNOME desktop, but it also includes a static web album generator. It has themes based on a set of templates and CSS files. </p>
-<p>Of course I couldn't help fiddling with the templates and the Responsive Dark theme is the result. On a wide screen the description is to the right of the image, on a narrow screen the description is below the image. </p>
-<p>The theme requires the description and title for each image to be entered into their respective exif tags. This is easy to do using gthumb itself. You can use some basic html such as <code>&lt;br&gt;</code> tags in the description field to give basic formatting.</p>
-<p>To install the theme, download this <a href="https://github.com/elfnor/gthumb_responsive_theme">repository</a> (see download zip button on the right of the github page). Unzip and copy the <code>Responsive_Dark</code> folder to the gthumb theme location. On my Linux Mint installation this is <code>/usr/share/gthumb/albumthemes/</code></p>
-<p>Start gthumb, choose the files for the web album, select <code>File&gt;Export To&gt;Web Album</code>. Select the <code>Responsive Dark</code> theme from the Theme box. Make sure <code>Adapt to the window width</code> is set on the <code>Index Page</code> tab.</p>
-<p>Other settings I also used:</p>
-<p><code>Index Page</code> tab:</p>
-<ul>
-<li><code>Thumbnail Caption</code>  set to <code>Title</code></li>
-<li><code>All images on a single page</code> set</li>
-</ul>
-<p><code>Image Page</code> tab:</p>
-<ul>
-<li><code>Show the description, if available</code> set</li>
-<li><code>Show the following attributes:</code> set to <code>Title</code></li>
-</ul>
-<h2>Screenshots</h2>
-<h3>Index Page</h3>
-<p><img alt="index screen shots" src="http://www.elfnor.com/images/index_screen.png" /></p>
-<h3>Image Page</h3>
-<p><img alt="image screen shots" src="http://www.elfnor.com/images/image_screen.png" /></p>
-<h2>Demo Album</h2>
-<p>There's a demo album <a href="http://elfnor.github.io/artworksgallery/index.html">here</a>.</p>
-<hr />	
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
+		<p><img alt="nested cubes demo of sverchok vertex colors" src="/images/vertex_color_blog_21.png" /></p>
+<p>This is the second of my Shaders for Sverchok tutorials. They follow on from  my <a href="http://elfnor.com/tag/sverchok.html">Simple Sverchok</a> series. The Shaders for Sverchok posts are mostly about Blender Cycles Materials and how I apply them to my <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> models rather than directly about Sverchok nodes.</p>
+<p>This post will show how to apply vertex colors to a mesh with Blender python and then how to access the vertex color map to apply color or other variation to a material in Blender cycles.</p>
+<p>From this <a href="http://blenderartists.org/forum/showthread.php?272679-Addon-WIP-Sverchok-parametric-nodes-for-architects&amp;p=2813513&amp;viewfull=1#post2813513">sneak preview</a> it looks like Vertex Colors may be avaliable soon as Sverchok node, but currently I use a short bit of code to cover this step. I'll update this post when the node becomes available in a general release.</p>
+<p>Using vertex colors is easiest if the Sverchok output is a single mesh. If after baking your Sverchok output you have multiple meshes try the "Apply matrix to mesh" node or occasionally the "Mesh Join" node to consolidate everything into one mesh. It is also possible to select the objects after creation and join them with CTRL-J. I prefer using the "Apply Matrix" node as this preserves the creation order of the mesh elements. </p>
+<p>Vertex colors are normally applied by painting them on in "Vertex Paint" mode. To get them to show as painted in Blender cycles use a material as shown below. The "Attribute" node is found on the "Input" panel of the cycles nodes. The "Name" has to be set to the same as the name of the "Vertex Colors" layer found under the Objects Data panel.</p>
+<p><img alt="vertex color in blender" src="/images/vertex_colors_screen.png" /></p>
+<p>Rather than paint on our colors we're going to assign them to the vertices using Blender python. Each vertex in each face has its own vertex color. This means a vertex can have several different colors, one for each face it's on. The following code snippet gives a different vertex color for each sub-element of a mesh. Say for instance we've used a "Matrix Iterate" node to make 11 copies of a Box (10 iterations produces 11 copies). Then the code snippet will make all the vertices in each box the same color but each box will have a different color.</p>
+<p><img alt="nested boxes nodes" src="/images/nested_box_nodes.png" /></p>
+<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">set vertex color to shades of grey, each cube in sverchok structure has its own shade</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c"># start in object mode with object selected</span>
+<span class="c">#need to set N to the number of sub-elements in mesh</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">11</span> <span class="c"># no of elements</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">data</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertex_colors</span><span class="p">:</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">vertex_colors</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+
+<span class="n">color_layer</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertex_colors</span><span class="o">.</span><span class="n">active</span>
+
+<span class="n">nvert</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_layer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="n">inc</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">N</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">mesh</span><span class="o">.</span><span class="n">polygons</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">poly</span><span class="o">.</span><span class="n">loop_indices</span><span class="p">:</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">//</span><span class="n">nvert</span><span class="p">)</span><span class="o">*</span><span class="n">inc</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">//</span><span class="n">nvert</span><span class="p">)</span><span class="o">*</span><span class="n">inc</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">//</span><span class="n">nvert</span><span class="p">)</span><span class="o">*</span><span class="n">inc</span><span class="p">]</span>
+        <span class="n">color_layer</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">rgb</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>Before running the above code you need to set N in line 9 of the code to the number of sub-elements in the mesh. The code sets each sub-element to a shade of grey. You can fiddle with the code to produce different vertex colors, but I prefer to manipulate the color later with cycles nodes as this give me more flexibility.</p>
+<p>After running the code check in the Objects data panel to find the name of the vertex color layer. By default its "Col". Use this in a attribute node to access the values for the vertex color. This color can then be separated out into rgb components and used to vary the material properties across the sub-elements in the mesh. In the node diagram below it's used to control the "fac" of a "Mix Shader" to mix between two materials.</p>
+<h2><img alt="vertex color node mix" src="/images/nested_box_cycles_nodes.png" /></h2>	
 
 	</article>
 
@@ -79,7 +95,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "responsive-theme-for-gthumb-web-albums.html";
+	       var disqus_identifier = "shaders-for-sverchok-02-vertex-colors.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

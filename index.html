@@ -37,50 +37,26 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html">Shaders for Sverchok 02 - Vertex Colors</a></h1>
-        <p><img alt="nested cubes demo of sverchok vertex colors" src="/images/vertex_color_blog_21.png" /></p>
-<p>This is the second of my Shaders for Sverchok tutorials. They follow on from  my <a href="http://elfnor.com/tag/sverchok.html">Simple Sverchok</a> series. The Shaders for Sverchok posts are mostly about Blender Cycles Materials and how I apply them to my <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> models rather than directly about Sverchok nodes.</p>
-<p>This post will show how to apply vertex colors to a mesh with Blender python and then how to access the vertex color map to apply color or other variation to a material in Blender cycles.</p>
-<p>From this <a href="http://blenderartists.org/forum/showthread.php?272679-Addon-WIP-Sverchok-parametric-nodes-for-architects&amp;p=2813513&amp;viewfull=1#post2813513">sneak preview</a> it looks like Vertex Colors may be avaliable soon as Sverchok node, but currently I use a short bit of code to cover this step. I'll update this post when the node becomes available in a general release.</p>
-<p>Using vertex colors is easiest if the Sverchok output is a single mesh. If after baking your Sverchok output you have multiple meshes try the "Apply matrix to mesh" node or occasionally the "Mesh Join" node to consolidate everything into one mesh. It is also possible to select the objects after creation and join them with CTRL-J. I prefer using the "Apply Matrix" node as this preserves the creation order of the mesh elements. </p>
-<p>Vertex colors are normally applied by painting them on in "Vertex Paint" mode. To get them to show as painted in Blender cycles use a material as shown below. The "Attribute" node is found on the "Input" panel of the cycles nodes. The "Name" has to be set to the same as the name of the "Vertex Colors" layer found under the Objects Data panel.</p>
-<p><img alt="vertex color in blender" src="/images/vertex_colors_screen.png" /></p>
-<p>Rather than paint on our colors we're going to assign them to the vertices using Blender python. Each vertex in each face has its own vertex color. This means a vertex can have several different colors, one for each face it's on. The following code snippet gives a different vertex color for each sub-element of a mesh. Say for instance we've used a "Matrix Iterate" node to make 11 copies of a Box (10 iterations produces 11 copies). Then the code snippet will make all the vertices in each box the same color but each box will have a different color.</p>
-<p><img alt="nested boxes nodes" src="/images/nested_box_nodes.png" /></p>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">set vertex color to shades of grey, each cube in sverchok structure has its own shade</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">bpy</span>
-<span class="kn">import</span> <span class="nn">random</span>
-
-<span class="c"># start in object mode with object selected</span>
-<span class="c">#need to set N to the number of sub-elements in mesh</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">11</span> <span class="c"># no of elements</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
-<span class="n">mesh</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">data</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertex_colors</span><span class="p">:</span>
-    <span class="n">mesh</span><span class="o">.</span><span class="n">vertex_colors</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
-
-<span class="n">color_layer</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertex_colors</span><span class="o">.</span><span class="n">active</span>
-
-<span class="n">nvert</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_layer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
-<span class="n">inc</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">N</span>
-<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">mesh</span><span class="o">.</span><span class="n">polygons</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">poly</span><span class="o">.</span><span class="n">loop_indices</span><span class="p">:</span>
-        <span class="n">rgb</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">//</span><span class="n">nvert</span><span class="p">)</span><span class="o">*</span><span class="n">inc</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">//</span><span class="n">nvert</span><span class="p">)</span><span class="o">*</span><span class="n">inc</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">//</span><span class="n">nvert</span><span class="p">)</span><span class="o">*</span><span class="n">inc</span><span class="p">]</span>
-        <span class="n">color_layer</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">rgb</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <h1><a href="http://www.elfnor.com/shaders-for-sverchok-03-image-texture-node.html">Shaders for Sverchok 03 - Image Texture Node</a></h1>
+        <p><img alt="random desert blocks" src="/images/random_block_image_pos9.png" /></p>
+<p>This is the third of my Shaders for Sverchok tutorials. They follow on from  my <a href="http://elfnor.com/tag/sverchok.html">Simple Sverchok</a> series. The Shaders for Sverchok posts are mostly about Blender Cycles Materials and how I apply them to my <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> models rather than directly about Sverchok nodes.</p>
+<p>This post will show how to take the colours from an image and apply them to objects in a scene. It uses the object location given by the "Object Info" node, but see <a href="">Shaders for Sverchok 01</a> for other ways to use this node.  Of course this technique is useful for scenes with lots of objects generated by the dupliverts for example. Its a great way to try out different colour schemes on a scene very quickly.</p>
+<p>The cycles nodes for this is very simple.</p>
+<p><img alt="position to image nodes" src="/images/random_blocks_blog1.blend.png" /></p>
+<p>The object position is fed into the vector input of an "Image Texture" node via a "Mapping" node. As usual the input of the vector for the "Image Texture" node should be between (0, 0, 0) and (1, 1, 1). The colour at the top right of the image will be accessed with a vector  (1, 1, 0). The colour of the image at the bottom left will be accessed with a vector (0, 0, 0). Use the mapping node to change the location vectors into this range. If the values are outside the range they will loop around as if the image was tiled. For example (0.2, 0.2, 0) and (1.2, 1.2, 0) will map to the same place in the image. </p>
+<p>It makes sense to use the "Point" option of the "Mapping" node. With this option</p>
+<div class="highlight"><pre><span class="n">output</span> <span class="o">=</span> <span class="n">Scale</span> <span class="o">*</span> <span class="n">input</span> <span class="o">+</span> <span class="n">Location</span>
 </pre></div>
 
 
-<p>Before running the above code you need to set N in line 9 of the code to the number of sub-elements in the mesh. The code sets each sub-element to a shade of grey. You can fiddle with the code to produce different vertex colors, but I prefer to manipulate the color later with cycles nodes as this give me more flexibility.</p>
-<p>After running the code check in the Objects data panel to find the name of the vertex color layer. By default its "Col". Use this in a attribute node to access the values for the vertex color. This color can then be separated out into rgb components and used to vary the material properties across the sub-elements in the mesh. In the node diagram below it's used to control the "fac" of a "Mix Shader" to mix between two materials.</p>
-<h2><img alt="vertex color node mix" src="/images/nested_box_cycles_nodes.png" /></h2>
-	<a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html">Permalink, </a>
-	<a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html#disqus_thread">Comments</a>
+<p>The Texture, Vector and Normal options do other things. To rotate the image colours about the scene use the "Z" value of the rotation field.</p>
+<p>Choose the image to use in the "Image Texture" node. This can be something especially created for the scene to paint particular colours to particular objects, the output of some other Blender render, or a landscape or other photo chosen for its colour balance.</p>
+<p>The alpha channel of the image can be used to effect transparency or any other input in the cycles nodes.</p>
+<p>It's possible to quickly change the colour scheme of a composition to try out different looks or to have very fine detail control of object colour by drawing over a render or screenshot of the scene taken looking down from +Z.</p>
+<hr />
+<hr />
+	<a href="http://www.elfnor.com/shaders-for-sverchok-03-image-texture-node.html">Permalink, </a>
+	<a href="http://www.elfnor.com/shaders-for-sverchok-03-image-texture-node.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -89,6 +65,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html" rel="bookmark" title="Permalink to Shaders for Sverchok 02 - Vertex Colors">Shaders for Sverchok 02 - Vertex Colors</a>
+  <time datetime="2015-02-26T22:00:00" pubdate>Thu 26 February 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
       <li>
@@ -115,10 +97,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/simple-sverchok-03-slope-dependent-trees.html" rel="bookmark" title="Permalink to Simple Sverchok 03 - Slope Dependent Trees">Simple Sverchok 03 - Slope Dependent Trees</a>
-  <time datetime="2014-12-30T22:00:00" pubdate>Tue 30 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
 
@@ -177,6 +155,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/shaders-for-sverchok-03-image-texture-node.html" rel="bookmark" title="Permalink to Shaders for Sverchok 03 - Image Texture Node">Shaders for Sverchok 03 - Image Texture Node</a>
+  <time datetime="2015-03-07T22:00:00" pubdate>Sat 07 March 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html" rel="bookmark" title="Permalink to Shaders for Sverchok 02 - Vertex Colors">Shaders for Sverchok 02 - Vertex Colors</a>
   <time datetime="2015-02-26T22:00:00" pubdate>Thu 26 February 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
@@ -211,11 +195,6 @@
   <time datetime="2014-12-30T22:00:00" pubdate>Tue 30 December 2014</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/simple-sverchok-02-matrix-deform.html" rel="bookmark" title="Permalink to Simple Sverchok 02 - Matrix Deform">Simple Sverchok 02 - Matrix Deform</a>
-  <time datetime="2014-12-27T22:00:00" pubdate>Sat 27 December 2014</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
 		
 		

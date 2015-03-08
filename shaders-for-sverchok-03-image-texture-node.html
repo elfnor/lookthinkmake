@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Translate cache descriptions and logs - Look Think Make</title>	
+	<title>Shaders for Sverchok 03 - Image Texture Node - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="I recently did a European cycle trip and as described here I made some gpx files of geocaches along my intended route. The trouble is most of the cache descriptions were in German and my German is practically non-existent. I wanted to do all my caching offline so I wrote ...">
+	<meta name="description" content="This is the third of my Shaders for Sverchok tutorials. They follow on from my Simple Sverchok series. The Shaders for Sverchok posts are mostly about Blender Cycles Materials and how I apply them to my Sverchok models rather than directly about Sverchok nodes. This post will show how to ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,66 +38,31 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Translate cache descriptions and logs</h1>
+		<h1>Shaders for Sverchok 03 - Image Texture Node</h1>
 		
 <div class="metadata">
-  <time datetime="2014-11-16T22:00:00" pubdate>Sun 16 November 2014</time>
+  <time datetime="2015-03-07T22:00:00" pubdate>Sat 07 March 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></p></div>		
-		<p>I recently did a European cycle trip and as described <a href="http://www.elfnor.com/off-line-caching-along-a-route.html">here</a> I made some gpx files of geocaches along my intended route. </p>
-<p>The trouble is most of the cache descriptions were in German and my German is practically non-existent. I wanted to do all my caching offline so I wrote a small python script to use Google Translate to translate all the descriptions and logs in the GPX file.</p>
-<p>The code uses the <code>minidom</code> module in the python standard library to parse the <code>xml</code> in the GPX file.    </p>
-<p>It uses the <a href="http://pythonhosted.org/goslate/">goslate</a> library to query Google translate. The <code>codecs</code> module also in the python standard library is used to correctly write out the unicode characters.</p>
-<p>The script attempts to translate the description and logs for each geocache into English and append them after the original text.</p>
-<p>WARNING: This code only translates some descriptions and logs, if there is a lot of formatting in the description it fails to translate and just returns a second copy of the original text. I haven't spent much time trying to resolve this bug. Feel welcome to improve the script for your on use. Also use at your own discretion after reading Google Translate's terms and conditions.</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">xml.dom</span> <span class="kn">import</span> <span class="n">minidom</span>
-<span class="kn">import</span> <span class="nn">codecs</span>
-<span class="kn">import</span> <span class="nn">goslate</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">gs</span> <span class="o">=</span> <span class="n">goslate</span><span class="o">.</span><span class="n">Goslate</span><span class="p">()</span>
-<span class="n">fn</span> <span class="o">=</span> <span class="s">&#39;route-caches.gpx&#39;</span>
-
-
-<span class="n">xmldoc</span> <span class="o">=</span> <span class="n">minidom</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>    
-<span class="n">descs</span> <span class="o">=</span>  <span class="n">xmldoc</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;groundspeak:long_description&#39;</span><span class="p">)</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">descs</span><span class="p">)</span>    
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">descs</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> 
-        <span class="n">endesc</span> <span class="o">=</span>  <span class="n">gs</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="s">&#39;en&#39;</span><span class="p">)</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>  <span class="o">=</span> <span class="p">(</span><span class="n">desc</span> <span class="o">+</span> <span class="s">&#39; &lt;hr&gt; &#39;</span> <span class="o">+</span> <span class="n">endesc</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> of </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-
-
-<span class="n">texts</span> <span class="o">=</span> <span class="n">xmldoc</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s">&#39;groundspeak:text&#39;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>    
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">texts</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> 
-        <span class="n">entext</span> <span class="o">=</span>  <span class="n">gs</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s">&#39;en&#39;</span><span class="p">)</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">firstChild</span><span class="o">.</span><span class="n">nodeValue</span>  <span class="o">=</span> <span class="p">(</span><span class="n">text</span> <span class="o">+</span> <span class="s">&#39; &lt;hr&gt; &#39;</span> <span class="o">+</span> <span class="n">entext</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span>
-
-    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> of </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;route-caches-en.gpx&#39;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">,</span> <span class="s">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
-    <span class="n">xmldoc</span><span class="o">.</span><span class="n">writexml</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
+		<p><img alt="random desert blocks" src="/images/random_block_image_pos9.png" /></p>
+<p>This is the third of my Shaders for Sverchok tutorials. They follow on from  my <a href="http://elfnor.com/tag/sverchok.html">Simple Sverchok</a> series. The Shaders for Sverchok posts are mostly about Blender Cycles Materials and how I apply them to my <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> models rather than directly about Sverchok nodes.</p>
+<p>This post will show how to take the colours from an image and apply them to objects in a scene. It uses the object location given by the "Object Info" node, but see <a href="">Shaders for Sverchok 01</a> for other ways to use this node.  Of course this technique is useful for scenes with lots of objects generated by the dupliverts for example. Its a great way to try out different colour schemes on a scene very quickly.</p>
+<p>The cycles nodes for this is very simple.</p>
+<p><img alt="position to image nodes" src="/images/random_blocks_blog1.blend.png" /></p>
+<p>The object position is fed into the vector input of an "Image Texture" node via a "Mapping" node. As usual the input of the vector for the "Image Texture" node should be between (0, 0, 0) and (1, 1, 1). The colour at the top right of the image will be accessed with a vector  (1, 1, 0). The colour of the image at the bottom left will be accessed with a vector (0, 0, 0). Use the mapping node to change the location vectors into this range. If the values are outside the range they will loop around as if the image was tiled. For example (0.2, 0.2, 0) and (1.2, 1.2, 0) will map to the same place in the image. </p>
+<p>It makes sense to use the "Point" option of the "Mapping" node. With this option</p>
+<div class="highlight"><pre><span class="n">output</span> <span class="o">=</span> <span class="n">Scale</span> <span class="o">*</span> <span class="n">input</span> <span class="o">+</span> <span class="n">Location</span>
 </pre></div>
 
 
+<p>The Texture, Vector and Normal options do other things. To rotate the image colours about the scene use the "Z" value of the rotation field.</p>
+<p>Choose the image to use in the "Image Texture" node. This can be something especially created for the scene to paint particular colours to particular objects, the output of some other Blender render, or a landscape or other photo chosen for its colour balance.</p>
+<p>The alpha channel of the image can be used to effect transparency or any other input in the cycles nodes.</p>
+<p>It's possible to quickly change the colour scheme of a composition to try out different looks or to have very fine detail control of object colour by drawing over a render or screenshot of the scene taken looking down from +Z.</p>
+<hr />
 <hr />	
 
 	</article>
@@ -106,7 +71,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "translate-cache-descriptions-and-logs.html";
+	       var disqus_identifier = "shaders-for-sverchok-03-image-texture-node.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

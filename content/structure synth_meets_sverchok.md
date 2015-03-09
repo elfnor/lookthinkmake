@@ -126,7 +126,7 @@ The Library of xml rule sets is stored in the ```GA_xml.py``` module. This allow
 
 If the rule set defines different objects in the instances, the node will put out a mask to use in Sverchok. The objects can be called anything in the xml. ```GenerativeArt_Blender.py``` passes them to the node as strings. The node then converts these to integers (that is (0, 1) for two different objects, (0, 1, 2) for three objects etc.). This mask can be used as input to a "Mask List" node to separate the matrices into two lists as shown below. This is simple for two objects but is a bit more complicated but doable for more.
 
-![GA node diagram with mask list](images/generative_art_node_OK_02.blend.png)
+![GA node diagram with mask list](/images/generative_art_node_OK_02.blend.png)
 
 My computer chokes if I try to feed too many matrices into Sverchok. I've put a hard limit in the node at 5000 matrices. Feel free to change this depending on you and your computer's ability to cope with lockups and crashes.
 

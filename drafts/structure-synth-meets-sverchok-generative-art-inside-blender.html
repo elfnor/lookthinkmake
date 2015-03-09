@@ -147,7 +147,7 @@
 <p>The node has one input "rseed" which is used to set the random number generator. For a rule set that includes multiple definitions of rules, changing this will change the stucture. </p>
 <p>The Library of xml rule sets is stored in the <code>GA_xml.py</code> module. This allows you to easily change the rule set. In the last line of code <code>Library["Default"] = Library["Tree"]</code> change <code>Tree</code> to any of the other examples. You can also change the rules or add new ones. The geometry should change in the 3D View after clicking the "Update Node Tree" button in the Sverchok panel.</p>
 <p>If the rule set defines different objects in the instances, the node will put out a mask to use in Sverchok. The objects can be called anything in the xml. <code>GenerativeArt_Blender.py</code> passes them to the node as strings. The node then converts these to integers (that is (0, 1) for two different objects, (0, 1, 2) for three objects etc.). This mask can be used as input to a "Mask List" node to separate the matrices into two lists as shown below. This is simple for two objects but is a bit more complicated but doable for more.</p>
-<p><img alt="GA node diagram with mask list" src="images/generative_art_node_OK_02.blend.png" /></p>
+<p><img alt="GA node diagram with mask list" src="/images/generative_art_node_OK_02.blend.png" /></p>
 <p>My computer chokes if I try to feed too many matrices into Sverchok. I've put a hard limit in the node at 5000 matrices. Feel free to change this depending on you and your computer's ability to cope with lockups and crashes.</p>
 <p>The code is available <a href="">here on github</a>.</p>
 <hr />	

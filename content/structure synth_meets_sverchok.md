@@ -1,6 +1,6 @@
 Title: Structure Synth meets Sverchok - Generative Art inside Blender
 Date: 2015-03-08 22:00
-Tags: make, think, blender, sverchok
+Tags: make, think, blender, sverchok, structuresynth
 Category: think
 Author: elfnor
 

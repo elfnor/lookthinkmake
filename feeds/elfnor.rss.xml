@@ -1,5 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 15 Mar 2015 22:00:00 +1300</lastBuildDate><item><title>Structure Synth meets Sverchok - Mesh mode</title><link>http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html</link><description>&lt;p&gt;&lt;img alt="pounamu fern" src="/images/fern_30.png" /&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 22 Mar 2015 22:00:00 +1300</lastBuildDate><item><title>Structure Synth meets Sverchok - Animation</title><link>http://www.elfnor.com/structure-synth-meets-sverchok-animation.html</link><description>&lt;p&gt;&lt;img alt="still from fern  animation" src="/images/fern_anim_still_05.png" /&gt;&lt;/p&gt;
+&lt;p&gt;In the previous two posts (&lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html"&gt;Generative Art in Blender&lt;/a&gt; and &lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html"&gt;Mesh Mode&lt;/a&gt; I introduced the &lt;a href="http://nikitron.cc.ua/sverchok_en.html"&gt;Sverchok&lt;/a&gt; scripted node I'd written to implement &lt;a href="http://structuresynth.sourceforge.net/"&gt;Structure Synth&lt;/a&gt; generative art or lsystems inside Blender.&lt;/p&gt;
+&lt;p&gt;Following &lt;a href=""&gt;Martinius's suggestion&lt;/a&gt; I've now exposed parameters in the xml rule definition to the Sverchok node tree so we can do animation of Structure Synth lsystems inside Blender.&lt;/p&gt;
+&lt;p&gt;Here's an example:&lt;/p&gt;
+&lt;iframe src="https://player.vimeo.com/video/123063760?title=0&amp;byline=0&amp;portrait=0" width="500" height="375" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;p&gt;&lt;a href="https://vimeo.com/123063760"&gt;Pounamu Fern Animation&lt;/a&gt; from &lt;a href="https://vimeo.com/user38620121"&gt;elfnor&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;&lt;/p&gt;
+&lt;p&gt;As before, to use the generative art node in Blender first install the &lt;a href="http://nikitron.cc.ua/sverchok_en.html"&gt;Sverchok&lt;/a&gt; addon. Download the lsystem code from &lt;a href="https://github.com/elfnor/lsystem"&gt;github&lt;/a&gt;. Then load the three python files in the Blender directory (&lt;code&gt;LSystem_blender.py, GA_xml.py, GA_node.py&lt;/code&gt;) as separate text blocks into a blend file. Add a "Scripted Node" to a Sverchok node tree. On the node select the &lt;code&gt;GA_node.py&lt;/code&gt; code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.&lt;/p&gt;
+&lt;p&gt;The latest version now has an additional input "variables". &lt;/p&gt;
+&lt;p&gt;The first step to animating the lsystem is to edit the lsystem definition in the xml text in &lt;code&gt;GA_xml.py&lt;/code&gt; to define which values becomes variables. The value for any of the transforms in the file can be replaced with a pair of curly braces:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;transforms&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tx 0.5 rx 20 sa 0.9&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;becomes&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;transforms&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tx {} rx 20 sa 0.9&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To illustrate this here is the xml definition and the node diagram for the fern animation.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Library[&amp;quot;FernVars&amp;quot;] = &amp;quot;&amp;quot;&amp;quot;
+&lt;span class="nt"&gt;&amp;lt;rules&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2000&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;entry&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+       &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curl1&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;  
+       &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curl2&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;      
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curl1&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;60&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rx {} tz 1.5 s 0.9 0.9 1.0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curl1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;box&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;        
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curl2&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;40&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rx {} tz 1.5 s 0.9 0.9 1.0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curl2&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tx 0.1 ty -0.45 ry 40 sa 0.25&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curlsmall&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;     
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;    
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curlsmall&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;40&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rx 2*{} tz 2.7 s 0.9 0.9 1.0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;curlsmall&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;box&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;     
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;    
+&lt;span class="nt"&gt;&amp;lt;/rules&amp;gt;&lt;/span&gt;
+&amp;quot;&amp;quot;&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="node diagram for fern animation" src="/images/GA_Fern_animation_03.blend.png" /&gt;&lt;/p&gt;
+&lt;p&gt;For this animation the index number of the current frame in the animation is translated from the range 1 to 250 to the range 16 to 6 via the formula node  and wired into the "variables" input of the "GA_node". This cause the fern to unwind as the animation proceeds. The separate objects are joined into one using the "Mesh Join" node and this output sent to the "Bmesh Viewer Draw" node. &lt;/p&gt;
+&lt;p&gt;If you want to animate more than one parameter use index numbers (starting with 0) inside the braces:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;transforms&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tx {0} rx {1} sa {2}&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With multiple parameters a "List Join" node is used to make a list to use as the "variables" input of the "GA_node".&lt;/p&gt;
+&lt;p&gt;&lt;img alt="node diagram with list join" src="/images/GA_node-variables_attributes.blend.png" /&gt;&lt;/p&gt;
+&lt;p&gt;If not enough variables are provided the last one is repeated as many times as required.&lt;/p&gt;
+&lt;p&gt;Simple maths can also be use in the transforms definition. This has been used above in the "curlsmall" rule. The rx rotation of the transform will always be twice that of the rx rotation in the "curl1" and "curl2" rules.&lt;/p&gt;
+&lt;p&gt;There cannot be any spaces in any maths expressions for the rotation, translation or scale parameters when using a transforms attribute string as above.  Instead of listing all the transforms in one attribute string each transform can now have its own string. This allows more complicated expressions to be included. &lt;/p&gt;
+&lt;p&gt;transforms as single attribute (no spaces allowed in maths expression)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;transforms&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tx 1 rz -1*{0} ry {1}&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;R1&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;each transform with its own attribute (can have spaces)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;tx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;rz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-1 * {0}&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;ry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{1}&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;R1&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;All this is implemented by first using python's string format method to substitute in the variable value from the node input. Then the resulting string is passed to python's &lt;code&gt;eval()&lt;/code&gt; function. The string must evaluate to a single number (float or integer). Using &lt;code&gt;eval()&lt;/code&gt; is a potential security problem as in theory someone could put some malicious code inside an xml lsystem definition. As always don't run code from a source you don't trust.&lt;/p&gt;
+&lt;p&gt;Only the transforms that take a single number that is tx, ty, tz, rx, ry, rz, sx, sy, sz and sa have been implemented using individual attributes. The ones that use triplets to specify all three translations or scales at once (t and s) can only be used in a transform string.&lt;/p&gt;
+&lt;p&gt;There's room to do some very clever stuff using this ability to put short bits of code in the xml... &lt;/p&gt;
+&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Sun, 22 Mar 2015 22:00:00 +1300</pubDate><guid>tag:www.elfnor.com,2015-03-22:structure-synth-meets-sverchok-animation.html</guid><category>make</category><category>think</category><category>blender</category><category>sverchok</category><category>structuresynth</category></item><item><title>Structure Synth meets Sverchok - Mesh mode</title><link>http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html</link><description>&lt;p&gt;&lt;img alt="pounamu fern" src="/images/fern_30.png" /&gt;&lt;/p&gt;
 &lt;p&gt;In the previous &lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html"&gt;post&lt;/a&gt; I introduced the &lt;a href="http://nikitron.cc.ua/sverchok_en.html"&gt;Sverchok&lt;/a&gt; scripted node I'd written to implement &lt;a href="http://structuresynth.sourceforge.net/"&gt;Structure Synth&lt;/a&gt; generative art or lsystems inside Blender.&lt;/p&gt;
 &lt;p&gt;In this post I'll cover a couple of features I've added to the basic node.&lt;/p&gt;
 &lt;h2&gt;Mask output&lt;/h2&gt;

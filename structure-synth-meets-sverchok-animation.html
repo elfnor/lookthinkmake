@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Structure Synth meets Sverchok - Animation - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="In the previous two posts (Generative Art in Blender and Mesh Mode I introduced the Sverchok scripted node I'd written to implement Structure Synth generative art or lsystems inside Blender. Following Martinius's suggestion I've now exposed parameters in the xml rule definition to the Sverchok node tree ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/structure-synth-meets-sverchok-animation.html">Structure Synth meets Sverchok - Animation</a></h1>
-        <p><img alt="still from fern  animation" src="/images/fern_anim_still_05.png" /></p>
+	<article class="full">
+			
+		<h1>Structure Synth meets Sverchok - Animation</h1>
+		
+<div class="metadata">
+  <time datetime="2015-03-22T22:00:00" pubdate>Sun 22 March 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></p></div>		
+		<p><img alt="still from fern  animation" src="/images/fern_anim_still_05.png" /></p>
 <p>In the previous two posts (<a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html">Generative Art in Blender</a> and <a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html">Mesh Mode</a> I introduced the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> scripted node I'd written to implement <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> generative art or lsystems inside Blender.</p>
 <p>Following <a href="">Martinius's suggestion</a> I've now exposed parameters in the xml rule definition to the Sverchok node tree so we can do animation of Structure Synth lsystems inside Blender.</p>
 <p>Here's an example:</p>
@@ -109,103 +118,22 @@
 <p>All this is implemented by first using python's string format method to substitute in the variable value from the node input. Then the resulting string is passed to python's <code>eval()</code> function. The string must evaluate to a single number (float or integer). Using <code>eval()</code> is a potential security problem as in theory someone could put some malicious code inside an xml lsystem definition. As always don't run code from a source you don't trust.</p>
 <p>Only the transforms that take a single number that is tx, ty, tz, rx, ry, rz, sx, sy, sz and sa have been implemented using individual attributes. The ones that use triplets to specify all three translations or scales at once (t and s) can only be used in a transform string.</p>
 <p>There's room to do some very clever stuff using this ability to put short bits of code in the xml... </p>
-<hr />
-	<a href="http://www.elfnor.com/structure-synth-meets-sverchok-animation.html">Permalink, </a>
-	<a href="http://www.elfnor.com/structure-synth-meets-sverchok-animation.html#disqus_thread">Comments</a>
-      </article>
-
-      <hr />
-
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html" rel="bookmark" title="Permalink to Structure Synth meets Sverchok - Mesh mode">Structure Synth meets Sverchok - Mesh mode</a>
-  <time datetime="2015-03-15T22:00:00" pubdate>Sun 15 March 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html" rel="bookmark" title="Permalink to Structure Synth meets Sverchok - Generative Art inside Blender">Structure Synth meets Sverchok - Generative Art inside Blender</a>
-  <time datetime="2015-03-08T22:00:00" pubdate>Sun 08 March 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/shaders-for-sverchok-03-image-texture-node.html" rel="bookmark" title="Permalink to Shaders for Sverchok 03 - Image Texture Node">Shaders for Sverchok 03 - Image Texture Node</a>
-  <time datetime="2015-03-07T22:00:00" pubdate>Sat 07 March 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html" rel="bookmark" title="Permalink to Shaders for Sverchok 02 - Vertex Colors">Shaders for Sverchok 02 - Vertex Colors</a>
-  <time datetime="2015-02-26T22:00:00" pubdate>Thu 26 February 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/shaders-for-sverchok-01-object-info-node.html" rel="bookmark" title="Permalink to Shaders for Sverchok 01 - Object Info node.">Shaders for Sverchok 01 - Object Info node.</a>
-  <time datetime="2015-02-22T22:00:00" pubdate>Sun 22 February 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+<hr />	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "structure-synth-meets-sverchok-animation.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -291,7 +219,7 @@
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Galleries- Look Think Make</title>	
+	<title>Blender Progress Animations - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="A nice side effect of using the auto save add-on is that if you render often you effortlessly have a record of the progress of your scene towards the final image. These saved images can be collected up into an animation. I'm going to describe how to do it ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,17 +36,43 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Blender Progress Animations</h1>
+		
+<div class="metadata">
+  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
+		<p><img alt="walkways still" src="/images/walkways_ivy_024.png" /></p>
+<p>A nice side effect of using the <a href="http://www.elfnor.com/blender-auto-save-add-on.html">auto save add-on</a> is that if you render often you effortlessly have a record of the progress of your scene towards the final image. These saved images can be collected up into an animation. </p>
+<p>I'm going to describe how to do it as an animated GIF using GIMP. GIFs are well supported on the web but have indexed color so they tend to end up with visible lines between colors in areas of the image where there should be smooth gradients. There are alternatives to GIFs that don't have this problem some of which are discussed <a href="http://stackoverflow.com/questions/6402633/what-alternatives-for-animated-gifs-are-there">here</a> on stackoverflow. Otherwise make a standard video animation from the still images using programs like <a href="https://kdenlive.org/">Kdenlive</a> or <a href="http://www.openshot.org/">openshot</a>.</p>
+<h2>Using GIMP to make an animated GIF from still images</h2>
+<p>Open up GIMP and use <code>File &gt; Open as Layers</code> to get a file dialog box. Select all the image files in your auto-saves folder and import them into GIMP. All images used should have the same dimensions. In the <code>Layers</code> dialog check all the files are in the right order. The first image comes from the bottom of the dialog and the last from the top. </p>
+<p>Choose <code>Filters &gt; Animation &gt; Optimize (for GIF)</code>. This will produce a new GIMP file. In this file each of the layers has been reworked to only include the parts that differ from the previous image. The rest of that layer is set to transparent to allow earlier images to show through. This reduces the file size. </p>
+<p>The layers have been renamed to something like <code>walkways_ivy_015.png(100ms)(combine)</code> The first set of brackets contains the length of time the image will be displayed. These can be individually edited by selecting <code>Edit Layer Attributes</code> from the right click menu. To set them all at once you need to change the default which as far as I can tell is only available from the export dialog. Choose <code>File &gt; Export as..</code> and set <code>GIF</code> as the format.  In the <code>Export Image as GIF</code> dialog,  select <code>as animation</code> and set <code>Delay between frames</code> to the desired value. I used 500 ms in the following GIF. Also select <code>Use delay above for all frames</code>. Export the GIF and its done.</p>
+<p>I wanted to set the final image in the GIF to a longer display time than the others. To do this open the GIF file back into GIMP and change the delay in the layer attribute as above and re-export. I used 2000 ms.</p>
+<p><img alt="walkways gif" src="/images/walkways_05.gif" /></p>
+<p>The sequence above shows the texturing and lighting for a scene. The geometry was developed using my <a href="http://www.elfnor.com/blender-pipe-generator.html">Generative Art node</a> for <a href="https://github.com/nortikin/sverchok">Sverchok</a>. Also used is the Ivy Gen add-on included with Blender.</p>
+<hr />	
 
-<h1>Galleries</h1>
-<h2><a href="http://elfnor.github.io/artworksgallery/index.html">Art Works Gallery</a></h2>
-<p><a href="http://elfnor.github.io/artworksgallery/index.html"><img alt="Art Works" src="http://www.elfnor.com/images/art_works_thumbnails.png" /></a></p>
-<p>My <a href="http://elfnor.github.io/artworksgallery/index.html">Art Works Gallery</a>, contains images of art works I've made over the years with a brief description of each piece. It mainly duplicates stuff I also post to my <a href="http://elfnor.deviantart.com/">deviant art</a> site. </p>
-<p>I'm a great one for learning new techniques and this gallery has work in many different mediums, there's quilts and pots, ceramic sculptures, some digital images  and upcycling projects (upcycled bicycle tubes). After my next photography session I'll post some chain mail jewelery with electrical components, a deck chair woven with more bicycle tubes , 3D printing and maybe another tensegrity ceramic sculpture.</p>
-<p>The gallery was produced with <a href="https://wiki.gnome.org/Apps/gthumb">gthumb</a> and uses my own Responsive Dark theme. There's  more about the theme <a href="http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html">here</a> and it can be downloaded from this <a href="https://github.com/elfnor/gthumb_responsive_theme">repository</a>.</p>
-<h2><a href="http://elfnor.github.io/symmetrytilegallery/index.html">Symmetry Tile Gallery</a></h2>
-<p><a href="http://elfnor.github.io/symmetrytilegallery/index.html"><img alt="Symmetry Tile" src="http://www.elfnor.com/images/symmetry_tile_thumbnails.png" /></a></p>
-<p>The <a href="http://elfnor.github.io/symmetrytilegallery/index.html">Symmetry Tile Gallery</a> contains images produced using my Symmetry Tile plug-in for the GIMP image processing package. There's more about the plugin <a href="http://elfnor.com/tag/symmetrytile.html">here</a> and it can be downloaded from its github <a href="https://www.github.com/elfnor/symmetrytile">repository</a>.</p>
-<p>The gallery was built using <a href="http://home.gna.org/llgal/">llgal</a></p>		
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "blender-progress-animations.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -135,7 +164,7 @@
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

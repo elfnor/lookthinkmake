@@ -37,34 +37,20 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/blender-auto-save-add-on.html">Blender Auto Save add-on</a></h1>
-        <p><img alt="radiolaria version 31" src="/images/decimate_planes_31_crop.png" /></p>
-<p>(This image is unrelated to the post other than it was the 31st image rendered from the same basic geometry.)</p>
-<p>My normal work flow in Blender is to create a blend file and use it to render and save an image often at low resolution and quality for speed. Then I fiddle some more (camera angle, lighting, materials), render another image hopefully save the Blender file and then repeat. I try to keep the same version and file names for images and blend files but I often get out of sync. What I need to be able to do is browse all the image versions and reliably find the blend file that produced it. That way I can go back and find the best images and render them again at a higher resolution and quality.</p>
-<p>I first thought of a general solution using version control such as git. If I did a commit after each render I'd have the kind of record I needed. But git dosen't store the image files in a way that the images are easily browseable between different commits.</p>
-<p>I ended up making a small addition to an existing Blender add-on. The <a href="http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Render/Auto_Save">original by Florian Meyer</a> auto saved the image when a render was completed. </p>
-<p>My version available <a href="https://github.com/elfnor/blender_auto_save_on_render">here on github</a>, has the option to also auto save the blend file after each render. This results in nice pairs of blend files and images with the same name and version number. </p>
-<p>After the add-on is installed, the settings are found on the Render panel.  </p>
-<p><img alt="screenshot" src="/images/screen.png" /></p>
-<p>With "Auto Save Image" and "with .blend" set and the file "\Documents\test.blend" open, after rendering the following files will be created  </p>
-<div class="highlight"><pre>\<span class="n">Documents</span>\<span class="n">auto_saves</span>\<span class="n">test_001</span><span class="o">.</span><span class="n">png</span>  
-\<span class="n">Documents</span>\<span class="n">auto_saves</span>\<span class="n">test_001</span><span class="o">.</span><span class="n">blend</span>  
-</pre></div>
-
-
-<p>If "subfolder" is also set the files will be created in a sub-folder named after the blend file.  </p>
-<div class="highlight"><pre>\<span class="n">Documents</span>\<span class="n">auto_saves</span>\<span class="n">test</span>\<span class="n">test_001</span><span class="o">.</span><span class="n">png</span>  
-\<span class="n">Documents</span>\<span class="n">auto_saves</span>\<span class="n">test</span>\<span class="n">test_001</span><span class="o">.</span><span class="n">blend</span>  
-</pre></div>
-
-
-<p>The version number is incremented with each render.  </p>
-<p>This looks like it will do the job for me. I haven't yet done more than 999 versions of the same render.</p>
-<p>I'd still be interested in how other people handle version control stuff in Blender or other digital art.</p>
-<p>Possibly most people have a more defined goal than me, know their tools well enough to head towards that goal in a linear fashion, know when they've got there and then stop. Their last file is their best. Me, I tend to try lots of different ideas in different directions and stop when it's bedtime.</p>
+        <h1><a href="http://www.elfnor.com/blender-progress-animations.html">Blender Progress Animations</a></h1>
+        <p><img alt="walkways still" src="/images/walkways_ivy_024.png" /></p>
+<p>A nice side effect of using the <a href="http://www.elfnor.com/blender-auto-save-add-on.html">auto save add-on</a> is that if you render often you effortlessly have a record of the progress of your scene towards the final image. These saved images can be collected up into an animation. </p>
+<p>I'm going to describe how to do it as an animated GIF using GIMP. GIFs are well supported on the web but have indexed color so they tend to end up with visible lines between colors in areas of the image where there should be smooth gradients. There are alternatives to GIFs that don't have this problem some of which are discussed <a href="http://stackoverflow.com/questions/6402633/what-alternatives-for-animated-gifs-are-there">here</a> on stackoverflow. Otherwise make a standard video animation from the still images using programs like <a href="https://kdenlive.org/">Kdenlive</a> or <a href="http://www.openshot.org/">openshot</a>.</p>
+<h2>Using GIMP to make an animated GIF from still images</h2>
+<p>Open up GIMP and use <code>File &gt; Open as Layers</code> to get a file dialog box. Select all the image files in your auto-saves folder and import them into GIMP. All images used should have the same dimensions. In the <code>Layers</code> dialog check all the files are in the right order. The first image comes from the bottom of the dialog and the last from the top. </p>
+<p>Choose <code>Filters &gt; Animation &gt; Optimize (for GIF)</code>. This will produce a new GIMP file. In this file each of the layers has been reworked to only include the parts that differ from the previous image. The rest of that layer is set to transparent to allow earlier images to show through. This reduces the file size. </p>
+<p>The layers have been renamed to something like <code>walkways_ivy_015.png(100ms)(combine)</code> The first set of brackets contains the length of time the image will be displayed. These can be individually edited by selecting <code>Edit Layer Attributes</code> from the right click menu. To set them all at once you need to change the default which as far as I can tell is only available from the export dialog. Choose <code>File &gt; Export as..</code> and set <code>GIF</code> as the format.  In the <code>Export Image as GIF</code> dialog,  select <code>as animation</code> and set <code>Delay between frames</code> to the desired value. I used 500 ms in the following GIF. Also select <code>Use delay above for all frames</code>. Export the GIF and its done.</p>
+<p>I wanted to set the final image in the GIF to a longer display time than the others. To do this open the GIF file back into GIMP and change the delay in the layer attribute as above and re-export. I used 2000 ms.</p>
+<p><img alt="walkways gif" src="/images/walkways_05.gif" /></p>
+<p>The sequence above shows the texturing and lighting for a scene. The geometry was developed using my <a href="http://www.elfnor.com/blender-pipe-generator.html">Generative Art node</a> for <a href="https://github.com/nortikin/sverchok">Sverchok</a>. Also used is the Ivy Gen add-on included with Blender.</p>
 <hr />
-	<a href="http://www.elfnor.com/blender-auto-save-add-on.html">Permalink, </a>
-	<a href="http://www.elfnor.com/blender-auto-save-add-on.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/blender-progress-animations.html">Permalink, </a>
+	<a href="http://www.elfnor.com/blender-progress-animations.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -73,6 +59,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
+  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
 
 
       <li>
@@ -99,10 +91,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/.html">  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/structure-synth-meets-sverchok-animation.html" rel="bookmark" title="Permalink to Structure Synth meets Sverchok - Animation">Structure Synth meets Sverchok - Animation</a>
-  <time datetime="2015-03-22T22:00:00" pubdate>Sun 22 March 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
 
 
 
@@ -179,6 +167,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
+  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
   <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
@@ -213,11 +207,6 @@
   <time datetime="2015-03-22T22:00:00" pubdate>Sun 22 March 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html" rel="bookmark" title="Permalink to Structure Synth meets Sverchok - Mesh mode">Structure Synth meets Sverchok - Mesh mode</a>
-  <time datetime="2015-03-15T22:00:00" pubdate>Sun 15 March 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		

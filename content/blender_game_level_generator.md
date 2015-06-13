@@ -12,7 +12,7 @@ __Steely Taws - No Quitsies__ is a marble run game based on Switchball and Balan
 
 I'll start with a simple example that just has very basic components, then I'll show you how we standardized the Steely Taws game components to work with the "Generative Art" node. Then I'll finish up with the blend file with the components, Sverchok node diagram, xml description to build the level and the game logic to allow anyone to generate and play an unlimited number of random Steely Taws game levels. The same concept could be used to produce random levels for games with quite different architectures, for example a dungeon game with corridors and stairs.
 
-For a demo version to prove this would work I made a simple straight, bend and ramp. The straight section needs to go from (-0.5, 0, 0) to (0.5, 0, 0). The bend goes from (1, 0, 0) to (0, 1, 0) and has its origin at (0, 0, 0). This is the same as the [Blender Pipe Generator]({filename}blender_pipe_generator.md}) but in this case the components are flat rather than round. The ramp goes up from (-0.5, 0.5, 0) to (0.5, 0.5, 0).
+For a demo version to prove this would work I made a simple straight, bend and ramp. The straight section needs to go from (-0.5, 0, 0) to (0.5, 0, 0). The bend goes from (1, 0, 0) to (0, 1, 0) and has its origin at (0, 0, 0). This is the same as the [Blender Pipe Generator]({filename}blender_pipe_generator.md) but in this case the components are flat rather than round. The ramp goes up from (-0.5, 0.5, 0) to (0.5, 0.5, 0).
 
 ![simple game components](/images/simple_components.png)
 

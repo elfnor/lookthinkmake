@@ -22,7 +22,7 @@ I wanted to set the final image in the GIF to a longer display time than the oth
 
 ![walkways gif](/images/walkways_05.gif)
 
-The sequence above shows the texturing and lighting for a scene. The geometry was developed using my [Generative Art node]({filename} blender_pipe_generator.md) for [Sverchok](https://github.com/nortikin/sverchok). Also used is the Ivy Gen add-on included with Blender.
+The sequence above shows the texturing and lighting for a scene. The geometry was developed using my [Generative Art node]({filename}blender_pipe_generator.md) for [Sverchok](https://github.com/nortikin/sverchok). Also used is the Ivy Gen add-on included with Blender.
 
 -------------------------------------------------------------------
 

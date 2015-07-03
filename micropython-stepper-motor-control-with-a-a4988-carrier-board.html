@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Micropython - Stepper motor control with  a A4988 carrier board - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="I have a pyboard (I get cool birthday presents) and like the look of the micropython language. Python is my first language choice for data analysis at work and I've used it writing add ons for GIMP and Blender. I can program the Arduino in Wiring/Processing but being ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html">Micropython - Stepper motor control with  a A4988 carrier board</a></h1>
-        <p><img alt="A4988 circuit" src="/images/A4988_circuit.jpg" /></p>
+	<article class="full">
+			
+		<h1>Micropython - Stepper motor control with  a A4988 carrier board</h1>
+		
+<div class="metadata">
+  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/make.html">make</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/python.html">python</a>, <a href="http://www.elfnor.com/tag/micropython.html">micropython</a></p></div>		
+		<p><img alt="A4988 circuit" src="/images/A4988_circuit.jpg" /></p>
 <p>I have a <a href="https://micropython.org/">pyboard</a> (I get cool birthday presents) and like the look of the micropython language. Python is my first language choice for data analysis at work and I've used it writing add ons for <a href="http://elfnor.com/Symmetry%20Tile%20plug-in%20for%20GIMP.html">GIMP</a> and <a href="http://elfnor.com/blender-pipe-generator.html">Blender</a>. I can program the <a href="http://www.elfnor.com/Arduino%20Bread%20Details.html">Arduino</a> in Wiring/Processing but being able to program a micro-controller in python is a big plus. The way the REPL prompt/terminal allows interactive scripting, putting a program on the board is just copying, and the ease of printing statements back to the terminal are all easier to use than the equivalent for the Arduino.</p>
 <p>Arduino of course has a much bigger user base and a huge resource of code libraries and tutorials. Pick up a sensor or motor control board and you can easily find the code to copy and paste and get it going. The pyboard has some great examples on their <a href="docs.micropython.org/en/latest/tutorial/index.html">website</a> and I've found some good github projects, <a href="https://github.com/dhylands/upy-examples">dhylands examples</a> and <a href="https://github.com/mithru/MicroPython-Examples">mithru examples</a> but more beginner friendly  stuff is needed.</p>
 <p>I'm working towards making a ball balancing robot potentially mashing this <a href="https://github.com/jeffmer/micropython-upybbot">electronics and code</a> with this <a href="http://xrobots.co.uk/BB8/">hardware</a>. I'm tackling this in small steps starting with the motors and will blog progress as I go.</p>
@@ -199,121 +208,22 @@
 <p>The <code>nemastepper</code> module has a Class Stepper which is initialized with the pin names for the pyboard pins connected to the  dir pin, step pin and enable_pin (<code>motor1 = Stepper('Y1','Y2','Y3')</code>). Other motors connected to other pins can be initialized with more instances of <code>Stepper</code>.</p>
 <p>The main program only needs one timer for any number of motors. The timer is set up with a frequency (f = 10000 Hz) much faster than the step rate. The callback function for this timer should call the <code>do_step</code> method for each <code>Stepper</code> instance. The speed (steps/second) of each motor is set with the <code>set_speed</code> method. The sign of the speed determines the direction. The <code>do_step</code> method uses the count and pulserate variables to decide when to take a step to achieve the required speed.</p>
 <p>The <code>MAX_ACCEL</code> attribute of the <code>Stepper</code> class sets the maximum acceleration of the motor. <code>set_speed</code> will limit changes in speed to this value. I've set the <code>MAX_ACCEL</code>to 1000 in the above example so the motor behavior is similar to the previous two examples. In a real application the desired maximum acceleration will depend on the load on the motor. Also in real application the motor speed will probably be ramped up and down in a loop rather than set to a single high value.</p>
-<p>The next step in improving the code would be to provide commands for moving a given number of steps in a given direction implementing acceleration and deceleration. The <a href="http://www.airspayce.com/mikem/arduino/AccelStepper/">AccelStepper library</a> for Arduino gives a good example of this approach but I don't know of such a library yet available for micropython.</p>
-	<a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html">Permalink, </a>
-	<a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html#disqus_thread">Comments</a>
-      </article>
-
-      <hr />
-
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
-  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-pipe-generator.html" rel="bookmark" title="Permalink to Blender Pipe Generator">Blender Pipe Generator</a>
-  <time datetime="2015-05-24T22:00:00" pubdate>Sun 24 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+<p>The next step in improving the code would be to provide commands for moving a given number of steps in a given direction implementing acceleration and deceleration. The <a href="http://www.airspayce.com/mikem/arduino/AccelStepper/">AccelStepper library</a> for Arduino gives a good example of this approach but I don't know of such a library yet available for micropython.</p>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "micropython-stepper-motor-control-with-a-a4988-carrier-board.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -407,7 +317,7 @@
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/make.html">make</a></li>
 	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        

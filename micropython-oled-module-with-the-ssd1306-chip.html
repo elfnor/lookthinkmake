@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Micropython - OLED module with the ssd1306 chip - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="Small OLED modules are available with a resolution 128 x 64 pixels on a 22 x 11 mm display for under seven dollars. They are great for displaying graphics that can't be shown on a standard alphanumeric LCD. OLED screens work without a back light and produce bright high ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html">Micropython - OLED module with the ssd1306 chip</a></h1>
-        <p><img alt="oled module" src="/images/wiring_02.png" /></p>
+	<article class="full">
+			
+		<h1>Micropython - OLED module with the ssd1306 chip</h1>
+		
+<div class="metadata">
+  <time datetime="2015-07-10T22:00:00" pubdate>Fri 10 July 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/make.html">make</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/python.html">python</a>, <a href="http://www.elfnor.com/tag/micropython.html">micropython</a></p></div>		
+		<p><img alt="oled module" src="/images/wiring_02.png" /></p>
 <p>Small OLED modules are <a href="http://www.dx.com/p/waveshare-0-96-oled-b-ssd1306-display-screen-module-deep-blue-340467#.VZ9gRqGW4y8">available</a> with a resolution 128 x 64 pixels on a 22 x 11 mm display for under seven dollars. They are great for displaying graphics that can't be shown on a standard alphanumeric LCD. <a href="https://en.wikipedia.org/wiki/OLED">OLED </a> screens work without a back light and produce bright high contrast displays with a wide viewing angle (&gt;160°) and low power consumption (~20 mA). The monochrome versions are available with a white or blue display on a black background, or as a version where the top quarter is yellow and the the rest blue.  The frame rates are very good and the display can be updated by the pyboard as fast as 333 frames/second.</p>
 <p>The driver chip included on these modules is a ssd1306 chip that can be set up to work with either a SPI or an I2C bus. Some modules come with only one bus wired up, other use a soldered jumper or resistor to select between the two bus types. I'm using a 128 x 64 pixel display using an SPI interface.</p>
 <p>There are some ssd1306 libraries available for micropython but I'm going to start with a basic example using only the micropython SPI class. I find writing a very simple example like this is a good way to understand the hardware and how to get the micro controller to work with it. Once I've got the simple example going I know my hardware and wiring are correct and I'm happy to use someone else's library to write more complicated stuff.</p>
@@ -192,125 +201,22 @@
 <p>After the text and graphics are set up using calls to <code>oled.text()</code>, <code>oled.pixel()</code>, or any of the <code>lcd_gfx</code> functions, <code>oled.display</code> is called to send the buffer to the display.</p>
 <p>The code for all these examples is available on my <a href="https://github.com/elfnor/micropython-blog-examples">github repo</a></p>
 <p>The ssd1306 library can also be used with an OLED wired to use the I2C bus. </p>
-<hr />
-	<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html">Permalink, </a>
-	<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html#disqus_thread">Comments</a>
-      </article>
-
-      <hr />
-
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+<hr />	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "micropython-oled-module-with-the-ssd1306-chip.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -406,7 +312,7 @@
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/make.html">make</a></li>
 	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        

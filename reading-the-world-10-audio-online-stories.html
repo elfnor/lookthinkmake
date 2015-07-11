@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Simple Sverchok 05 - Interpolate and Iterate Matrix - Look Think Make</title>	
+	<title>Reading the World - 10 Audio Online Stories - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="This is part five of my introduction to Sverchok the parametric node geometry add-on for Blender. Other parts can be found here So far we've used various nodes to produce list of matrices that we've used to give the location, scale and rotation of objects. This post continues ...">
+	<meta name="description" content="I really enjoyed putting together my list of 100 online stories but collating, then reading 100 stories at once was hard work. I'll do some more virtual anthologies with stories in groups of ten or so. This list is audio versions of stories from the big list. I found ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,35 +38,101 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Simple Sverchok 05 - Interpolate and Iterate Matrix</h1>
+		<h1>Reading the World - 10 Audio Online Stories</h1>
 		
 <div class="metadata">
-  <time datetime="2015-01-31T22:00:00" pubdate>Sat 31 January 2015</time>
+  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
-  in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><img alt="matrix iterate sample image" src="/images/matrix_iterate_13.png" /></p>
-<p>This is part five of my introduction to <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> the parametric node geometry add-on for Blender. Other parts can be found <a href="http://elfnor.com/tag/sverchok.html">here</a></p>
-<p>So far we've used various nodes to produce list of matrices that we've used to give the location, scale and rotation of objects. This post continues that idea.</p>
-<p>The "Matrix Interpolation" node takes one or two matrices as input and produces a list of matrices that describe transformations interpolated between the two matrices. If only one matrix is input the identity matrix (no transform) is used for the other matrix. This is great for example to make a whole line of objects.</p>
-<p><img alt="matrix interpolate nodes sverchok" src="/images/matrix_interpolate_nodes.png" /></p>
-<p>The input matrix could also include a scale and rotation.</p>
-<p>The "Matrix Interpolation" node can also be used to produce a list of identity matrices that are then altered by a "Matrix Deform" node. This allows non-linear variation in the object scales and rotations as shown in the example below. Here we've produced 21 identity matrices. The "Map Range" Node is used to change the values from the "Float Series" from 0 to 5 (used for the locations) to 0 to 360 (used for the angle of rotation about the Z axis). The same range is also mapped to the interval 0 to pi. The sine of this function is then used to scale the objects in the y direction.</p>
-<p><img alt="matrix interpolate node identity sverchok" src="/images/matrix_interpolation_map_03.blend.png" /></p>
-<p>EDIT: We don't really need to use a "Matrix Interpolation" node in the above example. We can replace the "Matrix Deform" node with a "Matrix In" node as shown below and acheive the same result.</p>
-<p><img alt="matrix in nodeverchok" src="/images/matrix_interpolation_map_04.blend.png" /></p>
-<p>If we want to scale and shift the objects in the same direction, for example produce a stack of diminishing sized cubes sitting on top of each other, we can't do it with linear interpolation. In the image below the gaps between each cube centre are the same size. If the cubes are to sit on top of each other the gap has to decrease along with the cube size. </p>
-<p><img alt="matrix interpolate pyramid sverchok" src="/images/pyramid_interpolate_01.blend.png" /></p>
-<p>If we scale the 1st cube (size 2 units) by 0.75 to get our 2nd cube (size 1.5 units) we then need to move the 2nd cube 1.75 units to stack it on top of the 1st cube. What we need to do here is apply a transform matrix M that does a 0.75 scale and a 1.75 unit translation to the 1st object to get our second object.</p>
-<p>V2 = M * V1</p>
-<p>Then we apply the same transform again to V2 to get V3</p>
-<p>V3 = M * V2</p>
-<p>and so on. This will stack the cubes nicely on top of each other. Since version 0.5.1.0 Sverchok has a "Iterate Matrix Transform" node that does this repeated matrix transform. Its currently in the Beta node panel.</p>
-<p><img alt="matrix iterate pyramid sverchok" src="/images/pyramid_interpolate_iterate_04.blend.png" /></p>
-<p>Adding rotations to the matrix used as input to the iterate node will quickly produce some interesting structures. Below is the node diagram for the structure in the image at the top of this post. The same structure is used as the default start up script for the <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> application. Many of the other examples provided with Structure Synth could be used as starting points for exploration with Sverchok.</p>
-<p><img alt="structure synth default sverchok" src="/images/matrix_iterate_01_demo.blend.png" /></p>
+  in <a href="http://www.elfnor.com/category/look.html">look</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/reading.html">reading</a></p></div>		
+		<p><img alt="online story map" src="/images/online_stories_map_10.png" /></p>
+<p>I really enjoyed putting together my list of <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html">100 online stories</a> but collating, then reading 100 stories at once was hard work. I'll do some more virtual anthologies with stories in groups of ten or so. This list is audio versions of stories from the big list. I found eight of the stories as audio online. Some of the authors on the list have work in podcasts but different stories than those I choose for the big list. I used a couple of these to make the list up to ten. Four male and six female authors this time. </p>
+<h2>10 Countries - 10 Online Audio Stories</h2>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Author</th>
+<th>Gender</th>
+<th>Title</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Canada</td>
+<td>Doctorow, Cory</td>
+<td>M</td>
+<td>Andas Game (<a href="https://archive.org/details/Cory_Doctorow_Podcast_16">Part 1</a>, <a href="https://archive.org/details/Cory_Doctorow_Podcast_17">Part 2</a>, <a href="https://archive.org/details/Cory_Doctorow_Podcast_18">Part 3</a>)</td>
+<td>Bad-ass girl gamer does good</td>
+</tr>
+<tr>
+<td>China</td>
+<td>Xia, Jia</td>
+<td>F</td>
+<td><a href="http://clarkesworldmagazine.com/audio_02_12a/">A Hundred Ghosts Parade Tonight </a></td>
+<td>Animatronic ghosts in a theme park</td>
+</tr>
+<tr>
+<td>France</td>
+<td>Aliette de Bodard</td>
+<td>F</td>
+<td><a href="http://clarkesworldmagazine.com/audio_01_15/">Three Cups of Grief, by Starlight*</a></td>
+<td>Inheritance and grief, family vs colleagues</td>
+</tr>
+<tr>
+<td>Grenada</td>
+<td>Tobias S. Buckell</td>
+<td>M</td>
+<td><a href="http://clarkesworldmagazine.com/audio_05_10/">A Jar of Goodwill*</a></td>
+<td>Who is still human, whose side are you on</td>
+</tr>
+<tr>
+<td>Japan</td>
+<td>Yukimi Ogawa</td>
+<td>F</td>
+<td><a href="http://www.strangehorizons.com/2013/20130311/xpodcast-f.shtml">Town's End</a></td>
+<td>Hook up service for other people</td>
+</tr>
+<tr>
+<td>Latvia</td>
+<td>Tom Crosshill</td>
+<td>M</td>
+<td><a href="http://clarkesworldmagazine.com/audio_04_12/">Fragmentation, or Ten Thousand Goodbyes</a></td>
+<td>Virtual reality uploads</td>
+</tr>
+<tr>
+<td>Malaysia</td>
+<td>Zen Cho</td>
+<td>F</td>
+<td><a href="http://podcastle.org/2013/06/25/podcastle-266-giant-episode-house-of-aunts/">The House of Aunts</a></td>
+<td>Aunts and vampires and high school romance in the jungle</td>
+</tr>
+<tr>
+<td>Somalia</td>
+<td>Sofia Samatar</td>
+<td>F</td>
+<td><a href="http://strangehorizons.com/2013/20130107/xpodcast-f.shtml">Selkie Stories Are for Losers</a></td>
+<td>Daughter runs away to Colorado</td>
+</tr>
+<tr>
+<td>Sri Lanka</td>
+<td>Vajra Chandrasekera</td>
+<td>M</td>
+<td><a href="http://clarkesworldmagazine.com/audio_07_13/">Pockets Full of Stones</a></td>
+<td>Talking to grandfather on a colony ship</td>
+</tr>
+<tr>
+<td>United States of America</td>
+<td>Ursula K. Le Guin</td>
+<td>F</td>
+<td><a href="http://www.lightspeedmagazine.com/fiction/elementals/">Elementals</a></td>
+<td>Whimsical mythical creatures</td>
+</tr>
+</tbody>
+</table>
 <hr />	
 
 	</article>
@@ -75,7 +141,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "simple-sverchok-05-interpolate-and-iterate-matrix.html";
+	       var disqus_identifier = "reading-the-world-10-audio-online-stories.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -177,9 +243,9 @@
 	          <h2>Categories</h2>
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
-	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

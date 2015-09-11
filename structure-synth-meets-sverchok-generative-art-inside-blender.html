@@ -41,7 +41,7 @@
 		<h1>Structure Synth meets Sverchok - Generative Art inside Blender</h1>
 		
 <div class="metadata">
-  <time datetime="2015-03-08T22:00:00" pubdate>Sun 08 March 2015</time>
+  <time datetime="2015-03-08T22:00:00+13:00" pubdate>Sun 08 March 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
@@ -50,24 +50,24 @@
 		<p><img alt="Nouveau Dr Seuss" src="/images/seuss_nouveu_11.png" /></p>
 <p>After using the <a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html">"Matrix Iterate"</a> node to generate some of the simpler structures from <a href="http://structuresynth.sourceforge.net/">Structure Synth</a>. I started to think about how to implement more of Structure Synth directly in Blender. It turned out to be remarkably simple using a scripted node and some existing python code.</p>
 <p>Structure Synth uses a domain specific language called eisenscript to define a design grammar to construct 3D structures (LSystems). Here's the eisenscript for a structure with 6 spirals.</p>
-<div class="highlight"><pre><span class="n">set</span> <span class="n">maxdepth</span> <span class="mi">400</span>
+<div class="highlight"><pre>set maxdepth 400
 
-<span class="n">r0</span>
+r0
 
-<span class="n">rule</span> <span class="n">r0</span> <span class="p">{</span>
-  <span class="mi">3</span> <span class="o">*</span> <span class="p">{</span> <span class="n">rz</span> <span class="mi">120</span>  <span class="p">}</span> <span class="n">R1</span>
-  <span class="mi">3</span> <span class="o">*</span> <span class="p">{</span> <span class="n">rz</span> <span class="mi">120</span> <span class="p">}</span> <span class="n">R2</span>
-<span class="p">}</span>
+rule r0 {
+  3 * { rz 120  } R1
+  3 * { rz 120 } R2
+}
 
-<span class="n">rule</span> <span class="n">R1</span> <span class="p">{</span>
-  <span class="p">{</span> <span class="n">x</span> <span class="mf">1.3</span> <span class="n">rx</span> <span class="mf">1.57</span> <span class="n">rz</span> <span class="mi">6</span> <span class="n">ry</span> <span class="mi">3</span> <span class="n">s</span> <span class="mf">0.99</span><span class="p">}</span> <span class="n">R1</span>
-  <span class="p">{</span> <span class="n">s</span> <span class="mi">4</span> <span class="p">}</span> <span class="n">sphere</span>
-<span class="p">}</span>
+rule R1 {
+  { x 1.3 rx 1.57 rz 6 ry 3 s 0.99} R1
+  { s 4 } sphere
+}
 
-<span class="n">rule</span> <span class="n">R2</span> <span class="p">{</span>
-  <span class="p">{</span> <span class="n">x</span> <span class="o">-</span><span class="mf">1.3</span> <span class="n">rz</span> <span class="mi">6</span> <span class="n">ry</span> <span class="mi">3</span> <span class="n">s</span> <span class="mf">0.99</span><span class="p">}</span> <span class="n">R2</span>
-  <span class="p">{</span> <span class="n">s</span> <span class="mi">4</span> <span class="p">}</span>  <span class="n">sphere</span>
-<span class="p">}</span>
+rule R2 {
+  { x -1.3 rz 6 ry 3 s 0.99} R2
+  { s 4 }  sphere
+}
 </pre></div>
 
 
@@ -167,45 +167,46 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
+  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
-  <time datetime="2015-07-10T22:00:00" pubdate>Fri 10 July 2015</time>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
+  <time datetime="2015-07-04T22:00:00+12:00" pubdate>Sat 04 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+  <time datetime="2015-07-03T22:00:00+12:00" pubdate>Fri 03 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
+  <time datetime="2015-06-19T22:00:00+12:00" pubdate>Fri 19 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
+  <time datetime="2015-06-11T22:00:00+12:00" pubdate>Thu 11 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+  <time datetime="2015-06-01T22:00:00+12:00" pubdate>Mon 01 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
-  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 		
 		
@@ -269,27 +270,6 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/.html"></a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
                         </ul>
                       
 		

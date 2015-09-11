@@ -41,7 +41,7 @@
 		<h1>Symmetry Tile plug-in for GIMP</h1>
 		
 <div class="metadata">
-  <time datetime="2014-07-05T22:00:00" pubdate>Sat 05 July 2014</time>
+  <time datetime="2014-07-05T22:00:00+12:00" pubdate>Sat 05 July 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
@@ -88,27 +88,27 @@ The <code>Symmetry group</code> drop down gives you the choice of one of the 17 
 <h3>How to write a bdpq string</h3>
 <p>The "bdpq" notation is a useful shorthand to describe patterns built from square and rectangular cells.</p>
 <p>The <code>bdpq string</code> entry takes a string similar  to <code>bq|qb</code> and builds a tile for a pattern based on the user selected rectangular cell.</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">syntax</span> <span class="k">for</span> <span class="n">the</span> <span class="n">string</span><span class="o">:</span>  
-    <span class="n">b</span>  <span class="n">is</span> <span class="n">the</span> <span class="n">original</span> <span class="n">user</span> <span class="n">selected</span> <span class="n">cell</span>
-    <span class="n">d</span> <span class="n">is</span> <span class="n">the</span> <span class="n">cell</span> <span class="n">flipped</span> <span class="n">horizontally</span>  
-    <span class="n">p</span> <span class="n">is</span> <span class="n">the</span> <span class="n">cell</span> <span class="n">flipped</span> <span class="n">vertically</span>  
-    <span class="n">q</span> <span class="n">is</span> <span class="n">the</span> <span class="n">cell</span> <span class="n">rotated</span> <span class="mi">180</span> <span class="n">deg</span>
+<div class="highlight"><pre>The syntax for the string:  
+    b  is the original user selected cell
+    d is the cell flipped horizontally  
+    p is the cell flipped vertically  
+    q is the cell rotated 180 deg
 
-    <span class="o">|</span> <span class="n">denotes</span> <span class="n">a</span> <span class="n">new</span> <span class="n">line</span>
+    | denotes a new line
 
-<span class="n">That</span> <span class="n">is</span> <span class="err">&#39;</span><span class="n">bq</span><span class="o">|</span><span class="n">qb</span><span class="err">&#39;</span> <span class="n">will</span> <span class="n">build</span> <span class="n">this</span> <span class="n">tile</span>
+That is &#39;bq|qb&#39; will build this tile
 
-<span class="n">bq</span>  
-<span class="n">qb</span>
+bq  
+qb
 
-<span class="n">and</span> <span class="n">hence</span> <span class="n">this</span> <span class="n">pattern</span> <span class="p">(</span><span class="n">symmetry</span> <span class="n">group</span> <span class="n">p2</span><span class="p">)</span>
+and hence this pattern (symmetry group p2)
 
-<span class="n">bqbqbq</span>
-<span class="n">qbqbqb</span>
-<span class="n">bqbqbq</span>
-<span class="n">qbqbqb</span>
+bqbqbq
+qbqbqb
+bqbqbq
+qbqbqb
 
-<span class="n">b</span><span class="o">+</span><span class="p">,</span> <span class="n">d</span><span class="o">+</span><span class="p">,</span> <span class="n">p</span><span class="o">+</span><span class="p">,</span> <span class="n">q</span><span class="o">+</span>  <span class="n">represent</span> <span class="n">each</span> <span class="n">cell</span> <span class="n">rotated</span> <span class="mi">90</span> <span class="n">deg</span> <span class="p">(</span><span class="n">clockwise</span><span class="p">),</span>
+b+, d+, p+, q+  represent each cell rotated 90 deg (clockwise),
 </pre></div>
 
 
@@ -125,8 +125,8 @@ The <code>Symmetry group</code> drop down gives you the choice of one of the 17 
 <h3>Extra tip:</h3>
 <p>If after generating 40 images you want to save them all, here is some code to type into the python console. (Filters&gt;Python-Fu&gt;Console)</p>
 <div class="highlight"><pre><span class="s-Atom">for</span> <span class="s-Atom">img</span> <span class="s-Atom">in</span> <span class="s-Atom">gimp</span><span class="p">.</span><span class="nf">image_list</span><span class="p">()</span><span class="s-Atom">:</span>
-   <span class="s-Atom">new_name</span> <span class="o">=</span> <span class="s2">&quot;/tmp/&quot;</span> <span class="o">+</span> <span class="s-Atom">img</span><span class="p">.</span><span class="s-Atom">name</span><span class="p">[:-</span><span class="m">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
-   <span class="s-Atom">pdb</span><span class="p">.</span><span class="nf">gimp_file_save</span><span class="p">(</span><span class="s-Atom">img</span><span class="p">,</span> <span class="s-Atom">img</span><span class="p">.</span><span class="s-Atom">layers</span><span class="p">[</span><span class="m">0</span><span class="p">],</span> <span class="s-Atom">new_name</span><span class="p">,</span> <span class="s-Atom">new_name</span><span class="p">)</span>
+   <span class="s-Atom">new_name</span> <span class="o">=</span> <span class="s2">&quot;/tmp/&quot;</span> <span class="o">+</span> <span class="s-Atom">img</span><span class="p">.</span><span class="s-Atom">name</span><span class="p">[:-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
+   <span class="s-Atom">pdb</span><span class="p">.</span><span class="nf">gimp_file_save</span><span class="p">(</span><span class="s-Atom">img</span><span class="p">,</span> <span class="s-Atom">img</span><span class="p">.</span><span class="s-Atom">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s-Atom">new_name</span><span class="p">,</span> <span class="s-Atom">new_name</span><span class="p">)</span>
 </pre></div>
 
 
@@ -157,45 +157,46 @@ The <code>Symmetry group</code> drop down gives you the choice of one of the 17 
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
+  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
-  <time datetime="2015-07-10T22:00:00" pubdate>Fri 10 July 2015</time>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
+  <time datetime="2015-07-04T22:00:00+12:00" pubdate>Sat 04 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+  <time datetime="2015-07-03T22:00:00+12:00" pubdate>Fri 03 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
+  <time datetime="2015-06-19T22:00:00+12:00" pubdate>Fri 19 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
+  <time datetime="2015-06-11T22:00:00+12:00" pubdate>Thu 11 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+  <time datetime="2015-06-01T22:00:00+12:00" pubdate>Mon 01 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
-  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 		
 		
@@ -259,27 +260,6 @@ The <code>Symmetry group</code> drop down gives you the choice of one of the 17 
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/.html"></a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
                         </ul>
                       
 		

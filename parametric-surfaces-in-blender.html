@@ -41,23 +41,23 @@
 		<h1>Parametric Surfaces in Blender</h1>
 		
 <div class="metadata">
-  <time datetime="2014-08-03T22:00:00" pubdate>Sun 03 August 2014</time>
+  <time datetime="2014-08-03T22:00:00+12:00" pubdate>Sun 03 August 2014</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
 		<p>The <a href="http://www.blender.org/">Blender</a> 3D modeling and rendering package has an add-on for mathematically defined surfaces. It is enabled via the Extra Objects add-on under <code>File &gt; User Preferences&gt; Addons</code>.</p>
-<p>The <code>XYZ Math Surface</code> can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables <mathjax>$u$</mathjax> and <mathjax>$v$</mathjax>:</p>
-<p><mathjax>$$
+<p>The <code>XYZ Math Surface</code> can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables <span class="math">\(u\)</span> and <span class="math">\(v\)</span>:</p>
+<div class="math">$$
 x = X(u,v)
-$$</mathjax>
-<mathjax>$$
+$$</div>
+<div class="math">$$
 y = Y(u,v)
-$$</mathjax>
-<mathjax>$$
+$$</div>
+<div class="math">$$
 z = Z(u,v)
-$$</mathjax></p>
+$$</div>
 <p>The <a href="http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Add_Mesh/Add_3d_Function_Surface">documentation page</a> for the add-on has a number of example surfaces, but there are a lot more interesting named surfaces out there.</p>
 <p>Its fairly easy to enter any formulae you find for a parametric 3D surface into Blender and save it as an <code>Operator Preset</code>. I've uploaded my collection of saved presets to a github <a href="https://github.com/elfnor/blender_XYZ_surface_presets">repo</a>. I haven't included every named surface out there, just ones I think might make interesting images. </p>
 <p>Here are a couple of images produced using the XYZ Math Surface add-on.</p>
@@ -69,35 +69,62 @@ $$</mathjax></p>
 <p>A stereosphere is the projection of a plane grid onto a sphere with the projection lines going through the top pole of the sphere. In the following image there is a point source light at the north pole of the stereosphere (the light is represented by the yellow dot). This light then does a stereographic projection of the sphere back onto the plane producing the grid present on the ground plane.</p>
 <p><img alt="stereosphere" src="images/stereosphere_01.png" /></p>
 <hr />
-<div><script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
     var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https:' == document.location.protocol
-                ? 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-                : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
         "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
         "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
         "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: 'center'," +
-        "    displayIndent: '0em'," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
         "    showMathMenu: true," +
         "    tex2jax: { " +
-        "        inlineMath: [ ['$','$'] ], " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
         "        displayMath: [ ['$$','$$'] ]," +
         "        processEscapes: true," +
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
-        "    } " +
-        "}); ";
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script></div>	
+</script>	
 
 	</article>
 
@@ -123,45 +150,46 @@ $$</mathjax></p>
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
+  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
-  <time datetime="2015-07-10T22:00:00" pubdate>Fri 10 July 2015</time>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
+  <time datetime="2015-07-04T22:00:00+12:00" pubdate>Sat 04 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+  <time datetime="2015-07-03T22:00:00+12:00" pubdate>Fri 03 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
+  <time datetime="2015-06-19T22:00:00+12:00" pubdate>Fri 19 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
+  <time datetime="2015-06-11T22:00:00+12:00" pubdate>Thu 11 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+  <time datetime="2015-06-01T22:00:00+12:00" pubdate>Mon 01 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
-  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 		
 		
@@ -225,27 +253,6 @@ $$</mathjax></p>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/.html"></a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
                         </ul>
                       
 		

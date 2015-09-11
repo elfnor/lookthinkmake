@@ -41,7 +41,7 @@
 		<h1>Arduino Bread Details</h1>
 		
 <div class="metadata">
-  <time datetime="2015-01-19T22:00:00" pubdate>Mon 19 January 2015</time>
+  <time datetime="2015-01-19T22:00:00+13:00" pubdate>Mon 19 January 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
@@ -60,11 +60,11 @@
 <p><img alt="workable breadmaker" src="/images/bm_workable.jpeg" /></p>
 <p><img alt="control board" src="/images/control_board_original.jpeg" /></p>
 <p>Carefully poking around the 5 pin connector while the breadmaker is going, gives the following designations for the pins. Pin 1 is on the right in the above image.</p>
-<div class="highlight"><pre><span class="mi">1</span> <span class="o">-</span> <span class="n">GND</span>
-<span class="mi">2</span> <span class="o">-</span> <span class="o">+</span> <span class="mi">5</span><span class="n">V</span>
-<span class="mi">3</span> <span class="o">-</span> <span class="n">buzzer</span>
-<span class="mi">4</span> <span class="o">-</span> <span class="n">heater</span>
-<span class="mi">5</span> <span class="o">-</span> <span class="n">motor</span>
+<div class="highlight"><pre>1 - GND
+2 - + 5V
+3 - buzzer
+4 - heater
+5 - motor
 </pre></div>
 
 
@@ -124,28 +124,28 @@
 <p>The full code for the Arduino is available <a href="https://github.com/elfnor/arduino-bread">here</a>. </p>
 <p>When the bread maker is switched on with its new brain it behaves very much like it used to. Only now it has new programs as defined in the Arduino code. The programs are selected by using the SELECT button to cycle through them. The up and down keys can be used as before to add a delay time to the start of the program. The program is then started with the START button. It can be stopped at any time with the STOP button. </p>
 <p>The given Arduino code currently includes the following bread programs:</p>
-<div class="highlight"><pre><span class="k">struct</span> <span class="n">PGRMS</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">min_pulseMix</span><span class="p">;</span>  <span class="c1">// 1/4 second pulse every 1 second</span>
-    <span class="kt">int</span> <span class="n">min_contMix</span><span class="p">;</span>   <span class="c1">// continuous kneading</span>
-    <span class="kt">int</span> <span class="n">min_rise1</span><span class="p">;</span>     <span class="c1">// pan kept at rising temperature </span>
-    <span class="kt">int</span> <span class="n">min_punchDown</span><span class="p">;</span> <span class="c1">// two short mixing pulses </span>
-    <span class="kt">int</span> <span class="n">min_rise2</span><span class="p">;</span>     <span class="c1">// 2nd rise </span>
-    <span class="kt">int</span> <span class="n">min_heat</span><span class="p">;</span>      <span class="c1">// pan heated up to bake temperature </span>
-    <span class="kt">int</span> <span class="n">min_bake</span><span class="p">;</span>      <span class="c1">// pan kept at bake temperature </span>
-  <span class="p">};</span>
+<div class="highlight"><pre>struct PGRMS
+  {
+    int min_pulseMix;  // 1/4 second pulse every 1 second
+    int min_contMix;   // continuous kneading
+    int min_rise1;     // pan kept at rising temperature 
+    int min_punchDown; // two short mixing pulses 
+    int min_rise2;     // 2nd rise 
+    int min_heat;      // pan heated up to bake temperature 
+    int min_bake;      // pan kept at bake temperature 
+  };
 
-<span class="k">const</span> <span class="kt">int</span> <span class="n">N_PGRMS</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+const int N_PGRMS = 6;
 
-<span class="k">const</span> <span class="n">PGRMS</span> <span class="n">pgrms</span><span class="p">[</span><span class="n">N_PGRMS</span><span class="p">]</span> <span class="o">=</span> 
-    <span class="p">{</span>
-      <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">42</span><span class="p">},</span>  <span class="c1">// 0 : normal loaf</span>
-      <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>     <span class="c1">// 1 : mix and knead only</span>
-      <span class="p">{</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>  <span class="c1">// 2 : very long rise</span>
-      <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>  <span class="c1">// 3 : mix, knead and long rise</span>
-      <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">42</span><span class="p">},</span>     <span class="c1">// 4 : bake only</span>
-      <span class="p">{</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">},</span>  <span class="c1">// 5 : test nonsense     </span>
-    <span class="p">};</span>
+const PGRMS pgrms[N_PGRMS] = 
+    {
+      {6, 29, 30, 1, 53, 8, 42},  // 0 : normal loaf
+      {6, 29, 0, 0, 0, 0, 0},     // 1 : mix and knead only
+      {0,  0, 1000, 0, 0, 0, 0},  // 2 : very long rise
+      {6, 29, 1000, 0, 0, 0, 0},  // 3 : mix, knead and long rise
+      {0, 0, 0, 0, 0, 8, 42},     // 4 : bake only
+      {3,  3, 10, 0,  0, 0,  0},  // 5 : test nonsense     
+    };
 </pre></div>
 
 
@@ -178,45 +178,46 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
+  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
-  <time datetime="2015-07-10T22:00:00" pubdate>Fri 10 July 2015</time>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
+  <time datetime="2015-07-04T22:00:00+12:00" pubdate>Sat 04 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+  <time datetime="2015-07-03T22:00:00+12:00" pubdate>Fri 03 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
+  <time datetime="2015-06-19T22:00:00+12:00" pubdate>Fri 19 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
+  <time datetime="2015-06-11T22:00:00+12:00" pubdate>Thu 11 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+  <time datetime="2015-06-01T22:00:00+12:00" pubdate>Mon 01 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
-  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 		
 		
@@ -280,27 +281,6 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/.html"></a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
                         </ul>
                       
 		

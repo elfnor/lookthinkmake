@@ -37,164 +37,141 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html">Micropython - OLED module with the ssd1306 chip</a></h1>
-        <p><img alt="oled module" src="/images/wiring_02.png" /></p>
-<p>Small OLED modules are <a href="http://www.dx.com/p/waveshare-0-96-oled-b-ssd1306-display-screen-module-deep-blue-340467#.VZ9gRqGW4y8">available</a> with a resolution 128 x 64 pixels on a 22 x 11 mm display for under seven dollars. They are great for displaying graphics that can't be shown on a standard alphanumeric LCD. <a href="https://en.wikipedia.org/wiki/OLED">OLED </a> screens work without a back light and produce bright high contrast displays with a wide viewing angle (&gt;160°) and low power consumption (~20 mA). The monochrome versions are available with a white or blue display on a black background, or as a version where the top quarter is yellow and the the rest blue.  The frame rates are very good and the display can be updated by the pyboard as fast as 333 frames/second.</p>
-<p>The driver chip included on these modules is a ssd1306 chip that can be set up to work with either a SPI or an I2C bus. Some modules come with only one bus wired up, other use a soldered jumper or resistor to select between the two bus types. I'm using a 128 x 64 pixel display using an SPI interface.</p>
-<p>There are some ssd1306 libraries available for micropython but I'm going to start with a basic example using only the micropython SPI class. I find writing a very simple example like this is a good way to understand the hardware and how to get the micro controller to work with it. Once I've got the simple example going I know my hardware and wiring are correct and I'm happy to use someone else's library to write more complicated stuff.</p>
-<p>The wiring for the OLED and pyboard are shown in the top diagram. The pyboard has two SPI ports, pins X5 to X8 on one side of the board and Y5 to Y8 on the other. The ssd1306 library defaults to the Y pins, but this can be changed in the module. The <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI bus</a> works faster than the I2C bus and has a separate line for master to slave (MOSI) communication than for slave to master (MISO). The ssd1306 on the OLED display (slave)  doesn't send any data back to the pyboard (master) so we don't need to connect this pin. The slave select (SS) or chip select (CS) line is not used by the micropython SPI class and can also be ignored. </p>
-<h2>Basic Example code</h2>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Simple test of a 128 x 64 pixel OLED display with an ssd1306 driver chip on a SPI bus</span>
-
-<span class="sd">|OLED |PYB |</span>
-<span class="sd">|VCC  |3V3 |</span>
-<span class="sd">|GND  |GND|</span>
-<span class="sd">|NC   |-- |</span>
-<span class="sd">|DIN  |Y8 MOSI |</span>
-<span class="sd">|CLK  |Y6 SCK |</span>
-<span class="sd">|CS   | --|</span>
-<span class="sd">|D/C  |Y4 |</span>
-<span class="sd">|RES  |Y3 |</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">import</span> <span class="nn">pyb</span>
-
-<span class="c"># from adafruit arduino</span>
-<span class="n">init_cmds</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xAE</span><span class="p">,</span> <span class="mh">0xD5</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xA8</span><span class="p">,</span> <span class="mh">0x3F</span><span class="p">,</span> <span class="mh">0xD3</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x8D</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xA1</span><span class="p">,</span> <span class="mh">0xC8</span><span class="p">,</span>
-             <span class="mh">0xDA</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x81</span><span class="p">,</span> <span class="mh">0xCF</span><span class="p">,</span> <span class="mh">0xd9</span><span class="p">,</span> <span class="mh">0xF1</span><span class="p">,</span> <span class="mh">0xDB</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0xA6</span><span class="p">,</span> <span class="mh">0xAF</span><span class="p">]</span>
-
-<span class="n">display_cmds</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x21</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-
-<span class="c">## set up SPI bus              </span>
-<span class="n">rate</span> <span class="o">=</span> <span class="mi">8000000</span>
-
-<span class="n">spi</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">SPI</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">SPI</span><span class="o">.</span><span class="n">MASTER</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="n">rate</span><span class="p">,</span> <span class="n">polarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">dc</span>  <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y4&#39;</span><span class="p">,</span>  <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">PULL_DOWN</span><span class="p">)</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">PULL_DOWN</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    write single command byte to ssd1306</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">dc</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
-    <span class="n">spi</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>    
-
-<span class="c">## power on</span>
-<span class="n">res</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
-<span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">res</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
-<span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">res</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
-
-<span class="c">## init display</span>
-<span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">init_cmds</span><span class="p">:</span>
-    <span class="n">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-
-<span class="c">## clear display</span>
-<span class="nb">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">display_cmds</span><span class="p">:</span>
-    <span class="n">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-<span class="n">dc</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
-<span class="n">spi</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
-
-<span class="c">## line grid</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c"># 8 horizontal lines</span>
-
-<span class="c"># set every  16th byte to 255</span>
-<span class="c"># should give 8 vertical lines</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>   
-    <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
-
-<span class="c">#color in the 1st block to see where it is</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">16</span><span class="p">):</span>   
-    <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
-
-<span class="nb">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">display_cmds</span><span class="p">:</span>
-    <span class="n">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-<span class="n">dc</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
-<span class="n">spi</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span> 
-</pre></div>
-
-
-<p>There are two list of command bytes. The first list <code>init_cmds</code> sets up the screen and turns it on. The second set <code>display_cmds</code> is used before sending an array of bytes to fill the screen display. The baud rate or clock frequency for the SPI bus does not seem to matter. I can get it to work from  at least 8 kHz to 16 MHz. Also the polarity and phase settings don't seem to matter here. </p>
-<p>The <code>dc</code> pin is used to let the ssd1306 know whether the bytes coming down the <code>DIN</code> line are commands (<code>dc</code> high ) or data for the screen (<code>dc</code> low). The <code>rs</code> pin is used to reset the display when it is pulled low for 10 ms.</p>
-<p>The display is 128 x 64 pixels = 8192 bits where for each bit a 1 represents a pixel on and 0 a pixel off. The buffer for the display is written to using a byte array of 1024 bytes (8192/8). Each byte represents 8 pixels arranged in a vertical block. The bytes/blocks are ordered in rows of 128 across the display. The position of the first byte can be changed with the 13th byte of <code>init_cmds</code>. Setting it to <code>0xA1</code> puts the 1st byte in the top left corner, <code>0xB0</code> puts the 1st byte in the top right.</p>
-<p>The example code draws a grid of 8 horizontal and 8 vertical lines on the screen and colors in the first block to check orientation.</p>
-<h1>ssd1306 library example</h1>
-<p>There are several versions and forks of a ssd1306 library for micropython on github. They all seem to be based on one originally written by <a href="https://github.com/nvbn/micropython-drivers">Kenneth Henderick</a>. I have used the version from the <a href="https://github.com/jeffmer/micropython-upybbot">upybot project</a> which adds a basic text display capability. The screen and pixel setting commands are written so that the origin is in the bottom left.</p>
-<p>I also found  a graphics library for drawing lines, triangles, rectangles and circles on this <a href="http://forum.micropython.org/viewtopic.php?f=5&amp;t=195&amp;p=873&amp;hilit=lcd_gfx#p873">forum post</a> by polygontwist. </p>
-<div class="highlight"><pre><span class="c"># hello world on SSD1306</span>
-<span class="c"># uses version of SSD1306.py and font.py</span>
-<span class="c"># https://github.com/jeffmer/micropython-upybbot/blob/master/ssd1306.py</span>
-<span class="c"># graphics library lcd_gfx.py from </span>
-<span class="c"># http://forum.micropython.org/viewtopic.php?f=5&amp;t=195&amp;p=873&amp;hilit=lcd_gfx#p873</span>
-
-<span class="kn">import</span> <span class="nn">pyb</span>
-<span class="kn">from</span> <span class="nn">ssd1306</span>  <span class="kn">import</span> <span class="n">SSD1306</span>
-<span class="kn">import</span> <span class="nn">lcd_gfx</span>
-
-<span class="n">oled</span> <span class="o">=</span> <span class="n">SSD1306</span><span class="p">(</span><span class="n">pinout</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;dc&#39;</span><span class="p">:</span> <span class="s">&#39;X4&#39;</span><span class="p">,</span>
-                       <span class="s">&#39;res&#39;</span><span class="p">:</span> <span class="s">&#39;X3&#39;</span><span class="p">},</span>
-               <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-               <span class="n">external_vcc</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-
-
-<span class="n">oled</span><span class="o">.</span><span class="n">poweron</span><span class="p">()</span>
-<span class="n">oled</span><span class="o">.</span><span class="n">init_display</span><span class="p">()</span>
-
-<span class="n">oled</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  
-<span class="c">## text</span>
-<span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s">&#39;Hello World!&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
-<span class="n">oled</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-<span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
-
-<span class="c">## draw straight lines</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">]:</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span>
-        <span class="n">oled</span><span class="o">.</span><span class="n">pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">63</span><span class="p">]:</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">127</span><span class="p">):</span> 
-        <span class="n">oled</span><span class="o">.</span><span class="n">pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-
-<span class="n">oled</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-<span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>             
-
-<span class="c">## whole buffer        </span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>   
-    <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>
-    <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
-
-<span class="n">oled</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="n">oled</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-
-<span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>  
-<span class="n">oled</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span> 
-
-<span class="c">## graphics example</span>
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawCircle</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawFillCircle</span><span class="p">(</span><span class="mi">91</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawFillTrie</span><span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawTrie</span><span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawFillRect</span><span class="p">(</span><span class="mi">122</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">oled</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
-</pre></div>
-
-
-<p>This code displays some text, waits 2 seconds then adds some lines. It then displays the grid as in the first example and finishes off with examples of the shapes available in the <code>lcd_gfx.py</code> library. Note that due to the way the method <code>pixel</code> is implemented, the origin for all the graphics and text positions is the bottom left. However setting the raw buffer shows the screen origin is at the top right.</p>
-<p>After the text and graphics are set up using calls to <code>oled.text()</code>, <code>oled.pixel()</code>, or any of the <code>lcd_gfx</code> functions, <code>oled.display</code> is called to send the buffer to the display.</p>
-<p>The code for all these examples is available on my <a href="https://github.com/elfnor/micropython-blog-examples">github repo</a></p>
-<p>The ssd1306 library can also be used with an OLED wired to use the I2C bus. </p>
+        <h1><a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html">Bloom Spheres in Sverchok</a></h1>
+        <p><img alt="bloom wobble still" src="/images/bloom_wobble.png" /></p>
+<p>These <a href="http://www.instructables.com/id/Blooming-Zoetrope-Sculptures/">videos by John Edmark</a> of what he calls bloom spheres inspired me to try something similar in Sverchok. Edmark has designed and 3D printed forms that when spun under a strobe light appear to move and twist.</p>
+<p>Its possible to produce computer animations that work in the same way. <a href="https://www.youtube.com/channel/UClifVGXznefMacC29olhX7g">Mangakid</a> has already made some animations in Blender based on Edmark's work. Python code snippets for mangakid's animations can be found on this <a href="http://blender.stackexchange.com/questions/1371/organic-yet-accurate-modeling-with-the-golden-spiral/26800#26800">stackoverflow question and answer</a>.</p>
+<p>The first stage to work on bloom spheres in Sverchok was to write a scripted node to produce the basic mesh structure that underlies the blooms. Edmark describes this as:</p>
+<blockquote>
+<p>First a set of points are placed, one-at-a-time, in a cylindrical arrangement. Each point is placed 137.5º  around the cylinder's axis from the previous point and also raised a bit...</p>
+<p>The next step is to project each point onto the sphere's surface by projecting the point toward the center point of the sphere...</p>
+<p>The points are connected with lines to form a quadrilateral mesh.</p>
+</blockquote>
+<p>This is best worked out in spherical coordinates.</p>
+<p>The golden angle <span class="math">\(g\)</span> is given by
+</p>
+<div class="math">$$
+\begin{align*}
+g=\pi (3-\sqrt{5}) &amp;= 2.399963... \textrm{ radians}\\ 
+ &amp;= 137.507...^{\circ}
+\end{align*}
+$$</div>
+<p>The radius of the sphere is <span class="math">\(r_0\)</span> and <span class="math">\(z_h\)</span> is the increment by which the "point is raised a bit". Then for <span class="math">\(i = 0, 1 ... n\)</span> the points on the bloom sphere are given by:</p>
+<div class="math">$$
+\begin{align*}
+\theta (i) &amp;= \frac{i}{g}\\
+\phi (i) &amp;= \tan^{-1} \frac{r_0}{iz_h}\\
+r(i) &amp;= r_0
+\end{align*}
+$$</div>
+<p>I've coded this up into a scripted node. To use the bloom sphere node in Blender first install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon. Download the bloom sphere code from <a href="https://github.com/elfnor/bloom_sphere">github</a>. Then load the python file as a text blocks into a blend file. Add a <code>Scripted Node</code> to a Sverchok node tree. On the node select the <code>bloom_sphere.py</code> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs. Wire the <code>Verts</code> and <code>Faces</code> outputs to a <code>Viewer Draw</code> node and you should see some geometry.</p>
+<p>It is also possible to use the <code>XYZ function surface</code> that is part of the <code>Extra Objects</code> addon for Blender to generate the mesh vertices. I found it much harder to get the addon to join then up to form the correct quadrilateral mesh. It was much easier to do this in my Sverchok scripted node.</p>
+<p>The <code>Frame Info</code> node can be easily used to rotate the bloom sphere 137.5&deg; every frame. Set the end frame to 145 for a continuous loop animation.</p>
+<p><img alt="node diagram scripted node" src="/images/bloom_sphere_nodes.png" /></p>
+<p><img alt="animation" src="/images/bloom_sphere.gif" /></p>
+<p>The same node diagram can also be used to animate any of John Edmark's stl files that he has made available <a href="https://www.dropbox.com/sh/nsinei7jlu0z3wk/AADsN9wI7IOIF6VOnREx-Tt6a?dl=0">here</a> under a Creative Commons BY NC SA license. Just import the stl into Blender and replace the <code>Scripted Node</code> with a <code>Object Scene</code> node.</p>
+<p>Alternatively to spin a mesh outside Sverchok, make a key frame animation where the first frame has no rotation and the End frame has 137.5&deg; * (number of frames - 1) rotation about the z-axis. </p>
+<p>For example: </p>
+<ul>
+<li>Select the object to be rotated</li>
+<li>Set the End Frame to 145</li>
+<li>Change the Active Keying Set to "Rotation"</li>
+<li>Insert a Key Frame on the first frame</li>
+<li>Move to the last frame</li>
+<li>Set the rotation of the object around the z-axis to 19800 degrees (144 * 137.5&deg; = 19800)</li>
+<li>Insert a Key Frame on this frame</li>
+<li>Set the Current Frame back to 1</li>
+<li>Open up a Graph Editor view</li>
+<li>Change the Interpolation Mode for the animation curve to linear. Using the menu: Key &gt; Interpolation Mode &gt; Linear or using the keyboard <code>T L</code>.</li>
+<li>Check that stepping along one frame changes the Rotation Z angle by 137.5&deg;</li>
+</ul>
+<p>This will give a seamless 6 second (145 frames/ 24 frames per second ~= 6 seconds) animation. It is seamless because 19800 is a whole multiple of 360 (360&deg; * 55 = 19800&deg;).</p>
+<p>Note: Any rotation angle where</p>
+<div class="math">$$
+g_{n,m} = ng - m2\pi
+$$</div>
+<p>where <span class="math">\(n= 1,2,..\)</span> anf <span class="math">\(m\)</span> is an integer chosen to map the angle back to the interval <span class="math">\(-\pi\)</span> to <span class="math">\(\pi\)</span> will also work.  For example rotating any of 137.5&deg;, -85&deg;, 52.5&deg;, 170&deg;, -32.5&deg;, 105&deg;, -117.5&deg;, or 20&deg; per frame will work but for each angle the animation will appear to have a different speed. </p>
+<p>Now comes the fun part, editing the mesh to produce interesting animations. John Edmark describes:</p>
+<blockquote>
+<p>Each of the quadrilaterals is populated with an appendage ...</p>
+</blockquote>
+<p>We could do this following  my <a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html"><code>Centers Polygon</code> example</a> but I'll use the <code>Adaptive Polygons</code> node to show another way for a different look.</p>
+<p><img alt="node diagram adaptive polygons" src="/images/bloom_sphere_adaptive_polygon_nodes.png" /></p>
+<p>I've removed the nodes used to achieve the rotation to simplify the above node diagram.</p>
+<p><img alt="animation adaptive polygons" src="/images/bloom_sphere_ap.gif" /></p>
+<p>John Edmark then goes on to describe:</p>
+<blockquote>
+<p>In order to make the appendages appear to move back and forth when animated, their tips are sequentially distorted side-to-side (in a sinusoidal motion) as they are placed.</p>
+</blockquote>
+<p>The simplest way of doing something similar to this is to move each vertex side to side before the <code>Adaptive Polygons</code> node. Adding "Side to side" motion is most easily thought of in spherical coordinates. If we vary the "phi" polar coordinate of a point it will move side to side.</p>
+<p>Sverchok now has nodes to change the x, y, z coordinates of a vertex into polar coordinates and change them back again.  Here we apply a sinusoidal offset to each vertex. The frequency of the sinusoid is varied by changing the <code>stop</code> value of the <code>Float Series</code> node. A multiple (or fraction) of <span class="math">\(\pi\)</span> is sensible. A <code>Float</code> entry node is used to change the amplitude of the sinusoid. </p>
+<p><img alt="node bloom sphere vertex wobble" src="/images/wobble_vertex_node_tree.png" /></p>
+<p><img alt="animation" src="/images/wobble_vertex.gif" /></p>
+<p>With a bit more thought (and a few more nodes!) we can actually wobble just the ends of our <s>appendages</s>  adaptive polygons. </p>
+<p>First we need to separate out the end vertices with a <code>List Mask (out)</code> node. For the mask we use the length of each vertex (with a <code>Vector Math</code> node) to select those vertices not on the surface of the bloom sphere. It takes a little messing around with <code>List Length</code> nodes to get the range of numbers to use as the angle input for the sinusoid. This multi-level list needs to have the same angle value for all the points at the end of single spike and then increment for the next spike.</p>
+<p>The two sets of vertices (the end vertices with the sinusoidal wobble and the original vertices on the sphere) are put back together with a <code>List Mask Join (in)</code> node using the same mask we used for separating them. </p>
+<p><a href="/images/sc_bloom_sphere_node_11_nodetree_for_post.blend_large_02.png"><img alt="node appendage end wobble" src="/images/sc_bloom_sphere_node_11_nodetree_for_post.blend_small.png" title="Click for larger version" /></a></p>
+<p>to get an animation like this:</p>
+<p><img alt="bloom wobble gif" src="/images/wobble_color.gif" /></p>
 <hr />
-	<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html">Permalink, </a>
-	<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html#disqus_thread">Comments</a>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html">Permalink, </a>
+	<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -206,33 +183,35 @@
 
 
       <li>
+<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      </li>
+
+
+      <li>
 <a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
+  <time datetime="2015-07-04T22:00:00+12:00" pubdate>Sat 04 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      </li>
 
 
       <li>
 <a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+  <time datetime="2015-07-03T22:00:00+12:00" pubdate>Fri 03 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      </li>
 
 
       <li>
 <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
+  <time datetime="2015-06-19T22:00:00+12:00" pubdate>Fri 19 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      </li>
 
 
       <li>
 <a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
+  <time datetime="2015-06-11T22:00:00+12:00" pubdate>Thu 11 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
 
 
 
@@ -321,45 +300,46 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
+  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
-  <time datetime="2015-07-10T22:00:00" pubdate>Fri 10 July 2015</time>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-10-audio-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 10 Audio Online Stories">Reading the World - 10 Audio Online Stories</a>
-  <time datetime="2015-07-04T22:00:00" pubdate>Sat 04 July 2015</time>
+  <time datetime="2015-07-04T22:00:00+12:00" pubdate>Sat 04 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/micropython-stepper-motor-control-with-a-a4988-carrier-board.html" rel="bookmark" title="Permalink to Micropython - Stepper motor control with  a A4988 carrier board">Micropython - Stepper motor control with  a A4988 carrier board</a>
-  <time datetime="2015-07-03T22:00:00" pubdate>Fri 03 July 2015</time>
+  <time datetime="2015-07-03T22:00:00+12:00" pubdate>Fri 03 July 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/reading-the-world-100-online-stories.html" rel="bookmark" title="Permalink to Reading the World - 100 Online Stories">Reading the World - 100 Online Stories</a>
-  <time datetime="2015-06-19T22:00:00" pubdate>Fri 19 June 2015</time>
+  <time datetime="2015-06-19T22:00:00+12:00" pubdate>Fri 19 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-game-level-generator.html" rel="bookmark" title="Permalink to Blender Game Level Generator">Blender Game Level Generator</a>
-  <time datetime="2015-06-11T22:00:00" pubdate>Thu 11 June 2015</time>
+  <time datetime="2015-06-11T22:00:00+12:00" pubdate>Thu 11 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/blender-progress-animations.html" rel="bookmark" title="Permalink to Blender Progress Animations">Blender Progress Animations</a>
-  <time datetime="2015-06-01T22:00:00" pubdate>Mon 01 June 2015</time>
+  <time datetime="2015-06-01T22:00:00+12:00" pubdate>Mon 01 June 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Blender Auto Save add-on">Blender Auto Save add-on</a>
-  <time datetime="2015-05-29T22:00:00" pubdate>Fri 29 May 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 		
 		
@@ -423,27 +403,6 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/.html"></a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
                         </ul>
                       
 		

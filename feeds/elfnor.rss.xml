@@ -1,5 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 10 Jul 2015 22:00:00 +1200</lastBuildDate><item><title>Micropython - OLED module with the ssd1306 chip</title><link>http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html</link><description>&lt;p&gt;&lt;img alt="oled module" src="/images/wiring_02.png" /&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 09 Sep 2015 22:00:00 +1200</lastBuildDate><item><title>Bloom Spheres in Sverchok</title><link>http://www.elfnor.com/bloom-spheres-in-sverchok.html</link><description>&lt;p&gt;&lt;img alt="bloom wobble still" src="/images/bloom_wobble.png" /&gt;&lt;/p&gt;
+&lt;p&gt;These &lt;a href="http://www.instructables.com/id/Blooming-Zoetrope-Sculptures/"&gt;videos by John Edmark&lt;/a&gt; of what he calls bloom spheres inspired me to try something similar in Sverchok. Edmark has designed and 3D printed forms that when spun under a strobe light appear to move and twist.&lt;/p&gt;
+&lt;p&gt;Its possible to produce computer animations that work in the same way. &lt;a href="https://www.youtube.com/channel/UClifVGXznefMacC29olhX7g"&gt;Mangakid&lt;/a&gt; has already made some animations in Blender based on Edmark's work. Python code snippets for mangakid's animations can be found on this &lt;a href="http://blender.stackexchange.com/questions/1371/organic-yet-accurate-modeling-with-the-golden-spiral/26800#26800"&gt;stackoverflow question and answer&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The first stage to work on bloom spheres in Sverchok was to write a scripted node to produce the basic mesh structure that underlies the blooms. Edmark describes this as:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;First a set of points are placed, one-at-a-time, in a cylindrical arrangement. Each point is placed 137.5º  around the cylinder's axis from the previous point and also raised a bit...&lt;/p&gt;
+&lt;p&gt;The next step is to project each point onto the sphere's surface by projecting the point toward the center point of the sphere...&lt;/p&gt;
+&lt;p&gt;The points are connected with lines to form a quadrilateral mesh.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This is best worked out in spherical coordinates.&lt;/p&gt;
+&lt;p&gt;The golden angle &lt;span class="math"&gt;\(g\)&lt;/span&gt; is given by
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\begin{align*}
+g=\pi (3-\sqrt{5}) &amp;amp;= 2.399963... \textrm{ radians}\\ 
+ &amp;amp;= 137.507...^{\circ}
+\end{align*}
+$$&lt;/div&gt;
+&lt;p&gt;The radius of the sphere is &lt;span class="math"&gt;\(r_0\)&lt;/span&gt; and &lt;span class="math"&gt;\(z_h\)&lt;/span&gt; is the increment by which the "point is raised a bit". Then for &lt;span class="math"&gt;\(i = 0, 1 ... n\)&lt;/span&gt; the points on the bloom sphere are given by:&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\begin{align*}
+\theta (i) &amp;amp;= \frac{i}{g}\\
+\phi (i) &amp;amp;= \tan^{-1} \frac{r_0}{iz_h}\\
+r(i) &amp;amp;= r_0
+\end{align*}
+$$&lt;/div&gt;
+&lt;p&gt;I've coded this up into a scripted node. To use the bloom sphere node in Blender first install the &lt;a href="http://nikitron.cc.ua/sverchok_en.html"&gt;Sverchok&lt;/a&gt; addon. Download the bloom sphere code from &lt;a href="https://github.com/elfnor/bloom_sphere"&gt;github&lt;/a&gt;. Then load the python file as a text blocks into a blend file. Add a &lt;code&gt;Scripted Node&lt;/code&gt; to a Sverchok node tree. On the node select the &lt;code&gt;bloom_sphere.py&lt;/code&gt; code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs. Wire the &lt;code&gt;Verts&lt;/code&gt; and &lt;code&gt;Faces&lt;/code&gt; outputs to a &lt;code&gt;Viewer Draw&lt;/code&gt; node and you should see some geometry.&lt;/p&gt;
+&lt;p&gt;It is also possible to use the &lt;code&gt;XYZ function surface&lt;/code&gt; that is part of the &lt;code&gt;Extra Objects&lt;/code&gt; addon for Blender to generate the mesh vertices. I found it much harder to get the addon to join then up to form the correct quadrilateral mesh. It was much easier to do this in my Sverchok scripted node.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Frame Info&lt;/code&gt; node can be easily used to rotate the bloom sphere 137.5&amp;deg; every frame. Set the end frame to 145 for a continuous loop animation.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="node diagram scripted node" src="/images/bloom_sphere_nodes.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="animation" src="/images/bloom_sphere.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;The same node diagram can also be used to animate any of John Edmark's stl files that he has made available &lt;a href="https://www.dropbox.com/sh/nsinei7jlu0z3wk/AADsN9wI7IOIF6VOnREx-Tt6a?dl=0"&gt;here&lt;/a&gt; under a Creative Commons BY NC SA license. Just import the stl into Blender and replace the &lt;code&gt;Scripted Node&lt;/code&gt; with a &lt;code&gt;Object Scene&lt;/code&gt; node.&lt;/p&gt;
+&lt;p&gt;Alternatively to spin a mesh outside Sverchok, make a key frame animation where the first frame has no rotation and the End frame has 137.5&amp;deg; * (number of frames - 1) rotation about the z-axis. &lt;/p&gt;
+&lt;p&gt;For example: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Select the object to be rotated&lt;/li&gt;
+&lt;li&gt;Set the End Frame to 145&lt;/li&gt;
+&lt;li&gt;Change the Active Keying Set to "Rotation"&lt;/li&gt;
+&lt;li&gt;Insert a Key Frame on the first frame&lt;/li&gt;
+&lt;li&gt;Move to the last frame&lt;/li&gt;
+&lt;li&gt;Set the rotation of the object around the z-axis to 19800 degrees (144 * 137.5&amp;deg; = 19800)&lt;/li&gt;
+&lt;li&gt;Insert a Key Frame on this frame&lt;/li&gt;
+&lt;li&gt;Set the Current Frame back to 1&lt;/li&gt;
+&lt;li&gt;Open up a Graph Editor view&lt;/li&gt;
+&lt;li&gt;Change the Interpolation Mode for the animation curve to linear. Using the menu: Key &amp;gt; Interpolation Mode &amp;gt; Linear or using the keyboard &lt;code&gt;T L&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Check that stepping along one frame changes the Rotation Z angle by 137.5&amp;deg;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This will give a seamless 6 second (145 frames/ 24 frames per second ~= 6 seconds) animation. It is seamless because 19800 is a whole multiple of 360 (360&amp;deg; * 55 = 19800&amp;deg;).&lt;/p&gt;
+&lt;p&gt;Note: Any rotation angle where&lt;/p&gt;
+&lt;div class="math"&gt;$$
+g_{n,m} = ng - m2\pi
+$$&lt;/div&gt;
+&lt;p&gt;where &lt;span class="math"&gt;\(n= 1,2,..\)&lt;/span&gt; anf &lt;span class="math"&gt;\(m\)&lt;/span&gt; is an integer chosen to map the angle back to the interval &lt;span class="math"&gt;\(-\pi\)&lt;/span&gt; to &lt;span class="math"&gt;\(\pi\)&lt;/span&gt; will also work.  For example rotating any of 137.5&amp;deg;, -85&amp;deg;, 52.5&amp;deg;, 170&amp;deg;, -32.5&amp;deg;, 105&amp;deg;, -117.5&amp;deg;, or 20&amp;deg; per frame will work but for each angle the animation will appear to have a different speed. &lt;/p&gt;
+&lt;p&gt;Now comes the fun part, editing the mesh to produce interesting animations. John Edmark describes:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Each of the quadrilaterals is populated with an appendage ...&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We could do this following  my &lt;a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html"&gt;&lt;code&gt;Centers Polygon&lt;/code&gt; example&lt;/a&gt; but I'll use the &lt;code&gt;Adaptive Polygons&lt;/code&gt; node to show another way for a different look.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="node diagram adaptive polygons" src="/images/bloom_sphere_adaptive_polygon_nodes.png" /&gt;&lt;/p&gt;
+&lt;p&gt;I've removed the nodes used to achieve the rotation to simplify the above node diagram.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="animation adaptive polygons" src="/images/bloom_sphere_ap.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;John Edmark then goes on to describe:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In order to make the appendages appear to move back and forth when animated, their tips are sequentially distorted side-to-side (in a sinusoidal motion) as they are placed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The simplest way of doing something similar to this is to move each vertex side to side before the &lt;code&gt;Adaptive Polygons&lt;/code&gt; node. Adding "Side to side" motion is most easily thought of in spherical coordinates. If we vary the "phi" polar coordinate of a point it will move side to side.&lt;/p&gt;
+&lt;p&gt;Sverchok now has nodes to change the x, y, z coordinates of a vertex into polar coordinates and change them back again.  Here we apply a sinusoidal offset to each vertex. The frequency of the sinusoid is varied by changing the &lt;code&gt;stop&lt;/code&gt; value of the &lt;code&gt;Float Series&lt;/code&gt; node. A multiple (or fraction) of &lt;span class="math"&gt;\(\pi\)&lt;/span&gt; is sensible. A &lt;code&gt;Float&lt;/code&gt; entry node is used to change the amplitude of the sinusoid. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="node bloom sphere vertex wobble" src="/images/wobble_vertex_node_tree.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="animation" src="/images/wobble_vertex.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;With a bit more thought (and a few more nodes!) we can actually wobble just the ends of our &lt;s&gt;appendages&lt;/s&gt;  adaptive polygons. &lt;/p&gt;
+&lt;p&gt;First we need to separate out the end vertices with a &lt;code&gt;List Mask (out)&lt;/code&gt; node. For the mask we use the length of each vertex (with a &lt;code&gt;Vector Math&lt;/code&gt; node) to select those vertices not on the surface of the bloom sphere. It takes a little messing around with &lt;code&gt;List Length&lt;/code&gt; nodes to get the range of numbers to use as the angle input for the sinusoid. This multi-level list needs to have the same angle value for all the points at the end of single spike and then increment for the next spike.&lt;/p&gt;
+&lt;p&gt;The two sets of vertices (the end vertices with the sinusoidal wobble and the original vertices on the sphere) are put back together with a &lt;code&gt;List Mask Join (in)&lt;/code&gt; node using the same mask we used for separating them. &lt;/p&gt;
+&lt;p&gt;&lt;a href="/images/sc_bloom_sphere_node_11_nodetree_for_post.blend_large_02.png"&gt;&lt;img alt="node appendage end wobble" src="/images/sc_bloom_sphere_node_11_nodetree_for_post.blend_small.png" title="Click for larger version" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;to get an animation like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="bloom wobble gif" src="/images/wobble_color.gif" /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Wed, 09 Sep 2015 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2015-09-09:bloom-spheres-in-sverchok.html</guid><category>make</category><category>think</category><category>blender</category><category>sverchok</category></item><item><title>Micropython - OLED module with the ssd1306 chip</title><link>http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html</link><description>&lt;p&gt;&lt;img alt="oled module" src="/images/wiring_02.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Small OLED modules are &lt;a href="http://www.dx.com/p/waveshare-0-96-oled-b-ssd1306-display-screen-module-deep-blue-340467#.VZ9gRqGW4y8"&gt;available&lt;/a&gt; with a resolution 128 x 64 pixels on a 22 x 11 mm display for under seven dollars. They are great for displaying graphics that can't be shown on a standard alphanumeric LCD. &lt;a href="https://en.wikipedia.org/wiki/OLED"&gt;OLED &lt;/a&gt; screens work without a back light and produce bright high contrast displays with a wide viewing angle (&amp;gt;160°) and low power consumption (~20 mA). The monochrome versions are available with a white or blue display on a black background, or as a version where the top quarter is yellow and the the rest blue.  The frame rates are very good and the display can be updated by the pyboard as fast as 333 frames/second.&lt;/p&gt;
 &lt;p&gt;The driver chip included on these modules is a ssd1306 chip that can be set up to work with either a SPI or an I2C bus. Some modules come with only one bus wired up, other use a soldered jumper or resistor to select between the two bus types. I'm using a 128 x 64 pixel display using an SPI interface.&lt;/p&gt;
 &lt;p&gt;There are some ssd1306 libraries available for micropython but I'm going to start with a basic example using only the micropython SPI class. I find writing a very simple example like this is a good way to understand the hardware and how to get the micro controller to work with it. Once I've got the simple example going I know my hardware and wiring are correct and I'm happy to use someone else's library to write more complicated stuff.&lt;/p&gt;
@@ -1411,7 +1542,7 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;"n rings" gives the number of ever larger rings.&lt;/p&gt;
 &lt;p&gt;"r spacing" gives the radial distance between the rings.&lt;/p&gt;
 &lt;p&gt;"t spacing: gives the spacing between vertices in the same ring.&lt;/p&gt;
-&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Wed, 15 Apr 2015 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2015-04-15:blender-adventures-with-hyperbolic-planes.html</guid><category>make</category><category>think</category><category>blender</category><category>sverchok</category><category></category></item><item><title>Structure Synth meets Sverchok - Animation</title><link>http://www.elfnor.com/structure-synth-meets-sverchok-animation.html</link><description>&lt;p&gt;&lt;img alt="still from fern  animation" src="/images/fern_anim_still_05.png" /&gt;&lt;/p&gt;
+&lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Wed, 15 Apr 2015 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2015-04-15:blender-adventures-with-hyperbolic-planes.html</guid><category>make</category><category>think</category><category>blender</category><category>sverchok</category></item><item><title>Structure Synth meets Sverchok - Animation</title><link>http://www.elfnor.com/structure-synth-meets-sverchok-animation.html</link><description>&lt;p&gt;&lt;img alt="still from fern  animation" src="/images/fern_anim_still_05.png" /&gt;&lt;/p&gt;
 &lt;p&gt;In the previous two posts (&lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html"&gt;Generative Art in Blender&lt;/a&gt; and &lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html"&gt;Mesh Mode&lt;/a&gt; I introduced the &lt;a href="http://nikitron.cc.ua/sverchok_en.html"&gt;Sverchok&lt;/a&gt; scripted node I'd written to implement &lt;a href="http://structuresynth.sourceforge.net/"&gt;Structure Synth&lt;/a&gt; generative art or lsystems inside Blender.&lt;/p&gt;
 &lt;p&gt;Following &lt;a href=""&gt;Martinius's suggestion&lt;/a&gt; I've now exposed parameters in the xml rule definition to the Sverchok node tree so we can do animation of Structure Synth lsystems inside Blender.&lt;/p&gt;
 &lt;p&gt;Here's an example:&lt;/p&gt;
@@ -1421,12 +1552,12 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;As before, to use the generative art node in Blender first install the &lt;a href="http://nikitron.cc.ua/sverchok_en.html"&gt;Sverchok&lt;/a&gt; addon. Download the lsystem code from &lt;a href="https://github.com/elfnor/lsystem"&gt;github&lt;/a&gt;. Then load the three python files in the Blender directory (&lt;code&gt;LSystem_blender.py, GA_xml.py, GA_node.py&lt;/code&gt;) as separate text blocks into a blend file. Add a "Scripted Node" to a Sverchok node tree. On the node select the &lt;code&gt;GA_node.py&lt;/code&gt; code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.&lt;/p&gt;
 &lt;p&gt;The latest version now has an additional input "variables". &lt;/p&gt;
 &lt;p&gt;The first step to animating the lsystem is to edit the lsystem definition in the xml text in &lt;code&gt;GA_xml.py&lt;/code&gt; to define which values becomes variables. The value for any of the transforms in the file can be replaced with a pair of curly braces:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;transforms&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tx 0.5 rx 20 sa 0.9&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;transforms = &amp;quot;tx 0.5 rx 20 sa 0.9&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;becomes&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;transforms&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tx {} rx 20 sa 0.9&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;transforms = &amp;quot;tx {} rx 20 sa 0.9&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1460,7 +1591,7 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="node diagram for fern animation" src="/images/GA_Fern_animation_03.blend.png" /&gt;&lt;/p&gt;
 &lt;p&gt;For this animation the index number of the current frame in the animation is translated from the range 1 to 250 to the range 16 to 6 via the formula node  and wired into the "variables" input of the "GA_node". This cause the fern to unwind as the animation proceeds. The separate objects are joined into one using the "Mesh Join" node and this output sent to the "Bmesh Viewer Draw" node. &lt;/p&gt;
 &lt;p&gt;If you want to animate more than one parameter use index numbers (starting with 0) inside the braces:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;transforms&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tx {0} rx {1} sa {2}&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;transforms = &amp;quot;tx {0} rx {1} sa {2}&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1470,12 +1601,12 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;Simple maths can also be use in the transforms definition. This has been used above in the "curlsmall" rule. The rx rotation of the transform will always be twice that of the rx rotation in the "curl1" and "curl2" rules.&lt;/p&gt;
 &lt;p&gt;There cannot be any spaces in any maths expressions for the rotation, translation or scale parameters when using a transforms attribute string as above.  Instead of listing all the transforms in one attribute string each transform can now have its own string. This allows more complicated expressions to be included. &lt;/p&gt;
 &lt;p&gt;transforms as single attribute (no spaces allowed in maths expression)&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;transforms&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tx 1 rz -1*{0} ry {1}&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;R1&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;call transforms=&amp;quot;tx 1 rz -1*{0} ry {1}&amp;quot; rule=&amp;quot;R1&amp;quot;/&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;each transform with its own attribute (can have spaces)&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt; &lt;span class="n"&gt;tx&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;rz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-1 * {0}&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;ry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{1}&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;R1&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;call tx=&amp;quot;1&amp;quot; rz=&amp;quot;-1 * {0}&amp;quot; ry=&amp;quot;{1}&amp;quot; rule=&amp;quot;R1&amp;quot;/&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1566,24 +1697,24 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;hr /&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Sun, 15 Mar 2015 22:00:00 +1300</pubDate><guid>tag:www.elfnor.com,2015-03-15:structure-synth-meets-sverchok-mesh-mode.html</guid><category>make</category><category>think</category><category>blender</category><category>sverchok</category><category>structuresynth</category></item><item><title>Structure Synth meets Sverchok - Generative Art inside Blender</title><link>http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html</link><description>&lt;p&gt;&lt;img alt="Nouveau Dr Seuss" src="/images/seuss_nouveu_11.png" /&gt;&lt;/p&gt;
 &lt;p&gt;After using the &lt;a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html"&gt;"Matrix Iterate"&lt;/a&gt; node to generate some of the simpler structures from &lt;a href="http://structuresynth.sourceforge.net/"&gt;Structure Synth&lt;/a&gt;. I started to think about how to implement more of Structure Synth directly in Blender. It turned out to be remarkably simple using a scripted node and some existing python code.&lt;/p&gt;
 &lt;p&gt;Structure Synth uses a domain specific language called eisenscript to define a design grammar to construct 3D structures (LSystems). Here's the eisenscript for a structure with 6 spirals.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;maxdepth&lt;/span&gt; &lt;span class="mi"&gt;400&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;set maxdepth 400
 
-&lt;span class="n"&gt;r0&lt;/span&gt;
+r0
 
-&lt;span class="n"&gt;rule&lt;/span&gt; &lt;span class="n"&gt;r0&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;rz&lt;/span&gt; &lt;span class="mi"&gt;120&lt;/span&gt;  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;R1&lt;/span&gt;
-  &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;rz&lt;/span&gt; &lt;span class="mi"&gt;120&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;R2&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+rule r0 {
+  3 * { rz 120  } R1
+  3 * { rz 120 } R2
+}
 
-&lt;span class="n"&gt;rule&lt;/span&gt; &lt;span class="n"&gt;R1&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="mf"&gt;1.3&lt;/span&gt; &lt;span class="n"&gt;rx&lt;/span&gt; &lt;span class="mf"&gt;1.57&lt;/span&gt; &lt;span class="n"&gt;rz&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="n"&gt;ry&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="mf"&gt;0.99&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;R1&lt;/span&gt;
-  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;sphere&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+rule R1 {
+  { x 1.3 rx 1.57 rz 6 ry 3 s 0.99} R1
+  { s 4 } sphere
+}
 
-&lt;span class="n"&gt;rule&lt;/span&gt; &lt;span class="n"&gt;R2&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.3&lt;/span&gt; &lt;span class="n"&gt;rz&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="n"&gt;ry&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="mf"&gt;0.99&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;R2&lt;/span&gt;
-  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;  &lt;span class="n"&gt;sphere&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
+rule R2 {
+  { x -1.3 rz 6 ry 3 s 0.99} R2
+  { s 4 }  sphere
+}
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1664,7 +1795,7 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="position to image nodes" src="/images/random_blocks_blog1.blend.png" /&gt;&lt;/p&gt;
 &lt;p&gt;The object position is fed into the vector input of an "Image Texture" node via a "Mapping" node. As usual the input of the vector for the "Image Texture" node should be between (0, 0, 0) and (1, 1, 1). The colour at the top right of the image will be accessed with a vector  (1, 1, 0). The colour of the image at the bottom left will be accessed with a vector (0, 0, 0). Use the mapping node to change the location vectors into this range. If the values are outside the range they will loop around as if the image was tiled. For example (0.2, 0.2, 0) and (1.2, 1.2, 0) will map to the same place in the image. &lt;/p&gt;
 &lt;p&gt;It makes sense to use the "Point" option of the "Mapping" node. With this option&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;output&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Scale&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;input&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;Location&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;output = Scale * input + Location
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1726,9 +1857,9 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="spiral in color cube" src="/images/spirals_in_color_cube_01.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Rather than scaling the geometry to lie within the (0,0,0) to (1,0,0) box we can scale the x, y, z coordinates within our node diagram.&lt;/p&gt;
 &lt;p&gt;In the following scene the spheres (dupliverted onto a torus) have locations from -1.25 to +1.25 in x and y and from -0.25 to +0.25 in z. We can use the Vector mapping node to transform these location values to the interval (0, 1).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;0.4&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;
-&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;0.4&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;
-&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;2.0&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;r = 0.4 * x + 0.5
+g = 0.4 * x + 0.5
+b = 2.0 * x + 0.5
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1737,9 +1868,9 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="torus location to rgb" src="/images/torus_color.png" /&gt;&lt;/p&gt;
 &lt;p&gt;We can also use the location as an index into a "Color Ramp" node. This requires reducing the three x, y, z coordinates to a single value between (0, 1). &lt;/p&gt;
 &lt;p&gt;For instance we can shade our torus radially by calculating:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;radius&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;give&lt;/span&gt; &lt;span class="n"&gt;radius&lt;/span&gt; &lt;span class="n"&gt;between&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.75&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="mf"&gt;1.25&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;radius = sqrt(x^2 +y^2 + z^2) to give radius between (0.75 and 1.25)
 
-&lt;span class="n"&gt;fac&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;radius&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;give&lt;/span&gt; &lt;span class="n"&gt;fac&lt;/span&gt; &lt;span class="n"&gt;between&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+fac = 2*radius - 1.5 to give fac between (0, 1)
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1747,10 +1878,10 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="torus radial color" src="/images/torus_radial.png" /&gt;&lt;/p&gt;
 &lt;h2&gt;Object Pass Index&lt;/h2&gt;
 &lt;p&gt;The second output of the "Object Info" node is labeled "Object Index". This is the same parameter that is called "Pass Index" on the Object Relations Panel. It can be set in the Objects Relations panel or in python using&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#set each of the selected objects to a separate pass index&lt;/span&gt;
-&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;bpy&lt;/span&gt;
-&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bpy&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;selected_objects&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-     &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pass_index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#set each of the selected objects to a separate pass index&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;bpy&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bpy&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;selected_objects&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+     &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pass_index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1819,11 +1950,11 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="workable breadmaker" src="/images/bm_workable.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="control board" src="/images/control_board_original.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;Carefully poking around the 5 pin connector while the breadmaker is going, gives the following designations for the pins. Pin 1 is on the right in the above image.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;GND&lt;/span&gt;
-&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="n"&gt;V&lt;/span&gt;
-&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;buzzer&lt;/span&gt;
-&lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;heater&lt;/span&gt;
-&lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;motor&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;1 - GND
+2 - + 5V
+3 - buzzer
+4 - heater
+5 - motor
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1883,28 +2014,28 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;The full code for the Arduino is available &lt;a href="https://github.com/elfnor/arduino-bread"&gt;here&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;When the bread maker is switched on with its new brain it behaves very much like it used to. Only now it has new programs as defined in the Arduino code. The programs are selected by using the SELECT button to cycle through them. The up and down keys can be used as before to add a delay time to the start of the program. The program is then started with the START button. It can be stopped at any time with the STOP button. &lt;/p&gt;
 &lt;p&gt;The given Arduino code currently includes the following bread programs:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;PGRMS&lt;/span&gt;
-  &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_pulseMix&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="c1"&gt;// 1/4 second pulse every 1 second&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_contMix&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="c1"&gt;// continuous kneading&lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_rise1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// pan kept at rising temperature &lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_punchDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// two short mixing pulses &lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_rise2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;     &lt;span class="c1"&gt;// 2nd rise &lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_heat&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// pan heated up to bake temperature &lt;/span&gt;
-    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;min_bake&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="c1"&gt;// pan kept at bake temperature &lt;/span&gt;
-  &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;struct PGRMS
+  {
+    int min_pulseMix;  // 1/4 second pulse every 1 second
+    int min_contMix;   // continuous kneading
+    int min_rise1;     // pan kept at rising temperature 
+    int min_punchDown; // two short mixing pulses 
+    int min_rise2;     // 2nd rise 
+    int min_heat;      // pan heated up to bake temperature 
+    int min_bake;      // pan kept at bake temperature 
+  };
 
-&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;N_PGRMS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+const int N_PGRMS = 6;
 
-&lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;PGRMS&lt;/span&gt; &lt;span class="n"&gt;pgrms&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;N_PGRMS&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 
-    &lt;span class="p"&gt;{&lt;/span&gt;
-      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;29&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;53&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;  &lt;span class="c1"&gt;// 0 : normal loaf&lt;/span&gt;
-      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;29&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;     &lt;span class="c1"&gt;// 1 : mix and knead only&lt;/span&gt;
-      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;  &lt;span class="c1"&gt;// 2 : very long rise&lt;/span&gt;
-      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;29&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;  &lt;span class="c1"&gt;// 3 : mix, knead and long rise&lt;/span&gt;
-      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;     &lt;span class="c1"&gt;// 4 : bake only&lt;/span&gt;
-      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;  &lt;span class="c1"&gt;// 5 : test nonsense     &lt;/span&gt;
-    &lt;span class="p"&gt;};&lt;/span&gt;
+const PGRMS pgrms[N_PGRMS] = 
+    {
+      {6, 29, 30, 1, 53, 8, 42},  // 0 : normal loaf
+      {6, 29, 0, 0, 0, 0, 0},     // 1 : mix and knead only
+      {0,  0, 1000, 0, 0, 0, 0},  // 2 : very long rise
+      {6, 29, 1000, 0, 0, 0, 0},  // 3 : mix, knead and long rise
+      {0, 0, 0, 0, 0, 8, 42},     // 4 : bake only
+      {3,  3, 10, 0,  0, 0,  0},  // 5 : test nonsense     
+    };
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1919,41 +2050,41 @@ Photos © The IFF by Alyssa Gorelick.&lt;/p&gt;
 &lt;p&gt;The "Viewer Draw" node takes a list of vertices from the "Object In" node and a list of matrices defining the location of each of vertices of the original cube and a scale factor to apply to each of the copies.  To do another level of copying we need a list of matrices that give the location of the corners of the eight mid-sized cubes. &lt;/p&gt;
 &lt;p&gt;The "Matrix Apply" node takes a list of vertices and a list of matrices and produces a nested list of vertices for all the mid sized cubes. Take a look at the output of the "Matrix Apply" node with the "Viewer Text" node. It consists of a nested list with three levels. The outermost level (level 1) contains 8 objects, one for each cube. Each of these level 1 objects contains eight lists (level 2), one for each corner of a cube. Each of these level 2 list contains three numbers (level 3) for the x, y, z coordinates of the vertex. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="matrix apply node" src="/images/copy_cube_post_02.blend.png" /&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;vertices:&lt;/span&gt; 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;....&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;vertices: 
+(8) object(s)
+=0=   (8)
+(1.5, 1.5, -1.5)
+(1.5, 0.5, -1.5)
+(0.5, 0.5, -1.5)
+(0.5, 1.5, -1.5)
+(1.5, 1.5, -0.5)
+(1.5, 0.5, -0.5)
+(0.5, 0.5, -0.5)
+(0.5, 1.5, -0.5)
+=1=   (8)
+(1.5, -0.5, -1.5)
+(1.5, -1.5, -1.5)
+(0.5, -1.5, -1.5)
+(0.5, -0.5, -1.5)
+(1.5, -0.5, -0.5)
+(1.5, -1.5, -0.5)
+(0.5, -1.5, -0.5)
+(0.5, -0.5, -0.5)
+....
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;We need to flatten this list so it contains 1 object with a  list of 64 vertices. This is done using the "List Join" node with the "JoinLevelLists" set to 2. Check with the "Viewer Text" node that this is what happened.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="List join node" src="/images/copy_cube_post_03.blend.png" /&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;vertices:&lt;/span&gt; 
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;vertices: 
+(1) object(s)
+=0=   (64)
+(1.5, 1.5, -1.5)
+(1.5, 0.5, -1.5)
+(0.5, 0.5, -1.5)
+(0.5, 1.5, -1.5)
+(1.5, 1.5, -0.5)
+...
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2077,8 +2208,8 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 &lt;p&gt;Alternatively if a "Viewer Bmesh" node is used instead of the "Viewer Draw" node, SV will update Blender meshes as changes are made. (Still need to click the "Update" button on the right hand panel.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;code&gt;*&lt;/code&gt; I've used the python code here that you could use to access the same data in the python console.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;bpy&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;active_object&lt;/span&gt;
-    &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vertices&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;co&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    obj = bpy.context,active_object
+    print(obj.data.vertices[1].co)
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -2537,16 +2668,16 @@ the secondary axis is aligned to point to one vertex of the face.&lt;/p&gt;
 &lt;p&gt;Otherwise click the axes alignment buttons until it looks right.&lt;/p&gt;
 &lt;p&gt;When finished the copied objects are selected, if desired further operators can be applied such as the &lt;code&gt;Object &amp;gt; Transform &amp;gt; Randomize Transform&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The copied objects' data are also linked to the source object.  This is useful to make further refinements to the scale or position of the source mesh relative to the source object origin.  If this is not desired they can easily be unlinked. Select them all (select one, then &lt;code&gt;Select &amp;gt; Linked &amp;gt; Object Data&lt;/code&gt;) then &lt;code&gt;Object &amp;gt; Make Single User &amp;gt; Object &amp;amp; Data&lt;/code&gt; for one mesh per object.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Tue, 02 Sep 2014 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2014-09-02:copy-2-add-on-for-blender.html</guid><category>make</category><category>think</category><category>copy2</category></item><item><title>Parametric Surfaces in Blender</title><link>http://www.elfnor.com/parametric-surfaces-in-blender.html</link><description>&lt;p&gt;The &lt;a href="http://www.blender.org/"&gt;Blender&lt;/a&gt; 3D modeling and rendering package has an add-on for mathematically defined surfaces. It is enabled via the Extra Objects add-on under &lt;code&gt;File &amp;gt; User Preferences&amp;gt; Addons&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;XYZ Math Surface&lt;/code&gt; can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables &lt;mathjax&gt;$u$&lt;/mathjax&gt; and &lt;mathjax&gt;$v$&lt;/mathjax&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;mathjax&gt;$$
+&lt;p&gt;The &lt;code&gt;XYZ Math Surface&lt;/code&gt; can be used to construct meshes for parametric surfaces. The parametric surface is defined by three functions of two variables &lt;span class="math"&gt;\(u\)&lt;/span&gt; and &lt;span class="math"&gt;\(v\)&lt;/span&gt;:&lt;/p&gt;
+&lt;div class="math"&gt;$$
 x = X(u,v)
-$$&lt;/mathjax&gt;
-&lt;mathjax&gt;$$
+$$&lt;/div&gt;
+&lt;div class="math"&gt;$$
 y = Y(u,v)
-$$&lt;/mathjax&gt;
-&lt;mathjax&gt;$$
+$$&lt;/div&gt;
+&lt;div class="math"&gt;$$
 z = Z(u,v)
-$$&lt;/mathjax&gt;&lt;/p&gt;
+$$&lt;/div&gt;
 &lt;p&gt;The &lt;a href="http://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Add_Mesh/Add_3d_Function_Surface"&gt;documentation page&lt;/a&gt; for the add-on has a number of example surfaces, but there are a lot more interesting named surfaces out there.&lt;/p&gt;
 &lt;p&gt;Its fairly easy to enter any formulae you find for a parametric 3D surface into Blender and save it as an &lt;code&gt;Operator Preset&lt;/code&gt;. I've uploaded my collection of saved presets to a github &lt;a href="https://github.com/elfnor/blender_XYZ_surface_presets"&gt;repo&lt;/a&gt;. I haven't included every named surface out there, just ones I think might make interesting images. &lt;/p&gt;
 &lt;p&gt;Here are a couple of images produced using the XYZ Math Surface add-on.&lt;/p&gt;
@@ -2558,35 +2689,62 @@ $$&lt;/mathjax&gt;&lt;/p&gt;
 &lt;p&gt;A stereosphere is the projection of a plane grid onto a sphere with the projection lines going through the top pole of the sphere. In the following image there is a point source light at the north pole of the stereosphere (the light is represented by the yellow dot). This light then does a stereographic projection of the sphere back onto the plane producing the grid present on the ground plane.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="stereosphere" src="images/stereosphere_01.png" /&gt;&lt;/p&gt;
 &lt;hr /&gt;
-&lt;div&gt;&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
     var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https:' == document.location.protocol
-                ? 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
-                : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
         "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
         "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
         "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: 'center'," +
-        "    displayIndent: '0em'," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
         "    showMathMenu: true," +
         "    tex2jax: { " +
-        "        inlineMath: [ ['$','$'] ], " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
         "        displayMath: [ ['$$','$$'] ]," +
         "        processEscapes: true," +
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
-        "    } " +
-        "}); ";
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Sun, 03 Aug 2014 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2014-08-03:parametric-surfaces-in-blender.html</guid><category>make</category><category>think</category><category>blender</category></item><item><title>Responsive Theme for gthumb Web Albums</title><link>http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html</link><description>&lt;p&gt;I want to include a lot of the art works stuff I have on my &lt;a href="http://elfnor.deviantart.com/"&gt;Deviant Art&lt;/a&gt; on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; and &lt;a href="http://home.gna.org/llgal/"&gt;llgal&lt;/a&gt; but settled on &lt;a href="https://wiki.gnome.org/Apps/gthumb"&gt;gthumb&lt;/a&gt;.&lt;/p&gt;
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Sun, 03 Aug 2014 22:00:00 +1200</pubDate><guid>tag:www.elfnor.com,2014-08-03:parametric-surfaces-in-blender.html</guid><category>make</category><category>think</category><category>blender</category></item><item><title>Responsive Theme for gthumb Web Albums</title><link>http://www.elfnor.com/responsive-theme-for-gthumb-web-albums.html</link><description>&lt;p&gt;I want to include a lot of the art works stuff I have on my &lt;a href="http://elfnor.deviantart.com/"&gt;Deviant Art&lt;/a&gt; on this site. I'm looking at the basic format of a static web album with a title, image and description for each art work. I looked at a number of packages including &lt;a href="https://github.com/saimn/sigal"&gt;sigal&lt;/a&gt; and &lt;a href="http://home.gna.org/llgal/"&gt;llgal&lt;/a&gt; but settled on &lt;a href="https://wiki.gnome.org/Apps/gthumb"&gt;gthumb&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Gthumb is mainly a image viewer and browser for the GNOME desktop, but it also includes a static web album generator. It has themes based on a set of templates and CSS files. &lt;/p&gt;
 &lt;p&gt;Of course I couldn't help fiddling with the templates and the Responsive Dark theme is the result. On a wide screen the description is to the right of the image, on a narrow screen the description is below the image. &lt;/p&gt;
 &lt;p&gt;The theme requires the description and title for each image to be entered into their respective exif tags. This is easy to do using gthumb itself. You can use some basic html such as &lt;code&gt;&amp;lt;br&amp;gt;&lt;/code&gt; tags in the description field to give basic formatting.&lt;/p&gt;
@@ -3020,27 +3178,27 @@ The &lt;code&gt;Symmetry group&lt;/code&gt; drop down gives you the choice of on
 &lt;h3&gt;How to write a bdpq string&lt;/h3&gt;
 &lt;p&gt;The "bdpq" notation is a useful shorthand to describe patterns built from square and rectangular cells.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;bdpq string&lt;/code&gt; entry takes a string similar  to &lt;code&gt;bq|qb&lt;/code&gt; and builds a tile for a pattern based on the user selected rectangular cell.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;syntax&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;  
-    &lt;span class="n"&gt;b&lt;/span&gt;  &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;original&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="n"&gt;selected&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt;
-    &lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;flipped&lt;/span&gt; &lt;span class="n"&gt;horizontally&lt;/span&gt;  
-    &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;flipped&lt;/span&gt; &lt;span class="n"&gt;vertically&lt;/span&gt;  
-    &lt;span class="n"&gt;q&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;rotated&lt;/span&gt; &lt;span class="mi"&gt;180&lt;/span&gt; &lt;span class="n"&gt;deg&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;The syntax for the string:  
+    b  is the original user selected cell
+    d is the cell flipped horizontally  
+    p is the cell flipped vertically  
+    q is the cell rotated 180 deg
 
-    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;denotes&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;
+    | denotes a new line
 
-&lt;span class="n"&gt;That&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;bq&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;qb&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;tile&lt;/span&gt;
+That is &amp;#39;bq|qb&amp;#39; will build this tile
 
-&lt;span class="n"&gt;bq&lt;/span&gt;  
-&lt;span class="n"&gt;qb&lt;/span&gt;
+bq  
+qb
 
-&lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;hence&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;pattern&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;symmetry&lt;/span&gt; &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="n"&gt;p2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+and hence this pattern (symmetry group p2)
 
-&lt;span class="n"&gt;bqbqbq&lt;/span&gt;
-&lt;span class="n"&gt;qbqbqb&lt;/span&gt;
-&lt;span class="n"&gt;bqbqbq&lt;/span&gt;
-&lt;span class="n"&gt;qbqbqb&lt;/span&gt;
+bqbqbq
+qbqbqb
+bqbqbq
+qbqbqb
 
-&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;  &lt;span class="n"&gt;represent&lt;/span&gt; &lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="n"&gt;cell&lt;/span&gt; &lt;span class="n"&gt;rotated&lt;/span&gt; &lt;span class="mi"&gt;90&lt;/span&gt; &lt;span class="n"&gt;deg&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clockwise&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+b+, d+, p+, q+  represent each cell rotated 90 deg (clockwise),
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -3057,8 +3215,8 @@ The &lt;code&gt;Symmetry group&lt;/code&gt; drop down gives you the choice of on
 &lt;h3&gt;Extra tip:&lt;/h3&gt;
 &lt;p&gt;If after generating 40 images you want to save them all, here is some code to type into the python console. (Filters&amp;gt;Python-Fu&amp;gt;Console)&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s-Atom"&gt;for&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt; &lt;span class="s-Atom"&gt;in&lt;/span&gt; &lt;span class="s-Atom"&gt;gimp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;image_list&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="s-Atom"&gt;:&lt;/span&gt;
-   &lt;span class="s-Atom"&gt;new_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/tmp/&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;name&lt;/span&gt;&lt;span class="p"&gt;[:-&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;.png&amp;quot;&lt;/span&gt;
-   &lt;span class="s-Atom"&gt;pdb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;gimp_file_save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="s-Atom"&gt;new_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s-Atom"&gt;new_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="s-Atom"&gt;new_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/tmp/&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;name&lt;/span&gt;&lt;span class="p"&gt;[:-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;.png&amp;quot;&lt;/span&gt;
+   &lt;span class="s-Atom"&gt;pdb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;gimp_file_save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s-Atom"&gt;img&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s-Atom"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="s-Atom"&gt;new_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s-Atom"&gt;new_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -3188,7 +3346,7 @@ print(&amp;#39;%s&amp;#39;%(mystr))
   &lt;span class="k"&gt;font-size&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.9em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="k"&gt;font-style&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="k"&gt;letter-spacing&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.015em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-  &lt;span class="k"&gt;line-height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;130&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;line-height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;130%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="k"&gt;padding&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.7em&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="k"&gt;white-space&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;pre&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;wrap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;wrap&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;break&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -3297,7 +3455,7 @@ H2
     &lt;span class="k"&gt;font-family&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Source Sans Pro&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="k"&gt;sans-serif&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="k"&gt;font-weight&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;400&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="k"&gt;text-shadow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;0.1em&lt;/span&gt; &lt;span class="m"&gt;0.1em&lt;/span&gt; &lt;span class="m"&gt;0.1em&lt;/span&gt; &lt;span class="m"&gt;#EFEFEF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;line-height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;125&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;line-height&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;125%&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="nt"&gt;h1&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;

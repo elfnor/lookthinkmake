@@ -1,5 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/all.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2015-10-02T22:00:00+13:00</updated><entry><title>Shaders for Sverchok 04 - Vertex Colors Update</title><link href="http://www.elfnor.com/shaders-for-sverchok-04-vertex-colors-update.html" rel="alternate"></link><updated>2015-10-02T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2015-10-02:shaders-for-sverchok-04-vertex-colors-update.html</id><summary type="html">&lt;p&gt;&lt;img alt="fibonnaci fruit" src="/images/dragon_fruit_vertex_color_05_009.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/all.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2015-11-06T22:00:00+13:00</updated><entry><title>Hyperbolic Tiling in 3D</title><link href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html" rel="alternate"></link><updated>2015-11-06T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2015-11-06:hyperbolic-tiling-in-3d.html</id><summary type="html">&lt;p&gt;&lt;img alt="plane, sphere and hyperbolic footbal" src="/images/hexagon_sphere_plane_hyp_032.png" /&gt;&lt;/p&gt;
+&lt;p&gt;In a previous &lt;a href="http://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html"&gt;post&lt;/a&gt; I explained the shape of planes, spheres, and hyperbolic planes in terms of hexagons arranged around either another hexagon (plane), a pentagon (sphere) or a heptagon (hyperbolic plane). I used a photo of a hyperbolic plane someone else had made out of paper, as the 3D model produced by my scripted Sverchok node was not meshed in a nice regular tiling. I thought I'd fix this.&lt;/p&gt;
+&lt;p&gt;The first step was to write a Sverchok node to make a Blender mesh of the regular tilings of the &lt;a href="https://en.wikipedia.org/wiki/Poincar%C3%A9_disk_model"&gt;Poincaré disk&lt;/a&gt;. The Poincaré disk is a model of 2D hyperbolic geometry where the points on an infinite hyperbolic plane are mapped inside a planar disk of unit radius. &lt;/p&gt;
+&lt;p&gt;In a plane or a sphere there are only a small number of regular polygons that can be used to tile the surface. For a plane its limited to triangles, squares and hexagons. These tilings can be described with two numbers, p the number of sides to the polygons used and q the number of polygons that meet at each vertex.  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Uniform_tilings_in_hyperbolic_plane"&gt;&lt;img alt="regular tilings from wikipedia" src="/images/regular_tilings_wikipedia.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For a sphere the regular tilings are limited to the same combinations as the five platonic solids (tetrahedron {3, 3}, cube {4, 3} octahedron {3, 4}, dodecahedron {5, 3} and the icosahedron {3, 5})&lt;/p&gt;
+&lt;p&gt;Tilings with any other integer values of p and q (greater than 3) can be made only on a hyperbolic plane. &lt;/p&gt;
+&lt;p&gt;In the Poincaré disc model a straight line is a circular arc meeting the edge of the unit disk at right angles. The construction method for a tiling consists of placing a regular polygon at the center of the disc and then reflecting the polygon in each side of the polygon. These polygons are then reflected in their free sides and the process repeated until the disc is tiled to the desired resolution. Reflection in a line in the Poincaré disc is equivalent to something called "circle inversion". This is well explained &lt;a href="http://moniker.name/worldmaking/?p=385"&gt;here&lt;/a&gt; and hopefully shown in the next diagram.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="circle inversion" src="/images/circle_inversion.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Here &lt;span class="math"&gt;\(O\)&lt;/span&gt; is the center of the circular arc through &lt;span class="math"&gt;\(\overline{AB}\)&lt;/span&gt; which meets the unit circle at right angles. In the Poincaré disc model this is a straight line through &lt;span class="math"&gt;\(\overline{AB}\)&lt;/span&gt;. The polygon &lt;span class="math"&gt;\(ABC'D'E'F'G'\)&lt;/span&gt; is the circle inversion of polygon &lt;span class="math"&gt;\(ABCDEFG\)&lt;/span&gt; in the circle centered at &lt;span class="math"&gt;\(O\)&lt;/span&gt;. In the Poincaré disc model this is equivalent to a reflection in the line &lt;span class="math"&gt;\(\overline{AB}\)&lt;/span&gt;. Point &lt;span class="math"&gt;\(C'\)&lt;/span&gt; the inversion of point &lt;span class="math"&gt;\(C\)&lt;/span&gt; lies on the line &lt;span class="math"&gt;\(\overline{OC}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The radius &lt;span class="math"&gt;\(r\)&lt;/span&gt; of the circle centered at &lt;span class="math"&gt;\(O\)&lt;/span&gt; is the length of the line &lt;span class="math"&gt;\(\overline{OA}\)&lt;/span&gt; &lt;/p&gt;
+&lt;div class="math"&gt;$$
+r = \left |  \overline{OA} \right | 
+$$&lt;/div&gt;
+&lt;p&gt;The position of &lt;span class="math"&gt;\(C'\)&lt;/span&gt; on the line &lt;span class="math"&gt;\(\overline{OC}\)&lt;/span&gt; can then be found from:&lt;/p&gt;
+&lt;div class="math"&gt;$$
+r^2 = \left |  \overline{OC} \right | * \left |  \overline{OC'} \right | 
+$$&lt;/div&gt;
+&lt;p&gt;This Sverchok scripted node &lt;a href="https://github.com/elfnor/hyperbolic_coral"&gt;hyperbolic_tiling.py&lt;/a&gt; implements the regular tilings of the Poincaré disk. (See &lt;a href="http://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html"&gt;earlier post&lt;/a&gt; on how to use a Sverchok scripted node in Blender). The hardest part of coding this is keeping track of the vertices and edges that are already in place to avoid making duplicates.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="poincare tiling in sverchok" src="/images/poincare_7-3.png" /&gt;&lt;/p&gt;
+&lt;p&gt;I now want to turn this flat mesh into a 3D mesh where each polygon has equal length sides. This can be done with a mass spring network where each edge of the mesh is modeled as a spring with a fixed rest length. The closest I can get to this in Blender is to use the "Soft Body" physics with the "Soft Body Self Collision" enabled.&lt;/p&gt;
+&lt;p&gt;In "Soft Body Self Collision" each vertex is surrounded by an elastic virtual ball. The physics engine stops vertices going inside the balls of other vertices during the simulation. This can be used to unfurl the Poincaré disk tiling into a 3D surface.&lt;/p&gt;
+&lt;p&gt;The final shape of the surface depends quite strongly on initial conditions. If we run the physics animation on a flat surface little happens. The second set of outputs on the Hyperbolic Tiling node output a version of the tiling that is bowl shaped rather than a plane. Also each face has been "poked" to only give triangular faces. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="poincare tiling in sverchok" src="/images/poincare_7-3_poked_cupped.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="soft body parameters" class="floatright" src="/images/soft_body_parameters.png" /&gt;
+&lt;img alt="tiling unfurled" src="/images/tiling_unfurled.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Bake the result of this second set of outputs to give a mesh. Add a "Soft Body" modifier to the mesh. The parameters I've found that produce the best results are shown in the screen capture on the right.&lt;/p&gt;
+&lt;p&gt;The parameters that differ from their default values are highlighted in red. Make sure "Soft Body Goal" is OFF and "Soft Body Self Collision" is ON. Experiment with some of the others to improve the speed or evenness of the final edge lengths. I've found that my edge lengths never come out all equal. If anyone can come up with settings for "Soft Body" that give a result with a  better ratio of minimum edge length/maximum edge length I'd love to see them in comments.&lt;/p&gt;
+&lt;p&gt;On my computer (i7, 2.8 Ghz, 4 GB RAM) the soft body solver is unstable when working on more than 250 to 300 faces. It either works very slowly and/or the mesh floats off the screen away from the origin.&lt;/p&gt;
+&lt;p&gt;A rotationally symmetric input mesh produces a symmetric output mesh (mostly). If you distort the input mesh a little the output mesh may be much less symmetric. For example, the p = 7, q = 3 tiling seems to have two final shapes depending on initial conditions. If you start with the symmetric output of the node it settles down to  a surface that has has 7 wrinkles around the outside edge. If you  add any distortion ("Randomize" in edit mode) before applying the soft body modifier the final shape is often much less symmetrical with ~3 major wrinkles around the outside.&lt;/p&gt;
+&lt;p&gt;To produce the hyperbolic football tiling:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use the Sverchok node to create a p = 7, q = 3, layers = 3 tiling mesh&lt;/li&gt;
+&lt;li&gt;Add a soft body modifier with the settings described above&lt;/li&gt;
+&lt;li&gt;Run the animation until the surface has unfurled.&lt;/li&gt;
+&lt;li&gt;Apply the soft body modifier&lt;/li&gt;
+&lt;li&gt;Add a "Subdivision Surface" modifier with 1 subdivision and apply it.&lt;/li&gt;
+&lt;li&gt;Apply a white material to the whole mesh&lt;/li&gt;
+&lt;li&gt;Select the central vertex and "Select Similar" vertices with a similar "Amount of connecting edges".&lt;/li&gt;
+&lt;li&gt;Expand the selection (Ctrl+) to select all the heptagons.&lt;/li&gt;
+&lt;li&gt;Apply a black material to the heptagons&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="make"></category><category term="think"></category><category term="blender"></category><category term="sverchok"></category></entry><entry><title>Shaders for Sverchok 04 - Vertex Colors Update</title><link href="http://www.elfnor.com/shaders-for-sverchok-04-vertex-colors-update.html" rel="alternate"></link><updated>2015-10-02T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2015-10-02:shaders-for-sverchok-04-vertex-colors-update.html</id><summary type="html">&lt;p&gt;&lt;img alt="fibonnaci fruit" src="/images/dragon_fruit_vertex_color_05_009.png" /&gt;&lt;/p&gt;
 &lt;p&gt;When I wrote my &lt;a href="http://www.elfnor.com/shaders-for-sverchok-02-vertex-colors.html"&gt;Shaders for Sverchok 02 - Vertex Colors&lt;/a&gt; post, I used a small piece of python code to assign the vertex colors. Sverchok now has a "Vertex Colors" node and I'll now show how to use that instead.&lt;/p&gt;
 &lt;p&gt;The "Vertex Color" node takes a list of colors as input. This list can either be assigned to the vertices "v" or to the faces "p" of the object selected in the drop down. Each color should be a vector of three numbers between 0 and 1. If the list is shorter that the number of vertices (or polygons) Sverchok will do its normal thing and very usefully repeat the list until it is long enough. &lt;/p&gt;
 &lt;p&gt;The second drop down on the node is used to select the vertex color layer of the object.&lt;/p&gt;

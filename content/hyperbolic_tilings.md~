@@ -36,7 +36,7 @@ $$
 r^2 = \left |  \overline{OC} \right | * \left |  \overline{OC'} \right | 
 $$
 
-This Sverchok scripted node [hyperbolic_tiling.py]() implements the regular tilings of the Poincaré disk. (See [earlier post]({filename}hyperbolic_planes.md) on how to use a Sverchok scripted node in Blender). The hardest part of coding this is keeping track of the vertices and edges that are already in place to avoid making duplicates.
+This Sverchok scripted node [hyperbolic_tiling.py](https://github.com/elfnor/hyperbolic_coral) implements the regular tilings of the Poincaré disk. (See [earlier post]({filename}hyperbolic_planes.md) on how to use a Sverchok scripted node in Blender). The hardest part of coding this is keeping track of the vertices and edges that are already in place to avoid making duplicates.
 
 ![poincare tiling in sverchok](/images/poincare_7-3.png)
 

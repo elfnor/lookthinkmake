@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Symmetry Tile Painting in Blender - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="After working out how to use Blender to paint hyperbolic tilings I then thought of using Blender to look at planar symmetric tilings. A while back I wrote a GIMP plugin which takes a selection from an image (“cell”) and produces a new image according to one of the 17 ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="http://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="http://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="http://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="http://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Symmetry Tile Painting in Blender</h1>
+		
+<div class="metadata">
+  <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></p></div>		
+		<p><img alt="p6m tiling" src="/images/blender_sym_tile_p6m.png" /></p>
+<p>After working out how to use Blender to paint <a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html">hyperbolic tilings</a> I then thought of using Blender to look at planar symmetric tilings. </p>
+<p>A while back I wrote a <a href="http://www.elfnor.com/Symmetry Tile plug-in for GIMP.html">GIMP plugin</a> which takes a selection from an image (“cell”) and produces a new image according to one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane  crystallographic groups. Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image. The GIMP plugin dosen't update in real time. If you want to make changes you need to re-run the plugin to generate a new tiling. </p>
+<p>Using UV mapping its really easy to get Blender to draw tilings from any of the 17 plane symmetry groups that update as you paint.</p>
+<p>This blend file (<a href="/downloads/sym_tile.blend">sym_tile.blend</a>) has been set up with 17 plane grids each on a separate layer. Each layer implements one of the symmetry groups via a UV map.</p>
+<p>Here's a screencast that shows the live drawing in action and explains how I set up the UV maps.</p>
+<iframe width="660" height="420" src="http://www.youtube.com/embed/ILBDlT9oRNI?autoplay=0"> </iframe>
+
+<p><a href="/downloads/sym_tile.mp4">Download Link for HD version</a></p>
+<p>For more on plane symmetry groups see the <a href="http://elfnor.github.io/symmetrytilegallery">galleries</a> of images produced with the GIMP plugin, my post on <a href="http://www.elfnor.com/Symmetry Group Links and Notation.html">symmetry group notation</a> which also has links to other online resources and my post on <a href="http://www.elfnor.com/Using the Symmetry Tile plug-in for Quilt Design.html">quilt design</a>.</p>
+<hr />	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "symmetry-tile-painting-in-blender.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Symmetry Tile Painting in Blender">Symmetry Tile Painting in Blender</a>
+  <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html" rel="bookmark" title="Permalink to Painting in the Hyperbolic Plane">Painting in the Hyperbolic Plane</a>
+  <time datetime="2015-11-14T22:00:00+13:00" pubdate>Sat 14 November 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html" rel="bookmark" title="Permalink to Hyperbolic Tiling in 3D">Hyperbolic Tiling in 3D</a>
+  <time datetime="2015-11-06T22:00:00+13:00" pubdate>Fri 06 November 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/shaders-for-sverchok-04-vertex-colors-update.html" rel="bookmark" title="Permalink to Shaders for Sverchok 04 - Vertex Colors Update">Shaders for Sverchok 04 - Vertex Colors Update</a>
+  <time datetime="2015-10-02T22:00:00+13:00" pubdate>Fri 02 October 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/blender-linked-stars.html" rel="bookmark" title="Permalink to Blender Linked Stars">Blender Linked Stars</a>
+  <time datetime="2015-09-27T22:00:00+13:00" pubdate>Sun 27 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
+  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
+  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

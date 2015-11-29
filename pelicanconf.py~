@@ -50,10 +50,8 @@ RELATIVE_URLS = True
 
 STATCOUNTER = False
 
-PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["render_math", "tag_cloud"]
+PLUGINS = ["render_math"]
 
-TAG_CLOUD_STEPS = 4 	
-TAG_CLOUD_MAX_ITEMS = 100 	
-TAG_CLOUD_SORTING = 'random'
+TAG_CLOUD_STEPS (4) 	
+TAG_CLOUD_MAX_ITEMS (100)
 

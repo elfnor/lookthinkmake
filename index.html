@@ -37,20 +37,39 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html">Symmetry Tile Painting in Blender</a></h1>
-        <p><img alt="p6m tiling" src="/images/blender_sym_tile_p6m.png" /></p>
-<p>After working out how to use Blender to paint <a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html">hyperbolic tilings</a> I then thought of using Blender to look at planar symmetric tilings. </p>
-<p>A while back I wrote a <a href="http://www.elfnor.com/Symmetry Tile plug-in for GIMP.html">GIMP plugin</a> which takes a selection from an image (“cell”) and produces a new image according to one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane  crystallographic groups. Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image. The GIMP plugin dosen't update in real time. If you want to make changes you need to re-run the plugin to generate a new tiling. </p>
-<p>Using UV mapping its really easy to get Blender to draw tilings from any of the 17 plane symmetry groups that update as you paint.</p>
-<p>This blend file (<a href="/downloads/sym_tile.blend">sym_tile.blend</a>) has been set up with 17 plane grids each on a separate layer. Each layer implements one of the symmetry groups via a UV map.</p>
-<p>Here's a screencast that shows the live drawing in action and explains how I set up the UV maps.</p>
-<iframe width="660" height="420" src="http://www.youtube.com/embed/ILBDlT9oRNI?autoplay=0"> </iframe>
+        <h1><a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html">Larger Hyperbolic Tilings in 3D using Processing</a></h1>
+        <p><img alt="plane, sphere and hyperbolic footbal" src="/images/CORAL_735_02_031.png" /></p>
+<p>After my <a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html">last post</a> on producing tiled hyperbolic planes in 3D, I was still unhappy with the size of the planes I could generate. Using the soft body modifier in Blender I was limited to about 250 faces before everything went unstable. Also after the tiling has been unfurled the length edges were still longer in the middle and shorter towards the edges where they should all be equal. (OK, I'm getting a bit obsessed with this)</p>
+<p>The physics needed to unfurl the tiling into 3D space is a mass spring network where each vertex of the mesh is a mass and each edge of the mesh is modeled as a spring with a fixed rest length. The rest length needs to be able to be set to be different from the initial edge length. To avoid the mesh intersecting itself each vertex of the mesh also needs to repel all other vertices. </p>
+<p>I can't see any way to set rest lengths directly in either the soft body modifier or the cloth modifier in Blender so I went back to the <a href="http://murderandcreate.com/physics/">Traer Physics</a> library available for Processing. I recently discovered that Processing has a "python mode" that allows python code to be written in the Processing environment. This allowed me to directly combine the <code>hyperbolic_tiling.py</code> code written for Sverchok with the Traer physics library.</p>
+<p>The Processing sketch available in the <a href="https://github.com/elfnor/hyperbolic_coral">Hyperbolic Coral</a> repository on github outputs <code>obj</code> files that can easily be imported into Blender. I've included a number of these files in the repository in case anyone wants to play with them without installing Processing. </p>
+<p>If you do want to run the sketch you'll need to <a href="https://processing.org/">install Processing</a>. Then from with in the Processing environment <code>Tools &gt; Add Tool... &gt; Modes</code> install the python mode. From the libraries tab install the <code>PeasyCam</code> camera library. The <a href="http://murderandcreate.com/physics/">Traer Physics library</a> needs to be downloaded, unzipped and copied to give this folder structure <code>~/sketchbook/libraries/physics/library/physics.jar</code>.</p>
+<p>Download a copy of the <a href="https://github.com/elfnor/hyperbolic_coral">Hyperbolic Coral</a> files from github and unzip them somewhere.  Run Processing and change the mode to Python. Open the file <code>hyperbolic_tiling.pyde</code> and create a new folder when prompted. Move a copy of <code>hyperbolic_tiling.py</code> into the same folder. Run the script and you should see a window displaying the tiling unfolding. </p>
+<p><img alt="screenshot hyperbolic unfurling" src="/images/processing_unfurl_ht_734.png" /></p>
+<p>There's no fancy interface for this. Edit the <code>p, q, layers</code> parameters in the <code>setup()</code> function and re run. The tilings are described with two numbers, <code>p</code> the number of sides to the polygons used and <code>q</code> the number of polygons that meet at each vertex. The number of <code>layers</code> describes how many rings of polygons to include. Each polygon face is divided into triangles and the polygons are not so obvious in the mesh.</p>
+<p>As the number of layers increases the number of faces in the mesh increases exponentially and the simulation slows down but still runs. I've successfully produced meshes with up to ???? faces. </p>
+<p>As the unfurling occurs the edges are colored in according to their length. Red edges are shorter and green edges longer than the set rest length. The cutoff values are given by <code>d_long</code> and <code>d_short</code> in the <code>draw()</code> function. When the edges fall between the values they are drawn in black. The tiling lengths are still not perfectly even but they're better than I was getting in Blender.</p>
+<p>When the physics simulation has settled down the <code>w</code> key can be used to write the mesh to an <code>obj</code> file (<code>ht_01.obj</code>). These files are really simple just lists of vertices and faces but they can be successfully imported into Blender.</p>
+<p>The <code>e</code> key can be used to print some statistics about the edge lengths to the Processing console. This is useful when fine tunning the physics parameters. </p>
+<div class="highlight"><pre># physics spring system  
+# system parameters
+mass = 1.1 # mass of particles
+restlength = 1.0  # Rest length of springs between nodes
+strength = 0.99    # Strength of springs between nodes
+damping = 0.02   # Damping of springs between nodes
+drag = 0.9  # Physics System drag (friction) 
+repulsion = -0.01  # Repulsion force between nodes
+repulsion_mindist = 0.5  # Distance from node where repulsion force begins to decrease
+</pre></div>
 
-<p><a href="/downloads/sym_tile.mp4">Download Link for HD version</a></p>
-<p>For more on plane symmetry groups see the <a href="http://elfnor.github.io/symmetrytilegallery">galleries</a> of images produced with the GIMP plugin, my post on <a href="http://www.elfnor.com/Symmetry Group Links and Notation.html">symmetry group notation</a> which also has links to other online resources and my post on <a href="http://www.elfnor.com/Using the Symmetry Tile plug-in for Quilt Design.html">quilt design</a>.</p>
+
+<p>I've spent some (way too much) time adjusting these parameters to give as even an edge length as possible while still avoiding mesh intersections and aiming for a symmetrical final mesh. Paul Bourke's  <a href="http://paulbourke.net/miscellaneous/particle/">description</a> of the maths and physics of this type of particle system  was a help here (he also provides an implementation in C). </p>
+<p>My best advise if playing with this is lower the drag and increase the negative repulsion force if the mesh has intersecting faces. If the simulation goes unstable reverse the changes incrementally. You normally end up trading longer edges in the center for no intersections toward the edge. </p>
+<p>Here to follow up on the previous posts is the hyperbolic football with friends.</p>
+<p><img alt="plane, sphere and hyperbolic footbal" src="/images/hexagon_sphere_plane_hyp_processing_019.png" /></p>
 <hr />
-	<a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html">Permalink, </a>
-	<a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html">Permalink, </a>
+	<a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -59,6 +78,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Symmetry Tile Painting in Blender">Symmetry Tile Painting in Blender</a>
+  <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
 
 
       <li>
@@ -85,10 +110,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/bloom-spheres-in-sverchok.html" rel="bookmark" title="Permalink to Bloom Spheres in Sverchok">Bloom Spheres in Sverchok</a>
-  <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
 
@@ -189,6 +210,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html" rel="bookmark" title="Permalink to Larger Hyperbolic Tilings in 3D using Processing">Larger Hyperbolic Tilings in 3D using Processing</a>
+  <time datetime="2015-11-27T22:00:00+13:00" pubdate>Fri 27 November 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/processing.html">processing  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Symmetry Tile Painting in Blender">Symmetry Tile Painting in Blender</a>
   <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
@@ -223,11 +250,6 @@
   <time datetime="2015-09-09T22:00:00+12:00" pubdate>Wed 09 September 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/micropython-oled-module-with-the-ssd1306-chip.html" rel="bookmark" title="Permalink to Micropython - OLED module with the ssd1306 chip">Micropython - OLED module with the ssd1306 chip</a>
-  <time datetime="2015-07-10T22:00:00+12:00" pubdate>Fri 10 July 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a></p></a>      			      </li>
 		
 		
 		
@@ -297,6 +319,27 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                         </ul>
                       
 		

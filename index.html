@@ -47,7 +47,7 @@
 <p>Download a copy of the <a href="https://github.com/elfnor/hyperbolic_coral">Hyperbolic Coral</a> files from github and unzip them somewhere.  Run Processing and change the mode to Python. Open the file <code>hyperbolic_tiling.pyde</code> and create a new folder when prompted. Move a copy of <code>hyperbolic_tiling.py</code> into the same folder. Run the script and you should see a window displaying the tiling unfolding. </p>
 <p><img alt="screenshot hyperbolic unfurling" src="/images/processing_unfurl_ht_734.png" /></p>
 <p>There's no fancy interface for this. Edit the <code>p, q, layers</code> parameters in the <code>setup()</code> function and re run. The tilings are described with two numbers, <code>p</code> the number of sides to the polygons used and <code>q</code> the number of polygons that meet at each vertex. The number of <code>layers</code> describes how many rings of polygons to include. Each polygon face is divided into triangles and the polygons are not so obvious in the mesh.</p>
-<p>As the number of layers increases the number of faces in the mesh increases exponentially and the simulation slows down but still runs. I've successfully produced meshes with up to ???? faces. </p>
+<p>As the number of layers increases the number of faces in the mesh increases exponentially and the simulation slows down but still runs. I've successfully produced meshes with 1624 faces. </p>
 <p>As the unfurling occurs the edges are colored in according to their length. Red edges are shorter and green edges longer than the set rest length. The cutoff values are given by <code>d_long</code> and <code>d_short</code> in the <code>draw()</code> function. When the edges fall between the values they are drawn in black. The tiling lengths are still not perfectly even but they're better than I was getting in Blender.</p>
 <p>When the physics simulation has settled down the <code>w</code> key can be used to write the mesh to an <code>obj</code> file (<code>ht_01.obj</code>). These files are really simple just lists of vertices and faces but they can be successfully imported into Blender.</p>
 <p>The <code>e</code> key can be used to print some statistics about the edge lengths to the Processing console. This is useful when fine tunning the physics parameters. </p>
@@ -319,27 +319,27 @@ repulsion_mindist = 0.5  # Distance from node where repulsion force begins to de
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

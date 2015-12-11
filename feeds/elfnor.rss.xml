@@ -27,7 +27,7 @@
 &lt;p&gt;&lt;img alt="simple level" src="/images/maze_2d_braid.png" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="rendered level" src="/images/maze__2D_simple_042.png" /&gt;&lt;/p&gt;
 &lt;p&gt;For some mazes there may be no 4 way intersections (or for braid = 1, no ends), in this case you need to turn the display of ths object off or you'll get an out of place cross (or end) at the origin.&lt;/p&gt;
-&lt;p&gt;With a different set of tiles its easy to produce a typical maze with walls between the passages. The ``maze_2D_simple.blend``` file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.&lt;/p&gt;
+&lt;p&gt;With a different set of tiles its easy to produce a typical maze with walls between the passages. The &lt;code&gt;maze_2D_simple.blend&lt;/code&gt; file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="tiles for walled maze" src="/images/maze_2d_walls.png" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="walled maze" src="/images/maze__2D_simple_02_012.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Try hedges or a layout such as a garden that is less obviously a maze.&lt;/p&gt;

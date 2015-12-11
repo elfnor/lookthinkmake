@@ -39,7 +39,7 @@ For a demo version to show how this works I made simple straight, bend, t-inters
 
 The Sverchok node diagram is very similar to those used with the *Generaive Art* node. A *Logic* node and a *Mask* node are used to separate the matrices output into four lists for the four different types of tiles (straights, bends, tees and crosses) that need to be placed. 
 
-(![node diagram](/images/maze_2d_nodes_crop.png))[/images/maze_2d_nodes_full.png]
+[![node diagram](/images/maze_2d_nodes_crop.png)](/images/maze_2d_nodes_full.png)
 
 ![simple level](/images/maze_2d.png)
 

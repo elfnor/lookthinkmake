@@ -53,7 +53,7 @@ A braided maze is a maze that has loops. If *braid* is set to zero there will be
 
 For some mazes there may be no 4 way intersections (or for braid = 1, no ends), in this case you need to turn the display of ths object off or you'll get an out of place cross (or end) at the origin.
 
-With a different set of tiles its easy to produce a typical maze with walls between the passages. The ``maze_2D_simple.blend``` file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.
+With a different set of tiles its easy to produce a typical maze with walls between the passages. The ```maze_2D_simple.blend``` file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.
 
 ![tiles for walled maze](/images/maze_2d_walls.png)
 

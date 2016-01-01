@@ -53,7 +53,7 @@ The lack of rails on the platforms above is a serious health and safety issue. T
 
 The extra edge rail components could also be used  to place windows in a house maze. The internal rail components (3, 4) would be walls in the rooms.
 
-The screen shot above is from ```red_maze_blue_maze.blend``` where more complex meshes have been used for the components. Three different objects have been used for the platforms to give some variation to the maze look. The matrix list was split into three random parts using *List Shuffle*, *List Split* and *List Slice* nodes.
+The screen shot at the top of the post is from ```red_maze_blue_maze.blend``` where more complex meshes have been used for the components. Three different objects have been used for the platforms to give some variation to the maze look. The matrix list was split into three random parts using *List Shuffle*, *List Split* and *List Slice* nodes.
 
 Laser Blaster provided the template for the awesome player character I've used in the game. It's available from this [blender artists post](http://blenderartists.org/forum/showthread.php?304200-Third-Person-Template-%28Xbox-360-gamepad-support-and-Mario-Galaxy-style-gravity%29) with a use it however you like license.
 

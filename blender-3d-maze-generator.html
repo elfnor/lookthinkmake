@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Blender Linked Stars - Look Think Make</title>	
+	<title>Blender 3D Maze Generator - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="I've been fascinated by the structure of Bathsheba Grossman's Quin Pendant Lamp since I first saw it. There are many tutorials around the web for making a similar structure in different 3D software packages. The method they all use seems to be based on a TopMod tutorial. TopMod ...">
+	<meta name="description" content="The same backtracking algorithm that produces 2D mazes can be used to produce three dimensional mazes. All that's needed is to set up the cells in the grid with an extra dimension and define the neighbors to include cells on the layers above and below the cell. Here I ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,23 +38,111 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Blender Linked Stars</h1>
+		<h1>Blender 3D Maze Generator</h1>
 		
 <div class="metadata">
-  <time datetime="2015-09-27T22:00:00+13:00" pubdate>Sun 27 September 2015</time>
+  <time datetime="2015-12-20T22:00:00+13:00" pubdate>Sun 20 December 2015</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
-		<p><img alt="linked stars" src="/images/star_spiral_11_005.png" /></p>
-<p>I've been fascinated by the structure of Bathsheba Grossman's <a href="">Quin Pendant Lamp</a> since I first saw it. There are many tutorials around the web for making a similar structure in different 3D software packages. The method they all use seems to be based on a <a href="https://www.youtube.com/watch?v=8SUjZITJIOw">TopMod tutorial</a>. <a href="http://www.viz.tamu.edu/faculty/ergun/research/topology/download.html">TopMod</a> (last updated about 2008?) works very differently from most other 3D modelling software with tools for making handles and bridges between polygons. Blender now has some similar tools for example Bridge Edge Loops Tools.</p>
-<p>My method is different and works with the surface of a regular solid. The bridges between triangles and penatagons are created as a single layer. After these bridges are twisted up into the correct structure a Solidify modifier is used to make everything 3D.</p>
-<p>Here is a screencast of the process.</p>
-<iframe width="660" height="420" src="http://www.youtube.com/embed/1isI49e2_Hk?autoplay=0"> </iframe>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/maze.html">maze</a></p></div>		
+		<p><img alt="red maze blue maze" src="/images/red_maze_blue_maze.png" /></p>
+<p>The same backtracking algorithm that produces <a href="{filename}lender_2D_maze_generator.md">2D mazes</a> can be used to produce three dimensional mazes. All that's needed is to set up the cells in the grid with an extra dimension and define the neighbors to include cells on the layers above and below the cell. </p>
+<p>Here I've chosen the neighbors to be the 4 adjacent cells on the same layer, the 4 cells above these adjacent cells  and the 4 cells below them. This gives each cell 12 neighbors and allows the maze to be drawn with ramps or diagonal staircases. This configuration is good for marble runs and mazes to explore in a game environment. A more common alternative would be to just add the cells directly above and below the original cells to give only six neighbors. This would require staircases going directly up from one level to the next.</p>
+<p>With 12 potential neighbors its impractical to include a different tile for each possible combination of links (as we did with  the 2D maze). For 12 neighbors there would be <span class="math">\(2^{12} - 1 = 4095\)</span> different tiles needed most of which would not occur in any given maze. Instead I've limited the maze components to a platform that sits at the center of each cell,  a straight bridge that goes to a linked neighbor on the same level and a ramp that either goes up to the platform diagonally above or below the cell.</p>
+<p>As before the python and blend files are on <a href="https://github.com/elfnor/mazes">github</a>.</p>
+<p>Add  <code>maze_passage_3D.py</code> and <code>maze_3D.py</code> as text blocks to a blender file. Set up a scripted node to use <code>maze_passage_3D.py</code>. Alternatively load <code>maze_3D_demo.blend</code>.</p>
+<p>The node parameters are similar to the 2D version. </p>
+<ul>
+<li><code>rseed</code> sets the random number generator. Change to get a maze with a different path. </li>
+<li><code>sizeX, sizeY, sizeZ</code> set the size of the maze. Setting <code>sizeZ</code> to 1 will produce a 2D maze. </li>
+<li><code>scaleXY</code> sets the horizontal spacing of the maze components. It should be equal to the horizontal dimension of a plaform plus a bridge. </li>
+<li><code>scaleZ</code> sets the vertical spacing of the components and should be equal to the Z dimension of the ramp or staircase. </li>
+<li><code>braid</code> set the proportion of dead ends to loops in the maze. Set to 0 there will be dead ends and no loops. There will only be one path between any two platforms in the maze. Set to 1 there will be lots of loops and no dead ends. Each platform will be connected by at least two bridges or ramps.</li>
+</ul>
+<p><img alt="node diagram" src="/images/maze_3D_nodes.png" /></p>
+<p>The <code>matrices</code> output gives a list of matrices define the location, and rotation of each maze component. The <code>mask</code> output gives a list of integers which define which component to place with each matrix. </p>
+<ul>
+<li>0 : platform</li>
+<li>1 : bridge</li>
+<li>2 : ramp</li>
+<li>3 : missing bridge rail (internal)</li>
+<li>4 : missing ramp rail (internal)</li>
+<li>5 : missing bride rail (edge)</li>
+<li>6 : missing up ramp rail (edge) </li>
+<li>7 : missing down ramp rail (edge)</li>
+</ul>
+<p>Only the first 3 components are needed to produce a maze. I'll explain the other 5 components later. The platform component needs to have its origin at (0, 0, 0). The bridge component should also be centered at the origin.  The ramp should also have its origin at (0, 0, 0) and needs to go upward from -X to + X. The ramp mesh needs to be offset from its origin  in the y-direction. When the up ramp mesh is rotated 180 degrees around its origin it should be in the correct position to function as a down ramp without intersecting with either the up ramp or the bridge. A picture of a the simplest mesh for each component should make this clear. </p>
+<p><img alt="3D components" src="/images/maze_3D_components.png" /></p>
+<p><img alt="3D maze" src="/images/maze_3D_maze.png" /></p>
+<p>It is possible to move the mesh of the bridge and ramp components relative to their origins (in edit mode) to get different configurations. For example the bridges could be set to be at the end of the platforms.</p>
+<p>The lack of rails on the platforms above is a serious health and safety issue. To address this the additional matrices corresponding to the mask values 3 to 7 can be used to apply rails to the platforms where there is no link to another platform. For example the following components give the accompanying maze. Components 5, 6  and 7 are used at the edge of the maze while components 3 and 4 fill in the gaps in the middle of the maze. For a different look a broken bridge or a blocked passage way could be used instead of rails.</p>
+<p><img alt="3D rail components" src="/images/maze_3d_rail_components.png" /></p>
+<p><img alt="3D rail maze" src="/images/maze_3d_rail_maze.png" /></p>
+<p>The extra edge rail components could also be used  to place windows in a house maze. The internal rail components (3, 4) would be walls in the rooms.</p>
+<p>The screen shot at the top of the post is from <code>red_maze_blue_maze.blend</code> where more complex meshes have been used for the components. Three different objects have been used for the platforms to give some variation to the maze look. The matrix list was split into three random parts using <em>List Shuffle</em>, <em>List Split</em> and <em>List Slice</em> nodes.</p>
+<p>Laser Blaster provided the template for the awesome player character I've used in the game. It's available from this <a href="http://blenderartists.org/forum/showthread.php?304200-Third-Person-Template-%28Xbox-360-gamepad-support-and-Mario-Galaxy-style-gravity%29">blender artists post</a> with a use it however you like license.</p>
+<p>This <code>red_maze_blue_maze.blend</code> file is playable as a blender game with unlimited mazes to solve. Generate your own level (set the size and rseed values). Move the <em>Spawn Here</em> empty to the desired start point and the <em>flag</em> to the end point. Then just play (<em>P</em>). The character is moved with the <em>WASD</em> keys and the camera view can be moved around using the mouse (press the middle mouse button to activate).</p>
+<p>The camera view gets blocked by the geometry. This can be fixed by giving the <em>Game Logic</em> property <em>CamBlock</em> to any geometry you want the camera to avoid. The easiest way to do this is select all the maze components, join them together (<em>CTRL-J</em>) then in a <em>Logic Editor</em> view on the properties panel click the <em>Add Game Property</em> and type <em>CamBlock</em> in the field.</p>
+<p><img alt="screen shot game property" src="/images/maze_3D_camblock.png" /></p>
+<hr />
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
 
-<p><a href="/downloads/LSV_02.mp4">Download Link</a></p>
-<hr />	
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>	
 
 	</article>
 
@@ -62,7 +150,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "blender-linked-stars.html";
+	       var disqus_identifier = "blender-3d-maze-generator.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

@@ -1,5 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 11 Dec 2015 22:00:00 +1300</lastBuildDate><item><title>Blender 2D Maze Generator</title><link>http://www.elfnor.com/blender-2d-maze-generator.html</link><description>&lt;p&gt;&lt;img alt="game wide shot" src="/images/maze_2d_steey_taws_01.png" /&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 20 Dec 2015 22:00:00 +1300</lastBuildDate><item><title>Blender 3D Maze Generator</title><link>http://www.elfnor.com/blender-3d-maze-generator.html</link><description>&lt;p&gt;&lt;img alt="red maze blue maze" src="/images/red_maze_blue_maze.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The same backtracking algorithm that produces &lt;a href="{filename}lender_2D_maze_generator.md"&gt;2D mazes&lt;/a&gt; can be used to produce three dimensional mazes. All that's needed is to set up the cells in the grid with an extra dimension and define the neighbors to include cells on the layers above and below the cell. &lt;/p&gt;
+&lt;p&gt;Here I've chosen the neighbors to be the 4 adjacent cells on the same layer, the 4 cells above these adjacent cells  and the 4 cells below them. This gives each cell 12 neighbors and allows the maze to be drawn with ramps or diagonal staircases. This configuration is good for marble runs and mazes to explore in a game environment. A more common alternative would be to just add the cells directly above and below the original cells to give only six neighbors. This would require staircases going directly up from one level to the next.&lt;/p&gt;
+&lt;p&gt;With 12 potential neighbors its impractical to include a different tile for each possible combination of links (as we did with  the 2D maze). For 12 neighbors there would be &lt;span class="math"&gt;\(2^{12} - 1 = 4095\)&lt;/span&gt; different tiles needed most of which would not occur in any given maze. Instead I've limited the maze components to a platform that sits at the center of each cell,  a straight bridge that goes to a linked neighbor on the same level and a ramp that either goes up to the platform diagonally above or below the cell.&lt;/p&gt;
+&lt;p&gt;As before the python and blend files are on &lt;a href="https://github.com/elfnor/mazes"&gt;github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Add  &lt;code&gt;maze_passage_3D.py&lt;/code&gt; and &lt;code&gt;maze_3D.py&lt;/code&gt; as text blocks to a blender file. Set up a scripted node to use &lt;code&gt;maze_passage_3D.py&lt;/code&gt;. Alternatively load &lt;code&gt;maze_3D_demo.blend&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The node parameters are similar to the 2D version. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;rseed&lt;/code&gt; sets the random number generator. Change to get a maze with a different path. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sizeX, sizeY, sizeZ&lt;/code&gt; set the size of the maze. Setting &lt;code&gt;sizeZ&lt;/code&gt; to 1 will produce a 2D maze. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scaleXY&lt;/code&gt; sets the horizontal spacing of the maze components. It should be equal to the horizontal dimension of a plaform plus a bridge. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scaleZ&lt;/code&gt; sets the vertical spacing of the components and should be equal to the Z dimension of the ramp or staircase. &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;braid&lt;/code&gt; set the proportion of dead ends to loops in the maze. Set to 0 there will be dead ends and no loops. There will only be one path between any two platforms in the maze. Set to 1 there will be lots of loops and no dead ends. Each platform will be connected by at least two bridges or ramps.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="node diagram" src="/images/maze_3D_nodes.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;matrices&lt;/code&gt; output gives a list of matrices define the location, and rotation of each maze component. The &lt;code&gt;mask&lt;/code&gt; output gives a list of integers which define which component to place with each matrix. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;0 : platform&lt;/li&gt;
+&lt;li&gt;1 : bridge&lt;/li&gt;
+&lt;li&gt;2 : ramp&lt;/li&gt;
+&lt;li&gt;3 : missing bridge rail (internal)&lt;/li&gt;
+&lt;li&gt;4 : missing ramp rail (internal)&lt;/li&gt;
+&lt;li&gt;5 : missing bride rail (edge)&lt;/li&gt;
+&lt;li&gt;6 : missing up ramp rail (edge) &lt;/li&gt;
+&lt;li&gt;7 : missing down ramp rail (edge)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Only the first 3 components are needed to produce a maze. I'll explain the other 5 components later. The platform component needs to have its origin at (0, 0, 0). The bridge component should also be centered at the origin.  The ramp should also have its origin at (0, 0, 0) and needs to go upward from -X to + X. The ramp mesh needs to be offset from its origin  in the y-direction. When the up ramp mesh is rotated 180 degrees around its origin it should be in the correct position to function as a down ramp without intersecting with either the up ramp or the bridge. A picture of a the simplest mesh for each component should make this clear. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="3D components" src="/images/maze_3D_components.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3D maze" src="/images/maze_3D_maze.png" /&gt;&lt;/p&gt;
+&lt;p&gt;It is possible to move the mesh of the bridge and ramp components relative to their origins (in edit mode) to get different configurations. For example the bridges could be set to be at the end of the platforms.&lt;/p&gt;
+&lt;p&gt;The lack of rails on the platforms above is a serious health and safety issue. To address this the additional matrices corresponding to the mask values 3 to 7 can be used to apply rails to the platforms where there is no link to another platform. For example the following components give the accompanying maze. Components 5, 6  and 7 are used at the edge of the maze while components 3 and 4 fill in the gaps in the middle of the maze. For a different look a broken bridge or a blocked passage way could be used instead of rails.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3D rail components" src="/images/maze_3d_rail_components.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3D rail maze" src="/images/maze_3d_rail_maze.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The extra edge rail components could also be used  to place windows in a house maze. The internal rail components (3, 4) would be walls in the rooms.&lt;/p&gt;
+&lt;p&gt;The screen shot at the top of the post is from &lt;code&gt;red_maze_blue_maze.blend&lt;/code&gt; where more complex meshes have been used for the components. Three different objects have been used for the platforms to give some variation to the maze look. The matrix list was split into three random parts using &lt;em&gt;List Shuffle&lt;/em&gt;, &lt;em&gt;List Split&lt;/em&gt; and &lt;em&gt;List Slice&lt;/em&gt; nodes.&lt;/p&gt;
+&lt;p&gt;Laser Blaster provided the template for the awesome player character I've used in the game. It's available from this &lt;a href="http://blenderartists.org/forum/showthread.php?304200-Third-Person-Template-%28Xbox-360-gamepad-support-and-Mario-Galaxy-style-gravity%29"&gt;blender artists post&lt;/a&gt; with a use it however you like license.&lt;/p&gt;
+&lt;p&gt;This &lt;code&gt;red_maze_blue_maze.blend&lt;/code&gt; file is playable as a blender game with unlimited mazes to solve. Generate your own level (set the size and rseed values). Move the &lt;em&gt;Spawn Here&lt;/em&gt; empty to the desired start point and the &lt;em&gt;flag&lt;/em&gt; to the end point. Then just play (&lt;em&gt;P&lt;/em&gt;). The character is moved with the &lt;em&gt;WASD&lt;/em&gt; keys and the camera view can be moved around using the mouse (press the middle mouse button to activate).&lt;/p&gt;
+&lt;p&gt;The camera view gets blocked by the geometry. This can be fixed by giving the &lt;em&gt;Game Logic&lt;/em&gt; property &lt;em&gt;CamBlock&lt;/em&gt; to any geometry you want the camera to avoid. The easiest way to do this is select all the maze components, join them together (&lt;em&gt;CTRL-J&lt;/em&gt;) then in a &lt;em&gt;Logic Editor&lt;/em&gt; view on the properties panel click the &lt;em&gt;Add Game Property&lt;/em&gt; and type &lt;em&gt;CamBlock&lt;/em&gt; in the field.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="screen shot game property" src="/images/maze_3D_camblock.png" /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">elfnor</dc:creator><pubDate>Sun, 20 Dec 2015 22:00:00 +1300</pubDate><guid>tag:www.elfnor.com,2015-12-20:blender-3d-maze-generator.html</guid><category>make</category><category>think</category><category>blender</category><category>sverchok</category><category>maze</category></item><item><title>Blender 2D Maze Generator</title><link>http://www.elfnor.com/blender-2d-maze-generator.html</link><description>&lt;p&gt;&lt;img alt="game wide shot" src="/images/maze_2d_steey_taws_01.png" /&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;a href="{fileame}blender_game_level_generator.md"&gt;game levels&lt;/a&gt; that can be produced by the &lt;em&gt;Generative Art&lt;/em&gt; Sverchok node in Blender are lots of fun to explore but there's nothing to stop them producing overlapping paths like this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="overlaps in Steely Taws" src="/images/level_gen_STD_ramps_render_015.png" /&gt;&lt;/p&gt;
 &lt;p&gt;This is because the alogrithim behind the node is based on L-systems and knows nothing about where its already been. The code only keeps tracks of a current transform (encoding position and direction) and randomly chooses another transfom rule to apply. It has no way to know where anything has already been drawn.&lt;/p&gt;

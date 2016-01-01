@@ -37,48 +37,105 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/blender-2d-maze-generator.html">Blender 2D Maze Generator</a></h1>
-        <p><img alt="game wide shot" src="/images/maze_2d_steey_taws_01.png" /></p>
-<p>The <a href="{fileame}blender_game_level_generator.md">game levels</a> that can be produced by the <em>Generative Art</em> Sverchok node in Blender are lots of fun to explore but there's nothing to stop them producing overlapping paths like this:</p>
-<p><img alt="overlaps in Steely Taws" src="/images/level_gen_STD_ramps_render_015.png" /></p>
-<p>This is because the alogrithim behind the node is based on L-systems and knows nothing about where its already been. The code only keeps tracks of a current transform (encoding position and direction) and randomly chooses another transfom rule to apply. It has no way to know where anything has already been drawn.</p>
-<p>The game levels from the <em>Generative Art</em> node can be edited to produce a playable layout. See this <a href="http://techmonkeybusiness.com/steely-taws-puzzle-game-v3.html">great puzzle game</a> complete with a Gondola, from Hamish at TechMonkeyBusiness. But I wanted to produce some more orderly game levels so I started looking at maze generating algorithms. I found <a href="http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap">Jamis Buck's</a> great posts on maze building and his book "Mazes for Programmers". </p>
-<p>In my ususal magpie fashion I started off with someone else's bright shiny code, in this case <a href="https://gist.github.com/samisalkosuo/77bd95f605fc41dc7366">this gist</a> by Sami Salkosuo, which is a python version of some of the code from "Mazes for Programmers".</p>
-<p>This implements the recursive backtracker algoritm as described on Buckblog. Imagine a grid of squares for a a 2D maze. The squares represent cells that will become paths in the maze. The lines at the edges of the squares are "carved" through to connect the cells to form a maze path.</p>
-<blockquote>
-<p>Here’s the mile-high view of recursive backtracking </p>
-<p>Choose a starting point in the field.<br />
-  Randomly choose a wall at that point and carve a passage through to the adjacent cell, but only if the adjacent cell has not been visited yet. This becomes the new current cell.
-    If all adjacent cells have been visited, back up to the last cell that has uncarved walls and repeat.
-    The algorithm ends when the process has backed all the way up to the starting point.</p>
-</blockquote>
-<p>Theres's an animation of this <a href="http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap">here</a>.</p>
-<p>The algorithm can either be implemented using recursive function calls, or with a stack that holds the cells visited, when a passage is carved through to another cell the new cell is added to the end of the stack. When the algorihtm backtracks cells are poped off the end of the stack.</p>
-<p>I've included a version of this code in a Sverchok scripted node (<em>maze_2d_gen</em>) that like the <em>Generative Art</em> node has a matrices and a mask outputs. The matrices list is used to position objects and the mask list of integers is used to determine which object to place at each position. To use this you'll need both the the <code>maze_3d.py</code> and the <code>maze_2D_gen.py</code> files from <a href="https://github.com/elfnor/mazes">github</a>. </p>
-<p>I'll start with a simple example <code>maze_2D_simple.blend</code>that just has very basic components and show how to generate either a path maze or a wall maze. Then I'll show you how to make a 2D maze with some of the Steely Taws game components. Then I'll finish up with the blend file with the components, Sverchok node diagram and the game logic to allow anyone to generate and play an unlimited number of random Steely Taws game mazes. These mazes are all just 2D but the 3D code in <code>maze_3d.py</code> shows what I'm working on next.</p>
-<p>For a demo version to show how this works I made simple straight, bend, t-intersection and 4 way cross intersection tiles. Each tile needs to fit in to a 1 unit by 1 unit square centered on the origin. The straight section goes from (-0.5, 0, 0) to (0.5, 0, 0). The bend goes from (1, 0, 0) to (0, 1, 0) and has its origin at (0, 0, 0). The t-intersection is the same length as the straight but has a path going to (0, 1, 0). In the <code>maze_2D_simple.blend</code> file these components are on the second layer.</p>
-<p><img alt="simple game components" src="/images/maze_2d_pieces.png" /></p>
-<p>The Sverchok node diagram is very similar to those used with the <em>Generaive Art</em> node. A <em>Logic</em> node and a <em>Mask</em> node are used to separate the matrices output into four lists for the four different types of tiles (straights, bends, tees and crosses) that need to be placed. </p>
-<p><a href="/images/maze_2d_nodes_full.png"><img alt="node diagram" src="/images/maze_2d_nodes_crop.png" /></a></p>
-<p><img alt="simple level" src="/images/maze_2d.png" /></p>
-<p>The size of the maze can be set with the <em>height</em> and <em>width</em> sliders on the node. Changing the <em>rseed</em> slider generates a new random maze. The <em>scale</em> sets the distance between components. </p>
-<p>A braided maze is a maze that has loops. If <em>braid</em> is set to zero there will be no loops and there will be only one path between any two parts of the maze. This type of maze has lots of dead ends (cells with only one connecting path). If <em>braid</em> is set to 1 there will be no dead ends and lots of loops. In between, <em>braid</em> sets the proportion of dead ends that are turned into loops.</p>
-<p><img alt="simple level" src="/images/maze_2d_braid.png" /></p>
-<p><img alt="rendered level" src="/images/maze__2D_simple_042.png" /></p>
-<p>For some mazes there may be no 4 way intersections (or for braid = 1, no ends), in this case you need to turn the display of ths object off or you'll get an out of place cross (or end) at the origin.</p>
-<p>With a different set of tiles its easy to produce a typical maze with walls between the passages. The <code>maze_2D_simple.blend</code> file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.</p>
-<p><img alt="tiles for walled maze" src="/images/maze_2d_walls.png" /></p>
-<p><img alt="walled maze" src="/images/maze__2D_simple_02_012.png" /></p>
-<p>Try hedges or a layout such as a garden that is less obviously a maze.</p>
-<p>The <code>steely_taws_2D_maze.blend</code> file has all the parts to generate and play an unlimited number of marble run mazes. </p>
-<p>Install a recent version of <a href="https://github.com/nortikin/sverchok">Sverchok</a> then open the blend file. A simple maze with 100 tiles should be automatically generated. Maximise the 3D View (CTRL-UP). Select the  camera view (NUMPAD-0) then press P to start the game. Controls are provided for either the arrow keys or a joystick. If you fall off the edge you will automatically respawn at the start.</p>
-<p>To make your own levels, press ESC to close the game and return to Blender. Change the the "rseed" value in the node and get a new game. </p>
-<p>In the blend file I've used "mesh instancer" nodes to the replace the "Objects In" and "Viewer Draw" nodes. This allows the same mesh to be used for every straight in a similar way to when you do  a linked duplicate in Blender and produces a much smaller file.</p>
-<p>Here's another screen shot of the game being played in the Blender Game Engine.</p>
-<p><img alt="screen shot 1 of game in play" src="/images/maze_2d_steely_taws_02.png" /></p>
+        <h1><a href="http://www.elfnor.com/blender-3d-maze-generator.html">Blender 3D Maze Generator</a></h1>
+        <p><img alt="red maze blue maze" src="/images/red_maze_blue_maze.png" /></p>
+<p>The same backtracking algorithm that produces <a href="{filename}lender_2D_maze_generator.md">2D mazes</a> can be used to produce three dimensional mazes. All that's needed is to set up the cells in the grid with an extra dimension and define the neighbors to include cells on the layers above and below the cell. </p>
+<p>Here I've chosen the neighbors to be the 4 adjacent cells on the same layer, the 4 cells above these adjacent cells  and the 4 cells below them. This gives each cell 12 neighbors and allows the maze to be drawn with ramps or diagonal staircases. This configuration is good for marble runs and mazes to explore in a game environment. A more common alternative would be to just add the cells directly above and below the original cells to give only six neighbors. This would require staircases going directly up from one level to the next.</p>
+<p>With 12 potential neighbors its impractical to include a different tile for each possible combination of links (as we did with  the 2D maze). For 12 neighbors there would be <span class="math">\(2^{12} - 1 = 4095\)</span> different tiles needed most of which would not occur in any given maze. Instead I've limited the maze components to a platform that sits at the center of each cell,  a straight bridge that goes to a linked neighbor on the same level and a ramp that either goes up to the platform diagonally above or below the cell.</p>
+<p>As before the python and blend files are on <a href="https://github.com/elfnor/mazes">github</a>.</p>
+<p>Add  <code>maze_passage_3D.py</code> and <code>maze_3D.py</code> as text blocks to a blender file. Set up a scripted node to use <code>maze_passage_3D.py</code>. Alternatively load <code>maze_3D_demo.blend</code>.</p>
+<p>The node parameters are similar to the 2D version. </p>
+<ul>
+<li><code>rseed</code> sets the random number generator. Change to get a maze with a different path. </li>
+<li><code>sizeX, sizeY, sizeZ</code> set the size of the maze. Setting <code>sizeZ</code> to 1 will produce a 2D maze. </li>
+<li><code>scaleXY</code> sets the horizontal spacing of the maze components. It should be equal to the horizontal dimension of a plaform plus a bridge. </li>
+<li><code>scaleZ</code> sets the vertical spacing of the components and should be equal to the Z dimension of the ramp or staircase. </li>
+<li><code>braid</code> set the proportion of dead ends to loops in the maze. Set to 0 there will be dead ends and no loops. There will only be one path between any two platforms in the maze. Set to 1 there will be lots of loops and no dead ends. Each platform will be connected by at least two bridges or ramps.</li>
+</ul>
+<p><img alt="node diagram" src="/images/maze_3D_nodes.png" /></p>
+<p>The <code>matrices</code> output gives a list of matrices define the location, and rotation of each maze component. The <code>mask</code> output gives a list of integers which define which component to place with each matrix. </p>
+<ul>
+<li>0 : platform</li>
+<li>1 : bridge</li>
+<li>2 : ramp</li>
+<li>3 : missing bridge rail (internal)</li>
+<li>4 : missing ramp rail (internal)</li>
+<li>5 : missing bride rail (edge)</li>
+<li>6 : missing up ramp rail (edge) </li>
+<li>7 : missing down ramp rail (edge)</li>
+</ul>
+<p>Only the first 3 components are needed to produce a maze. I'll explain the other 5 components later. The platform component needs to have its origin at (0, 0, 0). The bridge component should also be centered at the origin.  The ramp should also have its origin at (0, 0, 0) and needs to go upward from -X to + X. The ramp mesh needs to be offset from its origin  in the y-direction. When the up ramp mesh is rotated 180 degrees around its origin it should be in the correct position to function as a down ramp without intersecting with either the up ramp or the bridge. A picture of a the simplest mesh for each component should make this clear. </p>
+<p><img alt="3D components" src="/images/maze_3D_components.png" /></p>
+<p><img alt="3D maze" src="/images/maze_3D_maze.png" /></p>
+<p>It is possible to move the mesh of the bridge and ramp components relative to their origins (in edit mode) to get different configurations. For example the bridges could be set to be at the end of the platforms.</p>
+<p>The lack of rails on the platforms above is a serious health and safety issue. To address this the additional matrices corresponding to the mask values 3 to 7 can be used to apply rails to the platforms where there is no link to another platform. For example the following components give the accompanying maze. Components 5, 6  and 7 are used at the edge of the maze while components 3 and 4 fill in the gaps in the middle of the maze. For a different look a broken bridge or a blocked passage way could be used instead of rails.</p>
+<p><img alt="3D rail components" src="/images/maze_3d_rail_components.png" /></p>
+<p><img alt="3D rail maze" src="/images/maze_3d_rail_maze.png" /></p>
+<p>The extra edge rail components could also be used  to place windows in a house maze. The internal rail components (3, 4) would be walls in the rooms.</p>
+<p>The screen shot at the top of the post is from <code>red_maze_blue_maze.blend</code> where more complex meshes have been used for the components. Three different objects have been used for the platforms to give some variation to the maze look. The matrix list was split into three random parts using <em>List Shuffle</em>, <em>List Split</em> and <em>List Slice</em> nodes.</p>
+<p>Laser Blaster provided the template for the awesome player character I've used in the game. It's available from this <a href="http://blenderartists.org/forum/showthread.php?304200-Third-Person-Template-%28Xbox-360-gamepad-support-and-Mario-Galaxy-style-gravity%29">blender artists post</a> with a use it however you like license.</p>
+<p>This <code>red_maze_blue_maze.blend</code> file is playable as a blender game with unlimited mazes to solve. Generate your own level (set the size and rseed values). Move the <em>Spawn Here</em> empty to the desired start point and the <em>flag</em> to the end point. Then just play (<em>P</em>). The character is moved with the <em>WASD</em> keys and the camera view can be moved around using the mouse (press the middle mouse button to activate).</p>
+<p>The camera view gets blocked by the geometry. This can be fixed by giving the <em>Game Logic</em> property <em>CamBlock</em> to any geometry you want the camera to avoid. The easiest way to do this is select all the maze components, join them together (<em>CTRL-J</em>) then in a <em>Logic Editor</em> view on the properties panel click the <em>Add Game Property</em> and type <em>CamBlock</em> in the field.</p>
+<p><img alt="screen shot game property" src="/images/maze_3D_camblock.png" /></p>
 <hr />
-	<a href="http://www.elfnor.com/blender-2d-maze-generator.html">Permalink, </a>
-	<a href="http://www.elfnor.com/blender-2d-maze-generator.html#disqus_thread">Comments</a>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+	<a href="http://www.elfnor.com/blender-3d-maze-generator.html">Permalink, </a>
+	<a href="http://www.elfnor.com/blender-3d-maze-generator.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -87,6 +144,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/blender-2d-maze-generator.html" rel="bookmark" title="Permalink to Blender 2D Maze Generator">Blender 2D Maze Generator</a>
+  <time datetime="2015-12-11T22:00:00+13:00" pubdate>Fri 11 December 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
 
 
       <li>
@@ -113,10 +176,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/shaders-for-sverchok-04-vertex-colors-update.html" rel="bookmark" title="Permalink to Shaders for Sverchok 04 - Vertex Colors Update">Shaders for Sverchok 04 - Vertex Colors Update</a>
-  <time datetime="2015-10-02T22:00:00+13:00" pubdate>Fri 02 October 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
 
@@ -221,6 +280,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-3d-maze-generator.html" rel="bookmark" title="Permalink to Blender 3D Maze Generator">Blender 3D Maze Generator</a>
+  <time datetime="2015-12-20T22:00:00+13:00" pubdate>Sun 20 December 2015</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-2d-maze-generator.html" rel="bookmark" title="Permalink to Blender 2D Maze Generator">Blender 2D Maze Generator</a>
   <time datetime="2015-12-11T22:00:00+13:00" pubdate>Fri 11 December 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
@@ -255,11 +320,6 @@
   <time datetime="2015-10-02T22:00:00+13:00" pubdate>Fri 02 October 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-linked-stars.html" rel="bookmark" title="Permalink to Blender Linked Stars">Blender Linked Stars</a>
-  <time datetime="2015-09-27T22:00:00+13:00" pubdate>Sun 27 September 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 		
 		
@@ -331,28 +391,28 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                         </ul>
                       
 		

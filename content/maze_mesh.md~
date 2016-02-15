@@ -19,7 +19,7 @@ Path Line generation
 
 Connect the *Vertices* and *Edges* input from a mesh. Connect the *Link Verticies* and *Link Edges* to a *Viewer Draw* node. 
 
-This set of verticies and edges without any faces is a bit hard to turn into a good visual representation of a maze. Most of the bevel, solidify or extrude modifiers and nodes need the face informaion to work. (the *Path*, *Skin Mesher* and *Curve Viewer* nodes don't require faces and are worth experimenting with) 
+This set of verticies and edges without any faces is a bit hard to turn into a good visual representation of a maze. Most of the bevel, solidify or extrude modifiers and nodes need the face informaion to work (the *Path*, *Skin Mesher* and *Curve Viewer* nodes don't require faces and are worth experimenting with).
 
 One way to make a representaion of the maze is to convert the link mesh to a curve (*ALT-C*) and then apply a bevel to it under the curve property panel. For a non-flat mesh using the *Extrude* modification or having a bevel obect that isn't an equal size in x and y tends to have odd effects at the link branches.
 

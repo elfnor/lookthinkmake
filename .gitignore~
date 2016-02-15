@@ -6,4 +6,3 @@ fabfile.py
 output/
 notes/
 cache/
-content/*.md~

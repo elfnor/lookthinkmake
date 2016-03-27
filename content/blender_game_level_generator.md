@@ -81,7 +81,7 @@ Here are some screen shots of the game being played in the Blender Game Engine.
 
 ![screen shot 2 of game in play](./images/steely_taws_screenshot_2.png)
 
-The blend file available [here](/downloads/steely_taws_level_gen.blend) contains each of the components on a separate layer. The game itself should be generated on the 1st layer.
+The blend file available [here](./downloads/steely_taws_level_gen.blend) contains each of the components on a separate layer. The game itself should be generated on the 1st layer.
 
 Install a recent version of [Sverchok](https://github.com/nortikin/sverchok) then open the blend file. A simple level with 50 components should be automatically generated. Maximise the 3D View (CTRL-UP). Select the  camera view (NUMPAD-0) then press P to start the game. Controls are provided for either the arrow keys or a joystick. If you fall off the edge you will automatically respawn at the start.
 

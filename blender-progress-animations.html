@@ -47,7 +47,7 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
-		<p><img alt="walkways still" src="/images/walkways_ivy_024.png" /></p>
+		<p><img alt="walkways still" src="./images/walkways_ivy_024.png" /></p>
 <p>A nice side effect of using the <a href="http://www.elfnor.com/blender-auto-save-add-on.html">auto save add-on</a> is that if you render often you effortlessly have a record of the progress of your scene towards the final image. These saved images can be collected up into an animation. </p>
 <p>I'm going to describe how to do it as an animated GIF using GIMP. GIFs are well supported on the web but have indexed color so they tend to end up with visible lines between colors in areas of the image where there should be smooth gradients. There are alternatives to GIFs that don't have this problem some of which are discussed <a href="http://stackoverflow.com/questions/6402633/what-alternatives-for-animated-gifs-are-there">here</a> on stackoverflow. Otherwise make a standard video animation from the still images using programs like <a href="https://kdenlive.org/">Kdenlive</a> or <a href="http://www.openshot.org/">openshot</a>.</p>
 <h2>Using GIMP to make an animated GIF from still images</h2>
@@ -55,7 +55,7 @@
 <p>Choose <code>Filters &gt; Animation &gt; Optimize (for GIF)</code>. This will produce a new GIMP file. In this file each of the layers has been reworked to only include the parts that differ from the previous image. The rest of that layer is set to transparent to allow earlier images to show through. This reduces the file size. </p>
 <p>The layers have been renamed to something like <code>walkways_ivy_015.png(100ms)(combine)</code> The first set of brackets contains the length of time the image will be displayed. These can be individually edited by selecting <code>Edit Layer Attributes</code> from the right click menu. To set them all at once you need to change the default which as far as I can tell is only available from the export dialog. Choose <code>File &gt; Export as..</code> and set <code>GIF</code> as the format.  In the <code>Export Image as GIF</code> dialog,  select <code>as animation</code> and set <code>Delay between frames</code> to the desired value. I used 500 ms in the following GIF. Also select <code>Use delay above for all frames</code>. Export the GIF and its done.</p>
 <p>I wanted to set the final image in the GIF to a longer display time than the others. To do this open the GIF file back into GIMP and change the delay in the layer attribute as above and re-export. I used 2000 ms.</p>
-<p><img alt="walkways gif" src="/images/walkways_05.gif" /></p>
+<p><img alt="walkways gif" src="./images/walkways_05.gif" /></p>
 <p>The sequence above shows the texturing and lighting for a scene. The geometry was developed using my <a href="http://www.elfnor.com/blender-pipe-generator.html">Generative Art node</a> for <a href="https://github.com/nortikin/sverchok">Sverchok</a>. Also used is the Ivy Gen add-on included with Blender.</p>
 <hr />	
 
@@ -81,6 +81,18 @@
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-sverchok-node-update.html" rel="bookmark" title="Permalink to Generative Art - Sverchok Node Update">Generative Art - Sverchok Node Update</a>
+  <time datetime="2016-02-28T22:00:00+13:00" pubdate>Sun 28 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
+  <time datetime="2016-02-14T22:00:00+13:00" pubdate>Sun 14 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/maze-any-mesh-in-blender.html" rel="bookmark" title="Permalink to Maze any Mesh in Blender">Maze any Mesh in Blender</a>
@@ -111,17 +123,7 @@
   <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html" rel="bookmark" title="Permalink to Painting in the Hyperbolic Plane">Painting in the Hyperbolic Plane</a>
-  <time datetime="2015-11-14T22:00:00+13:00" pubdate>Sat 14 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html" rel="bookmark" title="Permalink to Hyperbolic Tiling in 3D">Hyperbolic Tiling in 3D</a>
-  <time datetime="2015-11-06T22:00:00+13:00" pubdate>Fri 06 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
 		
 		
@@ -195,28 +197,28 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                         </ul>
                       
 		

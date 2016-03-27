@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Generative Art - Sverchok Node Update - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="I've made some changes and improvements to the Generative Art node in Sverchok. This node uses a simple xml file to define a set of rules to produce geometry. This node is very strongly based on Structure Synth and can produce Lindermayer Systems (lsystems) and fractals as well as ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Generative Art - Sverchok Node Update</a></h1>
-        <p><img alt="6 spirals mesh render" src="./images/6_spirals_mesh_render_03_018.png" /></p>
+	<article class="full">
+			
+		<h1>Generative Art - Sverchok Node Update</h1>
+		
+<div class="metadata">
+  <time datetime="2016-02-28T22:00:00+13:00" pubdate>Sun 28 February 2016</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></p></div>		
+		<p><img alt="6 spirals mesh render" src="./images/6_spirals_mesh_render_03_018.png" /></p>
 <p>I've made some changes and improvements to the <em>Generative Art</em> node in Sverchok. This node uses a simple <em>xml</em> file to define a set of rules to produce geometry. This node is very strongly based on <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> and can produce <a href="https://en.wikipedia.org/wiki/L-system">Lindermayer Systems (lsystems)</a> and fractals as well as more random and interesting creations. </p>
 <p>The new version is now merged into the Sverchok master branch on <a href="https://github.com/nortikin/sverchok">github</a>.</p>
 <p>Visible changes:  </p>
@@ -306,149 +315,22 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <p>Only the transforms that take a single number that is <code>tx, ty, tz, rx, ry, rz, sx, sy, sz</code> and <code>sa</code> have been implemented using individual attributes. The ones that use triplets to specify all three translations or scales at once (<code>t</code> and <code>s</code>) can only be used in a transform string.</p>
 <h3>References</h3>
 <p>This node is closely based on <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> but the xml design format and most of the code originally comes from <a href="http://prideout.net/">Philip Rideout's</a> <a href="https://github.com/prideout/lsystem">lsystem</a> repository on github.</p>
-<hr />
-	<a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Permalink, </a>
-	<a href="http://www.elfnor.com/generative-art-sverchok-node-update.html#disqus_thread">Comments</a>
-      </article>
-
-      <hr />
-
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-02-14T22:00:00+13:00" pubdate>Sun 14 February 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/maze-any-mesh-in-blender.html" rel="bookmark" title="Permalink to Maze any Mesh in Blender">Maze any Mesh in Blender</a>
-  <time datetime="2016-01-29T22:00:00+13:00" pubdate>Fri 29 January 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-3d-maze-generator.html" rel="bookmark" title="Permalink to Blender 3D Maze Generator">Blender 3D Maze Generator</a>
-  <time datetime="2015-12-20T22:00:00+13:00" pubdate>Sun 20 December 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/blender-2d-maze-generator.html" rel="bookmark" title="Permalink to Blender 2D Maze Generator">Blender 2D Maze Generator</a>
-  <time datetime="2015-12-11T22:00:00+13:00" pubdate>Fri 11 December 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html" rel="bookmark" title="Permalink to Larger Hyperbolic Tilings in 3D using Processing">Larger Hyperbolic Tilings in 3D using Processing</a>
-  <time datetime="2015-11-27T22:00:00+13:00" pubdate>Fri 27 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/processing.html">processing  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+<hr />	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "generative-art-sverchok-node-update.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -557,7 +439,7 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

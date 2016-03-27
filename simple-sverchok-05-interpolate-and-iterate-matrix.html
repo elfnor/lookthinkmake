@@ -47,26 +47,26 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><img alt="matrix iterate sample image" src="/images/matrix_iterate_13.png" /></p>
+		<p><img alt="matrix iterate sample image" src="./images/matrix_iterate_13.png" /></p>
 <p>This is part five of my introduction to <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> the parametric node geometry add-on for Blender. Other parts can be found <a href="http://elfnor.com/tag/sverchok.html">here</a></p>
 <p>So far we've used various nodes to produce list of matrices that we've used to give the location, scale and rotation of objects. This post continues that idea.</p>
 <p>The "Matrix Interpolation" node takes one or two matrices as input and produces a list of matrices that describe transformations interpolated between the two matrices. If only one matrix is input the identity matrix (no transform) is used for the other matrix. This is great for example to make a whole line of objects.</p>
-<p><img alt="matrix interpolate nodes sverchok" src="/images/matrix_interpolate_nodes.png" /></p>
+<p><img alt="matrix interpolate nodes sverchok" src="./images/matrix_interpolate_nodes.png" /></p>
 <p>The input matrix could also include a scale and rotation.</p>
 <p>The "Matrix Interpolation" node can also be used to produce a list of identity matrices that are then altered by a "Matrix Deform" node. This allows non-linear variation in the object scales and rotations as shown in the example below. Here we've produced 21 identity matrices. The "Map Range" Node is used to change the values from the "Float Series" from 0 to 5 (used for the locations) to 0 to 360 (used for the angle of rotation about the Z axis). The same range is also mapped to the interval 0 to pi. The sine of this function is then used to scale the objects in the y direction.</p>
-<p><img alt="matrix interpolate node identity sverchok" src="/images/matrix_interpolation_map_03.blend.png" /></p>
+<p><img alt="matrix interpolate node identity sverchok" src="./images/matrix_interpolation_map_03.blend.png" /></p>
 <p>EDIT: We don't really need to use a "Matrix Interpolation" node in the above example. We can replace the "Matrix Deform" node with a "Matrix In" node as shown below and acheive the same result.</p>
-<p><img alt="matrix in nodeverchok" src="/images/matrix_interpolation_map_04.blend.png" /></p>
+<p><img alt="matrix in nodeverchok" src="./images/matrix_interpolation_map_04.blend.png" /></p>
 <p>If we want to scale and shift the objects in the same direction, for example produce a stack of diminishing sized cubes sitting on top of each other, we can't do it with linear interpolation. In the image below the gaps between each cube centre are the same size. If the cubes are to sit on top of each other the gap has to decrease along with the cube size. </p>
-<p><img alt="matrix interpolate pyramid sverchok" src="/images/pyramid_interpolate_01.blend.png" /></p>
+<p><img alt="matrix interpolate pyramid sverchok" src="./images/pyramid_interpolate_01.blend.png" /></p>
 <p>If we scale the 1st cube (size 2 units) by 0.75 to get our 2nd cube (size 1.5 units) we then need to move the 2nd cube 1.75 units to stack it on top of the 1st cube. What we need to do here is apply a transform matrix M that does a 0.75 scale and a 1.75 unit translation to the 1st object to get our second object.</p>
 <p>V2 = M * V1</p>
 <p>Then we apply the same transform again to V2 to get V3</p>
 <p>V3 = M * V2</p>
 <p>and so on. This will stack the cubes nicely on top of each other. Since version 0.5.1.0 Sverchok has a "Iterate Matrix Transform" node that does this repeated matrix transform. Its currently in the Beta node panel.</p>
-<p><img alt="matrix iterate pyramid sverchok" src="/images/pyramid_interpolate_iterate_04.blend.png" /></p>
+<p><img alt="matrix iterate pyramid sverchok" src="./images/pyramid_interpolate_iterate_04.blend.png" /></p>
 <p>Adding rotations to the matrix used as input to the iterate node will quickly produce some interesting structures. Below is the node diagram for the structure in the image at the top of this post. The same structure is used as the default start up script for the <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> application. Many of the other examples provided with Structure Synth could be used as starting points for exploration with Sverchok.</p>
-<p><img alt="structure synth default sverchok" src="/images/matrix_iterate_01_demo.blend.png" /></p>
+<p><img alt="structure synth default sverchok" src="./images/matrix_iterate_01_demo.blend.png" /></p>
 <hr />	
 
 	</article>
@@ -91,6 +91,18 @@
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-sverchok-node-update.html" rel="bookmark" title="Permalink to Generative Art - Sverchok Node Update">Generative Art - Sverchok Node Update</a>
+  <time datetime="2016-02-28T22:00:00+13:00" pubdate>Sun 28 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
+  <time datetime="2016-02-14T22:00:00+13:00" pubdate>Sun 14 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/maze-any-mesh-in-blender.html" rel="bookmark" title="Permalink to Maze any Mesh in Blender">Maze any Mesh in Blender</a>
@@ -121,17 +133,7 @@
   <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html" rel="bookmark" title="Permalink to Painting in the Hyperbolic Plane">Painting in the Hyperbolic Plane</a>
-  <time datetime="2015-11-14T22:00:00+13:00" pubdate>Sat 14 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html" rel="bookmark" title="Permalink to Hyperbolic Tiling in 3D">Hyperbolic Tiling in 3D</a>
-  <time datetime="2015-11-06T22:00:00+13:00" pubdate>Fri 06 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
 		
 		
@@ -205,28 +207,28 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                         </ul>
                       
 		

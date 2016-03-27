@@ -47,9 +47,9 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/maze.html">maze</a></p></div>		
-		<p><img alt="game wide shot" src="/images/maze_2d_steey_taws_01.png" /></p>
+		<p><img alt="game wide shot" src="./images/maze_2d_steey_taws_01.png" /></p>
 <p>The <a href="{fileame}blender_game_level_generator.md">game levels</a> that can be produced by the <em>Generative Art</em> Sverchok node in Blender are lots of fun to explore but there's nothing to stop them producing overlapping paths like this:</p>
-<p><img alt="overlaps in Steely Taws" src="/images/level_gen_STD_ramps_render_015.png" /></p>
+<p><img alt="overlaps in Steely Taws" src="./images/level_gen_STD_ramps_render_015.png" /></p>
 <p>This is because the alogrithim behind the node is based on L-systems and knows nothing about where its already been. The code only keeps tracks of a current transform (encoding position and direction) and randomly chooses another transfom rule to apply. It has no way to know where anything has already been drawn.</p>
 <p>The game levels from the <em>Generative Art</em> node can be edited to produce a playable layout. See this <a href="http://techmonkeybusiness.com/steely-taws-puzzle-game-v3.html">great puzzle game</a> complete with a Gondola, from Hamish at TechMonkeyBusiness. But I wanted to produce some more orderly game levels so I started looking at maze generating algorithms. I found <a href="http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap">Jamis Buck's</a> great posts on maze building and his book "Mazes for Programmers". </p>
 <p>In my ususal magpie fashion I started off with someone else's bright shiny code, in this case <a href="https://gist.github.com/samisalkosuo/77bd95f605fc41dc7366">this gist</a> by Sami Salkosuo, which is a python version of some of the code from "Mazes for Programmers".</p>
@@ -66,25 +66,25 @@
 <p>I've included a version of this code in a Sverchok scripted node (<em>maze_2d_gen</em>) that like the <em>Generative Art</em> node has a matrices and a mask outputs. The matrices list is used to position objects and the mask list of integers is used to determine which object to place at each position. To use this you'll need both the the <code>maze_3d.py</code> and the <code>maze_2D_gen.py</code> files from <a href="https://github.com/elfnor/mazes">github</a>. </p>
 <p>I'll start with a simple example <code>maze_2D_simple.blend</code>that just has very basic components and show how to generate either a path maze or a wall maze. Then I'll show you how to make a 2D maze with some of the Steely Taws game components. Then I'll finish up with the blend file with the components, Sverchok node diagram and the game logic to allow anyone to generate and play an unlimited number of random Steely Taws game mazes. These mazes are all just 2D but the 3D code in <code>maze_3d.py</code> shows what I'm working on next.</p>
 <p>For a demo version to show how this works I made simple straight, bend, t-intersection and 4 way cross intersection tiles. Each tile needs to fit in to a 1 unit by 1 unit square centered on the origin. The straight section goes from (-0.5, 0, 0) to (0.5, 0, 0). The bend goes from (1, 0, 0) to (0, 1, 0) and has its origin at (0, 0, 0). The t-intersection is the same length as the straight but has a path going to (0, 1, 0). In the <code>maze_2D_simple.blend</code> file these components are on the second layer.</p>
-<p><img alt="simple game components" src="/images/maze_2d_pieces.png" /></p>
+<p><img alt="simple game components" src="./images/maze_2d_pieces.png" /></p>
 <p>The Sverchok node diagram is very similar to those used with the <em>Generaive Art</em> node. A <em>Logic</em> node and a <em>Mask</em> node are used to separate the matrices output into four lists for the four different types of tiles (straights, bends, tees and crosses) that need to be placed. </p>
-<p><a href="/images/maze_2d_nodes_full.png"><img alt="node diagram" src="/images/maze_2d_nodes_crop.png" /></a></p>
-<p><img alt="simple level" src="/images/maze_2d.png" /></p>
+<p><a href="./images/maze_2d_nodes_full.png"><img alt="node diagram" src="./images/maze_2d_nodes_crop.png" /></a></p>
+<p><img alt="simple level" src="./images/maze_2d.png" /></p>
 <p>The size of the maze can be set with the <em>height</em> and <em>width</em> sliders on the node. Changing the <em>rseed</em> slider generates a new random maze. The <em>scale</em> sets the distance between components. </p>
 <p>A braided maze is a maze that has loops. If <em>braid</em> is set to zero there will be no loops and there will be only one path between any two parts of the maze. This type of maze has lots of dead ends (cells with only one connecting path). If <em>braid</em> is set to 1 there will be no dead ends and lots of loops. In between, <em>braid</em> sets the proportion of dead ends that are turned into loops.</p>
-<p><img alt="simple level" src="/images/maze_2d_braid.png" /></p>
-<p><img alt="rendered level" src="/images/maze__2D_simple_042.png" /></p>
+<p><img alt="simple level" src="./images/maze_2d_braid.png" /></p>
+<p><img alt="rendered level" src="./images/maze__2D_simple_042.png" /></p>
 <p>For some mazes there may be no 4 way intersections (or for braid = 1, no ends), in this case you need to turn the display of ths object off or you'll get an out of place cross (or end) at the origin.</p>
 <p>With a different set of tiles its easy to produce a typical maze with walls between the passages. The <code>maze_2D_simple.blend</code> file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.</p>
-<p><img alt="tiles for walled maze" src="/images/maze_2d_walls.png" /></p>
-<p><img alt="walled maze" src="/images/maze__2D_simple_02_012.png" /></p>
+<p><img alt="tiles for walled maze" src="./images/maze_2d_walls.png" /></p>
+<p><img alt="walled maze" src="./images/maze__2D_simple_02_012.png" /></p>
 <p>Try hedges or a layout such as a garden that is less obviously a maze.</p>
 <p>The <code>steely_taws_2D_maze.blend</code> file has all the parts to generate and play an unlimited number of marble run mazes. </p>
 <p>Install a recent version of <a href="https://github.com/nortikin/sverchok">Sverchok</a> then open the blend file. A simple maze with 100 tiles should be automatically generated. Maximise the 3D View (CTRL-UP). Select the  camera view (NUMPAD-0) then press P to start the game. Controls are provided for either the arrow keys or a joystick. If you fall off the edge you will automatically respawn at the start.</p>
 <p>To make your own levels, press ESC to close the game and return to Blender. Change the the "rseed" value in the node and get a new game. </p>
 <p>In the blend file I've used "mesh instancer" nodes to the replace the "Objects In" and "Viewer Draw" nodes. This allows the same mesh to be used for every straight in a similar way to when you do  a linked duplicate in Blender and produces a much smaller file.</p>
 <p>Here's another screen shot of the game being played in the Blender Game Engine.</p>
-<p><img alt="screen shot 1 of game in play" src="/images/maze_2d_steely_taws_02.png" /></p>
+<p><img alt="screen shot 1 of game in play" src="./images/maze_2d_steely_taws_02.png" /></p>
 <hr />	
 
 	</article>
@@ -109,6 +109,18 @@
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-sverchok-node-update.html" rel="bookmark" title="Permalink to Generative Art - Sverchok Node Update">Generative Art - Sverchok Node Update</a>
+  <time datetime="2016-02-28T22:00:00+13:00" pubdate>Sun 28 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
+  <time datetime="2016-02-14T22:00:00+13:00" pubdate>Sun 14 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/maze-any-mesh-in-blender.html" rel="bookmark" title="Permalink to Maze any Mesh in Blender">Maze any Mesh in Blender</a>
@@ -139,17 +151,7 @@
   <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html" rel="bookmark" title="Permalink to Painting in the Hyperbolic Plane">Painting in the Hyperbolic Plane</a>
-  <time datetime="2015-11-14T22:00:00+13:00" pubdate>Sat 14 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html" rel="bookmark" title="Permalink to Hyperbolic Tiling in 3D">Hyperbolic Tiling in 3D</a>
-  <time datetime="2015-11-06T22:00:00+13:00" pubdate>Fri 06 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
 		
 		
@@ -223,28 +225,28 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                         </ul>
                       
 		

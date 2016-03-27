@@ -47,7 +47,7 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><img alt="bloom wobble still" src="/images/bloom_wobble.png" /></p>
+		<p><img alt="bloom wobble still" src="./images/bloom_wobble.png" /></p>
 <p>These <a href="http://www.instructables.com/id/Blooming-Zoetrope-Sculptures/">videos by John Edmark</a> of what he calls bloom spheres inspired me to try something similar in Sverchok. Edmark has designed and 3D printed forms that when spun under a strobe light appear to move and twist.</p>
 <p>Its possible to produce computer animations that work in the same way. <a href="https://www.youtube.com/channel/UClifVGXznefMacC29olhX7g">Mangakid</a> has already made some animations in Blender based on Edmark's work. Python code snippets for mangakid's animations can be found on this <a href="http://blender.stackexchange.com/questions/1371/organic-yet-accurate-modeling-with-the-golden-spiral/26800#26800">stackoverflow question and answer</a>.</p>
 <p>The first stage to work on bloom spheres in Sverchok was to write a scripted node to produce the basic mesh structure that underlies the blooms. Edmark describes this as:</p>
@@ -76,8 +76,8 @@ $$</div>
 <p>I've coded this up into a scripted node. To use the bloom sphere node in Blender first install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon. Download the bloom sphere code from <a href="https://github.com/elfnor/bloom_sphere">github</a>. Then load the python file as a text blocks into a blend file. Add a <code>Scripted Node</code> to a Sverchok node tree. On the node select the <code>bloom_sphere.py</code> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs. Wire the <code>Verts</code> and <code>Faces</code> outputs to a <code>Viewer Draw</code> node and you should see some geometry.</p>
 <p>It is also possible to use the <code>XYZ function surface</code> that is part of the <code>Extra Objects</code> addon for Blender to generate the mesh vertices. I found it much harder to get the addon to join then up to form the correct quadrilateral mesh. It was much easier to do this in my Sverchok scripted node.</p>
 <p>The <code>Frame Info</code> node can be easily used to rotate the bloom sphere 137.5&deg; every frame. Set the end frame to 145 for a continuous loop animation.</p>
-<p><img alt="node diagram scripted node" src="/images/bloom_sphere_nodes.png" /></p>
-<p><img alt="animation" src="/images/bloom_sphere.gif" /></p>
+<p><img alt="node diagram scripted node" src="./images/bloom_sphere_nodes.png" /></p>
+<p><img alt="animation" src="./images/bloom_sphere.gif" /></p>
 <p>The same node diagram can also be used to animate any of John Edmark's stl files that he has made available <a href="https://www.dropbox.com/sh/nsinei7jlu0z3wk/AADsN9wI7IOIF6VOnREx-Tt6a?dl=0">here</a> under a Creative Commons BY NC SA license. Just import the stl into Blender and replace the <code>Scripted Node</code> with a <code>Object Scene</code> node.</p>
 <p>Alternatively to spin a mesh outside Sverchok, make a key frame animation where the first frame has no rotation and the End frame has 137.5&deg; * (number of frames - 1) rotation about the z-axis. </p>
 <p>For example: </p>
@@ -105,23 +105,23 @@ $$</div>
 <p>Each of the quadrilaterals is populated with an appendage ...</p>
 </blockquote>
 <p>We could do this following  my <a href="http://www.elfnor.com/simple-sverchok-01-centers-polygons.html"><code>Centers Polygon</code> example</a> but I'll use the <code>Adaptive Polygons</code> node to show another way for a different look.</p>
-<p><img alt="node diagram adaptive polygons" src="/images/bloom_sphere_adaptive_polygon_nodes.png" /></p>
+<p><img alt="node diagram adaptive polygons" src="./images/bloom_sphere_adaptive_polygon_nodes.png" /></p>
 <p>I've removed the nodes used to achieve the rotation to simplify the above node diagram.</p>
-<p><img alt="animation adaptive polygons" src="/images/bloom_sphere_ap.gif" /></p>
+<p><img alt="animation adaptive polygons" src="./images/bloom_sphere_ap.gif" /></p>
 <p>John Edmark then goes on to describe:</p>
 <blockquote>
 <p>In order to make the appendages appear to move back and forth when animated, their tips are sequentially distorted side-to-side (in a sinusoidal motion) as they are placed.</p>
 </blockquote>
 <p>The simplest way of doing something similar to this is to move each vertex side to side before the <code>Adaptive Polygons</code> node. Adding "Side to side" motion is most easily thought of in spherical coordinates. If we vary the "phi" polar coordinate of a point it will move side to side.</p>
 <p>Sverchok now has nodes to change the x, y, z coordinates of a vertex into polar coordinates and change them back again.  Here we apply a sinusoidal offset to each vertex. The frequency of the sinusoid is varied by changing the <code>stop</code> value of the <code>Float Series</code> node. A multiple (or fraction) of <span class="math">\(\pi\)</span> is sensible. A <code>Float</code> entry node is used to change the amplitude of the sinusoid. </p>
-<p><img alt="node bloom sphere vertex wobble" src="/images/wobble_vertex_node_tree.png" /></p>
-<p><img alt="animation" src="/images/wobble_vertex.gif" /></p>
+<p><img alt="node bloom sphere vertex wobble" src="./images/wobble_vertex_node_tree.png" /></p>
+<p><img alt="animation" src="./images/wobble_vertex.gif" /></p>
 <p>With a bit more thought (and a few more nodes!) we can actually wobble just the ends of our <s>appendages</s>  adaptive polygons. </p>
 <p>First we need to separate out the end vertices with a <code>List Mask (out)</code> node. For the mask we use the length of each vertex (with a <code>Vector Math</code> node) to select those vertices not on the surface of the bloom sphere. It takes a little messing around with <code>List Length</code> nodes to get the range of numbers to use as the angle input for the sinusoid. This multi-level list needs to have the same angle value for all the points at the end of single spike and then increment for the next spike.</p>
 <p>The two sets of vertices (the end vertices with the sinusoidal wobble and the original vertices on the sphere) are put back together with a <code>List Mask Join (in)</code> node using the same mask we used for separating them. </p>
-<p><a href="/images/sc_bloom_sphere_node_11_nodetree_for_post.blend_large_02.png"><img alt="node appendage end wobble" src="/images/sc_bloom_sphere_node_11_nodetree_for_post.blend_small.png" title="Click for larger version" /></a></p>
+<p><a href="./images/sc_bloom_sphere_node_11_nodetree_for_post.blend_large_02.png"><img alt="node appendage end wobble" src="./images/sc_bloom_sphere_node_11_nodetree_for_post.blend_small.png" title="Click for larger version" /></a></p>
 <p>to get an animation like this:</p>
-<p><img alt="bloom wobble gif" src="/images/wobble_color.gif" /></p>
+<p><img alt="bloom wobble gif" src="./images/wobble_color.gif" /></p>
 <hr />
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
@@ -204,6 +204,18 @@ $$</div>
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/generative-art-sverchok-node-update.html" rel="bookmark" title="Permalink to Generative Art - Sverchok Node Update">Generative Art - Sverchok Node Update</a>
+  <time datetime="2016-02-28T22:00:00+13:00" pubdate>Sun 28 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
+  <time datetime="2016-02-14T22:00:00+13:00" pubdate>Sun 14 February 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/maze-any-mesh-in-blender.html" rel="bookmark" title="Permalink to Maze any Mesh in Blender">Maze any Mesh in Blender</a>
   <time datetime="2016-01-29T22:00:00+13:00" pubdate>Fri 29 January 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
@@ -232,17 +244,7 @@ $$</div>
   <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html" rel="bookmark" title="Permalink to Painting in the Hyperbolic Plane">Painting in the Hyperbolic Plane</a>
-  <time datetime="2015-11-14T22:00:00+13:00" pubdate>Sat 14 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html" rel="bookmark" title="Permalink to Hyperbolic Tiling in 3D">Hyperbolic Tiling in 3D</a>
-  <time datetime="2015-11-06T22:00:00+13:00" pubdate>Fri 06 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
 		
 		
@@ -316,28 +318,28 @@ $$</div>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
                         </ul>
                       
 		

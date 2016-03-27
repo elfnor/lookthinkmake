@@ -4,7 +4,7 @@ Tags: make, think, blender
 Category: think
 Author: elfnor
 
-![ivy1](/images/ivy_test19.png)
+![ivy1](./images/ivy_test19.png)
 
 Here are a quick couple of experiments with the Blender Ivy Gen addon. Its included with Blender and only has to be activated from the User Preferences dialog.
 
@@ -17,10 +17,10 @@ I'm trying to push the output away from climbing plants but haven't got as far a
 
 In the meantime here are my tests. In the top image the ivy was grown (with no leaves) over a spherical wireframe that isn't included in the image. The image below is the same render with the Ray Visibility for the ivy turned off so only the shadows remain. The last image  is similar to the first with some more sculpting around the supporting sphere.
 
-![ivy1](/images/ivy_test24.png)
+![ivy1](./images/ivy_test24.png)
 
 
-![ivy1](/images/ivy_test35.png)
+![ivy1](./images/ivy_test35.png)
 
 -----------------------------------------------------------------------------------
 

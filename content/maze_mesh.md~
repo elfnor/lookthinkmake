@@ -4,7 +4,10 @@ Tags: make, think, blender, sverchok, maze
 Category: think
 Author: elfnor
 
-![mobius maze](/images/maze_mesh_mobius.png)
+<meta property="og:image"
+    content="/images/maze_mesh_mobius.png" />
+
+![mobius maze](/images/maze_mesh_mobius.png )
 
 The grid of cells and list of links used as the data structure for 2D mazes  by [Jamis Buck's](http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) in his book "Mazes for Programmers" can be replaced with a mesh object where the vertices are equivalent to cells and the mesh edge connections define the cell neighbors. The maze carving function can then return a subset of the edges that define the path of the maze.
 

@@ -4,7 +4,7 @@ Tags: make, think, blender
 Category: think
 Author: elfnor
 
-![radiolaria version 31](/images/decimate_planes_31_crop.png)
+![radiolaria version 31](./images/decimate_planes_31_crop.png)
 
 (This image is unrelated to the post other than it was the 31st image rendered from the same basic geometry.)
 
@@ -18,7 +18,7 @@ My version available [here on github](https://github.com/elfnor/blender_auto_sav
 
 After the add-on is installed, the settings are found on the Render panel.  
 
-![screenshot](/images/screen.png)
+![screenshot](./images/screen.png)
 
 With "Auto Save Image" and "with .blend" set and the file "\Documents\test.blend" open, after rendering the following files will be created  
 

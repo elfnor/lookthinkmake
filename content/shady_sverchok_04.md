@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok
 Category: think
 Author: elfnor
 
-![fibonnaci fruit](/images/dragon_fruit_vertex_color_05_009.png)
+![fibonnaci fruit](./images/dragon_fruit_vertex_color_05_009.png)
 
 When I wrote my [Shaders for Sverchok 02 - Vertex Colors]({filename}shady_sverchok_02.md) post, I used a small piece of python code to assign the vertex colors. Sverchok now has a "Vertex Colors" node and I'll now show how to use that instead.
 
@@ -16,17 +16,17 @@ The example below makes up a list of 6 random colors and applies them to the fac
 
 Make sure you select the object and switch the view to "Vertex Paint" mode to see the vertex colors. To change the vertex colors into material colors that appear in  a render you need to use a **Material** node tree as in [this post]({filename}shady_sverchok_02.md). 
 
-![nodes for vertex color example 1](/images/vertex_color_cube_example_01.png)
+![nodes for vertex color example 1](./images/vertex_color_cube_example_01.png)
 
 If instead we want to apply a separate color to each cube in the stack we need to reorder our list of colors. I'm still working on understanding all the list manipulation nodes in Sverchok but I wrangled my list of 5 colors (one color per cube) using the "List Match" node. It takes a list of integers the same length as the number of vertices per cube and combines it (using the 'X-Ref" option) with a list of 5 colors. Use the "Viewer Text" node to work out how the various options work
 
-![nodes for vertex color example 2](/images/vertex_color_cube_example_02.png)
+![nodes for vertex color example 2](./images/vertex_color_cube_example_02.png)
 
 The version of the "Vertex Color" node I'm using is available [here](/downloads/colors.py). I'll do  a pull request for it to be included in the master branch of Sverchok. With this node as well as being able to set the vertex color layer of an object I've added the ability to read the colors. This is similar to the way the "Vertex Weights" node already works. 
 
 With this version of the node you can paint the vertex colors onto one object and then transfer them to copies of the object. In the example below the small "fruit segment" object was painted with red and green vertex colors. The mesh of the object is copied to the polygon centers of the bloom sphere to produce the "Alpha" object. The two "Vertex Colors"  nodes are then used to copy the vertex colors from the "fruit segment" object to the "Alpha" object.
 
-![dragon fruit nodes](/images/dragon_fruit_nodes.png)
+![dragon fruit nodes](./images/dragon_fruit_nodes.png)
 
 --------------------------------------------
 

@@ -19,15 +19,15 @@ First of all pull your breadmaker apart to see how it works. Keep all the screws
 
 A breadmaker is very simple, it has a motor to turn the paddle and a heater to warm the pan and a thermistor to give the pan's temperature. There's a set of buttons and a display to select a program and start the machine. All this is controlled by a micro controller. 
 
-![take apart breadmaker](/images/bm_insides.jpeg)
+![take apart breadmaker](./images/bm_insides.jpeg)
 
 In the above photo the top board contains the buttons, the display and the micro controller. The bottom board controls the motor and heater. This makes our development simple and safe. We can replace the top board where the maximum voltage is 5 V without going any where near the nasty mains voltage on the motor and heater. The 5 pin connector goes from the control board to the lower motor and heater board. The two pin connector goes to the thermistor on the side of the baking area. 
 
 For safety don't plug the machine into mains voltage when it looks like the above photo. Instead put it back together as much as possible while still having access to the control board.
 
-![workable breadmaker](/images/bm_workable.jpeg)
+![workable breadmaker](./images/bm_workable.jpeg)
 
-![control board](/images/control_board_original.jpeg)
+![control board](./images/control_board_original.jpeg)
 
 Carefully poking around the 5 pin connector while the breadmaker is going, gives the following designations for the pins. Pin 1 is on the right in the above image.
 
@@ -50,11 +50,11 @@ We will need to design a system to record the heater, motor and thermistor signa
 
 A thermistor has two connections and is usually read by micro controller using a voltage divider circuit like one of these (the thermistor can either be between the pin and ground or between +5V and the pin):
 
-![thermistor read schematic](/images/thermistor_read_schem.png)
+![thermistor read schematic](./images/thermistor_read_schem.png)
 
 Checking the thermistor circuit shows pin 2 at +5V so we're looking at something like the left most schematic above. However the resistor on Pin 1 of the thermistor is connected to ground via a transistor. The base pin of this transistor is controlled via another micro controller pin. Below is a simplified schematic.
 
-![thermistor original](/images/thermistor_original.png)
+![thermistor original](./images/thermistor_original.png)
 
 What's happening here is that the micro controller regularly enables the voltage divider via a set of clock pulses sent on the control pin. If we measure the voltage on Pin 1 of the thermistor it will jump between the correct voltage (when the control pin is high) and ground. 
 
@@ -62,14 +62,14 @@ This makes the design of the recording system a little bit harder. We could try 
 
 An Arduino can also be used for the recording system. The circuit I used is shown below. As this is only needed once I made it up on a bread board. Keep the original control board connected to the bread maker and add in this recording system to the control and thermistor connectors. Load up the breadmaker_record.ino sketch from the [github repository](https://github.com/elfnor/arduino-bread) and make a loaf of bread!
 
-![breadmaker record schematic](/images/breadmaker_record.png)
+![breadmaker record schematic](./images/breadmaker_record.png)
 
 Reverse Engineering a control system
 ------------------------------
 
 The output of the recording system is shown below.
 
-![bread maker output](/images/breadmaker_graph.png)
+![bread maker output](./images/breadmaker_graph.png)
 
 The motor control signals are straight forward. The loaf program starts with 6 minutes of mixing where the motor is pulsed on for ~0.25 second and off for ~1 second. After mixing the bread is kneaded with the motor on continuously for ~29 minutes. There is another two short pulses of the motor about a third of the way through the rising time. 
 
@@ -97,14 +97,14 @@ In the control system the thermistor is measured with a simple voltage divider. 
 
 The final circuit is shown below:
 
-![breadmaker circuit](/images/breadmaker_schem.png)
+![breadmaker circuit](./images/breadmaker_schem.png)
 
  
 This includes 5 switches to match the switches in use on the original breadmaker and a 4 digit display. The switches use the internal pull-up resistors on the Arduino board and so only need to be connected between the Arduino pin and ground. The 4 digit display is one that includes a TM1637 control chip ([for example]()) and can be controlled from 2 lines on the Arduino. The LEDs in parallel with the transistors are useful for debugging the circuit and program but can be omitted in the final build.
 
 I made the fairly simple circuit board up on a piece of perfboard cut to match the size of the original board. The switches were carefully positioned to be in the same place underneath the pads on the breadmaker cover. The display was hung off the board on longish wires as this was the easiest way to get it to sit underneath the see through area on the cover. The Arduino nano was inserted into headers soldered onto the back of the board. This was to allow easy access for reprogramming. 
 
-![new board](/images/breadmaker_board.png)
+![new board](./images/breadmaker_board.png)
 
 The full code for the Arduino is available [here](https://github.com/elfnor/arduino-bread). 
 

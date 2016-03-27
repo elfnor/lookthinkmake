@@ -4,13 +4,13 @@ Tags: make, think, blender, sverchok
 Category: think
 Author: elfnor
 
-![3D T Square Fractal](/images/copy_cubes_wireframe_25a.png)
+![3D T Square Fractal](./images/copy_cubes_wireframe_25a.png)
 
 This is part four of my introduction to [Sverchok](http://nikitron.cc.ua/sverchok_en.html) the parametric node geometry add-on for Blender. This post I'm sticking to my theme of copying one object to the structure (either the vertices or polygons) or another mesh. There is an awful lot more than just copying that can be done with Sverchok (see [here](http://blendersushi.blogspot.co.nz/) for example) but copying is good for explaining the basics.
 
 The very simple node tree below takes a copy of the cube, scales it to half size and places a copy on each each of the corners of the original large cube. The scale values are accessed by clicking on the scale drop down. We could also connect a "Vector In" node here to give the three scale values.
 
-![first level cube copy](/images/copy_cube_post_01.blend.png)
+![first level cube copy](./images/copy_cube_post_01.blend.png)
 
 Very straight forward. How would we continue this copy in a recursive fashion to produce a fractal structure? That is copy a small cube (64 in total) to each corner of the eight mid-sized cubes. Then repeat this with 512 tiny cubes etc.  This would produce  a 3D  version of the [T-square fractal](http://en.wikipedia.org/wiki/T-square_%28fractal%29). 
 
@@ -19,7 +19,7 @@ The "Viewer Draw" node takes a list of vertices from the "Object In" node and a 
 
 The "Matrix Apply" node takes a list of vertices and a list of matrices and produces a nested list of vertices for all the mid sized cubes. Take a look at the output of the "Matrix Apply" node with the "Viewer Text" node. It consists of a nested list with three levels. The outermost level (level 1) contains 8 objects, one for each cube. Each of these level 1 objects contains eight lists (level 2), one for each corner of a cube. Each of these level 2 list contains three numbers (level 3) for the x, y, z coordinates of the vertex. 
 
-![matrix apply node](/images/copy_cube_post_02.blend.png)
+![matrix apply node](./images/copy_cube_post_02.blend.png)
 
 ```
 vertices: 
@@ -46,7 +46,7 @@ vertices:
 ```
 We need to flatten this list so it contains 1 object with a  list of 64 vertices. This is done using the "List Join" node with the "JoinLevelLists" set to 2. Check with the "Viewer Text" node that this is what happened.
 
-![List join node](/images/copy_cube_post_03.blend.png)
+![List join node](./images/copy_cube_post_03.blend.png)
 
 ```
 vertices: 
@@ -61,8 +61,8 @@ vertices:
 ``` 
 We then feed this list into another "Matrix In" node, set the scale values and send the resulting list of 64 matrices to another "Viewer Draw" node. We can repeat this process as many times as we like to get a fractal structure.
 
-![t square fractal node tree](/images/copy_cube_post_04.blend.png)
-![t square fractal levels](/images/copy_cube_post_05.blend.png)
+![t square fractal node tree](./images/copy_cube_post_04.blend.png)
+![t square fractal levels](./images/copy_cube_post_05.blend.png)
 
 Another simple 3D fractal is the [Menger Sponge](http://en.wikipedia.org/wiki/Menger_sponge). The sponge (right) and its negative space (left) are shown below. The sponge and its negative would fit together to completely fill a cube. 
 

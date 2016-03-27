@@ -4,11 +4,11 @@ Tags: make, think, blender, sverchok, maze
 Category: think
 Author: elfnor
 
-![game wide shot](/images/maze_2d_steey_taws_01.png)
+![game wide shot](./images/maze_2d_steey_taws_01.png)
 
 The [game levels]({fileame}blender_game_level_generator.md) that can be produced by the *Generative Art* Sverchok node in Blender are lots of fun to explore but there's nothing to stop them producing overlapping paths like this:
 
-![overlaps in Steely Taws](/images/level_gen_STD_ramps_render_015.png)
+![overlaps in Steely Taws](./images/level_gen_STD_ramps_render_015.png)
 
 This is because the alogrithim behind the node is based on L-systems and knows nothing about where its already been. The code only keeps tracks of a current transform (encoding position and direction) and randomly chooses another transfom rule to apply. It has no way to know where anything has already been drawn.
 
@@ -35,29 +35,29 @@ I'll start with a simple example ```maze_2D_simple.blend```that just has very ba
 
 For a demo version to show how this works I made simple straight, bend, t-intersection and 4 way cross intersection tiles. Each tile needs to fit in to a 1 unit by 1 unit square centered on the origin. The straight section goes from (-0.5, 0, 0) to (0.5, 0, 0). The bend goes from (1, 0, 0) to (0, 1, 0) and has its origin at (0, 0, 0). The t-intersection is the same length as the straight but has a path going to (0, 1, 0). In the ```maze_2D_simple.blend``` file these components are on the second layer.
 
-![simple game components](/images/maze_2d_pieces.png)
+![simple game components](./images/maze_2d_pieces.png)
 
 The Sverchok node diagram is very similar to those used with the *Generaive Art* node. A *Logic* node and a *Mask* node are used to separate the matrices output into four lists for the four different types of tiles (straights, bends, tees and crosses) that need to be placed. 
 
-[![node diagram](/images/maze_2d_nodes_crop.png)](/images/maze_2d_nodes_full.png)
+[![node diagram](./images/maze_2d_nodes_crop.png)](./images/maze_2d_nodes_full.png)
 
-![simple level](/images/maze_2d.png)
+![simple level](./images/maze_2d.png)
 
 The size of the maze can be set with the *height* and *width* sliders on the node. Changing the *rseed* slider generates a new random maze. The *scale* sets the distance between components. 
 
 A braided maze is a maze that has loops. If *braid* is set to zero there will be no loops and there will be only one path between any two parts of the maze. This type of maze has lots of dead ends (cells with only one connecting path). If *braid* is set to 1 there will be no dead ends and lots of loops. In between, *braid* sets the proportion of dead ends that are turned into loops.
 
-![simple level](/images/maze_2d_braid.png)
+![simple level](./images/maze_2d_braid.png)
 
-![rendered level](/images/maze__2D_simple_042.png)
+![rendered level](./images/maze__2D_simple_042.png)
 
 For some mazes there may be no 4 way intersections (or for braid = 1, no ends), in this case you need to turn the display of ths object off or you'll get an out of place cross (or end) at the origin.
 
 With a different set of tiles its easy to produce a typical maze with walls between the passages. The ```maze_2D_simple.blend``` file has some tiles for this on the third layer. Swap them for the path tiles gives a maze like this.
 
-![tiles for walled maze](/images/maze_2d_walls.png)
+![tiles for walled maze](./images/maze_2d_walls.png)
 
-![walled maze](/images/maze__2D_simple_02_012.png)
+![walled maze](./images/maze__2D_simple_02_012.png)
 
 Try hedges or a layout such as a garden that is less obviously a maze.
 
@@ -71,7 +71,7 @@ In the blend file I've used "mesh instancer" nodes to the replace the "Objects I
 
 Here's another screen shot of the game being played in the Blender Game Engine.
 
-![screen shot 1 of game in play](/images/maze_2d_steely_taws_02.png)
+![screen shot 1 of game in play](./images/maze_2d_steely_taws_02.png)
 
 
 

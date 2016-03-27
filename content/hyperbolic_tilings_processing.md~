@@ -22,7 +22,7 @@ Download a copy of the [Hyperbolic Coral](https://github.com/elfnor/hyperbolic_c
 
 There's no fancy interface for this. Edit the ```p, q, layers``` parameters in the ```setup()``` function and re run. The tilings are described with two numbers, ```p``` the number of sides to the polygons used and ```q``` the number of polygons that meet at each vertex. The number of ```layers``` describes how many rings of polygons to include. Each polygon face is divided into triangles and the polygons are not so obvious in the mesh.
 
-As the number of layers increases the number of faces in the mesh increases exponentially and the simulation slows down but still runs. I've successfully produced meshes with up to ???? faces. 
+As the number of layers increases the number of faces in the mesh increases exponentially and the simulation slows down but still runs. I've successfully produced meshes with 1624 faces. 
 
 As the unfurling occurs the edges are colored in according to their length. Red edges are shorter and green edges longer than the set rest length. The cutoff values are given by ```d_long``` and ```d_short``` in the ```draw()``` function. When the edges fall between the values they are drawn in black. The tiling lengths are still not perfectly even but they're better than I was getting in Blender.
 

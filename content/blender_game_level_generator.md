@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok, structuresynth
 Category: think
 Author: elfnor
 
-![game wide shot](/images/level_gen_STD_ramps_render_017.png)
+![game wide shot](./images/level_gen_STD_ramps_render_017.png)
 
 I was testing a puzzle level for my partner Tech Monkey's [__Steely Taws__ Blender game](http://www.techmonkeybusiness.com/steely-taws-puzzle-game-v1.html) and the components started to look a bit like things produced by my [Blender Pipe Generator]({filename}blender_pipe_generator.md). 
 
@@ -14,7 +14,7 @@ I'll start with a simple example that just has very basic components, then I'll 
 
 For a demo version to prove this would work I made a simple straight, bend and ramp. The straight section needs to go from (-0.5, 0, 0) to (0.5, 0, 0). The bend goes from (1, 0, 0) to (0, 1, 0) and has its origin at (0, 0, 0). This is the same as the [Blender Pipe Generator]({filename}blender_pipe_generator.md) but in this case the components are flat rather than round. The ramp goes up from (-0.5, 0.5, 0) to (0.5, 0.5, 0).
 
-![simple game components](/images/simple_components.png)
+![simple game components](./images/simple_components.png)
 
 The xml that describes the design is very similar to that used for the Pipe Generator. It defines 6 versions of the "R1" rule. The Generative Art node chooses versions of these rules at random. The first version places the straight section, the next two place left and right bends rotating the bend object as required. The next two place the ramp object to go up or down and the last version creates an intersection. The names for the shapes have been prefixed with "00", "01", "02" so they  sort in a predictable way to make it easy to assign the correct object to the correct shape in the Sverchok node diagram. 
 
@@ -59,9 +59,9 @@ The xml that describes the design is very similar to that used for the Pipe Gene
 
 The Sverchok node diagram is a bit more complicated than for the Pipe Generator as we now have three different types of objects (straights, bends and ramps) to place. The easiest way to do this is to use a "Logic" node before the "Mask" node.
 
-![node diagram](/images/level_gen_demo_nodes.png)
+![node diagram](./images/level_gen_demo_nodes.png)
 
-![simple level](/images/level_gen_demo.blend1.png)
+![simple level](./images/level_gen_demo.blend1.png)
 
 The "Generative Art" node processes the xml file to randomly add the different types of objects. The weights given with each version of the rule determine the frequency of each type of component. Increase the weight of the "left" and "right" version of the rules and the design will have many more bends. Changing the "rseed" value in the "Generative Art" node generates a different set of random numbers and will produce a different level design.
 
@@ -69,7 +69,7 @@ The processor dosen't know anything about where it previously placed objects so 
 
 Seeing the demo worked well my partner set to work standardizing the Steely Taws components so they fitted on a regular grid. The demo above is based on a grid of 1 Blender unit, the game components have a standard size of 12 units long, x 4.25 units wide, and 3 units deep.
 
-![std components](/images/STD_Components-sml.png)
+![std components](./images/STD_Components-sml.png)
 
 The drop deck components are interesting as they make some paths one way only. This means the player can get stuck with no way back. Either follow up the auto level generation with some hand editing to make the game level playable or only use ramps (set the weight of the drops to zero). The ramps can be driven both up and down. To keep the level from always dropping or climbing make the sum of the weights of down components (drops and down ramps) equal to the weight of the up ramps.
 
@@ -77,9 +77,9 @@ In the blend file I've used "mesh instancer" nodes to the replace the "Objects I
 
 Here are some screen shots of the game being played in the Blender Game Engine.
 
-![screen shot 1 of game in play](/images/steely_taws_screenshot_1.png)
+![screen shot 1 of game in play](./images/steely_taws_screenshot_1.png)
 
-![screen shot 2 of game in play](/images/steely_taws_screenshot_2.png)
+![screen shot 2 of game in play](./images/steely_taws_screenshot_2.png)
 
 The blend file available [here](/downloads/steely_taws_level_gen.blend) contains each of the components on a separate layer. The game itself should be generated on the 1st layer.
 

@@ -12,7 +12,7 @@ Its possible to produce computer animations that work in the same way. [Mangakid
 
 The first stage to work on bloom spheres in Sverchok was to write a scripted node to produce the basic mesh structure that underlies the blooms. Edmark describes this as:
 
->First a set of points are placed, one-at-a-time, in a cylindrical arrangement. Each point is placed 137.5&deg around the cylinder's axis from the previous point and also raised a bit...
+>First a set of points are placed, one-at-a-time, in a cylindrical arrangement. Each point is placed 137.5º  around the cylinder's axis from the previous point and also raised a bit...
 
 >The next step is to project each point onto the sphere's surface by projecting the point toward the center point of the sphere...
 
@@ -42,7 +42,7 @@ I've coded this up into a scripted node. To use the bloom sphere node in Blender
 
 It is also possible to use the `XYZ function surface` that is part of the `Extra Objects` addon for Blender to generate the mesh vertices. I found it much harder to get the addon to join then up to form the correct quadrilateral mesh. It was much easier to do this in my Sverchok scripted node.
 
-The `Frame Info` node can be easily used to rotate the bloom sphere 137.5 &deg every frame. Set the end frame to 145 for a continuous loop animation.
+The `Frame Info` node can be easily used to rotate the bloom sphere 137.5&deg; every frame. Set the end frame to 145 for a continuous loop animation.
 
 ![node diagram scripted node](/images/bloom_sphere_nodes.png)
 
@@ -50,7 +50,7 @@ The `Frame Info` node can be easily used to rotate the bloom sphere 137.5 &deg e
 
 The same node diagram can also be used to animate any of John Edmark's stl files that he has made available [here](https://www.dropbox.com/sh/nsinei7jlu0z3wk/AADsN9wI7IOIF6VOnREx-Tt6a?dl=0) under a Creative Commons BY NC SA license. Just import the stl into Blender and replace the `Scripted Node` with a `Object Scene` node.
 
-Alternatively to spin a mesh outside Sverchok, make a key frame animation where the first frame has no rotation and the End frame has 137.5º * (number of frames - 1) rotation about the z-axis. 
+Alternatively to spin a mesh outside Sverchok, make a key frame animation where the first frame has no rotation and the End frame has 137.5&deg; * (number of frames - 1) rotation about the z-axis. 
 
 For example: 
 
@@ -59,14 +59,14 @@ For example:
 *  Change the Active Keying Set to "Rotation"
 *  Insert a Key Frame on the first frame
 *  Move to the last frame
-*  Set the rotation of the object around the z-axis to 19800 degrees (144 * 137.5 = 19800)
+*  Set the rotation of the object around the z-axis to 19800 degrees (144 * 137.5&deg; = 19800)
 *  Insert a Key Frame on this frame
 *  Set the Current Frame back to 1
 *  Open up a Graph Editor view
 *  Change the Interpolation Mode for the animation curve to linear. Using the menu: Key > Interpolation Mode > Linear or using the keyboard `T L`.
-*  Check that stepping along one frame changes the Rotation Z angle by 137.5 degrees
+*  Check that stepping along one frame changes the Rotation Z angle by 137.5&deg;
 
-This will give a seamless 6 second (145 frames/ 24 frames per second ~= 6 seconds) animation. It is seamless because 19800 is a whole multiple of 360 (360 * 55 = 19800).
+This will give a seamless 6 second (145 frames/ 24 frames per second ~= 6 seconds) animation. It is seamless because 19800 is a whole multiple of 360 (360&deg; * 55 = 19800&deg;).
 
 Note: Any rotation angle where
 
@@ -74,7 +74,7 @@ $$
 g_{n,m} = ng - m2\pi
 $$
 
-where $n= 1,2,..$ anf $m$ is an integer chosen to map the angle back to the interval $-\pi$ to $\pi$ will also work.  For example rotating any of 137.5º, -85º, 52.5º, 170º, -32.5º, 105º, -117.5º, or 20º per frame will work but for each angle the animation will appear to have a different speed. 
+where $n= 1,2,..$ anf $m$ is an integer chosen to map the angle back to the interval $-\pi$ to $\pi$ will also work.  For example rotating any of 137.5&deg;, -85&deg;, 52.5&deg;, 170&deg;, -32.5&deg;, 105&deg;, -117.5&deg;, or 20&deg; per frame will work but for each angle the animation will appear to have a different speed. 
 
 Now comes the fun part, editing the mesh to produce interesting animations. John Edmark describes:
 

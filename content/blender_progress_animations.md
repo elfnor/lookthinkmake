@@ -4,7 +4,7 @@ Tags: make, think, blender
 Category: think
 Author: elfnor
 
-![walkways still](/images/walkways_ivy_024.png)
+![walkways still](./images/walkways_ivy_024.png)
 
 A nice side effect of using the [auto save add-on]({filename}blender_auto_save_addon.md) is that if you render often you effortlessly have a record of the progress of your scene towards the final image. These saved images can be collected up into an animation. 
 
@@ -20,7 +20,7 @@ The layers have been renamed to something like ``` walkways_ivy_015.png(100ms)(c
 
 I wanted to set the final image in the GIF to a longer display time than the others. To do this open the GIF file back into GIMP and change the delay in the layer attribute as above and re-export. I used 2000 ms.
 
-![walkways gif](/images/walkways_05.gif)
+![walkways gif](./images/walkways_05.gif)
 
 The sequence above shows the texturing and lighting for a scene. The geometry was developed using my [Generative Art node]({filename}blender_pipe_generator.md) for [Sverchok](https://github.com/nortikin/sverchok). Also used is the Ivy Gen add-on included with Blender.
 

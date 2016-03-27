@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok, structuresynth
 Category: think
 Author: elfnor
 
-![still from fern  animation](/images/fern_anim_still_05.png)
+![still from fern  animation](./images/fern_anim_still_05.png)
 
 In the previous two posts ([Generative Art in Blender]({filename}structure synth_meets_sverchok.md) and [Mesh Mode]({filename}structure synth_meets_sverchok_02.md) I introduced the [Sverchok](http://nikitron.cc.ua/sverchok_en.html) scripted node I'd written to implement [Structure Synth](http://structuresynth.sourceforge.net/) generative art or lsystems inside Blender.
 
@@ -58,7 +58,7 @@ Library["FernVars"] = """
 """
 ```
 
-![node diagram for fern animation](/images/GA_Fern_animation_03.blend.png)
+![node diagram for fern animation](./images/GA_Fern_animation_03.blend.png)
 
 For this animation the index number of the current frame in the animation is translated from the range 1 to 250 to the range 16 to 6 via the formula node  and wired into the "variables" input of the "GA_node". This cause the fern to unwind as the animation proceeds. The separate objects are joined into one using the "Mesh Join" node and this output sent to the "Bmesh Viewer Draw" node. 
 
@@ -70,7 +70,7 @@ transforms = "tx {0} rx {1} sa {2}"
 
 With multiple parameters a "List Join" node is used to make a list to use as the "variables" input of the "GA_node".
 
-![node diagram with list join](/images/GA_node-variables_attributes.blend.png)
+![node diagram with list join](./images/GA_node-variables_attributes.blend.png)
 
 If not enough variables are provided the last one is repeated as many times as required.
 

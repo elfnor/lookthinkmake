@@ -12,7 +12,7 @@ Download the [hyperbolic_tiling.py](https://github.com/elfnor/hyperbolic_coral) 
 
 ![poincare tiling in sverchok](/images/poincare_6-4.png)
 
-Use the top set of outputs to give a flat plane tiled with hexagons. Bake this mesh. Then apply a "Subdivision Surface" modifier with 1 subdivision. This gave a surface tiled with quads. Alternatively you could use "Poke Faces" to divide each face into triangles or use both together. 
+Use the top set of outputs to give a flat plane tiled with hexagons. Bake this mesh. Then apply a "Subdivision Surface" modifier with 1 subdivision. This gives a surface tiled with quads. Alternatively you could use "Poke Faces" to divide each face into triangles or use both together. 
 
 ![poincare tiling in sverchok](/images/poincare_6-4-kites.png)
 

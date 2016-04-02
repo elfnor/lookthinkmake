@@ -6,6 +6,8 @@ Author: elfnor
 
 ![still from fern  animation](./images/fern_anim_still_05.png)
 
+Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok *Generative Art* node. See the [updated examples]({filename}generative_art_example_updates.md) and the [node docs]({filename}generative_art_docs.md)
+
 In the previous two posts ([Generative Art in Blender]({filename}structure synth_meets_sverchok.md) and [Mesh Mode]({filename}structure synth_meets_sverchok_02.md) I introduced the [Sverchok](http://nikitron.cc.ua/sverchok_en.html) scripted node I'd written to implement [Structure Synth](http://structuresynth.sourceforge.net/) generative art or lsystems inside Blender.
 
 Following [Martinius's suggestion]() I've now exposed parameters in the xml rule definition to the Sverchok node tree so we can do animation of Structure Synth lsystems inside Blender.

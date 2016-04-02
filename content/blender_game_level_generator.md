@@ -6,6 +6,8 @@ Author: elfnor
 
 ![game wide shot](./images/level_gen_STD_ramps_render_017.png)
 
+Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok *Generative Art* node. See the [updated examples]({filename}generative_art_example_updates.md) and the [node docs]({filename}generative_art_docs.md)
+
 I was testing a puzzle level for my partner Tech Monkey's [__Steely Taws__ Blender game](http://www.techmonkeybusiness.com/steely-taws-puzzle-game-v1.html) and the components started to look a bit like things produced by my [Blender Pipe Generator]({filename}blender_pipe_generator.md). 
 
 __Steely Taws - No Quitsies__ is a marble run game based on Switchball and Balance. At its most basic it requires straights, bends and ramps. It was not too hard to put together an automatic level generator using the "Generative Art" node of the [Sverchok](https://github.com/nortikin/sverchok) Blender add-on. If you're new to Sverchok maybe back up and read my Simple Sverchok series ([part 1]({filename}simple_sverchok_01.md)) and the [documentation for the node](https://github.com/nortikin/sverchok/blob/master/docs/nodes/generator/generative_art.rst).

@@ -8,6 +8,8 @@ Author: elfnor
 
 ![Nouveau Dr Seuss](./images/seuss_nouveu_11.png)
 
+Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok *Generative Art* node. See the [updated examples]({filename}generative_art_example_updates.md) and the [node docs]({filename}generative_art_docs.md)
+
 After using the ["Matrix Iterate"]({filename}simple_sverchok_05.md) node to generate some of the simpler structures from [Structure Synth](http://structuresynth.sourceforge.net/). I started to think about how to implement more of Structure Synth directly in Blender. It turned out to be remarkably simple using a scripted node and some existing python code.
 
 Structure Synth uses a domain specific language called eisenscript to define a design grammar to construct 3D structures (LSystems). Here's the eisenscript for a structure with 6 spirals.

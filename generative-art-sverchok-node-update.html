@@ -61,13 +61,15 @@
 <p>I've changed the way the system state matrix accumulates when a rule has multiple call statements. This makes translated examples from Structure Synth work as expected. The change also makes the transforms for substitution tilings, fractals and things like the game level generator easier to calculate. This may break some previous xml definition files. I'm working on updating all the examples I've given in previous posts.</p>
 <p>I've tested the new <em>Generative Art</em> node by checking it can generate various 2D and 3D fractals and translating some Structure Synth and Context Free Art examples. I'm using these tests to write up some future blog posts which should make a good demonstration of the nodes possibilities.</p>
 <p>Here below, for reference is the documentation for the node. This can also be found in the Sverchok directory (<code>/sverchok/docs/nodes/generator/generative_art.rst</code>) or <a href="http://nikitron.cc.ua/sverch/html/nodes/generator/generative_art.html">online</a></p>
-<p>To use:<br />
-<em>  download and install <a href="https://www.blender.org/">Blender</a> <br />
-</em>  download the zip file for <a href="https://github.com/nortikin/sverchok">Sverchok</a><br />
-<em>  Install Sverchok. In Blender , File &gt; User Preferences &gt; Add-ons &gt; Install from zip and select the Sverchok download<br />
-</em>  In a node editor window, select display Sverchok nodes (<img alt="" src="/mnt/shared/gits/lookthinkmake/content/images/sverchok_icon.png" />), and add a new node tree.
-<em>  Add a </em>Generative Art<em> node (</em>Add &gt; Generators &gt; Generative Art<em>)<br />
-</em>  Add an <em>xml</em> file and other nodes as shown below  </p>
+<p>To use:  </p>
+<ul>
+<li>download and install <a href="https://www.blender.org/">Blender</a>   </li>
+<li>download the zip file for <a href="https://github.com/nortikin/sverchok">Sverchok</a>  </li>
+<li>Install Sverchok. In Blender , File &gt; User Preferences &gt; Add-ons &gt; Install from zip and select the Sverchok download  </li>
+<li>In a node editor window, select display Sverchok nodes (<img alt="icon" src="./images/sverchok_icon.png" />), and add a new node tree.</li>
+<li>Add a <em>Generative Art</em> node (<em>Add &gt; Generators &gt; Generative Art</em>)  </li>
+<li>Add an <em>xml</em> file and other nodes as shown below  </li>
+</ul>
 <h2>Functionality</h2>
 <p>This node can be used to produce recursive three dimensional structures following a design specified in a separate xml file. These structures are similar to fractals or lsystems.</p>
 <p>The xml file defines a set of transformation rules and instructions to place objects. A simple set of rules can often generate surprising and complex structures.</p>
@@ -457,28 +459,28 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
                         </ul>
                       
 		

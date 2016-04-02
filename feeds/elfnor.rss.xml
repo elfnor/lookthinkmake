@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 02 Apr 2016 22:00:00 +1300</lastBuildDate><item><title>Generative Art - Updated Examples</title><link>http://www.elfnor.com/generative-art-updated-examples.html</link><description>&lt;p&gt;&lt;img alt="examples" src="./images/ga_examples_banner_image.png" /&gt;
-The changes and improvements I made to the &lt;em&gt;Generative Art&lt;/em&gt; node for Sverchok mean some of the examples from earlier blog posts need some updates. &lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Look Think Make</title><link>http://www.elfnor.com/</link><description></description><atom:link href="http://www.elfnor.com/feeds/elfnor.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 02 Apr 2016 22:00:00 +1300</lastBuildDate><item><title>Generative Art - Updated Examples</title><link>http://www.elfnor.com/generative-art-updated-examples.html</link><description>&lt;p&gt;&lt;img alt="examples" src="./images/ga_examples_banner_image.png" /&gt;  &lt;/p&gt;
+&lt;p&gt;The changes and improvements I made to the &lt;em&gt;Generative Art&lt;/em&gt; node for Sverchok mean some of the examples from earlier blog posts need some updates. &lt;/p&gt;
 &lt;p&gt;I've include the updated examples in my generative-art-examples &lt;a href="https://github.com/elfnor/generative-art-examples"&gt;repo&lt;/a&gt; on github. These examples include the &lt;em&gt;eisenxml&lt;/em&gt; and the &lt;em&gt;json&lt;/em&gt; for the nodes (the &lt;em&gt;json&lt;/em&gt; files can be imported into Sverchok using the &lt;em&gt;Import&lt;/em&gt; button on the Sverchok panel).&lt;/p&gt;
 &lt;h2&gt;Examples from &lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html"&gt;Structure Synth meets Sverchok - Generative Art inside Blender&lt;/a&gt;&lt;/h2&gt;
 &lt;h3&gt;6 spirals&lt;/h3&gt;
@@ -283,13 +283,15 @@ $$&lt;/div&gt;
 &lt;p&gt;I've changed the way the system state matrix accumulates when a rule has multiple call statements. This makes translated examples from Structure Synth work as expected. The change also makes the transforms for substitution tilings, fractals and things like the game level generator easier to calculate. This may break some previous xml definition files. I'm working on updating all the examples I've given in previous posts.&lt;/p&gt;
 &lt;p&gt;I've tested the new &lt;em&gt;Generative Art&lt;/em&gt; node by checking it can generate various 2D and 3D fractals and translating some Structure Synth and Context Free Art examples. I'm using these tests to write up some future blog posts which should make a good demonstration of the nodes possibilities.&lt;/p&gt;
 &lt;p&gt;Here below, for reference is the documentation for the node. This can also be found in the Sverchok directory (&lt;code&gt;/sverchok/docs/nodes/generator/generative_art.rst&lt;/code&gt;) or &lt;a href="http://nikitron.cc.ua/sverch/html/nodes/generator/generative_art.html"&gt;online&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;To use:&lt;br /&gt;
-&lt;em&gt;  download and install &lt;a href="https://www.blender.org/"&gt;Blender&lt;/a&gt; &lt;br /&gt;
-&lt;/em&gt;  download the zip file for &lt;a href="https://github.com/nortikin/sverchok"&gt;Sverchok&lt;/a&gt;&lt;br /&gt;
-&lt;em&gt;  Install Sverchok. In Blender , File &amp;gt; User Preferences &amp;gt; Add-ons &amp;gt; Install from zip and select the Sverchok download&lt;br /&gt;
-&lt;/em&gt;  In a node editor window, select display Sverchok nodes (&lt;img alt="" src="/mnt/shared/gits/lookthinkmake/content/images/sverchok_icon.png" /&gt;), and add a new node tree.
-&lt;em&gt;  Add a &lt;/em&gt;Generative Art&lt;em&gt; node (&lt;/em&gt;Add &amp;gt; Generators &amp;gt; Generative Art&lt;em&gt;)&lt;br /&gt;
-&lt;/em&gt;  Add an &lt;em&gt;xml&lt;/em&gt; file and other nodes as shown below  &lt;/p&gt;
+&lt;p&gt;To use:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;download and install &lt;a href="https://www.blender.org/"&gt;Blender&lt;/a&gt;   &lt;/li&gt;
+&lt;li&gt;download the zip file for &lt;a href="https://github.com/nortikin/sverchok"&gt;Sverchok&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;Install Sverchok. In Blender , File &amp;gt; User Preferences &amp;gt; Add-ons &amp;gt; Install from zip and select the Sverchok download  &lt;/li&gt;
+&lt;li&gt;In a node editor window, select display Sverchok nodes (&lt;img alt="icon" src="./images/sverchok_icon.png" /&gt;), and add a new node tree.&lt;/li&gt;
+&lt;li&gt;Add a &lt;em&gt;Generative Art&lt;/em&gt; node (&lt;em&gt;Add &amp;gt; Generators &amp;gt; Generative Art&lt;/em&gt;)  &lt;/li&gt;
+&lt;li&gt;Add an &lt;em&gt;xml&lt;/em&gt; file and other nodes as shown below  &lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2&gt;Functionality&lt;/h2&gt;
 &lt;p&gt;This node can be used to produce recursive three dimensional structures following a design specified in a separate xml file. These structures are similar to fractals or lsystems.&lt;/p&gt;
 &lt;p&gt;The xml file defines a set of transformation rules and instructions to place objects. A simple set of rules can often generate surprising and complex structures.&lt;/p&gt;

@@ -37,242 +37,48 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html">Generative Art Examples - Fractals on a Plane</a></h1>
-        <p><meta property="og:image"
-    content="/images/koch_vase_render_01_003.png" /></p>
-<p><img alt="koch vase" src="./images/koch_vase_render_01_003.png" /></p>
-<p>This post is hopefully the first in a series of examples and demos for the <em>Generative Art</em> node for the  [Sverchok}(https://github.com/nortikin/sverchok) addon for <a href="https://www.blender.org">Blender</a>.</p>
-<p>This node is very strongly based on <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> and can produce <a href="https://en.wikipedia.org/wiki/L-system">Lindermayer Systems (lsystems)</a> and fractals as well as more random and interesting creations.</p>
-<p>For some examples I've also given a link to an <em>eisenscript</em> version to be used in the original <a href="">StructureSynth</a>. These are not always exactly equivalent due to some differences between the two implementations but should help those who are more familiar with <em>eisenscript</em> make the transition to the xml format. I'm also most of the way through writing a program (using pyparsing) to translate from <em>eisenscript</em> to the xml format (<em>eisenxml</em>).</p>
-<p>Sverchok is available on <a href="https://github.com/nortikin/sverchok">github</a>. Download the zip version and install like any other Blender addon.</p>
-<p>The documentation for the node is <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">here</a>.</p>
-<p>I have also started a <a href="https://github.com/elfnor/generative-art-examples">repo</a> on github for <em>Generative Art</em> examples. These examples include the <em>eisenxml</em> and the <em>json</em> for the nodes (this can be imported into Sverchok using the <em>Import</em> button on the Sverchok panel). For some examples I've also included an <em>eisenscript</em> version.</p>
-<h2>Koch Snowflake</h2>
-<p><img alt="koch snowflake" src="./images/ga_koch_snowflake.png" /></p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;ty 0.5*3**0.5&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 120 ty 0.5*3**0.5&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 240 ty 0.5*3**0.5&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;R1&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;4&quot;</span> <span class="na">successor=</span><span class="s">&quot;unit&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -1 sa 1.0/3.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.25 ty 0.25*3**0.5 rz 60 sa 1.0/3.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>      
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.25 ty 0.25*3**0.5 rz -60 sa 1.0/3.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 1 sa 1.0/3.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-
-    <span class="nt">&lt;/rule&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;unit&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;instance</span> <span class="na">transforms=</span><span class="s">&quot;tx -1.5 sa 1&quot;</span> <span class="na">shape=</span><span class="s">&quot;line&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-<span class="nt">&lt;/rules&gt;</span>
-</pre></div>
-
-
-<p>This is one of the earliest fractals described (1904). The basic unit is only drawn at the smallest size. This is achieved by using the <em>successor</em> attribute in the <em>R1</em> rule element. The <em>successor</em> attribute defines the rule to be called when the <em>max_depth</em> has been reached. That is after the <em>R1</em> rule has been called recursively four times the <em>unit</em> rule is called. </p>
-<p><a href="https://github.com/elfnor/generative-art-examples/blob/master/koch_snowflake.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/koch_snowflake.json">nodes in json</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/koch_snowflake.es">eisenscript</a>, <a href="https://en.wikipedia.org/wiki/Koch_snowflake">info</a></p>
-<h2>T-Square</h2>
-<p><img alt="t square" src="./images/ga_tsquare_2d.png" /></p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R2&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;R1&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;instance</span>  <span class="na">transforms=</span><span class="s">&quot;sz 0.1&quot;</span> <span class="na">shape=</span><span class="s">&quot;box&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.5 ty 0.5 sx 0.5 sy 0.5 rz 90&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty -0.5 sx 0.5 sy 0.5 rz -90&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.5 ty -0.5 sx 0.5 sy 0.5&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>        
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;R2&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;4&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty 0.5 sx 0.5 sy 0.5 rz 180&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-<span class="nt">&lt;/rules&gt;</span>
-</pre></div>
-
-
-<p>This fractal has the basic unit (a box) repeated at ever decreasing scales. at each iteration it is scaled in x and y by one half.  The <em>R1</em> rule places a <em>box</em> and then calls itself 3 times, rotating 90 degrees and scaling by a half each time. This places an ever decreasing set of boxes on three corners of the original box. Iterating over only three corners avoids placing boxes on the internal corner. The <em>R2</em> rule finishes the fourth corner.</p>
-<p><a href="https://github.com/elfnor/generative-art-examples/blob/master/t_square_2d.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/t_square_2d.json">nodes in json</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/t_square_2d.es">eisenscript</a>, <a href="https://en.wikipedia.org/wiki/T-square_%28fractal%29">info</a></p>
-<h2>Pentaflake</h2>
-<p><img alt="pentaflake" src="./images/ga_pentaflake.png" /></p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;R1&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;4&quot;</span> <span class="na">successor=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">&gt;</span>              
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 180 sa 0.382&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.618 sa 0.382&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.191 ty 0.5878 sa 0.382&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty 0.3633  sa 0.382&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty -0.3633  sa 0.382&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.191 ty -0.5878 sa 0.382&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">/&gt;</span>
-       <span class="nt">&lt;/rule&gt;</span>
-
-<span class="nt">&lt;/rules&gt;</span>
-</pre></div>
-
-
-<p><a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake.json">nodes in json</a>, <a href="https://en.wikipedia.org/wiki/N-flake">info</a></p>
-<p>The pentaflake is constructed by replacing a pentagon with six smaller pentagons. This in then repeated until the maximum depth is reached. this fractal is even older than the Koch curve appearing in a manuscript by Albrecht Durer in 1525. Its outer border is a version of the Koch snowflake. The structure is also closely related to the P1 <a href="">Penrose tiling</a>.</p>
-<p><img alt="pentagon" src="./images/ga_pentaflake_01.png" /></p>
-<p>I've used approximate values for the scaling and transforms in the above xml. For the pedantic the values are given by:</p>
-<p>Scaling:</p>
-<div class="math">$$
-\begin{align*}
-scale &amp;= \frac{3-\sqrt{5}}{2} = 0.38197...
-\end{align*}
-$$</div>
-<p>Translation:</p>
-<div class="math">$$
-\begin{align*}
-t1 &amp;= \frac{\sqrt{5} - 1}{2} = 0.61803...\\
-t2 &amp;= \frac{3-\sqrt{5}}{4} = 0.19098...\\
-t3 &amp;= \frac{1}{8}(\sqrt{10}-\sqrt{2})\sqrt{5 + \sqrt{5}} = 0.58775...\\
-t4 &amp;= \frac{1}{8}(\sqrt{10}-\sqrt{2})\sqrt{5 - \sqrt{5}} = 0.36325...
-\end{align*}
-$$</div>
-<p>See <a href="http://ecademy.agnesscott.edu/~lriddle/ifs/pentagon/details.htm">Larry Riddle's page</a> for some of the derivations.</p>
-<p>The xml processor used in the <em>Generative Art</em> node will evaluate math expressions in the transform definitions. For example the first call in the above xml could be written:</p>
-<div class="highlight"><pre><span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 180 sa (5**0.5-1)/2&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-</pre></div>
-
-
-<p>The python <em>math</em> and <em>random</em> modules have been imported into the node namespace so the call could also be written:</p>
-<div class="highlight"><pre><span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 180 sa (math.sqrt(5)-1)/2&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-</pre></div>
-
-
-<p>There cannot be any spaces in any maths expressions for the rotation, translation or scale parameters when using a single transforms attribute string (The spaces are used to split the string into its components). To allow for more complicated expressions each transform can be separated out into its own attribute. Notice the expression for <em>sa</em> (scale all) now has spaces in the expression.</p>
-<div class="highlight"><pre><span class="nt">&lt;call</span> <span class="na">rz=</span><span class="s">&quot;180&quot;</span> <span class="na">sa=</span><span class="s">&quot;(math.sqrt(5) - 1)/2&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-</pre></div>
-
-
-<p>The math expression string is passed to python's <em>eval()</em> function. The string must evaluate to a single number (float or integer). No checking is done for anything stupid or harmful in the string.</p>
-<p>Constants can be defined and used in the <em>xml</em> like this:</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;constants</span> <span class="na">scale=</span><span class="s">&quot;(3-5**0.5)/2&quot;</span> <span class="na">t1=</span><span class="s">&quot;(5**0.5-1)/2&quot;</span> <span class="na">t2=</span><span class="s">&quot;(3-5**0.5)/4&quot;</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;constants</span> <span class="na">t3=</span><span class="s">&quot;((10**0.5-2**0.5)*(5+5**0.5)**0.5)/8&quot;</span> <span class="na">t4=</span><span class="s">&quot;((10**0.5-2**0.5)*(5-5**0.5)**0.5)/8&quot;</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;R1&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;4&quot;</span> <span class="na">successor=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">&gt;</span>              
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 180 sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx {t1} sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx {t2} ty {t3} sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty {t4}  sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty -1*{t4}  sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx {t2} ty -1*{t3} sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-<span class="nt">&lt;/rules&gt;</span>
-</pre></div>
-
-
-<p>The value of a constant is defined in a <em>constants</em> element using attributes (eg. <code>scale="(3-5**0.5)/2"</code>). These constants can then be used later when defining transforms where the attribute/constant name is enclosed in curly brackets (eg, <code>sa {scale}</code>). This is implemented in the node code using python's <a href="https://docs.python.org/3/library/string.html#format-string-syntax">format string syntax</a> for substitution. Any of the restrictions on format field_names also apply to constant names. </p>
-<p>If a <em>field_name</em> such as <code>{scale}</code> is not defined in a <em>constants</em> element in the xml then a node input is created with this name. In the node diagram a  <em>Float</em> or <em>Integer</em> or similar node can be wired to this input. This allows for the geometry to be animated or for fast experiments with different attribute values.</p>
-<p>The <em>max_depth</em> attribute value of rule <em>R1</em> has been replaced by the <code>{md}</code> variable in the following <em>xml</em>.</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;constants</span> <span class="na">scale=</span><span class="s">&quot;(3-5**0.5)/2&quot;</span> <span class="na">t1=</span><span class="s">&quot;(5**0.5-1)/2&quot;</span> <span class="na">t2=</span><span class="s">&quot;(3-5**0.5)/4&quot;</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;constants</span> <span class="na">t3=</span><span class="s">&quot;((10**0.5-2**0.5)*(5+5**0.5)**0.5)/8&quot;</span> <span class="na">t4=</span><span class="s">&quot;((10**0.5-2**0.5)*(5-5**0.5)**0.5)/8&quot;</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;R1&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;{md}&quot;</span> <span class="na">successor=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">&gt;</span>              
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rz 180 sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx {t1} sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx {t2} ty {t3} sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty {t4}  sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx -0.5 ty -1*{t4}  sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx {t2} ty -1*{t3} sa {scale}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;pentagon&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/rule&gt;</span>
-
-<span class="nt">&lt;/rules&gt;</span>
-</pre></div>
-
-
-<p>The <em>Generative Art</em> node that uses this xml then acquires an extra input <em>md</em> which can be wired to another node. If no input is connected the variable value will default to zero.</p>
-<p><img alt="variable node diagram" src="./images/ga_pentaflake_node_02.png" /></p>
-<p><a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake_vars.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake_vars.json">nodes in json</a>, <a href="https://en.wikipedia.org/wiki/N-flake">info</a></p>
-<p>By varying the value of the <em>Integer</em> node it is very easy to produce a set of images to show each iteration of the pentaflake fractal.</p>
-<p><img alt="pentaflake gif" src="./images/pentaflake.gif" /></p>
+        <h1><a href="http://www.elfnor.com/generative-art-updated-examples.html">Generative Art - Updated Examples</a></h1>
+        <p><img alt="examples" src="./images/ga_examples_banner_image.png" />
+The changes and improvements I made to the <em>Generative Art</em> node for Sverchok mean some of the examples from earlier blog posts need some updates. </p>
+<p>I've include the updated examples in my generative-art-examples <a href="https://github.com/elfnor/generative-art-examples">repo</a> on github. These examples include the <em>eisenxml</em> and the <em>json</em> for the nodes (the <em>json</em> files can be imported into Sverchok using the <em>Import</em> button on the Sverchok panel).</p>
+<h2>Examples from <a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html">Structure Synth meets Sverchok - Generative Art inside Blender</a></h2>
+<h3>6 spirals</h3>
+<p><img alt="6 spirals" src="./images/matrix_iterate_13.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/spirals_6.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/spirals_6.json">json</a></p>
+<h3>Tree</h3>
+<p><img alt="tree" src="./images/tree_example.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/tree.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/tree.json">json</a></p>
+<h2>Examples from <a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html">Structure Synth meets Sverchok - Mesh mode</a></h2>
+<h3>Octopod</h3>
+<p><img alt="octopod" src="./images/octopod_example.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/octopod.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/octopod.json">json</a></p>
+<h3>Fern (odd)</h3>
+<p><img alt="fern wrong" src="./images/fern_wrong.blend.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/fern_wrong.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/fern_wrong.json">json</a></p>
+<h3>Fern</h3>
+<p><img alt="fern" src="./images/Fern.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/fern.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/fern.json">json</a></p>
+<h2>Examples from <a href="http://www.elfnor.com/structure-synth-meets-sverchok-animation.html">Structure Synth meets Sverchok - Animation</a></h2>
+<h3>Fern Animation</h3>
+<p><img alt="fern animation" src="./images/fern_anim_still_05.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/fern_animation.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/fern_animation.json">json</a></p>
+<h2>Examples from <a href="http://www.elfnor.com/blender-pipe-generator.html">Blender Pipe Generator</a></h2>
+<h3>Pipe Generator</h3>
+<p><img alt="pipes" src="./images/pipes_example.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/pipes.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pipes.json">json</a></p>
+<h3>Pipe Generator with gauges</h3>
+<p><img alt="pipes" src="./images/pipe_gen_15.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/pipes.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pipes_gauges.json">json</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pipe_generator.blend">blend</a></p>
+<h2>Examples from <a href="http://www.elfnor.com/blender-game-level-generator.html">Blender Game Level Generator</a></h2>
+<h3>Game Level Generator</h3>
+<p><img alt="ramps" src="./images/level_gen_demo.blend1.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/game_gen_demo.xml">eisenxml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/game_gen_demo.json">json</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/level_gen_demo.blend">blend</a></p>
+<h3>Steely Taws Level Generator</h3>
+<p><img alt="steely_taws" src="./images/level_gen_STD_ramps_render_017.png" /><br />
+<a href="https://github.com/elfnor/generative-art-examples/blob/master/steely_taws_level_gen.blend">blend</a></p>
 <hr />
-<hr />
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-    
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript'; 
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-	<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html">Permalink, </a>
-	<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/generative-art-updated-examples.html">Permalink, </a>
+	<a href="http://www.elfnor.com/generative-art-updated-examples.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -281,6 +87,12 @@ $$</div>
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
+  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
 
 
       <li>
@@ -307,10 +119,6 @@ $$</div>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html" rel="bookmark" title="Permalink to Larger Hyperbolic Tilings in 3D using Processing">Larger Hyperbolic Tilings in 3D using Processing</a>
-  <time datetime="2015-11-27T22:00:00+13:00" pubdate>Fri 27 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/processing.html">processing  </a></p></a>      </li>
 
 
 
@@ -423,6 +231,12 @@ $$</div>
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/generative-art-updated-examples.html" rel="bookmark" title="Permalink to Generative Art - Updated Examples">Generative Art - Updated Examples</a>
+  <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
   <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
@@ -457,11 +271,6 @@ $$</div>
   <time datetime="2015-11-27T22:00:00+13:00" pubdate>Fri 27 November 2015</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/processing.html">processing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/symmetry-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Symmetry Tile Painting in Blender">Symmetry Tile Painting in Blender</a>
-  <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -537,28 +346,28 @@ $$</div>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
                         </ul>
                       
 		

@@ -27,10 +27,11 @@ I've tested the new *Generative Art* node by checking it can generate various 2D
 Here below, for reference is the documentation for the node. This can also be found in the Sverchok directory (`/sverchok/docs/nodes/generator/generative_art.rst`) or [online](http://nikitron.cc.ua/sverch/html/nodes/generator/generative_art.html)
 
 To use:  
+
 *  download and install [Blender](https://www.blender.org/)   
 *  download the zip file for [Sverchok](https://github.com/nortikin/sverchok)  
 *  Install Sverchok. In Blender , File > User Preferences > Add-ons > Install from zip and select the Sverchok download  
-*  In a node editor window, select display Sverchok nodes (![](/mnt/shared/gits/lookthinkmake/content/images/sverchok_icon.png)), and add a new node tree.
+*  In a node editor window, select display Sverchok nodes (![icon](./images/sverchok_icon.png)), and add a new node tree.
 *  Add a *Generative Art* node (*Add > Generators > Generative Art*)  
 *  Add an *xml* file and other nodes as shown below  
 

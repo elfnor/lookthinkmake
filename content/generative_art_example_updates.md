@@ -5,7 +5,8 @@ Category: think
 Author: elfnor
 Status: published
 
-![examples](./images/ga_examples_banner_image.png)
+![examples](./images/ga_examples_banner_image.png)  
+
 The changes and improvements I made to the *Generative Art* node for Sverchok mean some of the examples from earlier blog posts need some updates. 
 
 I've include the updated examples in my generative-art-examples [repo](https://github.com/elfnor/generative-art-examples) on github. These examples include the *eisenxml* and the *json* for the nodes (the *json* files can be imported into Sverchok using the *Import* button on the Sverchok panel).

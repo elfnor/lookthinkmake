@@ -1,5 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/elfnor.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2016-04-02T22:00:00+13:00</updated><entry><title>Generative Art - Updated Examples</title><link href="http://www.elfnor.com/generative-art-updated-examples.html" rel="alternate"></link><updated>2016-04-02T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2016-04-02:generative-art-updated-examples.html</id><summary type="html">&lt;p&gt;&lt;img alt="examples" src="./images/ga_examples_banner_image.png" /&gt;  &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/elfnor.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2016-04-23T22:00:00+12:00</updated><entry><title>Generative Art - Penrose Tilings</title><link href="http://www.elfnor.com/generative-art-penrose-tilings.html" rel="alternate"></link><updated>2016-04-23T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2016-04-23:generative-art-penrose-tilings.html</id><summary type="html">&lt;p&gt;&lt;img alt="P3 tiling" src="./images/penrose_rhomb_lattice_04_015.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Penrose_tiling"&gt;Penrose tilings&lt;/a&gt; are an interesting group of tilings that have no translational symmetry but are self-similar on different scales. One method to construct them is using substitution, the same method I used for the Pentaflake fractal in the &lt;a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html"&gt;previous post&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;There are three types of Penrose tilings:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;P1 has pentagon tiles separated by a five pointed star, a diamond and an odd "boat" or "hat" shape.  &lt;/li&gt;
+&lt;li&gt;P2 has "kite" and "dart" shaped tiles.  &lt;/li&gt;
+&lt;li&gt;P3 has two shapes of rhomb or diamond shaped tiles.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All of these tile shapes are based on a pentagon and the golden ratio &lt;span class="math"&gt;\(\phi\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;I'll go through how to construct the tilings in &lt;a href="https://www.blender.org/"&gt;Blender&lt;/a&gt; using &lt;a href="https://github.com/nortikin/sverchok"&gt;Sverchok&lt;/a&gt; and the &lt;a href="http://www.elfnor.com/generative-art-sverchok-node-update.html"&gt;Generative Art&lt;/a&gt; node.&lt;/p&gt;
+&lt;h2&gt;P3 Tiling - Rhomb&lt;/h2&gt;
+&lt;p&gt;I'll start at the bottom of the above list with the P3 Penrose tiling made with two types of rhomb or diamond shaped tiles. Each of the diamonds can be divided in half to give two triangles called Robinson triangles.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rob tris" src="./images/penrose_rob_tris.png" /&gt;&lt;br /&gt;
+The thin triangle on the left is an acute isosceles triangle, and the fat one on the right is an obtuse isosceles triangle. There are three constants that we will use a lot in our &lt;em&gt;eisenxml&lt;/em&gt; files used to describe the tilings.&lt;/p&gt;
+&lt;p&gt;Golden Ratio:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\phi = \frac{\sqrt{5}+1}{2}$$&lt;/div&gt;
+&lt;p&gt;
+This is the ratio between the long and the short sides for both the thin and fat triangles.&lt;br /&gt;
+The altitude of each triangle (the distance from the apex to the base) is found from Pythagoras' theorem:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$x_{thin} = \sqrt{\phi + 3/4}$$&lt;/div&gt;
+&lt;div class="math"&gt;$$x_{fat} = \frac{\sqrt{3-\phi}}{2}$$&lt;/div&gt;
+&lt;p&gt;
+Also a useful identity for deriving these formula is:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$\phi^2 = \phi + 1 $$&lt;/div&gt;
+&lt;p&gt;
+&lt;img alt="robs tris 2" src="./images/penrose_robs_tris2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Its easy to produce an equilateral triangle in Sverchok using the &lt;em&gt;Circle&lt;/em&gt; node with &lt;em&gt;N Vertices&lt;/em&gt; set to 3. This give a triangle centered at the origin and pointing to the right, shown as a blue outline above. This following &lt;em&gt;eisenxml&lt;/em&gt; scales the equilateral triangle in the x and y directions to give the thin and fat Robinson triangles. It also moves them so one vertex of each triangle is at the origin.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;rules&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;100&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;phi =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;((1+5**0.5)/2)&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;thinx =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;({phi}+0.75)**0.5&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;fatx =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;0.5*(3-{phi})**0.5&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;entry&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;sx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2*{thinx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1/(3**0.5)&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-2*{thinx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;sx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2*{fatx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;({phi}/(3**0.5))&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{fatx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}/2&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/rules&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="1st division" src="./images/penrose_robs_tris3.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Each triangle now needs to be subdivided. The &lt;em&gt;eisenxml&lt;/em&gt; below subdivides the thin triangle  into one smaller thin and one smaller fat triangle (rule &lt;em&gt;thin_tri_sub&lt;/em&gt;). The fat triangle is divided into two smaller fat triangles and one smaller thin triangle (rule &lt;em&gt;fat_tri_sub&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;To make the tiling correct we need to mirror (or flip over) two of the smaller copies when we do the substitution. This is achieved by the &lt;code&gt;rx="180"&lt;/code&gt; transformation.&lt;/p&gt;
+&lt;p&gt;The triangles substituted into the thin triangle are scaled by &lt;span class="math"&gt;\(s1 = 1 / \phi\)&lt;/span&gt; smaller than the original triangles.&lt;/p&gt;
+&lt;p&gt;The triangles substituted into the fat triangles are scaled by &lt;span class="math"&gt;\(s2 = 1/ \phi^{2}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;rules&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;100&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;phi =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;((1+5**0.5)/2)&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;thinx =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;({phi}+0.75)**0.5&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;fatx =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;0.5*(3-{phi})**0.5&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;s1 =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1/{phi}&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;constants&lt;/span&gt; &lt;span class="na"&gt;s2 =&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1/(1+{phi})&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;entry&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;   
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{md}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;successor=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;       
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-1*{thinx}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0.5&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;108&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;108&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;180&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;sx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2*{thinx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1/(3**0.5)&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-2*{thinx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{md}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;successor=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;        
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-144&amp;quot;&lt;/span&gt;  &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;({phi}-1)&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s2}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;144&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{fatx}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}/2&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;   
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;180&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;sx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2*{fatx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;({phi}/(3**0.5))&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{fatx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}/2&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;/rules&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To produce a full plane tiling from this we change the entry rule to set 10 thin triangles around the origin, each second triangle also needs to be flipped:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;....
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;entry&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;5&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;72&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_pair&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_pair&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;180&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;36&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+....
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We could also choose to start with 10 fat triangles instead.&lt;/p&gt;
+&lt;p&gt;The complete &lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/penrose_p3.xml"&gt;eisenxml&lt;/a&gt; and &lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/penrose_p3.json"&gt;json&lt;/a&gt; for the nodes are in the example repo.&lt;/p&gt;
+&lt;p&gt;The above construction results in all the vertices being doubled. To produce a mesh, use the &lt;em&gt;Apply Matrix&lt;/em&gt; and &lt;em&gt;Remove Doubles&lt;/em&gt; nodes. Many of the faces will have their normals flipped but this is fixed with the &lt;em&gt;Recalc Normals&lt;/em&gt; node.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="penrose nodes" src="./images/penrose_p3_nodes.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="p3 gif" src="./images/penrose_p3.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;At the end of the &lt;em&gt;gif&lt;/em&gt; above the Robinson triangle tiling is turned into a proper P3 Rhomb tiling. This is done by selecting one of the longest edges (in &lt;em&gt;Edit&lt;/em&gt; mode), then using &lt;em&gt;Select &amp;gt; Select Similar &amp;gt; Length&lt;/em&gt; to select all the long edges. Then &lt;em&gt;Mesh &amp;gt; Delete &amp;gt; Dissolve Edges&lt;/em&gt; to turn the pairs of fat triangles into fat rhombs. Select and dissolve all the short edges in a similar manner to join the thin triangles into thin rhombs.&lt;/p&gt;
+&lt;h2&gt;P2 Tiling - Kite and Dart&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="P2 tiling" src="./images/penrose_kites-darts-image_04_003.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The Penrose P2 tiling consists of kite and dart shapes. These kite and dart shapes can also be subdivided into Robinson triangles.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="p2 subdivide" src="./images/penrose_p2_robs_tris2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;This time the subdivide/substitution step involves dividing the thin triangle into two smaller thin triangles and one smaller fat triangle. The fat triangle is divided into one smaller thin and one smaller fat triangle. Notice again that the triangle sides are split in the golden ratio.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;...
+&lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{md}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;successor=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;       
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-1*{thinx}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0.5&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;108&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-1*{thinx}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0.5&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;180&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-144&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;108&amp;quot;&lt;/span&gt;  &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+
+....
+&lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{md}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;successor=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;        
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-144&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;         
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt;  &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;108&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;180&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s1}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;thin_tri_sub&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;   
+&lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+....
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/penrose_p2.xml"&gt;full eisenxml&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="penrsoe p2 gif" src="./images/penrose_p2.gif" /&gt;&lt;/p&gt;
+&lt;p&gt;Turning the pairs of Robinson triangles into kites and darts is harder for this tiling as both edges within the kites and edges between the kites and darts have the same length. Instead we can use the select similar area tool to select all the thin triangles and give them a different material than the fat triangles.&lt;/p&gt;
+&lt;h2&gt;P1 Tiling - Pentagonal&lt;/h2&gt;
+&lt;p&gt;&lt;img alt="P1 tiling" src="./images/penrose_p3-banner_01_020.png" /&gt;&lt;/p&gt;
+&lt;p&gt;The P1 tiling looked much harder to make than the P2 or P3 tilings. The larger number of odd shapes were going to be harder to draw and there are &lt;a href="http://tilings.math.uni-bielefeld.de/substitution_rules/penrose_pentagon_boat_star"&gt;six substitution rules&lt;/a&gt; to write.&lt;/p&gt;
+&lt;p&gt;A closer a look at this diagram on Wikipedia:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Penrose_tiling#Development_of_the_Penrose_tilings"&gt;&lt;img alt="penrose wiki" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Penrose_Tiling_%28P1_over_P3%29.svg/640px-Penrose_Tiling_%28P1_over_P3%29.svg.png" /&gt;&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;showed that the P1 tiling could easily be created from the P3 tiling.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="P3 plus pentagons" src="./images/penrose_p1p3.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Each fat triangle has three pentagons, one centered at a base corner, one centered on a short side and one on a long side.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;...
+&lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;fat_tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;sx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2*{fatx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sy=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;({phi}/(3**0.5))&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{fatx}/3&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}/2&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tri&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}-1&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;18&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s2}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;penta&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;tx=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;({phi}-1)*{fatx}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ty=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{phi}-0.5&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-18&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s2}&amp;quot;&lt;/span&gt;  &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;penta&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt;  &lt;span class="na"&gt;rz=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-18&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;sa=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{s2}&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;penta&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="p1 nodes" src="./images/penrose_p1_nodes.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/penrose_p1.xml"&gt;full eisenxml&lt;/a&gt;, &lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/penrose_p1.json"&gt;node json&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This construction doubles up on lots of pentagons but they can be easily removed with the &lt;em&gt;Remove Doubles&lt;/em&gt; node. There are also star, diamond and boat shaped gaps between the pentagons. The Sverchok &lt;em&gt;Fill Holes&lt;/em&gt; node can be used to fill these.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="p1 gif" src="./images/penrose_p1a.gif" /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript'; 
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="make"></category><category term="think"></category><category term="blender"></category><category term="sverchok"></category><category term="structuresynth"></category></entry><entry><title>Generative Art - Updated Examples</title><link href="http://www.elfnor.com/generative-art-updated-examples.html" rel="alternate"></link><updated>2016-04-02T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2016-04-02:generative-art-updated-examples.html</id><summary type="html">&lt;p&gt;&lt;img alt="examples" src="./images/ga_examples_banner_image.png" /&gt;  &lt;/p&gt;
 &lt;p&gt;The changes and improvements I made to the &lt;em&gt;Generative Art&lt;/em&gt; node for Sverchok mean some of the examples from earlier blog posts need some updates. &lt;/p&gt;
 &lt;p&gt;I've include the updated examples in my generative-art-examples &lt;a href="https://github.com/elfnor/generative-art-examples"&gt;repo&lt;/a&gt; on github. These examples include the &lt;em&gt;eisenxml&lt;/em&gt; and the &lt;em&gt;json&lt;/em&gt; for the nodes (the &lt;em&gt;json&lt;/em&gt; files can be imported into Sverchok using the &lt;em&gt;Import&lt;/em&gt; button on the Sverchok panel).&lt;/p&gt;
 &lt;h2&gt;Examples from &lt;a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html"&gt;Structure Synth meets Sverchok - Generative Art inside Blender&lt;/a&gt;&lt;/h2&gt;

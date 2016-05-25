@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Image alignment with markdown - Look Think Make</title>	
+	<title>First Milky Way photo - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="Markdown synatx and main.css styling to float images to the left and right.">
+	<meta name="description" content="Last month I went to a talk at our local library by Mark Gee on astrophotography, and I got hooked inspired. For my real job I work on really expensive optics for some of the big telescopes. I also did a few astronomy papers way back. Both of these made ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,74 +38,42 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Image alignment with markdown</h1>
+		<h1>First Milky Way photo</h1>
 		
 <div class="metadata">
-  <time datetime="2014-06-21T22:00:00+12:00" pubdate>Sat 21 June 2014</time>
+  <time datetime="2016-05-25T22:00:00+12:00" pubdate>Wed 25 May 2016</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/make.html">make</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/pelican.html">pelican</a>, <a href="http://www.elfnor.com/tag/markdown.html">markdown</a></p></div>		
-		<p>The standard syntax for inserting an image into a markdown document </p>
-<div class="highlight"><pre>![avatar]({filename}/images/El_Avatar2.jpeg)
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/photo.html">photo</a>, <a href="http://www.elfnor.com/tag/astro.html">astro</a></p></div>		
+		<p><img alt="scopius over remarkables" src="./images/scopius_sml.png" /></p>
+<p>Last month I went to a talk at our local library by <a href="http://theartofnight.com/">Mark Gee</a> on astrophotography, and I got <s>hooked</s> inspired. </p>
+<p>For my real job I work on really expensive optics for some of the big telescopes. I also did a few astronomy papers way back. Both of these made me think I'd be a bit disappointed with any astro photos I could take with stuff I could afford to buy for myself.</p>
+<p>The equipment for wide field shots of the Milky Way looked much more in the birthday present to self price range and Mark Gee and other's results look spectacular.</p>
+<p>So I went online shopping for a DSLR camera and lenses. I chose a Canon (brand loyalty) 700D (last year's model is usually good value, who needs wifi for stars).  I paired this with Samyang F2.8/14mm wide angle lens which seemed to be many people's favourite for wide field astrophotography. Searching <a href="https://www.flickr.com/search/?q=milky+way&amp;cm=canon%2Feos_700d">flickr</a> for camera type and "milky way" showed other people getting good results with this combination. </p>
+<p>On a recent trip to Queenstown I got a chance to try all this out. There the sky is darker than locally. For my first attempt I just went down to the local park, but I could of got to some real dark sky with half an hour's drive.</p>
+<p>Mars and Saturn where in Scorpius which was rising over the Remarkables. </p>
+<p>I took a series of shots at F2.8, ISO 6400, Shutter speed 13 s (faster than this gave star trails) in RAW format. I was a bit disappointed with the noise when I looked at the shots at 100%. Also my manual focus could be better. (The focus scale on my lens is way off, other people online seem to also have this problem, but mine might be the result of dropping it on a rock on its first outing...)</p>
+<p><img alt="100% jpg" src="./images/astro_crop_100.JPG" /></p>
+<p>100% crop of original image</p>
+<p>After a bit of internet research I worked out how to use the command line tools that come with <a href="http://hugin.sourceforge.net/">Hugin</a> to align and average a stack of images.</p>
+<p>For simplicity copy the RAW files to process into a clean folder.</p>
+<p>First I used <a href="http://rawtherapee.com/blog/features">Rawtherapee</a> to convert the camera's <em>CR2</em> (RAW) files into 16 bit <em>tif</em> files. I also did a little preprocessing including subtracting a dark field image. Save the profile so the same process can be used on each file.</p>
+<p>Then all it takes is the following two commands to align and average the <em>tif</em> files.</p>
+<div class="highlight"><pre><span class="nv">$ </span>align_image_stack -a IMG_*.tif
+<span class="nv">$ </span>enfuse --exposure-weight<span class="o">=</span><span class="m">1</span> --saturation-weight<span class="o">=</span><span class="m">0</span>  --exposure-mu<span class="o">=</span>0.5 --exposure-sigma<span class="o">=</span><span class="m">1</span> IMG_*.tif*.tif
 </pre></div>
 
 
-<p>produces this html:</p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;&lt;img</span> <span class="na">alt=</span><span class="s">&quot;avatar&quot;</span> <span class="na">src=</span><span class="s">&quot;./images/El_Avatar2.jpeg&quot;</span> <span class="nt">/&gt;&lt;/p&gt;</span>
-</pre></div>
-
-
-<p>and aligns an image to the left margin.</p>
-<p><img alt="avatar" src="http://www.elfnor.com/images/El_Avatar2.jpeg" /></p>
-<p>The text then continues underneath the image.</p>
-<p>To float an image left or right so that the text flows around the image you can include a style in the attribute list after the image filename.  Pelican automatically has the Attribute Lists extension to markdown enabled.</p>
-<div class="highlight"><pre>![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: style=&quot;float:right; margin: 20px 20px&quot;}
-</pre></div>
-
-
-<p>produces this html:</p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;&lt;img</span> <span class="na">alt=</span><span class="s">&quot;avatar&quot;</span> <span class="na">src=</span><span class="s">&quot;./images/El_Avatar2_face_left.jpeg&quot;</span> <span class="na">style=</span><span class="s">&quot;float:right; margin: 20px 20px&quot;</span> <span class="nt">/&gt;&lt;/p&gt;</span>
-</pre></div>
-
-
-<hr />
-<p><img alt="avatar" src="http://www.elfnor.com/images/El_Avatar2_face_left.jpeg" style="float:right; margin: 20px 20px" /></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-<hr />
-<p><img alt="avatar" src="http://www.elfnor.com/images/El_Avatar2.jpeg" style="float:left; margin: 20px 20px" /></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<hr />
-<p>Better practive would be to define a pair of styles in the <code>main.css</code> file:</p>
-<div class="highlight"><pre><span class="c">/* Images */</span>
-<span class="nc">.floatright</span> <span class="p">{</span>
-    <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
-    <span class="k">margin</span><span class="o">:</span> <span class="m">20px</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nc">.floatleft</span> <span class="p">{</span>
-    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
-    <span class="k">margin</span><span class="o">:</span> <span class="m">20px</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Then reference this in the markdown as follows:</p>
-<div class="highlight"><pre>![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: .floatright}
-</pre></div>
-
-
-<hr />
-<p><img alt="avatar" class="floatright" src="http://www.elfnor.com/images/El_Avatar2_face_left.jpeg" /></p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-<hr />
-<p>There is a pelican plugin called <a href="http://duncanlock.net/blog/2013/05/29/better-figures-images-plugin-for-pelican/">Better Figures and Images</a> but it seems only designed for writing in reStructured Text not markdown.</p>	
+<p>There were only four images in my stack so I'd only expect to reduce the noise by a half, but it definetly looked better.</p>
+<p><img alt="100% jpg" src="./images/astro_crop_100_mean.JPG" /></p>
+<p>100% crop of stacked image</p>
+<p>After that I played with the image a little in RT again getting the colour balance better and applying a little local contrast. (I didn't really know what I was doing so I just experimented)</p>
+<p><img alt="100% jpg" src="./images/astro_crop_100_final.JPG" /></p>
+<p>100% crop of final image</p>
+<p>The align process takes care of the movement of the stars between each shot, but that blurs the foreground. I used <a href="https://www.gimp.org/">GIMP</a> to combine the landscape of a single image with the average star image. (see <a href="https://www.gimp.org/tutorials/Layer_Masks/">here</a> for a basic tutorial). Ideally I should of taken a longer shot with a lower ISO for the landscape part. This would have given less noise. Also next time around I'll try a lower ISO and a longer shutter speed for the star shots, aiming for less noise at the expense of a little star trailing.</p>
+<p>But I'm reasonably pleased with the final result for my first attempt but with heaps still to learn.</p>	
 
 	</article>
 
@@ -113,7 +81,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "image-alignment-with-markdown.html";
+	       var disqus_identifier = "first-milky-way-photo.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

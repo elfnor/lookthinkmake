@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/elfnor.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2016-05-25T22:00:00+12:00</updated><entry><title>First Milky Way photo</title><link href="http://www.elfnor.com/first-milky-way-photo.html" rel="alternate"></link><updated>2016-05-25T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2016-05-25:first-milky-way-photo.html</id><summary type="html">&lt;p&gt;&lt;img alt="scopius over remarkables" src="./images/scopius_sml.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/elfnor.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2016-05-29T22:00:00+12:00</updated><entry><title>Structure Synth eisenscript to xml translator</title><link href="http://www.elfnor.com/structure-synth-eisenscript-to-xml-translator.html" rel="alternate"></link><updated>2016-05-29T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2016-05-29:structure-synth-eisenscript-to-xml-translator.html</id><summary type="html">&lt;p&gt;&lt;img alt="medusas" src="./images/medusa_spiked_01_016.png" /&gt;&lt;/p&gt;
+&lt;p&gt;I've been working on some code to automatically translate the original &lt;em&gt;eisenscript&lt;/em&gt; files used by &lt;a href="http://structuresynth.sourceforge.net/"&gt;Struture Synth&lt;/a&gt; into the &lt;em&gt;eisenxml&lt;/em&gt; used by the &lt;a href="http://www.elfnor.com/generative-art-sverchok-node-update.html"&gt;Generative Art node&lt;/a&gt; in the &lt;a href="https://github.com/nortikin/sverchok"&gt;Sverchok&lt;/a&gt; addon for &lt;a href="https://www.blender.org/"&gt;Blender&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Its not complete but I've uploaded the work so far to &lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/eisenscript_to_xml.py"&gt;github&lt;/a&gt;. Its written using &lt;a href="http://pyparsing.wikispaces.com/"&gt;pyparsing&lt;/a&gt;. This is my first serious attempt at using pyparsing. I was impressed with how far I could get with this project so quickly. My code is pretty ugly and could still do with some serious refactoring work, but it translates all the examples provided with Structure Synth with the exception of those using preprocessor (#define) commands.&lt;/p&gt;
+&lt;p&gt;After writing most of the pyparsing grammar based on the Structure Synth reference &lt;a href="http://structuresynth.sourceforge.net/reference.php"&gt;page&lt;/a&gt; I found the basics of &lt;a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form"&gt;EBNF notation&lt;/a&gt; used for eisenscript in the &lt;a href="https://sourceforge.net/p/structuresynth/code/HEAD/tree/trunk/notes.txt#l48"&gt;source files&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The translator completely ignores any eisenscript commands to do with color, setting the camera or the ray tracer as those are better dealt with in Blender outside Sverchok. &lt;/p&gt;
+&lt;p&gt;I haven't translated the preprocessor commands (#define). These commands are similar to the way I've used constants and variables in the Sverchok node but different enough to be a bit harder to implement in the translator. &lt;/p&gt;
+&lt;p&gt;So far its translating most things I've thrown at it and the geometry in Blender looks mostly equivalent to the original Structure Synth geometry. It hasn't been systematically tested and there's bound to be valid eisenscript in can't translate properly. As is where is.&lt;/p&gt;
+&lt;p&gt;Here's the original eisenscript and translated eisenxml for one of the creatures above.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ss_medusa" src="./images/ss_medusa.png" /&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;set md 25
+
+{ry 90 hue 35 sat 0.5} body
+
+rule body {
+20 * {rx 18} segment
+}
+
+rule segment md 12 &amp;gt; arc1 {
+box
+{z 1 ry 10 s 1.2} segment
+}
+
+rule arc1 {
+{s 0.6   x -7 z 11} arc
+}
+
+rule arc {
+5 * {ry 10 } subarc
+}
+
+rule subarc {
+{x 15} spike
+}
+
+rule spike  w 5 {
+10 * {z 0.9 ry 5 s 0.9} sphere
+}
+
+rule spike w 5 {
+10 * {z 0.9 ry -5 s 0.9} sphere
+}
+
+rule spike w 1 {
+10 * {z 0.9 ry 10 s 0.9} sphere
+}
+
+rule spike w 1 {
+10 * {z 0.9 ry -10 s 0.9} sphere
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="ga_medusa" src="./images/ga_medusa.png" /&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; ?&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;rules&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;25&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;entry&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;body&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ry 90&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;body&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;20&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;segment&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rx 18&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;max_depth=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;12&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;segment&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;successor=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;arc1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;box&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;segment&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tz 1 ry 10 sa 1.2&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;arc1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;arc&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sa 0.6 tx -7 tz 11&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;arc&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;5&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;subarc&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ry 10&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;subarc&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;call&lt;/span&gt; &lt;span class="na"&gt;rule=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;spike&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tx 15&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;spike&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;weight=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;5&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sphere&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tz 0.9 ry 5 sa 0.9&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;spike&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;weight=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;5&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sphere&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tz 0.9 ry -5 sa 0.9&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;spike&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;weight=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sphere&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tz 0.9 ry 10 sa 0.9&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;rule&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;spike&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;weight=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;instance&lt;/span&gt; &lt;span class="na"&gt;count=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;shape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sphere&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;transforms=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tz 0.9 ry -10 sa 0.9&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/rule&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/rules&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Feel free to post links in the comments to any eisenscript files that break the translator and I'll (probably) have a look at them.&lt;/p&gt;</summary><category term="make"></category><category term="think"></category><category term="blender"></category><category term="sverchok"></category><category term="structure synth"></category><category term="generative art"></category></entry><entry><title>First Milky Way photo</title><link href="http://www.elfnor.com/first-milky-way-photo.html" rel="alternate"></link><updated>2016-05-25T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2016-05-25:first-milky-way-photo.html</id><summary type="html">&lt;p&gt;&lt;img alt="scopius over remarkables" src="./images/scopius_sml.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Last month I went to a talk at our local library by &lt;a href="http://theartofnight.com/"&gt;Mark Gee&lt;/a&gt; on astrophotography, and I got &lt;s&gt;hooked&lt;/s&gt; inspired. &lt;/p&gt;
 &lt;p&gt;For my real job I work on really expensive optics for some of the big telescopes. I also did a few astronomy papers way back. Both of these made me think I'd be a bit disappointed with any astro photos I could take with stuff I could afford to buy for myself.&lt;/p&gt;
 &lt;p&gt;The equipment for wide field shots of the Milky Way looked much more in the birthday present to self price range and Mark Gee and other's results look spectacular.&lt;/p&gt;

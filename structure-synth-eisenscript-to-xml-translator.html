@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Structure Synth meets Sverchok - Animation - Look Think Make</title>	
+	<title>Structure Synth eisenscript to xml translator - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok Generative Art node. See the updated examples and the node docs In the previous two posts (Generative Art in Blender and Mesh Mode I introduced the Sverchok scripted node I'd written to implement Structure ...">
+	<meta name="description" content="I've been working on some code to automatically translate the original eisenscript files used by Struture Synth into the eisenxml used by the Generative Art node in the Sverchok addon for Blender. Its not complete but I've uploaded the work so far to github. Its written using pyparsing ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,88 +38,106 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Structure Synth meets Sverchok - Animation</h1>
+		<h1>Structure Synth eisenscript to xml translator</h1>
 		
 <div class="metadata">
-  <time datetime="2015-03-22T22:00:00+13:00" pubdate>Sun 22 March 2015</time>
+  <time datetime="2016-05-29T22:00:00+12:00" pubdate>Sun 29 May 2016</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></p></div>		
-		<p><img alt="still from fern  animation" src="./images/fern_anim_still_05.png" /></p>
-<p>Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok <em>Generative Art</em> node. See the <a href="http://www.elfnor.com/generative-art-updated-examples.html">updated examples</a> and the <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">node docs</a></p>
-<p>In the previous two posts (<a href="http://www.elfnor.com/structure-synth-meets-sverchok-generative-art-inside-blender.html">Generative Art in Blender</a> and <a href="http://www.elfnor.com/structure-synth-meets-sverchok-mesh-mode.html">Mesh Mode</a> I introduced the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> scripted node I'd written to implement <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> generative art or lsystems inside Blender.</p>
-<p>Following <a href="">Martinius's suggestion</a> I've now exposed parameters in the xml rule definition to the Sverchok node tree so we can do animation of Structure Synth lsystems inside Blender.</p>
-<p>Here's an example:</p>
-<iframe src="https://player.vimeo.com/video/123063760?title=0&byline=0&portrait=0" width="500" height="375" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a>, <a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></p></div>		
+		<p><img alt="medusas" src="./images/medusa_spiked_01_016.png" /></p>
+<p>I've been working on some code to automatically translate the original <em>eisenscript</em> files used by <a href="http://structuresynth.sourceforge.net/">Struture Synth</a> into the <em>eisenxml</em> used by the <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Generative Art node</a> in the <a href="https://github.com/nortikin/sverchok">Sverchok</a> addon for <a href="https://www.blender.org/">Blender</a>.</p>
+<p>Its not complete but I've uploaded the work so far to <a href="https://github.com/elfnor/generative-art-examples/blob/master/eisenscript_to_xml.py">github</a>. Its written using <a href="http://pyparsing.wikispaces.com/">pyparsing</a>. This is my first serious attempt at using pyparsing. I was impressed with how far I could get with this project so quickly. My code is pretty ugly and could still do with some serious refactoring work, but it translates all the examples provided with Structure Synth with the exception of those using preprocessor (#define) commands.</p>
+<p>After writing most of the pyparsing grammar based on the Structure Synth reference <a href="http://structuresynth.sourceforge.net/reference.php">page</a> I found the basics of <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form">EBNF notation</a> used for eisenscript in the <a href="https://sourceforge.net/p/structuresynth/code/HEAD/tree/trunk/notes.txt#l48">source files</a>.</p>
+<p>The translator completely ignores any eisenscript commands to do with color, setting the camera or the ray tracer as those are better dealt with in Blender outside Sverchok. </p>
+<p>I haven't translated the preprocessor commands (#define). These commands are similar to the way I've used constants and variables in the Sverchok node but different enough to be a bit harder to implement in the translator. </p>
+<p>So far its translating most things I've thrown at it and the geometry in Blender looks mostly equivalent to the original Structure Synth geometry. It hasn't been systematically tested and there's bound to be valid eisenscript in can't translate properly. As is where is.</p>
+<p>Here's the original eisenscript and translated eisenxml for one of the creatures above.</p>
+<p><img alt="ss_medusa" src="./images/ss_medusa.png" /></p>
+<div class="highlight"><pre>set md 25
 
-<p><p><a href="https://vimeo.com/123063760">Pounamu Fern Animation</a> from <a href="https://vimeo.com/user38620121">elfnor</a> on <a href="https://vimeo.com">Vimeo</a>.</p></p>
-<p>As before, to use the generative art node in Blender first install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon. Download the lsystem code from <a href="https://github.com/elfnor/lsystem">github</a>. Then load the three python files in the Blender directory (<code>LSystem_blender.py, GA_xml.py, GA_node.py</code>) as separate text blocks into a blend file. Add a "Scripted Node" to a Sverchok node tree. On the node select the <code>GA_node.py</code> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.</p>
-<p>The latest version now has an additional input "variables". </p>
-<p>The first step to animating the lsystem is to edit the lsystem definition in the xml text in <code>GA_xml.py</code> to define which values becomes variables. The value for any of the transforms in the file can be replaced with a pair of curly braces:</p>
-<div class="highlight"><pre>transforms = &quot;tx 0.5 rx 20 sa 0.9&quot;
+{ry 90 hue 35 sat 0.5} body
+
+rule body {
+20 * {rx 18} segment
+}
+
+rule segment md 12 &gt; arc1 {
+box
+{z 1 ry 10 s 1.2} segment
+}
+
+rule arc1 {
+{s 0.6   x -7 z 11} arc
+}
+
+rule arc {
+5 * {ry 10 } subarc
+}
+
+rule subarc {
+{x 15} spike
+}
+
+rule spike  w 5 {
+10 * {z 0.9 ry 5 s 0.9} sphere
+}
+
+rule spike w 5 {
+10 * {z 0.9 ry -5 s 0.9} sphere
+}
+
+rule spike w 1 {
+10 * {z 0.9 ry 10 s 0.9} sphere
+}
+
+rule spike w 1 {
+10 * {z 0.9 ry -10 s 0.9} sphere
+}
 </pre></div>
 
 
-<p>becomes</p>
-<div class="highlight"><pre>transforms = &quot;tx {} rx 20 sa 0.9&quot;
-</pre></div>
-
-
-<p>To illustrate this here is the xml definition and the node diagram for the fern animation.</p>
-<div class="highlight"><pre>Library[&quot;FernVars&quot;] = &quot;&quot;&quot;
-<span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
-       <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl1&quot;</span> <span class="nt">/&gt;</span>  
-       <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl2&quot;</span> <span class="nt">/&gt;</span>      
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;curl1&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;60&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rx {} tz 1.5 s 0.9 0.9 1.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;curl1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;box&quot;</span><span class="nt">/&gt;</span>        
-    <span class="nt">&lt;/rule&gt;</span>
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;curl2&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;40&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rx {} tz 1.5 s 0.9 0.9 1.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;curl2&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 0.1 ty -0.45 ry 40 sa 0.25&quot;</span> <span class="na">rule=</span><span class="s">&quot;curlsmall&quot;</span> <span class="nt">/&gt;</span>     
-    <span class="nt">&lt;/rule&gt;</span>    
-
-    <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;curlsmall&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;40&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;rx 2*{} tz 2.7 s 0.9 0.9 1.0&quot;</span> <span class="na">rule=</span><span class="s">&quot;curlsmall&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;box&quot;</span><span class="nt">/&gt;</span>     
-    <span class="nt">&lt;/rule&gt;</span>    
+<p><img alt="ga_medusa" src="./images/ga_medusa.png" /></p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+<span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;25&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;body&quot;</span> <span class="na">transforms=</span><span class="s">&quot;ry 90&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;20&quot;</span> <span class="na">rule=</span><span class="s">&quot;segment&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rx 18&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">max_depth=</span><span class="s">&quot;12&quot;</span> <span class="na">name=</span><span class="s">&quot;segment&quot;</span> <span class="na">successor=</span><span class="s">&quot;arc1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;box&quot;</span> <span class="na">transforms=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;segment&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 1 ry 10 sa 1.2&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;arc1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;arc&quot;</span> <span class="na">transforms=</span><span class="s">&quot;sa 0.6 tx -7 tz 11&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;arc&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;5&quot;</span> <span class="na">rule=</span><span class="s">&quot;subarc&quot;</span> <span class="na">transforms=</span><span class="s">&quot;ry 10&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;subarc&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;spike&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tx 15&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry 5 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry -5 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry 10 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry -10 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
 <span class="nt">&lt;/rules&gt;</span>
-&quot;&quot;&quot;
 </pre></div>
 
 
-<p><img alt="node diagram for fern animation" src="./images/GA_Fern_animation_03.blend.png" /></p>
-<p>For this animation the index number of the current frame in the animation is translated from the range 1 to 250 to the range 16 to 6 via the formula node  and wired into the "variables" input of the "GA_node". This cause the fern to unwind as the animation proceeds. The separate objects are joined into one using the "Mesh Join" node and this output sent to the "Bmesh Viewer Draw" node. </p>
-<p>If you want to animate more than one parameter use index numbers (starting with 0) inside the braces:</p>
-<div class="highlight"><pre>transforms = &quot;tx {0} rx {1} sa {2}&quot;
-</pre></div>
-
-
-<p>With multiple parameters a "List Join" node is used to make a list to use as the "variables" input of the "GA_node".</p>
-<p><img alt="node diagram with list join" src="./images/GA_node-variables_attributes.blend.png" /></p>
-<p>If not enough variables are provided the last one is repeated as many times as required.</p>
-<p>Simple maths can also be use in the transforms definition. This has been used above in the "curlsmall" rule. The rx rotation of the transform will always be twice that of the rx rotation in the "curl1" and "curl2" rules.</p>
-<p>There cannot be any spaces in any maths expressions for the rotation, translation or scale parameters when using a transforms attribute string as above.  Instead of listing all the transforms in one attribute string each transform can now have its own string. This allows more complicated expressions to be included. </p>
-<p>transforms as single attribute (no spaces allowed in maths expression)</p>
-<div class="highlight"><pre>&lt;call transforms=&quot;tx 1 rz -1*{0} ry {1}&quot; rule=&quot;R1&quot;/&gt;
-</pre></div>
-
-
-<p>each transform with its own attribute (can have spaces)</p>
-<div class="highlight"><pre>&lt;call tx=&quot;1&quot; rz=&quot;-1 * {0}&quot; ry=&quot;{1}&quot; rule=&quot;R1&quot;/&gt;
-</pre></div>
-
-
-<p>All this is implemented by first using python's string format method to substitute in the variable value from the node input. Then the resulting string is passed to python's <code>eval()</code> function. The string must evaluate to a single number (float or integer). Using <code>eval()</code> is a potential security problem as in theory someone could put some malicious code inside an xml lsystem definition. As always don't run code from a source you don't trust.</p>
-<p>Only the transforms that take a single number that is tx, ty, tz, rx, ry, rz, sx, sy, sz and sa have been implemented using individual attributes. The ones that use triplets to specify all three translations or scales at once (t and s) can only be used in a transform string.</p>
-<p>There's room to do some very clever stuff using this ability to put short bits of code in the xml... </p>
-<hr />	
+<p>Feel free to post links in the comments to any eisenscript files that break the translator and I'll (probably) have a look at them.</p>	
 
 	</article>
 
@@ -127,7 +145,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "structure-synth-meets-sverchok-animation.html";
+	       var disqus_identifier = "structure-synth-eisenscript-to-xml-translator.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

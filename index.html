@@ -37,36 +37,100 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/first-milky-way-photo.html">First Milky Way photo</a></h1>
-        <p><img alt="scopius over remarkables" src="./images/scopius_sml.png" /></p>
-<p>Last month I went to a talk at our local library by <a href="http://theartofnight.com/">Mark Gee</a> on astrophotography, and I got <s>hooked</s> inspired. </p>
-<p>For my real job I work on really expensive optics for some of the big telescopes. I also did a few astronomy papers way back. Both of these made me think I'd be a bit disappointed with any astro photos I could take with stuff I could afford to buy for myself.</p>
-<p>The equipment for wide field shots of the Milky Way looked much more in the birthday present to self price range and Mark Gee and other's results look spectacular.</p>
-<p>So I went online shopping for a DSLR camera and lenses. I chose a Canon (brand loyalty) 700D (last year's model is usually good value, who needs wifi for stars).  I paired this with Samyang F2.8/14mm wide angle lens which seemed to be many people's favourite for wide field astrophotography. Searching <a href="https://www.flickr.com/search/?q=milky+way&amp;cm=canon%2Feos_700d">flickr</a> for camera type and "milky way" showed other people getting good results with this combination. </p>
-<p>On a recent trip to Queenstown I got a chance to try all this out. There the sky is darker than locally. For my first attempt I just went down to the local park, but I could of got to some real dark sky with half an hour's drive.</p>
-<p>Mars and Saturn where in Scorpius which was rising over the Remarkables. </p>
-<p>I took a series of shots at F2.8, ISO 6400, Shutter speed 13 s (faster than this gave star trails) in RAW format. I was a bit disappointed with the noise when I looked at the shots at 100%. Also my manual focus could be better. (The focus scale on my lens is way off, other people online seem to also have this problem, but mine might be the result of dropping it on a rock on its first outing...)</p>
-<p><img alt="100% jpg" src="./images/astro_crop_100.JPG" /></p>
-<p>100% crop of original image</p>
-<p>After a bit of internet research I worked out how to use the command line tools that come with <a href="http://hugin.sourceforge.net/">Hugin</a> to align and average a stack of images.</p>
-<p>For simplicity copy the RAW files to process into a clean folder.</p>
-<p>First I used <a href="http://rawtherapee.com/blog/features">Rawtherapee</a> to convert the camera's <em>CR2</em> (RAW) files into 16 bit <em>tif</em> files. I also did a little preprocessing including subtracting a dark field image. Save the profile so the same process can be used on each file.</p>
-<p>Then all it takes is the following two commands to align and average the <em>tif</em> files.</p>
-<div class="highlight"><pre><span class="nv">$ </span>align_image_stack -a IMG_*.tif
-<span class="nv">$ </span>enfuse --exposure-weight<span class="o">=</span><span class="m">1</span> --saturation-weight<span class="o">=</span><span class="m">0</span>  --exposure-mu<span class="o">=</span>0.5 --exposure-sigma<span class="o">=</span><span class="m">1</span> IMG_*.tif*.tif
+        <h1><a href="http://www.elfnor.com/structure-synth-eisenscript-to-xml-translator.html">Structure Synth eisenscript to xml translator</a></h1>
+        <p><img alt="medusas" src="./images/medusa_spiked_01_016.png" /></p>
+<p>I've been working on some code to automatically translate the original <em>eisenscript</em> files used by <a href="http://structuresynth.sourceforge.net/">Struture Synth</a> into the <em>eisenxml</em> used by the <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Generative Art node</a> in the <a href="https://github.com/nortikin/sverchok">Sverchok</a> addon for <a href="https://www.blender.org/">Blender</a>.</p>
+<p>Its not complete but I've uploaded the work so far to <a href="https://github.com/elfnor/generative-art-examples/blob/master/eisenscript_to_xml.py">github</a>. Its written using <a href="http://pyparsing.wikispaces.com/">pyparsing</a>. This is my first serious attempt at using pyparsing. I was impressed with how far I could get with this project so quickly. My code is pretty ugly and could still do with some serious refactoring work, but it translates all the examples provided with Structure Synth with the exception of those using preprocessor (#define) commands.</p>
+<p>After writing most of the pyparsing grammar based on the Structure Synth reference <a href="http://structuresynth.sourceforge.net/reference.php">page</a> I found the basics of <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_Form">EBNF notation</a> used for eisenscript in the <a href="https://sourceforge.net/p/structuresynth/code/HEAD/tree/trunk/notes.txt#l48">source files</a>.</p>
+<p>The translator completely ignores any eisenscript commands to do with color, setting the camera or the ray tracer as those are better dealt with in Blender outside Sverchok. </p>
+<p>I haven't translated the preprocessor commands (#define). These commands are similar to the way I've used constants and variables in the Sverchok node but different enough to be a bit harder to implement in the translator. </p>
+<p>So far its translating most things I've thrown at it and the geometry in Blender looks mostly equivalent to the original Structure Synth geometry. It hasn't been systematically tested and there's bound to be valid eisenscript in can't translate properly. As is where is.</p>
+<p>Here's the original eisenscript and translated eisenxml for one of the creatures above.</p>
+<p><img alt="ss_medusa" src="./images/ss_medusa.png" /></p>
+<div class="highlight"><pre>set md 25
+
+{ry 90 hue 35 sat 0.5} body
+
+rule body {
+20 * {rx 18} segment
+}
+
+rule segment md 12 &gt; arc1 {
+box
+{z 1 ry 10 s 1.2} segment
+}
+
+rule arc1 {
+{s 0.6   x -7 z 11} arc
+}
+
+rule arc {
+5 * {ry 10 } subarc
+}
+
+rule subarc {
+{x 15} spike
+}
+
+rule spike  w 5 {
+10 * {z 0.9 ry 5 s 0.9} sphere
+}
+
+rule spike w 5 {
+10 * {z 0.9 ry -5 s 0.9} sphere
+}
+
+rule spike w 1 {
+10 * {z 0.9 ry 10 s 0.9} sphere
+}
+
+rule spike w 1 {
+10 * {z 0.9 ry -10 s 0.9} sphere
+}
 </pre></div>
 
 
-<p>There were only four images in my stack so I'd only expect to reduce the noise by a half, but it definetly looked better.</p>
-<p><img alt="100% jpg" src="./images/astro_crop_100_mean.JPG" /></p>
-<p>100% crop of stacked image</p>
-<p>After that I played with the image a little in RT again getting the colour balance better and applying a little local contrast. (I didn't really know what I was doing so I just experimented)</p>
-<p><img alt="100% jpg" src="./images/astro_crop_100_final.JPG" /></p>
-<p>100% crop of final image</p>
-<p>The align process takes care of the movement of the stars between each shot, but that blurs the foreground. I used <a href="https://www.gimp.org/">GIMP</a> to combine the landscape of a single image with the average star image. (see <a href="https://www.gimp.org/tutorials/Layer_Masks/">here</a> for a basic tutorial). Ideally I should of taken a longer shot with a lower ISO for the landscape part. This would have given less noise. Also next time around I'll try a lower ISO and a longer shutter speed for the star shots, aiming for less noise at the expense of a little star trailing.</p>
-<p>But I'm reasonably pleased with the final result for my first attempt but with heaps still to learn.</p>
-	<a href="http://www.elfnor.com/first-milky-way-photo.html">Permalink, </a>
-	<a href="http://www.elfnor.com/first-milky-way-photo.html#disqus_thread">Comments</a>
+<p><img alt="ga_medusa" src="./images/ga_medusa.png" /></p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+<span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;25&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;body&quot;</span> <span class="na">transforms=</span><span class="s">&quot;ry 90&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;20&quot;</span> <span class="na">rule=</span><span class="s">&quot;segment&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rx 18&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">max_depth=</span><span class="s">&quot;12&quot;</span> <span class="na">name=</span><span class="s">&quot;segment&quot;</span> <span class="na">successor=</span><span class="s">&quot;arc1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">shape=</span><span class="s">&quot;box&quot;</span> <span class="na">transforms=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;segment&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 1 ry 10 sa 1.2&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;arc1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;arc&quot;</span> <span class="na">transforms=</span><span class="s">&quot;sa 0.6 tx -7 tz 11&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;arc&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;5&quot;</span> <span class="na">rule=</span><span class="s">&quot;subarc&quot;</span> <span class="na">transforms=</span><span class="s">&quot;ry 10&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;subarc&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;spike&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tx 15&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry 5 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry -5 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry 10 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+  <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;spike&quot;</span> <span class="na">weight=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;instance</span> <span class="na">count=</span><span class="s">&quot;10&quot;</span> <span class="na">shape=</span><span class="s">&quot;sphere&quot;</span> <span class="na">transforms=</span><span class="s">&quot;tz 0.9 ry -10 sa 0.9&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/rule&gt;</span>
+<span class="nt">&lt;/rules&gt;</span>
+</pre></div>
+
+
+<p>Feel free to post links in the comments to any eisenscript files that break the translator and I'll (probably) have a look at them.</p>
+	<a href="http://www.elfnor.com/structure-synth-eisenscript-to-xml-translator.html">Permalink, </a>
+	<a href="http://www.elfnor.com/structure-synth-eisenscript-to-xml-translator.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -75,6 +139,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/first-milky-way-photo.html" rel="bookmark" title="Permalink to First Milky Way photo">First Milky Way photo</a>
+  <time datetime="2016-05-25T22:00:00+12:00" pubdate>Wed 25 May 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/photo.html">photo  </a><a href="http://www.elfnor.com/tag/astro.html">astro  </a></p></a>      </li>
 
 
       <li>
@@ -101,10 +171,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/maze-any-mesh-in-blender.html" rel="bookmark" title="Permalink to Maze any Mesh in Blender">Maze any Mesh in Blender</a>
-  <time datetime="2016-01-29T22:00:00+13:00" pubdate>Fri 29 January 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
 
 
 
@@ -223,6 +289,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/structure-synth-eisenscript-to-xml-translator.html" rel="bookmark" title="Permalink to Structure Synth eisenscript to xml translator">Structure Synth eisenscript to xml translator</a>
+  <time datetime="2016-05-29T22:00:00+12:00" pubdate>Sun 29 May 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/first-milky-way-photo.html" rel="bookmark" title="Permalink to First Milky Way photo">First Milky Way photo</a>
   <time datetime="2016-05-25T22:00:00+12:00" pubdate>Wed 25 May 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/photo.html">photo  </a><a href="http://www.elfnor.com/tag/astro.html">astro  </a></p></a>      			      </li>
@@ -257,11 +329,6 @@
   <time datetime="2016-01-29T22:00:00+13:00" pubdate>Fri 29 January 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/blender-3d-maze-generator.html" rel="bookmark" title="Permalink to Blender 3D Maze Generator">Blender 3D Maze Generator</a>
-  <time datetime="2015-12-20T22:00:00+13:00" pubdate>Sun 20 December 2015</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
 		
 		
 		
@@ -340,30 +407,32 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

@@ -6,6 +6,12 @@
 &lt;p&gt;The translator completely ignores any eisenscript commands to do with color, setting the camera or the ray tracer as those are better dealt with in Blender outside Sverchok. &lt;/p&gt;
 &lt;p&gt;I haven't translated the preprocessor commands (#define). These commands are similar to the way I've used constants and variables in the Sverchok node but different enough to be a bit harder to implement in the translator. &lt;/p&gt;
 &lt;p&gt;So far its translating most things I've thrown at it and the geometry in Blender looks mostly equivalent to the original Structure Synth geometry. It hasn't been systematically tested and there's bound to be valid eisenscript in can't translate properly. As is where is.&lt;/p&gt;
+&lt;p&gt;To use the &lt;a href="https://github.com/elfnor/generative-art-examples/blob/master/eisenscript_to_xml.py"&gt;translator&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python eisenscript_to_xml.py /path/to/file/totranslate.es
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;will produce a file &lt;code&gt;/path/to/file/totranslate.es.xml&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Here's the original eisenscript and translated eisenxml for one of the creatures above.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ss_medusa" src="./images/ss_medusa.png" /&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;set md 25

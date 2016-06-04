@@ -18,6 +18,15 @@ I haven't translated the preprocessor commands (#define). These commands are sim
 
 So far its translating most things I've thrown at it and the geometry in Blender looks mostly equivalent to the original Structure Synth geometry. It hasn't been systematically tested and there's bound to be valid eisenscript in can't translate properly. As is where is.
 
+To use the [translator](https://github.com/elfnor/generative-art-examples/blob/master/eisenscript_to_xml.py):
+
+```
+$ python eisenscript_to_xml.py /path/to/file/totranslate.es
+
+```
+
+will produce a file `/path/to/file/totranslate.es.xml`
+
 Here's the original eisenscript and translated eisenxml for one of the creatures above.
 
 ![ss_medusa](./images/ss_medusa.png)

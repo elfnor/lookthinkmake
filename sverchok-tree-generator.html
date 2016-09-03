@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Symmetry Tile Painting in Blender - Look Think Make</title>	
+	<title>Sverchok Tree Generator - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="After working out how to use Blender to paint hyperbolic tilings I then thought of using Blender to look at planar symmetric tilings. A while back I wrote a GIMP plugin which takes a selection from an image (“cell”) and produces a new image according to one of the 17 ...">
+	<meta name="description" content="I tend toward making more abstract than realistic images with Blender. A while back I played with the Ivy Generator addon and so got interested in the underlying procedural algorithms for producing tree and plant structures. A lot of these techiques use L-systems and could maybe be implemented using the ...">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,25 +38,53 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Symmetry Tile Painting in Blender</h1>
+		<h1>Sverchok Tree Generator</h1>
 		
 <div class="metadata">
-  <time datetime="2015-11-21T22:00:00+13:00" pubdate>Sat 21 November 2015</time>
+  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></p></div>		
-		<p><img alt="p6m tiling" src="./images/blender_sym_tile_p6m.png" /></p>
-<p>After working out how to use Blender to paint <a href="http://www.elfnor.com/painting-in-the-hyperbolic-plane.html">hyperbolic tilings</a> I then thought of using Blender to look at planar symmetric tilings. </p>
-<p>A while back I wrote a <a href="http://www.elfnor.com/Symmetry Tile plug-in for GIMP.html">GIMP plugin</a> which takes a selection from an image (“cell”) and produces a new image according to one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane  crystallographic groups. Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image. The GIMP plugin dosen't update in real time. If you want to make changes you need to re-run the plugin to generate a new tiling. </p>
-<p>Using UV mapping its really easy to get Blender to draw tilings from any of the 17 plane symmetry groups that update as you paint.</p>
-<p>This blend file (<a href="/downloads/sym_tile.blend">sym_tile.blend</a>) has been set up with 17 plane grids each on a separate layer. Each layer implements one of the symmetry groups via a UV map.</p>
-<p>Here's a screencast that shows the live drawing in action and explains how I set up the UV maps.</p>
-<iframe width="660" height="420" src="http://www.youtube.com/embed/ILBDlT9oRNI?autoplay=0"> </iframe>
-
-<p><a href="/downloads/sym_tile.mp4">Download Link for HD version</a></p>
-<p>For more on plane symmetry groups see the <a href="http://elfnor.github.io/symmetrytilegallery">galleries</a> of images produced with the GIMP plugin, my post on <a href="http://www.elfnor.com/Symmetry Group Links and Notation.html">symmetry group notation</a> which also has links to other online resources and my post on <a href="http://www.elfnor.com/Using the Symmetry Tile plug-in for Quilt Design.html">quilt design</a>.</p>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></p></div>		
+		<p><img alt="tree" src="./images/sca-render_005.png" /></p>
+<p>I tend toward making more abstract than realistic images with Blender.  A <a href="http://www.elfnor.com/blender-ivy-gen-abstracts.html">while back</a> I played with the <em>Ivy Generator</em> addon and so got interested in the underlying procedural algorithms for producing tree and plant structures.  A lot of these techiques use L-systems and could maybe be implemented using the Sverchok <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Generative Art</a> node. Except the <em>Genertive Art</em> node has no provision (yet) for collision avoidance. This results in intersecting branches which is not always what I want.</p>
+<p>Somewhere in my research into procedural plants I came across the Space Colonization Algorithm which is a different approach to tree generation and decided to write this algoithm up as a Sverchok scripted node.</p>
+<p>The Space Colonization Algorithim (SC Algorithm) was originally described in <a href="http://www.academia.edu/download/46349919/colonization.egwnp2007.pdf">this paper</a> by Adam Runions, Brendan Lane and Przemyslaw Prusinkiewicz. </p>
+<p>There are good short descriptions of how the algorithm works on <a href="http://www.jgallant.com/procedurally-generating-trees-with-space-colonization-algorithm-in-xna/">jgallant's blog</a> or on <a href="Jose's Sketchbook">Jose's Sketchbook</a>.</p>
+<blockquote>
+<p>The idea for the <strong>Space Colonization Algorithm</strong> is brilliantly simple: instead of generating the nodes that build our structure by using a set of rules (e.g. a grammar), we begin by producing a set of <strong>attractor points</strong> by sampling a domain -the surface of an object in our case-. Then we provide one or several <strong>start locations</strong>, and we iteratively start adding nodes by looking for the set of <strong>nearest <em>active</em> attractors</strong>, and growing towards them. When a new node is added, it <strong>kills all the attractor points</strong> which fall within a specified range, preventing other branches to fill in the same space, and directing the growth forward.</p>
+</blockquote>
+<p>Varkenvarken's Space Tree(<a href="https://github.com/varkenvarken/spacetree">free github version</a>, <a href="https://cgcookiemarkets.com/all-products/space-tree-pro/">Space Tree Pro</a>) addon for Blender uses the SC Algorithm to produce really versatile and realistic trees. My version is extremely simple but the ability to directly control the cloud of attractor points works well for my abstract doodles.</p>
+<p>Here's a simple GIF showing the algorithm in action. The red points are the <em>End Vertices</em> or attractor points. There is one start point at (0, 0, 0).</p>
+<p><img alt="gif of sca" src="./images/sca_gif.gif" /></p>
+<p><img alt="node diagram for gif" src="./images/sca_gif_nodes.png" /></p>
+<p>I started off looking at varkenvarken's github code but ended up completly rewriting it to use numpy. I then spent far longer than was reasonable optimizing my code to get a real-time response to parameter changes. The heart of the algorithm involves a large number of <a href="https://en.wikipedia.org/wiki/Nearest_neighbor_search">nearest neighbor searches</a>. This is a classic problem with many solutions (kdtrees, octrees, locality sensitive hashing). I looked at some of these but the fastest solution I could code (before I got bored) was to naively calculate every distance using numpy outer product. The whole SC Algorithm would make a great class (or competition) challenge in code speed optimization as there seems to be so many complicated ways to make it slower.</p>
+<p>Install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon into <a href="https://www.blender.org/">Blender</a>. Download the Tree Generator code from <a href="https://github.com/elfnor/spacetree-sverchok">github</a>. Then load the python file <em>tree_generator.py</em> as a text blocks into a blend file. Add a <em>Scripted Node</em> to a Sverchok node tree. On the node select the <em>tree_generator.py</em> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.</p>
+<p>The node inputs:  </p>
+<ul>
+<li><strong>maximum branches</strong>: the number of iterations of the algorithm. The number of tree vertices will actually be greater than this  </li>
+<li><strong>branch length</strong>: distance beween tree vertices  </li>
+<li><strong>minimum distance</strong>:  when a new tree vertex is added, all the attractor points within this radius are "killed"  </li>
+<li><strong>maximum distance</strong>:  attractor points greater than this distance are ignored  </li>
+<li><strong>tip radius</strong>:  used to calculate branch radii, the radius of the tip at the end of the branches  </li>
+<li><strong>tropism</strong>:  vector that is added to each new branch segment, can be used to make branches droop under gravity. Length of vector needs to be smaller than branch length.  </li>
+<li><strong>End Vertices</strong>:  set of attractor points that the tree will grow toward  </li>
+<li><strong>Start Vertices</strong>:  start locations for tree to grow from  </li>
+</ul>
+<p>The node outputs:  </p>
+<ul>
+<li><strong>Vertices</strong>:  vertices (nodes) in tree structure  </li>
+<li><strong>Edges</strong>:  edges conectiong vertices in tree structure  </li>
+<li><strong>Branch radii</strong>:  radius of tree at each vertex.  This is calculated using a "pipe model". That is at a vertex where two branches join,  the area of the cross section is the sum of the areas of the two branches.  </li>
+<li><strong>Ends mask</strong>:  a boolean list that is true for vertices that are at the end of a branch. Can be used with a <em>List Mask</em> node.  </li>
+<li><strong>Leaf matrices</strong>:  a list of transform matrices that can be used to place an object at the end of each branch. The x-direction of the object will be aligned with the last segment in the branch.  </li>
+</ul>
+<p>Here is the Sverchok node diagram to produce the tree in the top image. A spherical cloud of atractor points is produced using the random vector and scalar nodes on the left.  The <em>Skin Mesher</em> node is used to give thickness to the trunk and branches. The leaves are produced by the <em>Mesh Instancer</em> node. This make copies of a fairly simple leaf object (see insert) that has a image texture with an alpha channel. The textures are from EugeneKiver on <a href="http://www.blendswap.com/blends/view/59269">blendswap</a>. The modifiers on the tree trunk need to be applied before the UV texturing will work.</p>
+<p><img alt="sca tree nodes" src="./images/sca_tree_nodes.png" /></p>
+<p>Here is another example (not so tree like) of what is possible with the Tree Generator.</p>
+<p><img alt="torus" src="./images/sca_test3b_004.png" /></p>
+<p>I like to code my Blender procedural experiments (<a href="http://www.elfnor.com/maze-any-mesh-in-blender.html">maze any mesh</a>, <a href="http://www.elfnor.com/blender-2d-maze-generator.html">2D mazes</a>, <a href="http://www.elfnor.com/blender-3d-maze-generator.html">3D mazes</a>, <a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html">hyperbolic plane tilings</a>, <a href="http://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html">more hyperbolic planes</a>, <a href="http://www.elfnor.com/sverchok-tree-generator.html">bloom spheres</a> ) as Sverchok nodes as I can concentrate on getting my code to produce simple lists (of vertices, edges, faces, and matrices) and Sverchok takes care of produing the actual mesh in Blender. The inputs and parameters provide a simple interface for the code without messing with the Blender API.</p>
 <hr />	
 
 	</article>
@@ -65,7 +93,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "symmetry-tile-painting-in-blender.html";
+	       var disqus_identifier = "sverchok-tree-generator.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';

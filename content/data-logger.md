@@ -1,7 +1,7 @@
 Title: PyBoard Datalogger
 Date: 2016-10-21 22:00
-Tags: make
-Category: make, python, micropython, 3dprint
+Tags: make,python, micropython, 3dprint
+Category: make
 Author: elfnor
 
 ![data-logger open](./images/data_logger_open.JPG)

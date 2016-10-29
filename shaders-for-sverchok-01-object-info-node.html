@@ -60,7 +60,7 @@
 <p><img alt="spiral in color cube" src="./images/spirals_in_color_cube_01.png" /></p>
 <p>Rather than scaling the geometry to lie within the (0,0,0) to (1,0,0) box we can scale the x, y, z coordinates within our node diagram.</p>
 <p>In the following scene the spheres (dupliverted onto a torus) have locations from -1.25 to +1.25 in x and y and from -0.25 to +0.25 in z. We can use the Vector mapping node to transform these location values to the interval (0, 1).</p>
-<div class="highlight"><pre>r = 0.4 * x + 0.5
+<div class="highlight"><pre><span></span>r = 0.4 * x + 0.5
 g = 0.4 * x + 0.5
 b = 2.0 * x + 0.5
 </pre></div>
@@ -71,7 +71,7 @@ b = 2.0 * x + 0.5
 <p><img alt="torus location to rgb" src="./images/torus_color.png" /></p>
 <p>We can also use the location as an index into a "Color Ramp" node. This requires reducing the three x, y, z coordinates to a single value between (0, 1). </p>
 <p>For instance we can shade our torus radially by calculating:</p>
-<div class="highlight"><pre>radius = sqrt(x^2 +y^2 + z^2) to give radius between (0.75 and 1.25)
+<div class="highlight"><pre><span></span>radius = sqrt(x^2 +y^2 + z^2) to give radius between (0.75 and 1.25)
 
 fac = 2*radius - 1.5 to give fac between (0, 1)
 </pre></div>
@@ -81,7 +81,7 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
 <p><img alt="torus radial color" src="./images/torus_radial.png" /></p>
 <h2>Object Pass Index</h2>
 <p>The second output of the "Object Info" node is labeled "Object Index". This is the same parameter that is called "Pass Index" on the Object Relations Panel. It can be set in the Objects Relations panel or in python using</p>
-<div class="highlight"><pre><span class="c">#set each of the selected objects to a separate pass index</span>
+<div class="highlight"><pre><span></span><span class="c1">#set each of the selected objects to a separate pass index</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span><span class="p">):</span>
      <span class="n">obj</span><span class="o">.</span><span class="n">pass_index</span> <span class="o">=</span> <span class="n">i</span>
@@ -146,6 +146,12 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
@@ -180,11 +186,6 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -266,32 +267,32 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

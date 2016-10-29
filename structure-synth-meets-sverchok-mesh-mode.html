@@ -53,7 +53,7 @@
 <p>In this post I'll cover a couple of features I've added to the basic node.</p>
 <h2>Mask output</h2>
 <p>An xml rule set for the lsystem can have different objects in different instances. In the xml below there are two versions of the "R1" rule. These will be called randomly. The two different rules have opposite signs for the "ry" transform. This will cause wobbles in the structure. When it wobbles one way "s1" is added to the list of shapes and when it wobbles the other way "s2" is added.</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;100&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rx 3.6&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/rule&gt;</span>
@@ -81,7 +81,7 @@
 <p>For example change <code>&lt;instance shape="s1"/&gt;</code> to <code>&lt;instance transfroms="ry 90" shape="s1"/&gt;</code></p>
 <p>In other cases the mesh can be connected in the wrong order.</p>
 <p>My first attempt at the Fern structure had this effect.</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl&quot;</span> <span class="nt">/&gt;</span>      
     <span class="nt">&lt;/rule&gt;</span>
@@ -103,7 +103,7 @@
 
 <p><img alt="fern wrong" src="./images/fern_wrong.blend.png" /></p>
 <p>The following xml produces the result I was after that's shown with the node diagram above.</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl1&quot;</span> <span class="nt">/&gt;</span>  
         <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl2&quot;</span> <span class="nt">/&gt;</span>      
@@ -155,6 +155,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
@@ -189,11 +195,6 @@
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -275,32 +276,32 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

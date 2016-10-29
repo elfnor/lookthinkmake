@@ -58,17 +58,17 @@
 <p>The carrier board takes one step for each pulse sent on the <code>STEP</code> pin. The pin needs to be set high for at least 2 µs. The <code>DIR</code> pin determines motor direction. <code>HIGH</code> goes one way, <code>LOW</code> the other. The board can also be used to do microstepping but I won't cover that here. </p>
 <p>The  potentiometer on the carrier board can be used to control the current through the motor. Clockwise increases the current and heat anti-clokwise does the opposite. See the <a href="http://reprap.org/wiki/Pololu_stepper_driver_board">reprap wiki</a> for details on adjusting this correctly. </p>
 <h3>Simple operation</h3>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Stepper motor control example using a A4988 carrier board </span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pyb</span>
 
-<span class="n">dir_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y1&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
-<span class="n">step_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y2&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
-<span class="n">enable_pin</span> <span class="o">=</span><span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
+<span class="n">dir_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y1&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
+<span class="n">step_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y2&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
+<span class="n">enable_pin</span> <span class="o">=</span><span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
 
-<span class="n">enable_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>  <span class="c"># high is stop</span>
-<span class="n">dir_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>     <span class="c"># high is CCW looking down on shaft</span>
+<span class="n">enable_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>  <span class="c1"># high is stop</span>
+<span class="n">dir_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>     <span class="c1"># high is CCW looking down on shaft</span>
 
 <span class="n">enable_pin</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
@@ -87,7 +87,7 @@
 
 <span class="n">enable_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
 
-<span class="c">#Brake motor draws full current</span>
+<span class="c1">#Brake motor draws full current</span>
 <span class="n">enable_pin</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
 <span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
 <span class="n">enable_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
@@ -97,7 +97,7 @@
 <p>This code is about as simple as it gets. The motor should take 1000 steps one way then a 1000 steps the other way at approximately 1000 steps/second. The speed is set by the length of the delay in `pyb.delay(1000). A larger delay means a slower speed. The enable pin is left low at the end so one can see the effect on braking the motor and the current draw from the motor power supply.</p>
 <p>This code could be re-factored into a function with parameters for number of steps, direction and speed but its use is limited to moving a single motor at a time. The code cannot easily do anything like check for end stops while the motor is running.</p>
 <h3>Timer operation</h3>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Stepper motor control example using a A4988 carrier board </span>
 <span class="sd">and a Timer</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -126,12 +126,12 @@
     <span class="n">pyb</span><span class="o">.</span><span class="n">udelay</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">step_pin</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
 
-<span class="n">dir_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y1&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
-<span class="n">step_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y2&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
-<span class="n">enable_pin</span> <span class="o">=</span><span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
+<span class="n">dir_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y1&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
+<span class="n">step_pin</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y2&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
+<span class="n">enable_pin</span> <span class="o">=</span><span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">)</span>
 
-<span class="n">enable_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>  <span class="c"># high is stop</span>
-<span class="n">dir_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>     <span class="c"># high is CCW looking down on shaft</span>
+<span class="n">enable_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>  <span class="c1"># high is stop</span>
+<span class="n">dir_pin</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>     <span class="c1"># high is CCW looking down on shaft</span>
 
 <span class="n">tim1</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -155,7 +155,7 @@
 <p>To run more then one motor you need a separate timer and callback function for each motor.</p>
 <h3>nemastepper.py library</h3>
 <p>The next step in refactoring this code to make a general library for stepper motors is to wrap the functionality up in a Class. Rather than do this myself I've used jeffmer's <code>nemastepper.py</code> module available as part of <a href="https://github.com/jeffmer/micropython-upybbot">this github repository</a>.</p>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Stepper motor control example using a A4988 carrier board </span>
 <span class="sd">and the nemastepper.py library available at </span>
 <span class="sd">https://github.com/jeffmer/micropython-upybbot</span>
@@ -181,7 +181,7 @@
             <span class="n">l</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
 
 <span class="kn">from</span> <span class="nn">nemastepper</span> <span class="kn">import</span> <span class="n">Stepper</span>
-<span class="n">motor1</span> <span class="o">=</span> <span class="n">Stepper</span><span class="p">(</span><span class="s">&#39;Y1&#39;</span><span class="p">,</span><span class="s">&#39;Y2&#39;</span><span class="p">,</span><span class="s">&#39;Y3&#39;</span><span class="p">)</span>
+<span class="n">motor1</span> <span class="o">=</span> <span class="n">Stepper</span><span class="p">(</span><span class="s1">&#39;Y1&#39;</span><span class="p">,</span><span class="s1">&#39;Y2&#39;</span><span class="p">,</span><span class="s1">&#39;Y3&#39;</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">pyb</span> <span class="kn">import</span> <span class="n">Timer</span>
 
@@ -189,7 +189,7 @@
     <span class="n">motor1</span><span class="o">.</span><span class="n">do_step</span><span class="p">()</span>
 
 <span class="n">tim</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
-<span class="n">tim</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">step_cb</span><span class="p">)</span> <span class="c">#start interrupt routine</span>
+<span class="n">tim</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">step_cb</span><span class="p">)</span> <span class="c1">#start interrupt routine</span>
 
 <span class="n">motor1</span><span class="o">.</span><span class="n">MAX_ACCEL</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">motor1</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
@@ -234,6 +234,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
@@ -268,11 +274,6 @@
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -354,32 +355,32 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

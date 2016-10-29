@@ -77,7 +77,7 @@ Also a useful identity for deriving these formula is:
 <p>
 <img alt="robs tris 2" src="./images/penrose_robs_tris2.png" /></p>
 <p>Its easy to produce an equilateral triangle in Sverchok using the <em>Circle</em> node with <em>N Vertices</em> set to 3. This give a triangle centered at the origin and pointing to the right, shown as a blue outline above. This following <em>eisenxml</em> scales the equilateral triangle in the x and y directions to give the thin and fat Robinson triangles. It also moves them so one vertex of each triangle is at the origin.</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;constants</span> <span class="na">phi =</span> <span class="s">&quot;((1+5**0.5)/2)&quot;</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;constants</span> <span class="na">thinx =</span> <span class="s">&quot;({phi}+0.75)**0.5&quot;</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;constants</span> <span class="na">fatx =</span> <span class="s">&quot;0.5*(3-{phi})**0.5&quot;</span> <span class="nt">/&gt;</span>
@@ -101,7 +101,7 @@ Also a useful identity for deriving these formula is:
 <p>To make the tiling correct we need to mirror (or flip over) two of the smaller copies when we do the substitution. This is achieved by the <code>rx="180"</code> transformation.</p>
 <p>The triangles substituted into the thin triangle are scaled by <span class="math">\(s1 = 1 / \phi\)</span> smaller than the original triangles.</p>
 <p>The triangles substituted into the fat triangles are scaled by <span class="math">\(s2 = 1/ \phi^{2}\)</span>.</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;constants</span> <span class="na">phi =</span> <span class="s">&quot;((1+5**0.5)/2)&quot;</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;constants</span> <span class="na">thinx =</span> <span class="s">&quot;({phi}+0.75)**0.5&quot;</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;constants</span> <span class="na">fatx =</span> <span class="s">&quot;0.5*(3-{phi})**0.5&quot;</span> <span class="nt">/&gt;</span>
@@ -137,7 +137,7 @@ Also a useful identity for deriving these formula is:
 
 
 <p>To produce a full plane tiling from this we change the entry rule to set 10 thin triangles around the origin, each second triangle also needs to be flipped:</p>
-<div class="highlight"><pre>....
+<div class="highlight"><pre><span></span>....
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;5&quot;</span> <span class="na">rz=</span><span class="s">&quot;72&quot;</span> <span class="na">rule=</span><span class="s">&quot;thin_pair&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/rule&gt;</span>
@@ -161,7 +161,7 @@ Also a useful identity for deriving these formula is:
 <p>The Penrose P2 tiling consists of kite and dart shapes. These kite and dart shapes can also be subdivided into Robinson triangles.</p>
 <p><img alt="p2 subdivide" src="./images/penrose_p2_robs_tris2.png" /></p>
 <p>This time the subdivide/substitution step involves dividing the thin triangle into two smaller thin triangles and one smaller fat triangle. The fat triangle is divided into one smaller thin and one smaller fat triangle. Notice again that the triangle sides are split in the golden ratio.</p>
-<div class="highlight"><pre>...
+<div class="highlight"><pre><span></span>...
 <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;thin_tri_sub&quot;</span> <span class="na">max_depth=</span><span class="s">&quot;{md}&quot;</span> <span class="na">successor=</span><span class="s">&quot;thin_tri&quot;</span><span class="nt">&gt;</span>       
     <span class="nt">&lt;call</span> <span class="na">tx=</span><span class="s">&quot;-1*{thinx}&quot;</span> <span class="na">ty=</span><span class="s">&quot;0.5&quot;</span> <span class="na">rz=</span><span class="s">&quot;108&quot;</span> <span class="na">sa=</span><span class="s">&quot;{s1}&quot;</span> <span class="na">rule=</span><span class="s">&quot;thin_tri_sub&quot;</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;call</span> <span class="na">tx=</span><span class="s">&quot;-1*{thinx}&quot;</span> <span class="na">ty=</span><span class="s">&quot;0.5&quot;</span> <span class="na">rx=</span><span class="s">&quot;180&quot;</span> <span class="na">rz=</span><span class="s">&quot;-144&quot;</span> <span class="na">sa=</span><span class="s">&quot;{s1}&quot;</span> <span class="na">rule=</span><span class="s">&quot;thin_tri_sub&quot;</span> <span class="nt">/&gt;</span>
@@ -188,7 +188,7 @@ Also a useful identity for deriving these formula is:
 <p>showed that the P1 tiling could easily be created from the P3 tiling.</p>
 <p><img alt="P3 plus pentagons" src="./images/penrose_p1p3.png" /></p>
 <p>Each fat triangle has three pentagons, one centered at a base corner, one centered on a short side and one on a long side.</p>
-<div class="highlight"><pre>...
+<div class="highlight"><pre><span></span>...
 <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;fat_tri&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;instance</span> <span class="na">sx=</span><span class="s">&quot;2*{fatx}/3&quot;</span> <span class="na">sy=</span><span class="s">&quot;({phi}/(3**0.5))&quot;</span> <span class="na">tx=</span><span class="s">&quot;{fatx}/3&quot;</span> <span class="na">ty=</span><span class="s">&quot;{phi}/2&quot;</span> <span class="na">shape=</span><span class="s">&quot;tri&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;instance</span> <span class="na">ty=</span><span class="s">&quot;{phi}-1&quot;</span> <span class="na">rz=</span><span class="s">&quot;18&quot;</span> <span class="na">sa=</span><span class="s">&quot;{s2}&quot;</span> <span class="na">shape=</span><span class="s">&quot;penta&quot;</span> <span class="nt">/&gt;</span>
@@ -285,6 +285,12 @@ Also a useful identity for deriving these formula is:
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
@@ -319,11 +325,6 @@ Also a useful identity for deriving these formula is:
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -405,32 +406,32 @@ Also a useful identity for deriving these formula is:
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

@@ -53,24 +53,24 @@
 <p>Any add-on tool you write to add new objects or manipulate objects will typically be a blender <code>Operator</code> class. This will give you a tool that can be accessed from the existing menus or via a keyboard shortcut. This class gives heaps of functionality such as an easily constructed options panel for the user to interact with and automatically see their changes update.  </p>
 <h2>Simple drop down</h2>
 <p>The following add-on has a simple drop down menu. </p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">bpy</span>    
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>    
 
 <span class="k">class</span> <span class="nc">DropDownExample</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">)</span> <span class="p">:</span> 
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s">&quot;mesh.dropdownexample&quot;</span>  
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s">&quot;Drop Downs&quot;</span>  
-    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s">&quot;UNDO&quot;</span><span class="p">}</span> 
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;mesh.dropdownexample&quot;</span>  
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Drop Downs&quot;</span>  
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span> 
 
-    <span class="n">fixed_items</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span> <span class="p">((</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;The zeroth item&#39;</span><span class="p">),</span>    
-                                                 <span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;The first item&#39;</span><span class="p">),</span>    
-                                                 <span class="p">(</span><span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="s">&#39;The second item&#39;</span><span class="p">),</span>    
-                                                 <span class="p">(</span><span class="s">&#39;3&#39;</span><span class="p">,</span> <span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="s">&#39;The third item&#39;</span><span class="p">)),</span>
-                                                 <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;fixed list&quot;</span><span class="p">)</span>      
+    <span class="n">fixed_items</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span> <span class="p">((</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;The zeroth item&#39;</span><span class="p">),</span>    
+                                                 <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;The first item&#39;</span><span class="p">),</span>    
+                                                 <span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;The second item&#39;</span><span class="p">),</span>    
+                                                 <span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;The third item&#39;</span><span class="p">)),</span>
+                                                 <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;fixed list&quot;</span><span class="p">)</span>      
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;fixed item&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed_items</span><span class="p">)</span>  
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span> 
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;fixed item&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed_items</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span> 
 
 <span class="k">def</span> <span class="nf">add_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s">&quot;PLUGIN&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
@@ -80,7 +80,7 @@
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>   
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span>
 </pre></div>
 
@@ -92,29 +92,29 @@
 <h2>Selection buttons</h2>
 <p>You can have more control over how the <code>EnumProperty</code> is displayed to the user by adding a <code>draw</code> method to the class. </p>
 <p>The <code>layout.prop(self, "radio", expand=True)</code> changes the drop down to what are sometimes called "radio buttons".</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">bpy</span>    
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>    
 
 <span class="k">class</span> <span class="nc">DropDownExample</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">)</span> <span class="p">:</span> 
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s">&quot;mesh.dropdownexample&quot;</span>  
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s">&quot;Drop Downs&quot;</span>  
-    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s">&quot;UNDO&quot;</span><span class="p">}</span> 
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;mesh.dropdownexample&quot;</span>  
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Drop Downs&quot;</span>  
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span> 
 
-    <span class="n">radio</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span> <span class="p">((</span><span class="s">&#39;SW&#39;</span><span class="p">,</span> <span class="s">&#39;Shortwave&#39;</span><span class="p">,</span> <span class="s">&#39;The zeroth item&#39;</span><span class="p">),</span>      
-                                           <span class="p">(</span><span class="s">&#39;AM&#39;</span><span class="p">,</span> <span class="s">&#39;AM&#39;</span><span class="p">,</span> <span class="s">&#39;The first item&#39;</span><span class="p">),</span>      
-                                           <span class="p">(</span><span class="s">&#39;FM&#39;</span><span class="p">,</span> <span class="s">&#39;FM&#39;</span><span class="p">,</span> <span class="s">&#39;The second item&#39;</span><span class="p">),</span>     
-                                           <span class="p">(</span><span class="s">&#39;NET&#39;</span><span class="p">,</span> <span class="s">&#39;Internet&#39;</span><span class="p">,</span> <span class="s">&#39;The third item&#39;</span><span class="p">)),</span>  
-                                   <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;radio buttons&quot;</span><span class="p">)</span> 
+    <span class="n">radio</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span> <span class="p">((</span><span class="s1">&#39;SW&#39;</span><span class="p">,</span> <span class="s1">&#39;Shortwave&#39;</span><span class="p">,</span> <span class="s1">&#39;The zeroth item&#39;</span><span class="p">),</span>      
+                                           <span class="p">(</span><span class="s1">&#39;AM&#39;</span><span class="p">,</span> <span class="s1">&#39;AM&#39;</span><span class="p">,</span> <span class="s1">&#39;The first item&#39;</span><span class="p">),</span>      
+                                           <span class="p">(</span><span class="s1">&#39;FM&#39;</span><span class="p">,</span> <span class="s1">&#39;FM&#39;</span><span class="p">,</span> <span class="s1">&#39;The second item&#39;</span><span class="p">),</span>     
+                                           <span class="p">(</span><span class="s1">&#39;NET&#39;</span><span class="p">,</span> <span class="s1">&#39;Internet&#39;</span><span class="p">,</span> <span class="s1">&#39;The third item&#39;</span><span class="p">)),</span>  
+                                   <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;radio buttons&quot;</span><span class="p">)</span> 
 
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>  
-        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;radio&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    
+        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;radio&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;fixed item&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">)</span>  
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span> 
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;fixed item&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radio</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span> 
 
 <span class="k">def</span> <span class="nf">add_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s">&quot;PLUGIN&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
@@ -125,7 +125,7 @@
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span>
 </pre></div>
 
@@ -136,30 +136,30 @@
 <p>The text can be replaced with icons if desired. In this case each item tuple now has 5 entries.<br />
 <code>(value, label, description, icon name, unique number)</code><br />
 The icons avaliable and their names can be found using the <code>Development: Icons</code> add-on. This adds a panel to the properties panel (<code>CTRL-T</code>) of the Text Editor view. Hovering the mouse over an icon gives it name and clicking and icon copies its name to the clipboard. </p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">bpy</span>    
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>    
 
 <span class="k">class</span> <span class="nc">DropDownExample</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">)</span> <span class="p">:</span> 
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s">&quot;mesh.dropdownexample&quot;</span>  
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s">&quot;Drop Downs&quot;</span>  
-    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s">&quot;UNDO&quot;</span><span class="p">}</span> 
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;mesh.dropdownexample&quot;</span>  
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Drop Downs&quot;</span>  
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span> 
 
 
-    <span class="n">icon</span> <span class="o">=</span>  <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span> <span class="p">((</span><span class="s">&#39;V&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;use vertices&#39;</span><span class="p">,</span> <span class="s">&#39;VERTEXSEL&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>    
-                                           <span class="p">(</span><span class="s">&#39;E&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;use edges&#39;</span><span class="p">,</span> <span class="s">&#39;EDGESEL&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>    
-                                           <span class="p">(</span><span class="s">&#39;F&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;use faces&#39;</span><span class="p">,</span> <span class="s">&#39;FACESEL&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">,</span>  
-                                   <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Copy To:&quot;</span><span class="p">,</span>  
-                                   <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;place to copy to&quot;</span><span class="p">)</span>  
+    <span class="n">icon</span> <span class="o">=</span>  <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span> <span class="p">((</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;use vertices&#39;</span><span class="p">,</span> <span class="s1">&#39;VERTEXSEL&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>    
+                                           <span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;use edges&#39;</span><span class="p">,</span> <span class="s1">&#39;EDGESEL&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>    
+                                           <span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;use faces&#39;</span><span class="p">,</span> <span class="s1">&#39;FACESEL&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="p">,</span>  
+                                   <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Copy To:&quot;</span><span class="p">,</span>  
+                                   <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;place to copy to&quot;</span><span class="p">)</span>  
 
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>  
-        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;icon&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    
+        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;fixed item&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">icon</span><span class="p">)</span>  
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span> 
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;fixed item&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">icon</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span> 
 
 <span class="k">def</span> <span class="nf">add_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s">&quot;PLUGIN&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
@@ -170,7 +170,7 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span>
 </pre></div>
 
@@ -178,27 +178,27 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 <p><img alt="drop down 03" src="images/Screenshot-drop_down_03.png" /></p>
 <h2>Dynamic Lists</h2>
 <p>A callback function can be used to generate the items for the list dynamically. This is useful, for example, for making a list of the objects in the scene for the user to select from. The callback needs to go at the top of the class above the <code>bpy.props.EnumProperty</code> that uses it.</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">bpy</span>  
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>  
 
 <span class="k">class</span> <span class="nc">DropDownExample</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s">&quot;mesh.dropdownexample&quot;</span>  
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s">&quot;Drop Downs&quot;</span>  
-    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s">&quot;UNDO&quot;</span><span class="p">}</span>  
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;mesh.dropdownexample&quot;</span>  
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Drop Downs&quot;</span>  
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span>  
 
     <span class="k">def</span> <span class="nf">item_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>  
         <span class="k">return</span> <span class="p">[(</span><span class="n">ob</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ob</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ob</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="p">]</span>  
 
     <span class="n">objname</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">item_cb</span><span class="p">,</span>  
-                                         <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Object&quot;</span><span class="p">,</span>  
-                                         <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Choose object here&quot;</span><span class="p">)</span>                               
+                                         <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Object&quot;</span><span class="p">,</span>  
+                                         <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Choose object here&quot;</span><span class="p">)</span>                               
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;object name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objname</span><span class="p">)</span>  
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;object name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objname</span><span class="p">)</span>  
 
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>  
 
 <span class="k">def</span> <span class="nf">add_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s">&quot;PLUGIN&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
@@ -209,7 +209,7 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_PT_tools_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>   
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span> 
 </pre></div>
 
@@ -218,13 +218,13 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 <p>The callback should return a list of tuples. The above example will update the list of objects every time the user changes the selection. This may not be what you want if the add-on adds lots of new objects to a scene. For the Copy2 add-on I wanted the list to only contain objects that were in the scene when the user started the add-on.</p>
 <p>The <code>invoke</code> method of the class is only called when the add-on is started. In the following example this is the only place the object list is updated. I've added some code that duplicates the object selected in the drop down 10 times. The new objects are not added to the drop down list until the add-on is rerun from the menu. Note also that as you change which object is selected in the drop down any previously duplicated objects are removed from the scene. This is part of the default undo behaviour of an Operator.</p>
 <p>Of course if you where to make this into a real add-on, it would be best to add the number of objects and the vector direction as user selections. These would be a <code>bpy.props.IntProperty</code> and a <code>bpy.props.FloatVectorProperty</code>.</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">bpy</span>  
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>  
 <span class="kn">from</span> <span class="nn">mathutils</span> <span class="kn">import</span> <span class="n">Vector</span>
 
 <span class="k">class</span> <span class="nc">DropDownExample</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s">&quot;mesh.dropdownexample&quot;</span>  
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s">&quot;Drop Downs&quot;</span>  
-    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s">&quot;UNDO&quot;</span><span class="p">}</span>  
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;mesh.dropdownexample&quot;</span>  
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Drop Downs&quot;</span>  
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span>  
 
     <span class="n">obj_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">]</span>  
 
@@ -232,24 +232,24 @@ The icons avaliable and their names can be found using the <code>Development: Ic
         <span class="k">return</span> <span class="n">DropDownExample</span><span class="o">.</span><span class="n">obj_list</span> 
 
     <span class="n">objname</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">obj_list_cb</span><span class="p">,</span> 
-                                         <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Object&quot;</span><span class="p">,</span>  
-                                         <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;Choose object here&quot;</span><span class="p">)</span>   
+                                         <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Object&quot;</span><span class="p">,</span>  
+                                         <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Choose object here&quot;</span><span class="p">)</span>   
 
     <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>  
         <span class="n">DropDownExample</span><span class="o">.</span><span class="n">obj_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">]</span>  
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span>                             
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>                             
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;object name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objname</span><span class="p">)</span>  
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;object name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objname</span><span class="p">)</span>  
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
             <span class="n">copy_obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">objname</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">copy_obj</span><span class="p">)</span>
             <span class="n">copy_obj</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">copy_obj</span><span class="o">.</span><span class="n">location</span> <span class="o">+</span> <span class="n">Vector</span><span class="p">((</span><span class="mf">1.0</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>  
 
 <span class="k">def</span> <span class="nf">add_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s">&quot;PLUGIN&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
@@ -260,7 +260,7 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_PT_tools_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>   
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span> 
 </pre></div>
 
@@ -268,48 +268,48 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 <p>If you add the duplication code to the 1st example in this section, the list will update with all the new objects. Not only does this clutter up the list, strange things happen to which item blender thinks is selected.</p>
 <h2>Selections changing other list items.</h2>
 <p>A callback function for the items list can be used to make one list update its items in response to a user selection in another list.  I needed this in the Copy2 add-on where the user needs to select a primary and secondary axis. The primary and secondary axes can't be the same. I could of offered the user a single choice of one of the six pairs but I decided to make the secondary axis list update in response to the primary axis choice.</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">bpy</span>    
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>    
 
 <span class="k">class</span> <span class="nc">DropDownExample</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">)</span> <span class="p">:</span> 
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s">&quot;mesh.dropdownexample&quot;</span>  
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s">&quot;Drop Downs&quot;</span>  
-    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s">&quot;UNDO&quot;</span><span class="p">}</span> 
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;mesh.dropdownexample&quot;</span>  
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Drop Downs&quot;</span>  
+    <span class="n">bl_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;REGISTER&quot;</span><span class="p">,</span> <span class="s2">&quot;UNDO&quot;</span><span class="p">}</span> 
 
     <span class="k">def</span> <span class="nf">sec_axes_list_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>  
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span> <span class="o">==</span> <span class="s">&#39;X&#39;</span><span class="p">:</span>  
-            <span class="n">sec_list</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;Y&#39;</span><span class="p">,</span><span class="s">&#39;Y&#39;</span><span class="p">,</span><span class="s">&#39;Y&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Z&#39;</span><span class="p">,</span> <span class="s">&#39;Z&#39;</span><span class="p">,</span> <span class="s">&#39;Z&#39;</span><span class="p">)]</span>  
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>  
+            <span class="n">sec_list</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">)]</span>  
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span> <span class="o">==</span> <span class="s">&#39;Y&#39;</span><span class="p">:</span>  
-            <span class="n">sec_list</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="s">&#39;X&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Z&#39;</span><span class="p">,</span> <span class="s">&#39;Z&#39;</span><span class="p">,</span> <span class="s">&#39;Z&#39;</span><span class="p">)]</span>  
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>  
+            <span class="n">sec_list</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">)]</span>  
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span> <span class="o">==</span> <span class="s">&#39;Z&#39;</span><span class="p">:</span>  
-            <span class="n">sec_list</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="s">&#39;X&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Y&#39;</span><span class="p">,</span> <span class="s">&#39;Y&#39;</span><span class="p">,</span> <span class="s">&#39;Y&#39;</span><span class="p">)]</span>       
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>  
+            <span class="n">sec_list</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)]</span>       
         <span class="k">return</span> <span class="n">sec_list</span>
 
-    <span class="n">priaxes</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">((</span><span class="s">&#39;X&#39;</span><span class="p">,</span> <span class="s">&#39;X&#39;</span><span class="p">,</span> <span class="s">&#39;along X&#39;</span><span class="p">),</span>  
-                                             <span class="p">(</span><span class="s">&#39;Y&#39;</span><span class="p">,</span> <span class="s">&#39;Y&#39;</span><span class="p">,</span> <span class="s">&#39;along Y&#39;</span><span class="p">),</span>  
-                                             <span class="p">(</span><span class="s">&#39;Z&#39;</span><span class="p">,</span> <span class="s">&#39;Z&#39;</span><span class="p">,</span> <span class="s">&#39;along Z&#39;</span><span class="p">)),</span>  
+    <span class="n">priaxes</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;along X&#39;</span><span class="p">),</span>  
+                                             <span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;along Y&#39;</span><span class="p">),</span>  
+                                             <span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;along Z&#39;</span><span class="p">)),</span>  
                                              <span class="p">)</span>  
 
-    <span class="n">secaxes</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">sec_axes_list_cb</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Secondary Axis&#39;</span><span class="p">)</span>  
+    <span class="n">secaxes</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">sec_axes_list_cb</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Secondary Axis&#39;</span><span class="p">)</span>  
 
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>  
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>  
 
-        <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s">&quot;primary axis:&quot;</span><span class="p">)</span>   
-        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;priaxes&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-        <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s">&quot;secondary axis:&quot;</span><span class="p">)</span>   
-        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;secaxes&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+        <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;primary axis:&quot;</span><span class="p">)</span>   
+        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;priaxes&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+        <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;secondary axis:&quot;</span><span class="p">)</span>   
+        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;secaxes&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
 
         <span class="k">return</span>                   
 
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;axes&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secaxes</span><span class="p">)</span>  
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;FINISHED&quot;</span><span class="p">}</span> 
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;axes&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">priaxes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secaxes</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span> 
 
 <span class="k">def</span> <span class="nf">add_to_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">:</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s">&quot;PLUGIN&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
     <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
@@ -347,6 +347,12 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
@@ -381,11 +387,6 @@ The icons avaliable and their names can be found using the <code>Development: Ic
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -467,32 +468,32 @@ The icons avaliable and their names can be found using the <code>Development: Ic
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

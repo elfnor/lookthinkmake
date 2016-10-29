@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>PyBoard Datalogger - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="I've been reading Sandor Katz's book The Art of Fermentation and I'm making back-slopped room temperature yogurt, sauerkraut, kim chi, preserved lemons and best of all fermented garlic and chili sauce. Unfortunately the flies got the first salami experiment. Being a data measurement nerd I wanted to ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,12 +36,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="http://www.elfnor.com/pyboard-datalogger.html">PyBoard Datalogger</a></h1>
-        <p><img alt="data-logger open" src="./images/data_logger_open.JPG" /></p>
+	<article class="full">
+			
+		<h1>PyBoard Datalogger</h1>
+		
+<div class="metadata">
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/make.html">make</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a></p></div>		
+		<p><img alt="data-logger open" src="./images/data_logger_open.JPG" /></p>
 <p>I've been reading Sandor Katz's book <a href="http://www.wildfermentation.com/the-art-of-fermentation/">The Art of Fermentation</a> and I'm making back-slopped room temperature yogurt, sauerkraut, kim chi, preserved lemons and best of all fermented garlic and chili sauce. Unfortunately the flies got the first salami experiment. </p>
 <p>Being a data measurement nerd I wanted to check the the temperature and humidity were about right for each of these ferments - especially the salami. Leaving raw pork meat in the basement for a month and then expecting to eat it seems scary. All the books/internet sites state that getting the temperature range (7 deg C to 15 deg C) and humidity range (75 %RH to 80 %RH) correct is crucial to making salami safely. </p>
 <p>Here's my plans for a battery powered data-logger based on a <a href="https://store.micropython.org/#/store">pyboard</a> and a DHT11 sensor. The battery usage (3 x AA Ni-MH) is low enough that the logger can be left in the hot water cupboard or the basement or on the bench along with the latest ferment experiment for at least a month before the batteries need recharging.</p>
@@ -127,163 +136,22 @@
 
 <p>Alternatively the pyboard can be used as a SD reader. Turn off the battery pack and connect it via a USB cable to a PC. The board will automaticallically run <em>main.py</em> again and start data logging. To stop this hold down the <em>USR</em> button and press then release the  <em>RST</em> button on the board. The orange and green LEDs will cyle through a pattern. Release the <em>USR</em> button when only the orange LED is lit. This will stop <em>main.py</em> being run and the PC operating system should mount the SD card as an external drive.  The data file <em>dht.csv</em> can then be copied for analysis.</p>
 <p>This box and code could easily be re-purposed to read other sensors.</p>
-<hr />
-	<a href="http://www.elfnor.com/pyboard-datalogger.html">Permalink, </a>
-	<a href="http://www.elfnor.com/pyboard-datalogger.html#disqus_thread">Comments</a>
-      </article>
-
-      <hr />
-
-        <div>
-          <h3>Recent posts</h3>
-          <ol class="archive">
-    
-
-
-      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/structure-synth-eisenscript-to-xml-translator.html" rel="bookmark" title="Permalink to Structure Synth eisenscript to xml translator">Structure Synth eisenscript to xml translator</a>
-  <time datetime="2016-05-29T22:00:00+12:00" pubdate>Sun 29 May 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/first-milky-way-photo.html" rel="bookmark" title="Permalink to First Milky Way photo">First Milky Way photo</a>
-  <time datetime="2016-05-25T22:00:00+12:00" pubdate>Wed 25 May 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/photo.html">photo  </a><a href="http://www.elfnor.com/tag/astro.html">astro  </a></p></a>      </li>
-
-
-      <li>
-<a href="http://www.elfnor.com/generative-art-penrose-tilings.html" rel="bookmark" title="Permalink to Generative Art - Penrose Tilings">Generative Art - Penrose Tilings</a>
-  <time datetime="2016-04-23T22:00:00+12:00" pubdate>Sat 23 April 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
+<hr />	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "pyboard-datalogger.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -398,7 +266,7 @@
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/make.html">make</a></li>
 	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        

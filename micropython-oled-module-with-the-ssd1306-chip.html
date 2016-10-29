@@ -53,7 +53,7 @@
 <p>There are some ssd1306 libraries available for micropython but I'm going to start with a basic example using only the micropython SPI class. I find writing a very simple example like this is a good way to understand the hardware and how to get the micro controller to work with it. Once I've got the simple example going I know my hardware and wiring are correct and I'm happy to use someone else's library to write more complicated stuff.</p>
 <p>The wiring for the OLED and pyboard are shown in the top diagram. The pyboard has two SPI ports, pins X5 to X8 on one side of the board and Y5 to Y8 on the other. The ssd1306 library defaults to the Y pins, but this can be changed in the module. The <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">SPI bus</a> works faster than the I2C bus and has a separate line for master to slave (MOSI) communication than for slave to master (MISO). The ssd1306 on the OLED display (slave)  doesn't send any data back to the pyboard (master) so we don't need to connect this pin. The slave select (SS) or chip select (CS) line is not used by the micropython SPI class and can also be ignored. </p>
 <h2>Basic Example code</h2>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Simple test of a 128 x 64 pixel OLED display with an ssd1306 driver chip on a SPI bus</span>
 
 <span class="sd">|OLED |PYB |</span>
@@ -69,18 +69,18 @@
 
 <span class="kn">import</span> <span class="nn">pyb</span>
 
-<span class="c"># from adafruit arduino</span>
+<span class="c1"># from adafruit arduino</span>
 <span class="n">init_cmds</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xAE</span><span class="p">,</span> <span class="mh">0xD5</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xA8</span><span class="p">,</span> <span class="mh">0x3F</span><span class="p">,</span> <span class="mh">0xD3</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0x8D</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xA1</span><span class="p">,</span> <span class="mh">0xC8</span><span class="p">,</span>
              <span class="mh">0xDA</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x81</span><span class="p">,</span> <span class="mh">0xCF</span><span class="p">,</span> <span class="mh">0xd9</span><span class="p">,</span> <span class="mh">0xF1</span><span class="p">,</span> <span class="mh">0xDB</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="mh">0xA4</span><span class="p">,</span> <span class="mh">0xA6</span><span class="p">,</span> <span class="mh">0xAF</span><span class="p">]</span>
 
 <span class="n">display_cmds</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x21</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
 
-<span class="c">## set up SPI bus              </span>
+<span class="c1">## set up SPI bus              </span>
 <span class="n">rate</span> <span class="o">=</span> <span class="mi">8000000</span>
 
 <span class="n">spi</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">SPI</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">SPI</span><span class="o">.</span><span class="n">MASTER</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="n">rate</span><span class="p">,</span> <span class="n">polarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">dc</span>  <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y4&#39;</span><span class="p">,</span>  <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">PULL_DOWN</span><span class="p">)</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">PULL_DOWN</span><span class="p">)</span>
+<span class="n">dc</span>  <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y4&#39;</span><span class="p">,</span>  <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">PULL_DOWN</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="s1">&#39;Y3&#39;</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">OUT_PP</span><span class="p">,</span> <span class="n">pyb</span><span class="o">.</span><span class="n">Pin</span><span class="o">.</span><span class="n">PULL_DOWN</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -89,33 +89,33 @@
     <span class="n">dc</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
     <span class="n">spi</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>    
 
-<span class="c">## power on</span>
+<span class="c1">## power on</span>
 <span class="n">res</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
 <span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">res</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
 <span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">res</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
 
-<span class="c">## init display</span>
+<span class="c1">## init display</span>
 <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">init_cmds</span><span class="p">:</span>
     <span class="n">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
 
-<span class="c">## clear display</span>
+<span class="c1">## clear display</span>
 <span class="nb">buffer</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">display_cmds</span><span class="p">:</span>
     <span class="n">write_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
 <span class="n">dc</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
 <span class="n">spi</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
 
-<span class="c">## line grid</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c"># 8 horizontal lines</span>
+<span class="c1">## line grid</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 8 horizontal lines</span>
 
-<span class="c"># set every  16th byte to 255</span>
-<span class="c"># should give 8 vertical lines</span>
+<span class="c1"># set every  16th byte to 255</span>
+<span class="c1"># should give 8 vertical lines</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>   
     <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
 
-<span class="c">#color in the 1st block to see where it is</span>
+<span class="c1">#color in the 1st block to see where it is</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">16</span><span class="p">):</span>   
     <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
 
@@ -135,18 +135,18 @@
 <h1>ssd1306 library example</h1>
 <p>There are several versions and forks of a ssd1306 library for micropython on github. They all seem to be based on one originally written by <a href="https://github.com/nvbn/micropython-drivers">Kenneth Henderick</a>. I have used the version from the <a href="https://github.com/jeffmer/micropython-upybbot">upybot project</a> which adds a basic text display capability. The screen and pixel setting commands are written so that the origin is in the bottom left.</p>
 <p>I also found  a graphics library for drawing lines, triangles, rectangles and circles on this <a href="http://forum.micropython.org/viewtopic.php?f=5&amp;t=195&amp;p=873&amp;hilit=lcd_gfx#p873">forum post</a> by polygontwist. </p>
-<div class="highlight"><pre><span class="c"># hello world on SSD1306</span>
-<span class="c"># uses version of SSD1306.py and font.py</span>
-<span class="c"># https://github.com/jeffmer/micropython-upybbot/blob/master/ssd1306.py</span>
-<span class="c"># graphics library lcd_gfx.py from </span>
-<span class="c"># http://forum.micropython.org/viewtopic.php?f=5&amp;t=195&amp;p=873&amp;hilit=lcd_gfx#p873</span>
+<div class="highlight"><pre><span></span><span class="c1"># hello world on SSD1306</span>
+<span class="c1"># uses version of SSD1306.py and font.py</span>
+<span class="c1"># https://github.com/jeffmer/micropython-upybbot/blob/master/ssd1306.py</span>
+<span class="c1"># graphics library lcd_gfx.py from </span>
+<span class="c1"># http://forum.micropython.org/viewtopic.php?f=5&amp;t=195&amp;p=873&amp;hilit=lcd_gfx#p873</span>
 
 <span class="kn">import</span> <span class="nn">pyb</span>
 <span class="kn">from</span> <span class="nn">ssd1306</span>  <span class="kn">import</span> <span class="n">SSD1306</span>
 <span class="kn">import</span> <span class="nn">lcd_gfx</span>
 
-<span class="n">oled</span> <span class="o">=</span> <span class="n">SSD1306</span><span class="p">(</span><span class="n">pinout</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;dc&#39;</span><span class="p">:</span> <span class="s">&#39;X4&#39;</span><span class="p">,</span>
-                       <span class="s">&#39;res&#39;</span><span class="p">:</span> <span class="s">&#39;X3&#39;</span><span class="p">},</span>
+<span class="n">oled</span> <span class="o">=</span> <span class="n">SSD1306</span><span class="p">(</span><span class="n">pinout</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="s1">&#39;X4&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;X3&#39;</span><span class="p">},</span>
                <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
                <span class="n">external_vcc</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
@@ -155,12 +155,12 @@
 <span class="n">oled</span><span class="o">.</span><span class="n">init_display</span><span class="p">()</span>
 
 <span class="n">oled</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>  
-<span class="c">## text</span>
-<span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s">&#39;Hello World!&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
+<span class="c1">## text</span>
+<span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
 <span class="n">oled</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 <span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
 
-<span class="c">## draw straight lines</span>
+<span class="c1">## draw straight lines</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">]:</span>
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span>
         <span class="n">oled</span><span class="o">.</span><span class="n">pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
@@ -171,7 +171,7 @@
 <span class="n">oled</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 <span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>             
 
-<span class="c">## whole buffer        </span>
+<span class="c1">## whole buffer        </span>
 <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1024</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>   
     <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
@@ -184,7 +184,7 @@
 <span class="n">pyb</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>  
 <span class="n">oled</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span> 
 
-<span class="c">## graphics example</span>
+<span class="c1">## graphics example</span>
 <span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawCircle</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawFillCircle</span><span class="p">(</span><span class="mi">91</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">lcd_gfx</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">oled</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
@@ -227,6 +227,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
@@ -261,11 +267,6 @@
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -347,32 +348,32 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

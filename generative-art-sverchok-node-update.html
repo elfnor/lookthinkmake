@@ -102,7 +102,7 @@
 <p>If the  max_depth for the current rule is reached  or the max_depth for overall design is reached then the processor goes back and processes what is now the last item on the stack without taking any other action. If the stack is empty or the maximum number of matrices has been reached the processor stops.</p>
 <p>A simple example of an xml design file:</p>
 <p>6 Spirals</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;150&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;150&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;3&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rz 120&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;3&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rz 120&quot;</span> <span class="na">rule=</span><span class="s">&quot;R2&quot;</span><span class="nt">/&gt;</span>
@@ -135,7 +135,7 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <p>There can be multiple definitions of the same rule in an xml file.</p>
 <p>For example</p>
 <p>Tree</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;spiral&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/rule&gt;</span>
@@ -166,7 +166,7 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <h3>Successor Rule Example</h3>
 <p>Normally when the <code>max_depth</code> for a rule is reached that 'arm' of the structure is finished. If a rule defines a successor rule then this rule will be called when the <code>max_depth</code> is reached. In the following example when the <code>y180</code> rule gets called it will be called  90 times in succession and produce a 180 degree turn about the y axis. When it finishes the successor rule <code>r</code> will be called and either produce a 180 degree turn about the <code>y</code> axis or the <code>z</code> axis.</p>
 <p>Nouveau variation</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;1000&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;1000&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;2&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rz 60&quot;</span> <span class="na">rule=</span><span class="s">&quot;r&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/rule&gt;</span>
@@ -198,7 +198,7 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <p>In other cases the mesh can be connected in the wrong order.</p>
 <p>For example the following two xml files will look the same when the matrix output is used to place objects, but have different output when they are used in mesh mode. Both sets of xml rules produce the same list of matrices just in a different order.</p>
 <p>Fern 1 </p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl&quot;</span> <span class="nt">/&gt;</span>      
     <span class="nt">&lt;/rule&gt;</span>
@@ -220,7 +220,7 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 
 <p><img alt="image fern wrong" src="https://cloud.githubusercontent.com/assets/7930130/7629779/b6553802-fa83-11e4-8390-aa9ba2a0c44d.png" /></p>
 <p>Fern 2</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl1&quot;</span> <span class="nt">/&gt;</span>  
     <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl2&quot;</span> <span class="nt">/&gt;</span>      
@@ -248,17 +248,17 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <p>Again these were both done with max mats set to 5000.</p>
 <h3>Constants and Variables Example</h3>
 <p>Constants and variables can be included in the xml file by replacing a numerical value with a pair of braces. </p>
-<div class="highlight"><pre>    transforms = &quot;tx 0.5 rx 20 sa 0.9&quot;
+<div class="highlight"><pre><span></span>    transforms = &quot;tx 0.5 rx 20 sa 0.9&quot;
 </pre></div>
 
 
 <p>becomes</p>
-<div class="highlight"><pre>    transforms = &quot;tx {x_const} rx 20 sa 0.9&quot;
+<div class="highlight"><pre><span></span>    transforms = &quot;tx {x_const} rx 20 sa 0.9&quot;
 </pre></div>
 
 
 <p>Constants are defined within the xml as follows:</p>
-<div class="highlight"><pre>    <span class="nt">&lt;constants</span>  <span class="na">x_const=</span><span class="s">&quot;0.5&quot;</span> <span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span>    <span class="nt">&lt;constants</span>  <span class="na">x_const=</span><span class="s">&quot;0.5&quot;</span> <span class="nt">/&gt;</span>
 </pre></div>
 
 
@@ -266,7 +266,7 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <p>If a field name in between curly brackets is not given a value in a <em>constants</em> element then a named input socket will be added to the node. A <em>Float</em>, <em>Integer</em> or similar node input can be wired up to this input variable.</p>
 <p>The example below uses a variable ({curl_angle}) to animate the amount of curl on the fern structure shown in the mesh mode example and two constants to fix the the value of the <code>tz</code> transform in the large curl and the scale ({sxy}) in all the curls.</p>
 <p>Fern 3</p>
-<div class="highlight"><pre><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;2000&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;constants</span> <span class="na">zd=</span><span class="s">&quot;1.5&quot;</span> <span class="na">sxy=</span><span class="s">&quot;0.9&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
    <span class="nt">&lt;call</span>  <span class="na">rule=</span><span class="s">&quot;curl1&quot;</span> <span class="nt">/&gt;</span>  
@@ -295,23 +295,23 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 <p>For this animation the index number of the current frame in the animation is translated from the range 1 to 250 to the range 16 to 6 via the "Map Range" node and wired into the <code>curl_angle</code> input of the "Generative Art" node. This cause the fern to unwind as the animation proceeds.</p>
 <p>Simple maths can also be use in the transforms definition. This has been used above in the <code>curlsmall</code> rule. The <code>rx</code> rotation of the transform will always be twice that of the <code>rx</code> rotation in the <code>curl1</code> and <code>curl2</code> rules. There cannot be any spaces in any maths expressions for the rotation, translation or scale parameters when using a single transforms attribute string. To allow for more complicated expressions each transform can be separated out into its own attribute. </p>
 <p>transforms as single attribute (no spaces allowed in maths expression)</p>
-<div class="highlight"><pre>    <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 1 rz -1*{v1} ry {v2}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span>    <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;tx 1 rz -1*{v1} ry {v2}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 
 
 <p>each transform with its own attribute (can have spaces)</p>
-<div class="highlight"><pre>    <span class="nt">&lt;call</span> <span class="na">tx=</span><span class="s">&quot;1&quot;</span> <span class="na">rz=</span><span class="s">&quot;-1 * {v1}&quot;</span> <span class="na">ry=</span><span class="s">&quot;{v2}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span>    <span class="nt">&lt;call</span> <span class="na">tx=</span><span class="s">&quot;1&quot;</span> <span class="na">rz=</span><span class="s">&quot;-1 * {v1}&quot;</span> <span class="na">ry=</span><span class="s">&quot;{v2}&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 
 
 <p>All this is implemented by first using python's string <code>format</code> method to substitute in the variable value from the node data input. Then the resulting string is passed to python's <code>eval()</code> function. The string must evaluate to a single number (float or integer). Using <code>eval()</code> is a potential security problem as in theory someone could put some malicious code inside an xml lsystem definition. As always don't run code from a source you don't trust.</p>
 <p>The python <code>math</code> and <code>random</code> modules exist in the namespace of the "Generative Art" node so for example a transform could be defined as:</p>
-<div class="highlight"><pre>    tx=&quot;2**0.5&quot;
+<div class="highlight"><pre><span></span>    tx=&quot;2**0.5&quot;
 </pre></div>
 
 
 <p>or:</p>
-<div class="highlight"><pre>    tx=&quot;math.sqrt(2)&quot;
+<div class="highlight"><pre><span></span>    tx=&quot;math.sqrt(2)&quot;
 </pre></div>
 
 
@@ -342,6 +342,12 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
@@ -378,11 +384,6 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -464,32 +465,32 @@ For example: <code>t 1.1 2.2 3.3  s 0.9 0.9 0.7</code></p>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

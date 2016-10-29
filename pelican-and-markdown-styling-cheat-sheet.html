@@ -60,21 +60,21 @@
 <h2>In-line Code</h2>
 <p>This is text such as <code>this</code> that is normally used for a short piece of code in a a paragraph. It is enclosed in back quote marks, the key in the extreme top left of a US keyboard.</p>
 <p>It might also be used when a variable name or file name <code>~\file.txt</code> is referred to in a paragraph.</p>
-<div class="highlight"><pre>This is text such as `this` that is normally...
+<div class="highlight"><pre><span></span>This is text such as `this` that is normally...
 </pre></div>
 
 
 <p>The static html produced by Pelican is:  </p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>This is text such as <span class="nt">&lt;code&gt;</span>this<span class="nt">&lt;/code&gt;</span> that is normally used for a short piece of code in a a paragraph. <span class="nt">&lt;/p&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This is text such as <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>this<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span> that is normally used for a short piece of code in a a paragraph. <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>This format of the in-line code element is given by a piece of CSS such as this, included in the theme <code>main.css</code> or <code>style.css</code> file</p>
-<div class="highlight"><pre><span class="nt">code</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
-  <span class="k">font-style</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
-  <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">0.015em</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="nt">code</span> <span class="p">{</span>
+  <span class="nb">font-family</span><span class="o">:</span> <span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span> <span class="nb">monospace</span><span class="p">;</span>
+  <span class="nb">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
+  <span class="nb">font-style</span><span class="o">:</span> <span class="nb">normal</span><span class="p">;</span>
+  <span class="nb">letter-spacing</span><span class="o">:</span> <span class="m">0.015em</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -82,7 +82,7 @@
 <h2>Code Blocks</h2>
 <p>This is a block set of from the main text, normally containing a longer piece of code.
 The blocks can be defined in a number of different ways, indenting, four <code>~~~~</code>, but I'll show examples with triple back quote marks (```).</p>
-<div class="highlight"><pre>```  
+<div class="highlight"><pre><span></span>```  
 # python code  
 mystr = &#39;Hello world&#39;  
 print(&#39;%s&#39;%(mystr))  
@@ -91,32 +91,32 @@ print(&#39;%s&#39;%(mystr))
 
 
 <p>produces this html:</p>
-<div class="highlight"><pre><span class="nt">&lt;/p&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;highlight&quot;</span><span class="nt">&gt;&lt;pre&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;c&quot;</span><span class="nt">&gt;</span># python code<span class="nt">&lt;/span&gt;</span>
-<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>mystr<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>=<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;#39;</span>Hello world<span class="ni">&amp;#39;</span><span class="nt">&lt;/span&gt;</span>
-<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;k&quot;</span><span class="nt">&gt;</span>print<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>(<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;#39;</span><span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;si&quot;</span><span class="nt">&gt;</span>%s<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;#39;</span><span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>%<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>(<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>mystr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>))<span class="nt">&lt;/span&gt;</span>
-<span class="nt">&lt;/pre&gt;&lt;/div&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;highlight&quot;</span><span class="p">&gt;&lt;</span><span class="nt">pre</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;c&quot;</span><span class="p">&gt;</span># python code<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="p">&gt;</span>mystr<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">&gt;</span>=<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;s&quot;</span><span class="p">&gt;</span><span class="ni">&amp;#39;</span>Hello world<span class="ni">&amp;#39;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;k&quot;</span><span class="p">&gt;</span>print<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;p&quot;</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;s&quot;</span><span class="p">&gt;</span><span class="ni">&amp;#39;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;si&quot;</span><span class="p">&gt;</span>%s<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;s&quot;</span><span class="p">&gt;</span><span class="ni">&amp;#39;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">&gt;</span>%<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;p&quot;</span><span class="p">&gt;</span>(<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="p">&gt;</span>mystr<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;p&quot;</span><span class="p">&gt;</span>))<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>and this output</p>
-<div class="highlight"><pre><span class="c"># python code</span>
-<span class="n">mystr</span> <span class="o">=</span> <span class="s">&#39;Hello world&#39;</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mystr</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><span class="c1"># python code</span>
+<span class="n">mystr</span> <span class="o">=</span> <span class="s1">&#39;Hello world&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mystr</span><span class="p">))</span>
 </pre></div>
 
 
 <p>The style for the <code>pre</code> element is defined in the <code>main.css</code>. </p>
-<div class="highlight"><pre><span class="nt">pre</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
-  <span class="k">background</span><span class="o">:</span> <span class="k">none</span> <span class="k">repeat</span> <span class="k">scroll</span> <span class="m">0</span> <span class="m">0</span> <span class="m">#F0F0F0</span><span class="p">;</span>
-  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
-  <span class="k">font-style</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
-  <span class="k">letter-spacing</span><span class="o">:</span> <span class="m">0.015em</span><span class="p">;</span>
-  <span class="k">line-height</span><span class="o">:</span> <span class="m">130%</span><span class="p">;</span>
-  <span class="k">padding</span><span class="o">:</span> <span class="m">0.7em</span><span class="p">;</span>
-  <span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="nt">pre</span> <span class="p">{</span>
+  <span class="nb">font-family</span><span class="o">:</span> <span class="s1">&#39;Source Code Pro&#39;</span><span class="o">,</span> <span class="nb">monospace</span><span class="p">;</span>
+  <span class="nb">background</span><span class="o">:</span> <span class="nb">none</span> <span class="nb">repeat</span> <span class="nb">scroll</span> <span class="m">0</span> <span class="m">0</span> <span class="m">#F0F0F0</span><span class="p">;</span>
+  <span class="nb">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nb">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
+  <span class="nb">font-style</span><span class="o">:</span> <span class="nb">normal</span><span class="p">;</span>
+  <span class="nb">letter-spacing</span><span class="o">:</span> <span class="m">0.015em</span><span class="p">;</span>
+  <span class="nb">line-height</span><span class="o">:</span> <span class="m">130%</span><span class="p">;</span>
+  <span class="nb">padding</span><span class="o">:</span> <span class="m">0.7em</span><span class="p">;</span>
+  <span class="nb">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>
   <span class="n">word</span><span class="o">-</span><span class="n">wrap</span><span class="o">:</span> <span class="n">break</span><span class="o">-</span><span class="n">word</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -124,7 +124,7 @@ print(&#39;%s&#39;%(mystr))
 
 <p>and mostly defines fonts and backgrounds. All the span elements are produced by pygments code and coloured according to the css normally stored in <code>pygments.css</code>.  The easiest way to change this is to use a predefined css from another style (pelican-bootstrap3 has lots).</p>
 <p>To add line numbers to the displayed code block use <code>#!</code> at the start of the first line of code:</p>
-<div class="highlight"><pre>```python  
+<div class="highlight"><pre><span></span>```python  
 #! python code  
 mystr = &#39;Hello world&#39;  
 print(&#39;%s&#39;%(mystr))  
@@ -134,9 +134,9 @@ print(&#39;%s&#39;%(mystr))
 
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#! python code  </span>
-<span class="n">mystr</span> <span class="o">=</span> <span class="s">&#39;Hello world&#39;</span>  
-<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mystr</span><span class="p">))</span>  
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#! python code  </span>
+<span class="n">mystr</span> <span class="o">=</span> <span class="s1">&#39;Hello world&#39;</span>  
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mystr</span><span class="p">))</span>  
 </pre></div>
 </td></tr></table>
 
@@ -146,47 +146,47 @@ print(&#39;%s&#39;%(mystr))
 <p>Here's a blockquote.</p>
 <p>This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. </p>
 </blockquote>
-<div class="highlight"><pre>&gt; Here&#39;s a blockquote.
+<div class="highlight"><pre><span></span>&gt; Here&#39;s a blockquote.
 
 &gt; This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. 
 </pre></div>
 
 
 <p>produced by this html:</p>
-<div class="highlight"><pre><span class="nt">&lt;blockquote&gt;</span>
-<span class="nt">&lt;p&gt;</span>Here&#39;s a blockquote.<span class="nt">&lt;/p&gt;</span>
-<span class="nt">&lt;p&gt;</span>This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. <span class="nt">&lt;/p&gt;</span>
-<span class="nt">&lt;/blockquote&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">blockquote</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Here&#39;s a blockquote.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>This a much longer multi paragraph block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines.  This a much longer block quote that is intended to extend over multiple lines. <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">blockquote</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>The style for the <code>blockquote</code> element is defined in the <code>main.css</code>. </p>
-<div class="highlight"><pre><span class="nt">blockquote</span> <span class="p">{</span>
-    <span class="k">font-style</span><span class="o">:</span> <span class="k">italic</span><span class="p">;</span>
-    <span class="k">margin-top</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
-    <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
-    <span class="k">margin-left</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
-    <span class="k">padding-left</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
-    <span class="k">border-left</span><span class="o">:</span> <span class="m">3px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="nt">blockquote</span> <span class="p">{</span>
+    <span class="nb">font-style</span><span class="o">:</span> <span class="nb">italic</span><span class="p">;</span>
+    <span class="nb">margin-top</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nb">margin-bottom</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nb">margin-left</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nb">padding-left</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+    <span class="nb">border-left</span><span class="o">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#ccc</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <h2>Attribute lists</h2>
 <p>If you want to have several different types of an element, each with its own style, you can use attribute lists. </p>
-<div class="highlight"><pre>For example different coloured in-line `code in red`{: .red} and `green`{: .green}.
+<div class="highlight"><pre><span></span>For example different coloured in-line `code in red`{: .red} and `green`{: .green}.
 </pre></div>
 
 
 <p>For example different coloured in-line <code class="red">code in red</code> and <code class="green">green</code>.</p>
 <p>Html:</p>
-<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>For example different coloured in-line <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>code in red<span class="nt">&lt;/code&gt;</span> and <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>green<span class="nt">&lt;/code&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>For example different coloured in-line <span class="p">&lt;</span><span class="nt">code</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">&gt;</span>code in red<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span> and <span class="p">&lt;</span><span class="nt">code</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">&gt;</span>green<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>Along with the following css in <code>main.css</code>.</p>
-<div class="highlight"><pre><span class="nt">code</span><span class="nc">.red</span> <span class="p">{</span><span class="k">color</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nt">code</span><span class="nc">.green</span> <span class="p">{</span><span class="k">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;}</span>
+<div class="highlight"><pre><span></span><span class="nt">code</span><span class="nc">.red</span> <span class="p">{</span><span class="nb">color</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
+<span class="nt">code</span><span class="nc">.green</span> <span class="p">{</span><span class="nb">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;}</span>
 </pre></div>
 
 
@@ -198,7 +198,7 @@ print(&#39;%s&#39;%(mystr))
 <h2>H2</h2>
 <h3>H3</h3>
 <p>markdown</p>
-<div class="highlight"><pre>#H1#
+<div class="highlight"><pre><span></span>#H1#
 H1
 ==
 ##H2##
@@ -209,27 +209,27 @@ H2
 
 
 <p>HTML</p>
-<div class="highlight"><pre><span class="nt">&lt;h1&gt;</span>H1<span class="nt">&lt;/h1&gt;</span>
-<span class="nt">&lt;h1&gt;</span>H1<span class="nt">&lt;/h1&gt;</span>
-<span class="nt">&lt;h2&gt;</span>H2<span class="nt">&lt;/h2&gt;</span>
-<span class="nt">&lt;h2&gt;</span>H2<span class="nt">&lt;/h2&gt;</span>
-<span class="nt">&lt;h3&gt;</span>H3<span class="nt">&lt;/h3&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>H1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>H1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>H2<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>H2<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>H3<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
 </pre></div>
 
 
 <p>CSS</p>
-<div class="highlight"><pre><span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
-    <span class="k">color</span><span class="o">:</span> <span class="m">#711</span><span class="p">;</span>    
-    <span class="k">font-family</span><span class="o">:</span> <span class="s2">&quot;Source Sans Pro&quot;</span><span class="o">,</span><span class="k">sans-serif</span><span class="p">;</span>
-    <span class="k">font-weight</span><span class="o">:</span> <span class="m">400</span><span class="p">;</span>
-    <span class="k">text-shadow</span><span class="o">:</span> <span class="m">0.1em</span> <span class="m">0.1em</span> <span class="m">0.1em</span> <span class="m">#EFEFEF</span><span class="p">;</span>
-    <span class="k">line-height</span><span class="o">:</span> <span class="m">125%</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
+    <span class="nb">color</span><span class="o">:</span> <span class="m">#711</span><span class="p">;</span>    
+    <span class="nb">font-family</span><span class="o">:</span> <span class="s2">&quot;Source Sans Pro&quot;</span><span class="o">,</span><span class="nb">sans-serif</span><span class="p">;</span>
+    <span class="nb">font-weight</span><span class="o">:</span> <span class="m">400</span><span class="p">;</span>
+    <span class="nb">text-shadow</span><span class="o">:</span> <span class="m">0.1em</span> <span class="m">0.1em</span> <span class="m">0.1em</span> <span class="m">#EFEFEF</span><span class="p">;</span>
+    <span class="nb">line-height</span><span class="o">:</span> <span class="m">125%</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="nt">h1</span> <span class="p">{</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
-  <span class="k">margin</span><span class="o">:</span> <span class="m">0.67em</span> <span class="m">0</span><span class="p">;</span>
-  <span class="k">padding</span><span class="o">:</span> <span class="m">0.7em</span> <span class="m">0</span> <span class="m">0.3em</span><span class="p">;</span>
+  <span class="nb">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+  <span class="nb">margin</span><span class="o">:</span> <span class="m">0.67em</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nb">padding</span><span class="o">:</span> <span class="m">0.7em</span> <span class="m">0</span> <span class="m">0.3em</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -261,6 +261,12 @@ On your blog, or someone else's, right click on an element (Firefox or Chrome) a
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
@@ -297,11 +303,6 @@ On your blog, or someone else's, right click on an element (Firefox or Chrome) a
   <time datetime="2016-04-02T22:00:00+13:00" pubdate>Sat 02 April 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/generative-art-examples-fractals-on-a-plane.html" rel="bookmark" title="Permalink to Generative Art Examples - Fractals on a Plane">Generative Art Examples - Fractals on a Plane</a>
-  <time datetime="2016-03-27T22:00:00+13:00" pubdate>Sun 27 March 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth  </a></p></a>      			      </li>
 		
 		
 		
@@ -383,32 +384,32 @@ On your blog, or someone else's, right click on an element (Firefox or Chrome) a
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

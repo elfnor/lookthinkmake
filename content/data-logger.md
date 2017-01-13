@@ -1,6 +1,6 @@
 Title: PyBoard Datalogger
 Date: 2016-10-21 22:00
-Tags: make,python, micropython, 3dprint
+Tags: make, python, micropython, 3D Printing
 Category: make
 Author: elfnor
 

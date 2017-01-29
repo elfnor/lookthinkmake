@@ -34,4 +34,4 @@ Recipes that use this: (links added as I write them)
 
 Similar recipes: (links added as I write them)
 
-*  Fermented Marmalade
+*  [Fermented Marmalade]({filename}REC-preserved-lemoms.md)

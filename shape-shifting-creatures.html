@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Shape Shifting Creatures - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="The animal body can be visualized as a three-dimensional jigsaw puzzle, made up of distinct, interlocking pieces. These pieces all have very specific volumes that begin and end at very specific places.1 I'm teaching myself a little more animal anatomy to help with creating digital creatures. I've ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="http://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="http://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="http://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="http://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Shape Shifting Creatures</h1>
+		
+<div class="metadata">
+  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/make-think.html">make, think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
+		<p><img alt="rendered dog" src="./images/dog_morph_07_020.png" /></p>
+<blockquote>
+<p>The animal body can be visualized as a three-dimensional jigsaw puzzle, made up of distinct, interlocking pieces. These pieces all have very specific volumes that begin and end at very specific places.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+</blockquote>
+<p>I'm teaching myself a little more animal anatomy to help with creating digital creatures. I've worked in clay making <a href="(http://elfnor.github.io/artworksgallery/html/026-Gargoyle_Bookend___left_by_elfnor.jpg.html)">gargoyles</a> and <a href="http://elfnor.github.io/artworksgallery/html/024-Double_Dragon_Pot_by_elfnor.jpg.html">dragons</a> and I'm interested in doing similar pieces in Blender. Understanding the shape and form of real animals is a great help in making up believable unreal creatures.</p>
+<p>Evolution has given all animals (at least the tetra-pods - mammals, reptiles, birds and amphibians) a pretty common body plan. Four feet, a head, a body and maybe a tail. To sculpt better I'd like to understand what's in common and how the volume and form of the parts of the body plan vary between different creatures. I want to work at this general conceptual level before spending time on high resolution sculpting.</p>
+<blockquote>
+<p>In drawing, painting, and sculpting animals, one must begin with a general, understanding of the entire animal (shape, proportion), then concentrate on its specific parts and details. This is called working from the general to the specific. For example, rough-out the shape of the entire animal first, define the shapes of the torso, the individual limbs, the head, and the neck, and then finally add the details of the individual muscles and tendons. Artwork can be embellished with the most numerous of details, but it must conform to a greater concept of larger shapes and volumes.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+</blockquote>
+<p>As an exercise I roughed out the regional volumes of the "generalized animal" from Eliot Goldfinger's book <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> as low polygon meshes in Blender. I used the photos and diagrams of the generalized animal from the side and top as <a href="https://docs.blender.org/manual/en/dev/editors/3dview/properties/background_images.html">background images</a> in the <em>3D View</em> and modeled the volumes over them. </p>
+<p><img alt="animal plan" src="./images/ganimal_plan.png" />
+<img alt="side view" src="./images/ganimal_left.png" /> 
+<img alt="top view" src="./images/ganimal_top.png" /> </p>
+<p>Each volume started as either a cube or a eight sided cylinder. I added edge loops as needed but tried to add as few faces as possible. I used the <em>Edit Mode -&gt; Tools Panel -&gt; Mesh Options -&gt; X Mirror</em> option to set the editing on each of the volumes on the body centerline (the head, neck, chest etc.) to be symmetric. This option only works across the x-axis, so make the animal's main head to tail axis along the y-axis. For the limbs, start with a mesh centered on the y-axis, add a <em>Mirror Modifier</em>, then in edit mode move all the vertices off the centerline. Apply the modifier and then select the <em>X Mirror</em> option as for the other body parts. Using the <em>X Mirror</em> option is necessary as the <em>Mirror Modifier</em> doesn't work with <em>Shape Keys</em>.</p>
+<p>Here's the body mesh being modeled over the background image.</p>
+<p><img alt="Sculpting over a background image" src="./images/ganimal_sculpt_over.png" /></p>
+<p>The completed body volumes for the generalized animal.</p>
+<p><img alt="opengl horse" src="./images/ganimal_opengl.png" /></p>
+<p>My rendered version of the completed basic animal.</p>
+<p><img alt="rendered ganimal" src="./images/dog_morph_08_003.png" /></p>
+<p>I then added <a href="https://docs.blender.org/manual/en/dev/animation/shape_keys/introduction.html">Shape Keys</a> to each mesh and then altered the volumes to match the form of a horse using the horse diagrams and images from the book.  </p>
+<p><img alt="rendered horse" src="./images/horse_morph_05_550.png" /></p>
+<p>I then repeated this exercise modifying the basic animal to resemble a dog (see the image at the top).</p>
+<p>Here's my animated sequence showing first all the volumes changing from the generalized animal to a horse and back again. Then each volume changing in sequence. Then finally changing into a dog.</p>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/OGDir-w6_hk" frameborder="0" allowfullscreen></iframe>
+
+<p>When I'm learning something I always like to collect several references to see how different authors approach something. Here is Scott Eaton's take on the varying body volumes for different animals. The exact number and placing of the volumes is a little different but the general idea is the same. The full article this is taken from is available <a href="http://www.scott-eaton.com/outgoing/3dWorld-Animal-Anatomy-Eaton.pdf">here</a></p>
+<p><img alt="Eaton body plans" src="./images/eaton_animal_forms.png" /></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://books.google.co.nz/books?id=uKk7CQAAQBAJ&amp;lpg=PP1&amp;dq=animal anatomy for artists goldfinger">Goldfinger, Eliot. <em>Animal Anatomy for Artists: The Elements of Form</em>. Oxford University Press, 2004.</a>&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "shape-shifting-creatures.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
+  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/sugar-free-fermented-marmalade.html" rel="bookmark" title="Permalink to Sugar-Free Fermented Marmalade">Sugar-Free Fermented Marmalade</a>
+  <time datetime="2017-01-29T22:00:00+13:00" pubdate>Sun 29 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/preserved-lemons.html" rel="bookmark" title="Permalink to Preserved Lemons">Preserved Lemons</a>
+  <time datetime="2017-01-13T22:00:00+13:00" pubdate>Fri 13 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/fermented-chili-and-garlic-sauce.html" rel="bookmark" title="Permalink to Fermented Chili and Garlic sauce">Fermented Chili and Garlic sauce</a>
+  <time datetime="2017-01-06T22:00:00+13:00" pubdate>Fri 06 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
+  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
+  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
+  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
+	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

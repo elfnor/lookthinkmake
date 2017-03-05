@@ -8,7 +8,7 @@ Author: elfnor
 
 >The animal body can be visualized as a three-dimensional jigsaw puzzle, made up of distinct, interlocking pieces. These pieces all have very specific volumes that begin and end at very specific places.[^1]
 
-I'm teaching myself a little more animal anatomy to help with creating digital creatures. I've worked in clay making [gargoyles]((http://elfnor.github.io/artworksgallery/html/026-Gargoyle_Bookend___left_by_elfnor.jpg.html)) and [dragons](http://elfnor.github.io/artworksgallery/html/024-Double_Dragon_Pot_by_elfnor.jpg.html) and I'm interested in doing similar pieces in Blender. Understanding the shape and form of real animals is a great help in making up believable unreal creatures.
+I'm teaching myself a little more animal anatomy to help with creating digital creatures. I've worked in clay making [gargoyles](http://elfnor.github.io/artworksgallery/html/026-Gargoyle_Bookend___left_by_elfnor.jpg.html) and [dragons](http://elfnor.github.io/artworksgallery/html/024-Double_Dragon_Pot_by_elfnor.jpg.html) and I'm interested in doing similar pieces in Blender. Understanding the shape and form of real animals is a great help in making up believable unreal creatures.
 
 Evolution has given all animals (at least the tetra-pods - mammals, reptiles, birds and amphibians) a pretty common body plan. Four feet, a head, a body and maybe a tail. To sculpt better I'd like to understand what's in common and how the volume and form of the parts of the body plan vary between different creatures. I want to work at this general conceptual level before spending time on high resolution sculpting.
 

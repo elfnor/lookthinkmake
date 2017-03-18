@@ -53,6 +53,8 @@ STATCOUNTER = False
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["render_math", "tag_cloud"]
 
+MD_EXTENSIONS =  [ 'toc', 'codehilite','extra']
+
 TAG_CLOUD_STEPS = 4 	
 TAG_CLOUD_MAX_ITEMS = 100 	
 TAG_CLOUD_SORTING = 'random'

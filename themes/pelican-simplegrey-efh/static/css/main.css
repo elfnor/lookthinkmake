@@ -188,6 +188,11 @@ code {
 code.red {color:red;}
 code.green {color: green;}
 
+code.kbd {
+  border: 1px solid #F0F0F0;
+  background-color: #F8F8F8;
+  padding: 0.2em;
+}
 
 pre {
   font-family: 'Source Code Pro', monospace;

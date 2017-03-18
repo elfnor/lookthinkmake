@@ -50,17 +50,17 @@
 		<p><img alt="hydrangea abstract" src="./images/abstract_21.png" /></p>
 <p>I've called this post Shaders for Sverchok and it follows on from  my <a href="http://elfnor.com/tag/sverchok.html">Simple Sverchok</a> series. It's mostly about Blender Cycles Materials and how I apply them to my <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> models rather than directly about Sverchok nodes.</p>
 <p>The structures I've been producing with Sverchok can have many elements. The one that featured in the title image for the <a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html">last post</a> has 2400 copies of the box element. With the position, rotation and scale of each object being varied parametrically it would be neat to also systematically vary the colour or transparency of the elements. Applying individual materials to 2400 elements by hand is well beyond my pain threshold. The techniques used here to make systematic or random material variations can also be used for models with many elements produced in other ways, for example using dupliverts.</p>
-<h1>Object Info Node</h1>
+<h1 id="object-info-node">Object Info Node</h1>
 <p>Change the Node Editor window to show Shaders (materials). Make sure Cycles is chosen as the render engine. Start with an "Object Info" node ("Add &gt; Input &gt; Object Info"). This gives information  about the object or objects a Material is applied to. If the elements you want to shade are combined into a single mesh they will need to be separated. In edit mode a mesh can be separated into objects by hitting "P" and selecting "By loose parts".  It's a good idea to apply a material to the mesh before separating parts. This way all parts will have the same material which can be edited later. It is also possible to separate loose parts using the "Separate Loose Parts" node. </p>
 <p>Tip: In Blender if you need to apply the same material to lots of different objects, join them together, apply the material and then separate by parts again.</p>
-<h2>Location based Shading</h2>
+<h2 id="location-based-shading">Location based Shading</h2>
 <p>The first output of the "Object Info" node is location. This gives the (x, y, z) coordinates of the object the material is applied to. Unfortunately the Shader nodes do not have the wonderfully useful "Viewer text" and "Stethoscope" nodes that Sverchok does. Without these we're running a bit blind and have to read the documentation a bit more and do lots of small bits of math.</p>
 <p>If the elements you want to shade were separated from a single mesh they may all have the same location. To fix this, select all the objects and "Object &gt; Transform &gt; Origin to Geometry". This will give each object its own location at the centre of its own mesh.</p>
 <p>The location of the object can be sent directly to the color input of any shader node. However the shader node expects the RGB values to be between 0 and 1. One easy way to do this is rescale your scene so that all the geometry lies in a box between (0, 0, 0) and (1, 1, 1). The colour of objects in this space will shade from black at the (0, 0, 0) corner to white at the far (1, 1, 1) corner. Objects in the (1, 0, 0) corner will be red and so on. In the following scene all objects have the same material. The wireframe cube extends from (0, 0, 0) to (1, 1, 1). It is a neutral grey colour because its location is (0.5, 0.5, 0.5). </p>
 <p><img alt="spiral in color cube" src="./images/spirals_in_color_cube_01.png" /></p>
 <p>Rather than scaling the geometry to lie within the (0,0,0) to (1,0,0) box we can scale the x, y, z coordinates within our node diagram.</p>
 <p>In the following scene the spheres (dupliverted onto a torus) have locations from -1.25 to +1.25 in x and y and from -0.25 to +0.25 in z. We can use the Vector mapping node to transform these location values to the interval (0, 1).</p>
-<div class="highlight"><pre><span></span>r = 0.4 * x + 0.5
+<div class="codehilite"><pre><span></span>r = 0.4 * x + 0.5
 g = 0.4 * x + 0.5
 b = 2.0 * x + 0.5
 </pre></div>
@@ -71,7 +71,7 @@ b = 2.0 * x + 0.5
 <p><img alt="torus location to rgb" src="./images/torus_color.png" /></p>
 <p>We can also use the location as an index into a "Color Ramp" node. This requires reducing the three x, y, z coordinates to a single value between (0, 1). </p>
 <p>For instance we can shade our torus radially by calculating:</p>
-<div class="highlight"><pre><span></span>radius = sqrt(x^2 +y^2 + z^2) to give radius between (0.75 and 1.25)
+<div class="codehilite"><pre><span></span>radius = sqrt(x^2 +y^2 + z^2) to give radius between (0.75 and 1.25)
 
 fac = 2*radius - 1.5 to give fac between (0, 1)
 </pre></div>
@@ -79,9 +79,9 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
 
 <p>These calculations can be done a number of ways. Here I have used the "Normalize" node to give the radius and two "Math" nodes to do the scaling.</p>
 <p><img alt="torus radial color" src="./images/torus_radial.png" /></p>
-<h2>Object Pass Index</h2>
+<h2 id="object-pass-index">Object Pass Index</h2>
 <p>The second output of the "Object Info" node is labeled "Object Index". This is the same parameter that is called "Pass Index" on the Object Relations Panel. It can be set in the Objects Relations panel or in python using</p>
-<div class="highlight"><pre><span></span><span class="c1">#set each of the selected objects to a separate pass index</span>
+<div class="codehilite"><pre><span></span><span class="c1">#set each of the selected objects to a separate pass index</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span><span class="p">):</span>
      <span class="n">obj</span><span class="o">.</span><span class="n">pass_index</span> <span class="o">=</span> <span class="n">i</span>
@@ -89,10 +89,10 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
 
 
 <p>Again for input to most material nodes the pass index value will need to be scaled so it is in the interval (0, 1).</p>
-<h2>Material Pass Index</h2>
+<h2 id="material-pass-index">Material Pass Index</h2>
 <p>The third output of the "Object Info" node is labeled "Material Index". This output name is a little confusing as Blender has two different pass indexes (object and material) and two different material indexes (the pass index of the material and the material index of a face). Below I give an example of how to use it.  It's not that useful for scenes with a large number of objects as it requires a lot of manual steps but I've explained it here because I couldn't find a good example of using the material index of the Object info node anywhere else.</p>
 <p>The "Material Index" output of the "Object Info" node is the same parameter that is called "Pass Index" on the Settings panel of a material. </p>
-<h3>Example use of the "Material Index" of the "Object Info" node.</h3>
+<h3 id="example-use-of-the-material-index-of-the-object-info-node">Example use of the "Material Index" of the "Object Info" node.</h3>
 <p>This uses three materials but of course you can create as many materials as required.</p>
 <ul>
 <li>Start with the default cube scene and set the render engine to cycles.</li>
@@ -116,7 +116,7 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
 <li>In edit mode select different faces of the object and assign a material from one of the slots.</li>
 </ul>
 <p><img alt="material index result" src="./images/material_index_blog-05.blend.png" /></p>
-<h2>Random Shading</h2>
+<h2 id="random-shading">Random Shading</h2>
 <p>The fourth output of the "Object Info" node is labeled  "Random". It produces a different random number between (0, 1) for each object the material is assigned to.</p>
 <p>It can be used directly as input to a "Color Ramp" node or anywhere else a single value is required. </p>
 <p><img alt="random color ramp" src="./images/color_random.png" /></p>
@@ -144,6 +144,12 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
@@ -180,11 +186,6 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -273,33 +274,33 @@ fac = 2*radius - 1.5 to give fac between (0, 1)
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

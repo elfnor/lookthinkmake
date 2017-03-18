@@ -60,7 +60,7 @@
 <p><img alt="workable breadmaker" src="./images/bm_workable.jpeg" /></p>
 <p><img alt="control board" src="./images/control_board_original.jpeg" /></p>
 <p>Carefully poking around the 5 pin connector while the breadmaker is going, gives the following designations for the pins. Pin 1 is on the right in the above image.</p>
-<div class="highlight"><pre><span></span>1 - GND
+<div class="codehilite"><pre><span></span>1 - GND
 2 - + 5V
 3 - buzzer
 4 - heater
@@ -70,7 +70,7 @@
 
 <p>Pins 4 and 5 are normally held at 5V but are pulled to GND when the heater or motor are operating. Pin 3 is directly connected to a piezo buzzer.</p>
 <p>We can check the temperature sensor is a thermistor by heating the sensor up (disconnected from the board) and reading the resistance between the two contacts with a DVM. The resistance should drop with an increase in temperature. This shows the <a href="http://en.wikipedia.org/wiki/Thermistor#NTC">thermistor</a> has a negative temperature coefficient. The relationship between thermistor resistance and temperature will most likely be non-linear over the range of temperatures (20 °C to 230 °C) we are interested in. We could try and calibrate the thermistor at known temperatures to characterise its temperature versus resistance curve but we really only need to know the resistance at two points, the rising temperature and the baking temperature. We'll find these out by making a loaf of bread while we record what the breadmaker does.</p>
-<h2>Designing a system to record the bread maker</h2>
+<h2 id="designing-a-system-to-record-the-bread-maker">Designing a system to record the bread maker</h2>
 <p>We will need to design a system to record the heater, motor and thermistor signals while the bread maker makes a loaf of bread. Having done this we can then duplicate those signals with our new Arduino control system. </p>
 <p>A thermistor has two connections and is usually read by micro controller using a voltage divider circuit like one of these (the thermistor can either be between the pin and ground or between +5V and the pin):</p>
 <p><img alt="thermistor read schematic" src="./images/thermistor_read_schem.png" /></p>
@@ -80,7 +80,7 @@
 <p>This makes the design of the recording system a little bit harder. We could try to synchronize our measurements with the clock signal on the microelectronic but as we're mainly interested in the steady state value of the thermistor at the rise and bake temperatures we can simplify this and use a capacitor to convert the voltage to a steady value.</p>
 <p>An Arduino can also be used for the recording system. The circuit I used is shown below. As this is only needed once I made it up on a bread board. Keep the original control board connected to the bread maker and add in this recording system to the control and thermistor connectors. Load up the breadmaker_record.ino sketch from the <a href="https://github.com/elfnor/arduino-bread">github repository</a> and make a loaf of bread!</p>
 <p><img alt="breadmaker record schematic" src="./images/breadmaker_record.png" /></p>
-<h2>Reverse Engineering a control system</h2>
+<h2 id="reverse-engineering-a-control-system">Reverse Engineering a control system</h2>
 <p>The output of the recording system is shown below.</p>
 <p><img alt="bread maker output" src="./images/breadmaker_graph.png" /></p>
 <p>The motor control signals are straight forward. The loaf program starts with 6 minutes of mixing where the motor is pulsed on for ~0.25 second and off for ~1 second. After mixing the bread is kneaded with the motor on continuously for ~29 minutes. There is another two short pulses of the motor about a third of the way through the rising time. </p>
@@ -124,7 +124,7 @@
 <p>The full code for the Arduino is available <a href="https://github.com/elfnor/arduino-bread">here</a>. </p>
 <p>When the bread maker is switched on with its new brain it behaves very much like it used to. Only now it has new programs as defined in the Arduino code. The programs are selected by using the SELECT button to cycle through them. The up and down keys can be used as before to add a delay time to the start of the program. The program is then started with the START button. It can be stopped at any time with the STOP button. </p>
 <p>The given Arduino code currently includes the following bread programs:</p>
-<div class="highlight"><pre><span></span>struct PGRMS
+<div class="codehilite"><pre><span></span>struct PGRMS
   {
     int min_pulseMix;  // 1/4 second pulse every 1 second
     int min_contMix;   // continuous kneading
@@ -178,6 +178,12 @@ const PGRMS pgrms[N_PGRMS] =
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
@@ -212,11 +218,6 @@ const PGRMS pgrms[N_PGRMS] =
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -305,33 +306,33 @@ const PGRMS pgrms[N_PGRMS] =
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/food.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2017-01-29T22:00:00+13:00</updated><entry><title>Sugar-Free Fermented Marmalade</title><link href="http://www.elfnor.com/sugar-free-fermented-marmalade.html" rel="alternate"></link><published>2017-01-29T22:00:00+13:00</published><updated>2017-01-29T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2017-01-29:sugar-free-fermented-marmalade.html</id><summary type="html">&lt;p&gt;&lt;img alt="feremented marmalade" src="./images/REC-citrus.JPG" /&gt;&lt;/p&gt;
 &lt;p&gt;After making &lt;a href="http://www.elfnor.com/preserved-lemons.html"&gt;preserved lemons&lt;/a&gt; I saw a comment somewhere that marmalade was once made by lacto-fermentation rather than with heaps of sugar like jam. I prefer a low sugar, low glycemic index diet so I made up the concoction below. Later I searched on-line for &lt;a href="http://www.culturesforhealth.com/learn/recipe/lacto-fermentation-recipes/lacto-fermented-orange-marmalade/"&gt;recipes&lt;/a&gt; and found most of them make a sweeter cooked product. &lt;/p&gt;
 &lt;p&gt;This recipe is tangy and salty and dosen't have the jelly consistency of a cooked marmalade. It's wonderful on sour-dough bread and also makes a great ingredient in a chicken or pork marinade. It can also be used in baking in place of candied/crystallized orange peel. &lt;/p&gt;
-&lt;h2&gt;Sugar-Free Feremented Marmalade&lt;/h2&gt;
+&lt;h2 id="sugar-free-feremented-marmalade"&gt;Sugar-Free Feremented Marmalade&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;Makes 1 600 ml jar&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;1-2 lemons&lt;br /&gt;
 1-2 oranges&lt;br /&gt;
@@ -23,7 +23,7 @@
 &lt;li&gt;&lt;a href="http://www.elfnor.com/preserved-lemons.html"&gt;preserved lemons&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</summary><category term="make"></category><category term="food"></category></entry><entry><title>Preserved Lemons</title><link href="http://www.elfnor.com/preserved-lemons.html" rel="alternate"></link><published>2017-01-13T22:00:00+13:00</published><updated>2017-01-13T22:00:00+13:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2017-01-13:preserved-lemons.html</id><summary type="html">&lt;p&gt;&lt;img alt="preserved lemons" src="./images/REC-lemons.JPG" /&gt;&lt;/p&gt;
 &lt;p&gt;Without my own lemon tree, supermarket lemons are expensive so I go to the Farmers' market and get a large bag and make preserved lemons. When I first made these I didn't realize they were supposed to ferment and was a bit worried by the bubbling. When I use fresh lemons often I use only the juice or the thin outer rind. With the preserved lemons all of the lemon including the white part of the skin gets used. The lemons and juice are a little salty for sweet dishes but are awesome in stir-fries, stews, marinades, dressings, and kale salads.&lt;/p&gt;
-&lt;h2&gt;Preserved Lemons&lt;/h2&gt;
+&lt;h2 id="preserved-lemons"&gt;Preserved Lemons&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;Makes 1 600 ml jar&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;6-10 lemons&lt;br /&gt;
 2 t salt  &lt;/p&gt;
@@ -45,7 +45,7 @@
 &lt;p&gt;Many cultures (Louisiana, Thai,  Hunan, Korea, Indonesia, Portugal) make a fermented chili sauce. This is my goto recipe and there's always a jar of this in the fridge. I'm not into fuzzy things like straining it after fermenting preferring the chunky taste surprise. I don't add extra flavorings like ginger or lemon grass as the plain version is more versatile. The fresh red pepper makes sure there are some wild lacto bugs to start the ferment and reduces the heat a little. Feel free to increase the mild pepper to chili ratio for a milder sauce.&lt;/p&gt;
 &lt;p&gt;Lots of fermenting books and sites suggest you need a special type of salt. I use the table salt I have in the cupboard which is iodized sea salt. &lt;/p&gt;
 &lt;p&gt;This chili sauce is addictive, before you know it you'll be eating it on toast for breakfast or adding it to chocolate fudge. The fermenting process takes some of the hard edge of the chili flavor while losing none of the heat. I also reckon it reduces after burn.&lt;/p&gt;
-&lt;h2&gt;Fermented Chili and Garlic sauce&lt;/h2&gt;
+&lt;h2 id="fermented-chili-and-garlic-sauce"&gt;Fermented Chili and Garlic sauce&lt;/h2&gt;
 &lt;p&gt;&lt;em&gt;Makes 1 300 ml jar&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;200 g frozen red chilies&lt;br /&gt;
 3 cloves garlic&lt;br /&gt;

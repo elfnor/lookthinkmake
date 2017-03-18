@@ -37,45 +37,76 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/shape-shifting-creatures.html">Shape Shifting Creatures</a></h1>
-        <p><img alt="rendered dog" src="./images/dog_morph_07_020.png" /></p>
-<blockquote>
-<p>The animal body can be visualized as a three-dimensional jigsaw puzzle, made up of distinct, interlocking pieces. These pieces all have very specific volumes that begin and end at very specific places.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
-</blockquote>
-<p>I'm teaching myself a little more animal anatomy to help with creating digital creatures. I've worked in clay making <a href="http://elfnor.github.io/artworksgallery/html/026-Gargoyle_Bookend___left_by_elfnor.jpg.html">gargoyles</a> and <a href="http://elfnor.github.io/artworksgallery/html/024-Double_Dragon_Pot_by_elfnor.jpg.html">dragons</a> and I'm interested in doing similar pieces in Blender. Understanding the shape and form of real animals is a great help in making up believable unreal creatures.</p>
-<p>Evolution has given all animals (at least the tetra-pods - mammals, reptiles, birds and amphibians) a pretty common body plan. Four feet, a head, a body and maybe a tail. To sculpt better I'd like to understand what's in common and how the volume and form of the parts of the body plan vary between different creatures. I want to work at this general conceptual level before spending time on high resolution sculpting.</p>
-<blockquote>
-<p>In drawing, painting, and sculpting animals, one must begin with a general, understanding of the entire animal (shape, proportion), then concentrate on its specific parts and details. This is called working from the general to the specific. For example, rough-out the shape of the entire animal first, define the shapes of the torso, the individual limbs, the head, and the neck, and then finally add the details of the individual muscles and tendons. Artwork can be embellished with the most numerous of details, but it must conform to a greater concept of larger shapes and volumes.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
-</blockquote>
-<p>As an exercise I roughed out the regional volumes of the "generalized animal" from Eliot Goldfinger's book <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> as low polygon meshes in Blender. I used the photos and diagrams of the generalized animal from the side and top as <a href="https://docs.blender.org/manual/en/dev/editors/3dview/properties/background_images.html">background images</a> in the <em>3D View</em> and modeled the volumes over them. </p>
-<p><img alt="animal plan" src="./images/ganimal_plan.png" />
-<img alt="side view" src="./images/ganimal_left.png" /> 
-<img alt="top view" src="./images/ganimal_top.png" /> </p>
-<p>Each volume started as either a cube or a eight sided cylinder. I added edge loops as needed but tried to add as few faces as possible. I used the <em>Edit Mode -&gt; Tools Panel -&gt; Mesh Options -&gt; X Mirror</em> option to set the editing on each of the volumes on the body centerline (the head, neck, chest etc.) to be symmetric. This option only works across the x-axis, so make the animal's main head to tail axis along the y-axis. For the limbs, start with a mesh centered on the y-axis, add a <em>Mirror Modifier</em>, then in edit mode move all the vertices off the centerline. Apply the modifier and then select the <em>X Mirror</em> option as for the other body parts. Using the <em>X Mirror</em> option is necessary as the <em>Mirror Modifier</em> doesn't work with <em>Shape Keys</em>.</p>
-<p>Here's the body mesh being modeled over the background image.</p>
-<p><img alt="Sculpting over a background image" src="./images/ganimal_sculpt_over.png" /></p>
-<p>The completed body volumes for the generalized animal.</p>
-<p><img alt="opengl horse" src="./images/ganimal_opengl.png" /></p>
-<p>My rendered version of the completed basic animal.</p>
-<p><img alt="rendered ganimal" src="./images/dog_morph_08_003.png" /></p>
-<p>I then added <a href="https://docs.blender.org/manual/en/dev/animation/shape_keys/introduction.html">Shape Keys</a> to each mesh and then altered the volumes to match the form of a horse using the horse diagrams and images from the book.  </p>
-<p><img alt="rendered horse" src="./images/horse_morph_05_550.png" /></p>
-<p>I then repeated this exercise modifying the basic animal to resemble a dog (see the image at the top).</p>
-<p>Here's my animated sequence showing first all the volumes changing from the generalized animal to a horse and back again. Then each volume changing in sequence. Then finally changing into a dog.</p>
-<iframe width="640" height="360" src="https://www.youtube.com/embed/OGDir-w6_hk" frameborder="0" allowfullscreen></iframe>
-
-<p>When I'm learning something I always like to collect several references to see how different authors approach something. Here is Scott Eaton's take on the varying body volumes for different animals. The exact number and placing of the volumes is a little different but the general idea is the same. The full article this is taken from is available <a href="http://www.scott-eaton.com/outgoing/3dWorld-Animal-Anatomy-Eaton.pdf">here</a></p>
-<p><img alt="Eaton body plans" src="./images/eaton_animal_forms.png" /></p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p><a href="https://books.google.co.nz/books?id=uKk7CQAAQBAJ&amp;lpg=PP1&amp;dq=animal anatomy for artists goldfinger">Goldfinger, Eliot. <em>Animal Anatomy for Artists: The Elements of Form</em>. Oxford University Press, 2004.</a>&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
+        <h1><a href="http://www.elfnor.com/blender-shape-keys-cookbook.html">Blender Shape Keys Cookbook</a></h1>
+        <p><img alt="two meshes" src="./images/TUT_shape_keys_00.png" /></p>
+<p>(<strong>1:</strong> Sphere with both shape keys Value = 0. <strong>2-3:</strong> Two different shape keys <em>Value</em> = 1. <strong>4:</strong> A mix of the two previous shape keys)</p>
+<p>The animation in <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html">Shape Shifting Creatures</a> was the first time I'd used shape keys in Blender. I only decided to animate between the different animal shapes after I modeled both shapes on different meshes.  Then I learnt that shape keys were the way to animate a transition between two mesh shapes. Getting from two meshes to one mesh with shape keys (then add a third mesh, sort out the mesh messes I made..) meant I needed to copy meshes to shape keys, apply shape keys and other things I could have avoided if I'd known what I was doing before I started. But you never learn anything (or go anywhere really interesting) if you know where you're going before you start out.</p>
+<p>All this copying, applying and swapping shape keys is possible in Blender but not always obvious. Here is a little cookbook of how do some of these useful things with shape keys. Thanks to <a href="https://blenderartists.org/forum/">Blender artists</a> and <a href="http://blender.stackexchange.com/">Blender stack exchange</a> for the answers (and interesting places to go).</p>
+<p>Just a couple of points:  </p>
+<ul>
+<li>If you add or subtract vertices while editing meshes with shape keys strange things can sometimes happen. Vertices added while editing the <em>Basis</em> key in areas not affected by other shape keys mostly behave as expected but in general it's best (for beginners anyway and definitely on complicated meshes) to not add or delete vertices after adding shape keys. The techniques below only work if the two meshes involved have the same number of vertices connected to each other in the same way. </li>
+<li>Modifiers  such as <em>Mirror</em>, <em>Subdivision Surface</em>, <em>Boolean</em> can't be applied to a object that has shape keys. </li>
+<li>Most examples of using shape keys are for adding small deformations on a large mesh, such as animating facial expressions or mouth shapes for speech. Shape keys aren't limited to this and can be used for large mesh deformations. One limitation is that the <em>Value</em> slider will interpolate a vertex position along  a straight line between the two extreme positions of a vertex. If you need to move a vertex in a curve you need to either use many shape keys to approximate a curve or a different animating technique.</li>
+</ul>
+<p>To start off learning about shape keys <a href="https://docs.blender.org/manual/en/dev/animation/shape_keys/index.html">RTFM</a>.</p>
+<p><strong>Table of Contents</strong></p>
+<div class="toc">
+<ul>
+<li><a href="#copy-a-mesh-to-a-shape-key">Copy a mesh to a shape key</a></li>
+<li><a href="#replace-the-basis-mesh-of-an-object-with-a-different-mesh-shape">Replace the basis mesh of an object with a different mesh shape</a></li>
+<li><a href="#apply-a-shape-key-to-a-mesh">Apply a shape key to a mesh</a></li>
+<li><a href="#swap-a-shape-key-with-the-basis-key">Swap a shape key with the Basis key</a></li>
+</ul>
 </div>
-	<a href="http://www.elfnor.com/shape-shifting-creatures.html">Permalink, </a>
-	<a href="http://www.elfnor.com/shape-shifting-creatures.html#disqus_thread">Comments</a>
+<h2 id="copy-a-mesh-to-a-shape-key">Copy a mesh to a shape key</h2>
+<p><strong>Problem</strong></p>
+<p>You already have two meshes with the same number and order of vertices but different shapes (vertex positions). You want to smoothly transition between the two for an animation. </p>
+<p><strong>Solution: Join as Shapes</strong></p>
+<p>Normally you would apply shape keys to an object with the first mesh shape and then edit this object to give the second mesh shape. Both mesh shapes are stored on the same object as shape keys. In this problem we have two separate objects and want to copy the mesh shape from the second object so it becomes a shape key on the first object. This could be because the meshes were produced by a python script or imported from another program. </p>
+<p>Here are two meshes:</p>
+<p><img alt="two meshes" src="./images/TUT_shape_keys_01.png" /></p>
+<p>Add a "Basis" <em>Shape Key</em> to the left object. The <em>Shape Key</em> panel is found in the <em>Properties Editor</em> under the <em>Object Data</em> tab. </p>
+<p><img alt="adding shape key" src="./images/TUT_shape_keys_02a.png" /></p>
+<p>Select the right object then <code class="kbd">Shift-RMB</code> the left object. Both objects are selected and the left object is the active object.</p>
+<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>Join as Shapes</em> option. This will add a shape key with the name of the right object. </p>
+<p><img alt="join as shapes" src="./images/TUT_shape_keys_03.png" /></p>
+<p>If you select this <em>Shape Key</em> and drag the slider below the left object will transition from its original shape to the shape of the right object. </p>
+<p><img alt="transition" src="./images/TUT_shape_keys_04.png" /></p>
+<p>The position of the slider can be added as a keyframe in an animation by either hovering over the slider and pressing <code class="kbd">I</code> or with the context menu by <code class="kbd">RMB</code> a property and choose <em>Insert Keyframe</em> from the menu.</p>
+<h2 id="replace-the-basis-mesh-of-an-object-with-a-different-mesh-shape">Replace the basis mesh of an object with a different mesh shape</h2>
+<p><strong>Problem:</strong></p>
+<p>You have an object with a base mesh and a shape key that changes the shape of the base mesh. You'd like to change the base mesh shape. You can just select the <em>Basis</em> Key under <em>Shape Keys</em> and edit the mesh to change the base shape. In this problem,  the shape we want the base mesh to have already exists on a different object. We need to copy the shape key from the original base mesh to our new base mesh.</p>
+<p><strong>Solution: Transfer Shape Key</strong>  </p>
+<p>The left object is the original object and has a shape key. The right object is the new base mesh. Delete all shape keys from the right object. </p>
+<p><img alt="two more meshes" src="./images/TUT_shape_keys_05.png" /></p>
+<p>Select the left object then <code class="kbd">Shift-RMB</code> the right object. Both objects are selected and the <em>right object</em> is the active object.</p>
+<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>Transfer Shape Key</em> option. This will copy the shape key from the left object to the right object.</p>
+<p><img alt="transfer shape key" src="./images/TUT_shape_keys_06.png" /></p>
+<p>The right object now has the new base mesh and the old shape key.</p>
+<h2 id="apply-a-shape-key-to-a-mesh">Apply a shape key to a mesh</h2>
+<p><strong>Problem:</strong></p>
+<p>You want to fix the mesh shape at a particular value of a shape key.</p>
+<p><strong>Solution: New Shape From Mix</strong></p>
+<p>Set the <em>Shape Key</em> <em>Value</em> slider to give the desired mesh shape. If you have multiple shape keys set all the sliders as needed. </p>
+<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>New Shape From Mix</em> option. This will add a new shape key from the current mix of values.</p>
+<p><img alt="new shape from mix" src="./images/TUT_shape_keys_07.png" /></p>
+<p>Delete all the shape keys making sure to delete the new key last.</p>
+<h2 id="swap-a-shape-key-with-the-basis-key">Swap a shape key with the <em>Basis</em> key</h2>
+<p><strong>Problem:</strong> </p>
+<p>Moving the <em>Value</em> slider on your shape key changes the object shape from the basis shape (shape A) when the value is 0 to the key shape (shape B) when the slider is 1. You want this to work the other way, shape B has a value of 0 and shape A has a value of 1.</p>
+<p><strong>Solution: Move the Shape Key</strong> </p>
+<p>You could do this by duplicating the object, applying the shape keys (at the correct slider value) to give one mesh with shape A and one mesh with shape B. Then copying the shape A mesh to a shape key on the mesh with shape B. But there's also a more straightforward way. </p>
+<p>Use the arrows on the side of the <em>Shape Key</em> panel to move the shape key to the top of the list.</p>
+<p><img alt="move shape key" src="./images/TUT_shape_keys_08.png" /></p>
+<p>The slider no longer moves between shapes. With the <em>Basis</em> key (now at the bottom of the list), click the push pin underneath the key list. Shape A nows shows</p>
+<p><img alt="push pin" src="./images/TUT_shape_keys_09.png" /></p>
+<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>New Shape From Mix</em> option. This will add a new shape key that has the visible shape (Shape A). Click the push pin again to deselect it. The slider on the second key should now move between shape B at a value of 0 to shape A at a value of 1.</p>
+<p><img alt="new key" src="./images/TUT_shape_keys_10.png" /></p>
+<p>Delete the original <em>Basis</em> key. Rename the shape key at the top of the list to <em>Basis</em>. This is optional but it might avoid you confusing yourself later (I'm very good at doing stuff that confuses me later).</p>
+<p><img alt="rename key" src="./images/TUT_shape_keys_11.png" /></p>
+<hr />
+	<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html">Permalink, </a>
+	<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -84,6 +115,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
+  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
 
 
       <li>
@@ -110,10 +147,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      </li>
 
 
 
@@ -248,6 +281,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
@@ -282,11 +321,6 @@
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -375,33 +409,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

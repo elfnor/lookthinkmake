@@ -6,9 +6,9 @@
 &lt;p&gt;There's several micro-python data-loggers &lt;a href="http://wiki.micropython.org/SDdatalogger"&gt;out there&lt;/a&gt; and other &lt;a href="https://github.com/peterhinch/micropython-micropower"&gt;projects&lt;/a&gt; to investigate minimum power usage on a pyboard. This one is really simple and comes with the files for a nice 3D printed box.&lt;/p&gt;
 &lt;p&gt;The box has been frankensteined from at least four things on thingiverse. The outer box is a resized version of &lt;a href="http://www.thingiverse.com/make:75833"&gt;this RAMPS box&lt;/a&gt;. The battery pack is from this &lt;a href="http://www.thingiverse.com/thing:456900"&gt;flexing battery holder&lt;/a&gt; with the bottom cut off it. The pyboard tray is based on this &lt;a href="http://www.thingiverse.com/thing:1373291"&gt;thing&lt;/a&gt; with a &lt;a href="http://www.thingiverse.com/thing:267438"&gt;coin cell holder&lt;/a&gt; tacked on the end. The coin cell (CR1632, 3V) provides battery backup to keep the pyboard real time clock (RTC) going when the main battery pack or USB power are not connected.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="circuit" src="./images/datalogger_circuit.png" /&gt;&lt;/p&gt;
-&lt;h2&gt;Construction&lt;/h2&gt;
+&lt;h2 id="construction"&gt;Construction&lt;/h2&gt;
 &lt;p&gt;&lt;img alt="printed parts" src="./images/data_logger_prints.JPG" /&gt;&lt;/p&gt;
-&lt;h3&gt;Printing&lt;/h3&gt;
+&lt;h3 id="printing"&gt;Printing&lt;/h3&gt;
 &lt;p&gt;Get the files from &lt;a href="http://www.thingiverse.com/thing:1857224"&gt;thingiverse&lt;/a&gt; and print out one each of:  &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;battery holder&lt;/li&gt;
@@ -18,25 +18,25 @@
 &lt;/ul&gt;
 &lt;p&gt;If you print them in this order you can wire up the batteries while the main box prints. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="wired up" src="./images/data_logger_innards.JPG" /&gt;&lt;/p&gt;
-&lt;h3&gt;Wire up battery holder and install switch.&lt;/h3&gt;
+&lt;h3 id="wire-up-battery-holder-and-install-switch"&gt;Wire up battery holder and install switch.&lt;/h3&gt;
 &lt;p&gt;For the battery terminals strip the ends of some solid hook up wire and wrap the bare wire through the holes at each end of each battery compartment. Wire the compartments together so the batteries are in series. I put the two outside batteries with the negative terminal at the spring end and reversed the middle battery. Whichever way you do it, mark the holder with + and - signs to match.&lt;/p&gt;
 &lt;p&gt;Add a switch in one of the lines and add a 90 degree terminal header to go into the pyboard. Hot glue the switch on to the front of the battery holder.&lt;/p&gt;
-&lt;h3&gt;Wire up and install coin battery.&lt;/h3&gt;
+&lt;h3 id="wire-up-and-install-coin-battery"&gt;Wire up and install coin battery.&lt;/h3&gt;
 &lt;p&gt;Poke the stripped end of a piece of hook up wire through each hole in the coin battery holder. Push the battery in place to hold the wires in. The negative terminal wire goes along the channel on the underside of the pytray and through the hole to the topside. Strip the other ends of the wire and connect to th GND and VBAT terminals on the pyboard. These won't need to be removed very often so I didn't bother with  a connector.&lt;/p&gt;
-&lt;h3&gt;Wire up DHT11 sensor.&lt;/h3&gt;
+&lt;h3 id="wire-up-dht11-sensor"&gt;Wire up DHT11 sensor.&lt;/h3&gt;
 &lt;p&gt;My DHT11 sensor came mounted on a small breakout board that included the required 10 k pullup resistor needed between the data pin and VCC. If you have a bare sensor you'll need to add this resistor. Wire the sensor to a 90 degree header as shown. The more accurate DHT22 sensor could be used instead. In this case make sure to change the sensor type in &lt;em&gt;main.py&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Glue the battery holder into the box base (more hot glue) and slide in the pytray&lt;/p&gt;
 &lt;p&gt;&lt;img alt="finshed" src="./images/data_logger_closed.JPG" /&gt;&lt;/p&gt;
 &lt;p&gt;The box can be closed with four screws on the front, but I tend to hold it closed with a rubber band. The DHT11 sensor can be slipped in to the band to hold it in place.&lt;/p&gt;
-&lt;h2&gt;Code setup&lt;/h2&gt;
+&lt;h2 id="code-setup"&gt;Code setup&lt;/h2&gt;
 &lt;p&gt;First of all with the coin battery connected and the main battery pack switched off set the clock on the pyboard to the correct time. Make a  USB connection to the pyboard and open an &lt;a href="http://docs.micropython.org/en/latest/pyboard/pyboard/tutorial/repl.html"&gt;REPL terminal&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;In Linux, to get a REPL prompt, open a terminal and run:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;screen /dev/ttyACM0
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;screen /dev/ttyACM0
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;With the python REPL prompt up type in the following (using the current time and date values):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyb&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyb&lt;/span&gt;
 &lt;span class="n"&gt;rtc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyb&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RTC&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;rtc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="mi"&gt;2016&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mo"&gt;05&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; 
 &lt;/pre&gt;&lt;/div&gt;
@@ -45,7 +45,7 @@
 &lt;p&gt;The clock should now continue to give the correct time whether the pyboard main battery pack is off or on. To be safe I always turn off the main battery pack before connecting the pyboard to the computer via USB. &lt;/p&gt;
 &lt;p&gt;Copy &lt;em&gt;dht.py&lt;/em&gt; and &lt;em&gt;main.py&lt;/em&gt; to a micro SD card, insert the card into the pyboard and turn the battery pack on. The orange LED should blink every time a measurement is made. The dht library used is from &lt;a href="https://github.com/polygontwist/uPython-DHT22"&gt;polygontwist on github&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;main.py&lt;/em&gt;  &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyb&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyb&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;dht&lt;/span&gt;
 
 &lt;span class="n"&gt;dht&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data_pin&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;X12&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="n"&gt;the_dhttype&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;DHT11&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -77,7 +77,7 @@
 
 &lt;p&gt;The program measures the DHT sensor every 5 minutes (300 000 milliseconds) opens a file on the SD card, writes the values along with the timestamp, closes the file and goes back to low power mode. &lt;/p&gt;
 &lt;p&gt;To retrieve data, turn off the battery pack (while the orange LED is off). Remove the SD card and put it in a SD card reader. You should have a file &lt;em&gt;dht.csv&lt;/em&gt; that looks like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;2016-10-29 11:35:54, 1562,63,16
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;2016-10-29 11:35:54, 1562,63,16
 2016-10-29 11:40:53, 1651,63,16
 2016-10-29 11:45:53, 1696,63,16
 2016-10-29 11:50:53, 1740,62,16
@@ -102,7 +102,7 @@
 &lt;p&gt;For simplicity copy the RAW files to process into a clean folder.&lt;/p&gt;
 &lt;p&gt;First I used &lt;a href="http://rawtherapee.com/blog/features"&gt;Rawtherapee&lt;/a&gt; to convert the camera's &lt;em&gt;CR2&lt;/em&gt; (RAW) files into 16 bit &lt;em&gt;tif&lt;/em&gt; files. I also did a little preprocessing including subtracting a dark field image. Save the profile so the same process can be used on each file.&lt;/p&gt;
 &lt;p&gt;Then all it takes is the following two commands to align and average the &lt;em&gt;tif&lt;/em&gt; files.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ align_image_stack -a IMG_*.tif
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ align_image_stack -a IMG_*.tif
 $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; --saturation-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;  --exposure-mu&lt;span class="o"&gt;=&lt;/span&gt;0.5 --exposure-sigma&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; IMG_*.tif*.tif
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -119,8 +119,8 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;The driver chip included on these modules is a ssd1306 chip that can be set up to work with either a SPI or an I2C bus. Some modules come with only one bus wired up, other use a soldered jumper or resistor to select between the two bus types. I'm using a 128 x 64 pixel display using an SPI interface.&lt;/p&gt;
 &lt;p&gt;There are some ssd1306 libraries available for micropython but I'm going to start with a basic example using only the micropython SPI class. I find writing a very simple example like this is a good way to understand the hardware and how to get the micro controller to work with it. Once I've got the simple example going I know my hardware and wiring are correct and I'm happy to use someone else's library to write more complicated stuff.&lt;/p&gt;
 &lt;p&gt;The wiring for the OLED and pyboard are shown in the top diagram. The pyboard has two SPI ports, pins X5 to X8 on one side of the board and Y5 to Y8 on the other. The ssd1306 library defaults to the Y pins, but this can be changed in the module. The &lt;a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus"&gt;SPI bus&lt;/a&gt; works faster than the I2C bus and has a separate line for master to slave (MOSI) communication than for slave to master (MISO). The ssd1306 on the OLED display (slave)  doesn't send any data back to the pyboard (master) so we don't need to connect this pin. The slave select (SS) or chip select (CS) line is not used by the micropython SPI class and can also be ignored. &lt;/p&gt;
-&lt;h2&gt;Basic Example code&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;h2 id="basic-example-code"&gt;Basic Example code&lt;/h2&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="sd"&gt;Simple test of a 128 x 64 pixel OLED display with an ssd1306 driver chip on a SPI bus&lt;/span&gt;
 
 &lt;span class="sd"&gt;|OLED |PYB |&lt;/span&gt;
@@ -199,10 +199,10 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;The &lt;code&gt;dc&lt;/code&gt; pin is used to let the ssd1306 know whether the bytes coming down the &lt;code&gt;DIN&lt;/code&gt; line are commands (&lt;code&gt;dc&lt;/code&gt; high ) or data for the screen (&lt;code&gt;dc&lt;/code&gt; low). The &lt;code&gt;rs&lt;/code&gt; pin is used to reset the display when it is pulled low for 10 ms.&lt;/p&gt;
 &lt;p&gt;The display is 128 x 64 pixels = 8192 bits where for each bit a 1 represents a pixel on and 0 a pixel off. The buffer for the display is written to using a byte array of 1024 bytes (8192/8). Each byte represents 8 pixels arranged in a vertical block. The bytes/blocks are ordered in rows of 128 across the display. The position of the first byte can be changed with the 13th byte of &lt;code&gt;init_cmds&lt;/code&gt;. Setting it to &lt;code&gt;0xA1&lt;/code&gt; puts the 1st byte in the top left corner, &lt;code&gt;0xB0&lt;/code&gt; puts the 1st byte in the top right.&lt;/p&gt;
 &lt;p&gt;The example code draws a grid of 8 horizontal and 8 vertical lines on the screen and colors in the first block to check orientation.&lt;/p&gt;
-&lt;h1&gt;ssd1306 library example&lt;/h1&gt;
+&lt;h1 id="ssd1306-library-example"&gt;ssd1306 library example&lt;/h1&gt;
 &lt;p&gt;There are several versions and forks of a ssd1306 library for micropython on github. They all seem to be based on one originally written by &lt;a href="https://github.com/nvbn/micropython-drivers"&gt;Kenneth Henderick&lt;/a&gt;. I have used the version from the &lt;a href="https://github.com/jeffmer/micropython-upybbot"&gt;upybot project&lt;/a&gt; which adds a basic text display capability. The screen and pixel setting commands are written so that the origin is in the bottom left.&lt;/p&gt;
 &lt;p&gt;I also found  a graphics library for drawing lines, triangles, rectangles and circles on this &lt;a href="http://forum.micropython.org/viewtopic.php?f=5&amp;amp;t=195&amp;amp;p=873&amp;amp;hilit=lcd_gfx#p873"&gt;forum post&lt;/a&gt; by polygontwist. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# hello world on SSD1306&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# hello world on SSD1306&lt;/span&gt;
 &lt;span class="c1"&gt;# uses version of SSD1306.py and font.py&lt;/span&gt;
 &lt;span class="c1"&gt;# https://github.com/jeffmer/micropython-upybbot/blob/master/ssd1306.py&lt;/span&gt;
 &lt;span class="c1"&gt;# graphics library lcd_gfx.py from &lt;/span&gt;
@@ -273,13 +273,13 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;Arduino of course has a much bigger user base and a huge resource of code libraries and tutorials. Pick up a sensor or motor control board and you can easily find the code to copy and paste and get it going. The pyboard has some great examples on their &lt;a href="docs.micropython.org/en/latest/tutorial/index.html"&gt;website&lt;/a&gt; and I've found some good github projects, &lt;a href="https://github.com/dhylands/upy-examples"&gt;dhylands examples&lt;/a&gt; and &lt;a href="https://github.com/mithru/MicroPython-Examples"&gt;mithru examples&lt;/a&gt; but more beginner friendly  stuff is needed.&lt;/p&gt;
 &lt;p&gt;I'm working towards making a ball balancing robot potentially mashing this &lt;a href="https://github.com/jeffmer/micropython-upybbot"&gt;electronics and code&lt;/a&gt; with this &lt;a href="http://xrobots.co.uk/BB8/"&gt;hardware&lt;/a&gt;. I'm tackling this in small steps starting with the motors and will blog progress as I go.&lt;/p&gt;
 &lt;p&gt;This post covers three ways to drive bipolar stepper motors through the A4988 chip. This chip is available on carrier boards such as the stepstick and polulu. These are used a lot in home built 3D printers and a set of four can be bought for under $12 on &lt;a href="http://www.dx.com/"&gt;http://www.dx.com/&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Connections&lt;/h2&gt;
+&lt;h2 id="connections"&gt;Connections&lt;/h2&gt;
 &lt;p&gt;Connect the board to the stepper motor and pyboard as shown. The jumper between the &lt;code&gt;RESET&lt;/code&gt; and &lt;code&gt;SLEEP&lt;/code&gt; pins is important. So is the capacitor on the motor power supply. Put this close to the carrier board. &lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;ENABLE&lt;/code&gt; pin can be left unconnected. If the pin is unconnected or held low the motor will be braked when power is applied to the motor. If the enable pin is held high the motor is disabled or not braked. Keeping the motor braked draws power so setting the enable pin can be used to save power and reduce the heat of the board and motor.&lt;/p&gt;
 &lt;p&gt;The carrier board takes one step for each pulse sent on the &lt;code&gt;STEP&lt;/code&gt; pin. The pin needs to be set high for at least 2 µs. The &lt;code&gt;DIR&lt;/code&gt; pin determines motor direction. &lt;code&gt;HIGH&lt;/code&gt; goes one way, &lt;code&gt;LOW&lt;/code&gt; the other. The board can also be used to do microstepping but I won't cover that here. &lt;/p&gt;
 &lt;p&gt;The  potentiometer on the carrier board can be used to control the current through the motor. Clockwise increases the current and heat anti-clokwise does the opposite. See the &lt;a href="http://reprap.org/wiki/Pololu_stepper_driver_board"&gt;reprap wiki&lt;/a&gt; for details on adjusting this correctly. &lt;/p&gt;
-&lt;h3&gt;Simple operation&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;h3 id="simple-operation"&gt;Simple operation&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="sd"&gt;Stepper motor control example using a A4988 carrier board &lt;/span&gt;
 &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyb&lt;/span&gt;
@@ -317,8 +317,8 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 
 &lt;p&gt;This code is about as simple as it gets. The motor should take 1000 steps one way then a 1000 steps the other way at approximately 1000 steps/second. The speed is set by the length of the delay in `pyb.delay(1000). A larger delay means a slower speed. The enable pin is left low at the end so one can see the effect on braking the motor and the current draw from the motor power supply.&lt;/p&gt;
 &lt;p&gt;This code could be re-factored into a function with parameters for number of steps, direction and speed but its use is limited to moving a single motor at a time. The code cannot easily do anything like check for end stops while the motor is running.&lt;/p&gt;
-&lt;h3&gt;Timer operation&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;h3 id="timer-operation"&gt;Timer operation&lt;/h3&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="sd"&gt;Stepper motor control example using a A4988 carrier board &lt;/span&gt;
 &lt;span class="sd"&gt;and a Timer&lt;/span&gt;
 &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -374,9 +374,9 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;The above code uses a timer &lt;code&gt;tim1&lt;/code&gt; and a callback function &lt;code&gt;motor_cb1&lt;/code&gt;. The callback function makes a single step. The speed of the motor is set by the frequency of the timer in &lt;code&gt;tim1.init(freq = 1000)&lt;/code&gt;. A larger frequency will give a faster speed.&lt;/p&gt;
 &lt;p&gt;To prove the program can do other things while turning the motor I'm calling the function &lt;code&gt;disco&lt;/code&gt; which cycles through the leds on the board.&lt;/p&gt;
 &lt;p&gt;To run more then one motor you need a separate timer and callback function for each motor.&lt;/p&gt;
-&lt;h3&gt;nemastepper.py library&lt;/h3&gt;
+&lt;h3 id="nemastepperpy-library"&gt;nemastepper.py library&lt;/h3&gt;
 &lt;p&gt;The next step in refactoring this code to make a general library for stepper motors is to wrap the functionality up in a Class. Rather than do this myself I've used jeffmer's &lt;code&gt;nemastepper.py&lt;/code&gt; module available as part of &lt;a href="https://github.com/jeffmer/micropython-upybbot"&gt;this github repository&lt;/a&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="sd"&gt;Stepper motor control example using a A4988 carrier board &lt;/span&gt;
 &lt;span class="sd"&gt;and the nemastepper.py library available at &lt;/span&gt;
 &lt;span class="sd"&gt;https://github.com/jeffmer/micropython-upybbot&lt;/span&gt;
@@ -432,16 +432,16 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;The next step in improving the code would be to provide commands for moving a given number of steps in a given direction implementing acceleration and deceleration. The &lt;a href="http://www.airspayce.com/mikem/arduino/AccelStepper/"&gt;AccelStepper library&lt;/a&gt; for Arduino gives a good example of this approach but I don't know of such a library yet available for micropython.&lt;/p&gt;</summary><category term="make"></category><category term="python"></category><category term="micropython"></category></entry><entry><title>A Git Horror Story</title><link href="http://www.elfnor.com/a-git-horror-story.html" rel="alternate"></link><published>2015-05-23T22:00:00+12:00</published><updated>2015-05-23T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2015-05-23:a-git-horror-story.html</id><summary type="html">&lt;p&gt;&lt;img alt="git workflow" src="./images/Git_Workflow.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;While working on porting Structure Synth to Blender I came across &lt;a href="http://pdos.csail.mit.edu/scigen/"&gt;SCIgen&lt;/a&gt; which generates random computer science papers using methods that are similar to the way Structure Synth generates geometry. Some of these papers have been accepted at conferences or in journals.  This led to automatic text generators such as this &lt;a href="http://www.plot-generator.org.uk/"&gt;one&lt;/a&gt; which I guess just uses straight substitution into a defined story. To include my Generative Art version of Structure Synth in the Sverchok Blender add-on I had to learn a lot more about using Git on a collaborative project. Like many new users I had trouble with the Git command terms. Late one night (a dark and stormy night) these two things converged.&lt;/p&gt;
 &lt;p&gt;Here's my &lt;a href="http://www.plot-generator.org.uk/lbs9ew/curse-of-fetched-repo.html"&gt;git horror story&lt;/a&gt; automatically generated by &lt;a href="http://www.plot-generator.org.uk/"&gt;Plot Generator&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;The Curse of the Fetched Repo&lt;/h2&gt;
-&lt;h3&gt;A Horror Story&lt;/h3&gt;
-&lt;h3&gt;by elfnor&lt;/h3&gt;
+&lt;h2 id="the-curse-of-the-fetched-repo"&gt;The Curse of the Fetched Repo&lt;/h2&gt;
+&lt;h3 id="a-horror-story"&gt;A Horror Story&lt;/h3&gt;
+&lt;h3 id="by-elfnor"&gt;by elfnor&lt;/h3&gt;
 &lt;p&gt;Whilst investigating the death of a local issue, a public git called A. Contributor uncovers a legend about a supernaturally-cursed, fetched repo circulating throughout upstream. As soon as anyone uses the repo, he or she has exactly 31 days left to live.&lt;/p&gt;
 &lt;p&gt;The doomed few appear to be ordinary people during day to day life, but when photographed, they look merged. A marked person feels like a checked out collaborator to touch.&lt;/p&gt;
 &lt;p&gt;A. gets hold of the repo, refusing to believe the superstition. A collage of images flash into her mind: a blamed git balancing on a cloned issue, an old newspaper headline about a rebase accident, a hooded organization ranting about forks and a drinking well located in an open source place.&lt;/p&gt;
 &lt;p&gt;When A. notices her branches have collaborator-like properties, she realises that the curse of the fetched repo is true and calls in her primary, a diff called B. User, to help.&lt;/p&gt;
 &lt;p&gt;B. examines the repo and willingly submits himself to the curse. He finds that the same visions flash before his eyes. He finds the blamed git balancing on a cloned issue particularly chilling. He joins the queue for a supernatural death.&lt;/p&gt;
 &lt;p&gt;A. and B. pursue a quest to uncover the meaning of the visions, starting with a search for the hooded organization. Will they be able to stop the curse before their time is up?&lt;/p&gt;
-&lt;h2&gt;Praise for The Curse of the Fetched Repo&lt;/h2&gt;
+&lt;h2 id="praise-for-the-curse-of-the-fetched-repo"&gt;Praise for The Curse of the Fetched Repo&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;"This is actually pretty scary. I'll never be able to look at another fetched repo for as long as I live."
 - The Daily Tale&lt;/p&gt;
@@ -467,7 +467,7 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;&lt;img alt="workable breadmaker" src="./images/bm_workable.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="control board" src="./images/control_board_original.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;Carefully poking around the 5 pin connector while the breadmaker is going, gives the following designations for the pins. Pin 1 is on the right in the above image.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;1 - GND
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;1 - GND
 2 - + 5V
 3 - buzzer
 4 - heater
@@ -477,7 +477,7 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 
 &lt;p&gt;Pins 4 and 5 are normally held at 5V but are pulled to GND when the heater or motor are operating. Pin 3 is directly connected to a piezo buzzer.&lt;/p&gt;
 &lt;p&gt;We can check the temperature sensor is a thermistor by heating the sensor up (disconnected from the board) and reading the resistance between the two contacts with a DVM. The resistance should drop with an increase in temperature. This shows the &lt;a href="http://en.wikipedia.org/wiki/Thermistor#NTC"&gt;thermistor&lt;/a&gt; has a negative temperature coefficient. The relationship between thermistor resistance and temperature will most likely be non-linear over the range of temperatures (20 °C to 230 °C) we are interested in. We could try and calibrate the thermistor at known temperatures to characterise its temperature versus resistance curve but we really only need to know the resistance at two points, the rising temperature and the baking temperature. We'll find these out by making a loaf of bread while we record what the breadmaker does.&lt;/p&gt;
-&lt;h2&gt;Designing a system to record the bread maker&lt;/h2&gt;
+&lt;h2 id="designing-a-system-to-record-the-bread-maker"&gt;Designing a system to record the bread maker&lt;/h2&gt;
 &lt;p&gt;We will need to design a system to record the heater, motor and thermistor signals while the bread maker makes a loaf of bread. Having done this we can then duplicate those signals with our new Arduino control system. &lt;/p&gt;
 &lt;p&gt;A thermistor has two connections and is usually read by micro controller using a voltage divider circuit like one of these (the thermistor can either be between the pin and ground or between +5V and the pin):&lt;/p&gt;
 &lt;p&gt;&lt;img alt="thermistor read schematic" src="./images/thermistor_read_schem.png" /&gt;&lt;/p&gt;
@@ -487,7 +487,7 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;This makes the design of the recording system a little bit harder. We could try to synchronize our measurements with the clock signal on the microelectronic but as we're mainly interested in the steady state value of the thermistor at the rise and bake temperatures we can simplify this and use a capacitor to convert the voltage to a steady value.&lt;/p&gt;
 &lt;p&gt;An Arduino can also be used for the recording system. The circuit I used is shown below. As this is only needed once I made it up on a bread board. Keep the original control board connected to the bread maker and add in this recording system to the control and thermistor connectors. Load up the breadmaker_record.ino sketch from the &lt;a href="https://github.com/elfnor/arduino-bread"&gt;github repository&lt;/a&gt; and make a loaf of bread!&lt;/p&gt;
 &lt;p&gt;&lt;img alt="breadmaker record schematic" src="./images/breadmaker_record.png" /&gt;&lt;/p&gt;
-&lt;h2&gt;Reverse Engineering a control system&lt;/h2&gt;
+&lt;h2 id="reverse-engineering-a-control-system"&gt;Reverse Engineering a control system&lt;/h2&gt;
 &lt;p&gt;The output of the recording system is shown below.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="bread maker output" src="./images/breadmaker_graph.png" /&gt;&lt;/p&gt;
 &lt;p&gt;The motor control signals are straight forward. The loaf program starts with 6 minutes of mixing where the motor is pulsed on for ~0.25 second and off for ~1 second. After mixing the bread is kneaded with the motor on continuously for ~29 minutes. There is another two short pulses of the motor about a third of the way through the rising time. &lt;/p&gt;
@@ -531,7 +531,7 @@ $ enfuse --exposure-weight&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"
 &lt;p&gt;The full code for the Arduino is available &lt;a href="https://github.com/elfnor/arduino-bread"&gt;here&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;When the bread maker is switched on with its new brain it behaves very much like it used to. Only now it has new programs as defined in the Arduino code. The programs are selected by using the SELECT button to cycle through them. The up and down keys can be used as before to add a delay time to the start of the program. The program is then started with the START button. It can be stopped at any time with the STOP button. &lt;/p&gt;
 &lt;p&gt;The given Arduino code currently includes the following bread programs:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;struct PGRMS
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;struct PGRMS
   {
     int min_pulseMix;  // 1/4 second pulse every 1 second
     int min_contMix;   // continuous kneading
@@ -572,14 +572,14 @@ const PGRMS pgrms[N_PGRMS] =
 &lt;p&gt;I'm also looking for "interesting" filament by this I mean something other than plain coloured ABS or PLA. If a supplier also stocks the plain stuff I've normally included their base price in the list below, but I haven't included any suppliers that just stock ABS and PLA.&lt;/p&gt;
 &lt;p&gt;If you know of any other NZ stockists of interesting filament please add a comment.
 I've tried to get the prices correct, including GST but not necessarily shipping. Add any corrections in a comment and I'll fix.&lt;/p&gt;
-&lt;h2&gt;&lt;a href="http://diamondage.co.nz"&gt;Diamond Age&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="diamond-age"&gt;&lt;a href="http://diamondage.co.nz"&gt;Diamond Age&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Diamond Age have ASA ($78.20/125 m) a UV stabilised version of ABS which needs the same equipment to print as ABS.&lt;/p&gt;
 &lt;p&gt;HIPS (High Impact Polystyrene) ($71.88/125 m) which is used in dual extrudes as a support material for ABS.&lt;/p&gt;
 &lt;p&gt;PET-G (no heated bed required) ($94.88/125 m) is a transparent clear.&lt;/p&gt;
 &lt;p&gt;IMPLA and HIPLA ($57.50/125 m), these are PLA with additives to increase strength and reduce brittleness. I've tried the HIPLA and its certainly flexible in the filament but can delaminate when a printed piece is flexed too much.  &lt;/p&gt;
 &lt;p&gt;Diamond Age has PLA for ($50.88/125 m). The Ivory prints very nicely. The 125 m spools of 3 mm diameter filament are approximately 1 kg.  &lt;/p&gt;
 &lt;p&gt;Diamond Age have the best tips on printing each filament of any of the NZ suppliers. They make their own filaments here in NZ and have a lot of experience in 3D printing. &lt;/p&gt;
-&lt;h2&gt;&lt;a href="http://www.mindkits.co.nz"&gt;Mindkits&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="mindkits"&gt;&lt;a href="http://www.mindkits.co.nz"&gt;Mindkits&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Mindkits probably have the largest range of filament types, all non-branded.  &lt;/p&gt;
 &lt;p&gt;Mindkits have:&lt;/p&gt;
 &lt;ul&gt;
@@ -591,19 +591,19 @@ I've tried to get the prices correct, including GST but not necessarily shipping
 &lt;li&gt;Conductive ABS ($69.44/kg).  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Mindkits price for ordinary PLA is around $50/kg.  &lt;/p&gt;
-&lt;h2&gt;&lt;a href="http://nicegear.co.nz/3d-printing/"&gt;Nicegear&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="nicegear"&gt;&lt;a href="http://nicegear.co.nz/3d-printing/"&gt;Nicegear&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Nicegear have NinjaFlex in 3 mm diameter (black and white) ($110/0.75 kg). I've seen some nice stuff printed in this. I've got some FilaFlex which I've found hard but not impossible to print with the Ultimaker's Bowden tube extruder. When my partner's Reprap is done I'll try the direct extruder and see if I get better results. Until then I'll pass on getting more flexible filament.&lt;/p&gt;
 &lt;p&gt;Nicegear's price for ordinary PLA is $84/kg.&lt;/p&gt;
-&lt;h2&gt;&lt;a href="https://www.noelleeming.co.nz"&gt;Noel Lemming&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="noel-lemming"&gt;&lt;a href="https://www.noelleeming.co.nz"&gt;Noel Lemming&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Noel Lemming's have Makerbot PETG ($69.99/kg).&lt;/p&gt;
-&lt;h2&gt;&lt;a href="http://www.reeltoreal.co.nz"&gt;Reel to Real&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="reel-to-real"&gt;&lt;a href="http://www.reeltoreal.co.nz"&gt;Reel to Real&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Reel to Real only have black and white ABS/PLA in 3mm ($42/kg). They also have:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;wood ABS ($65/kg) in 1.75 mm diameter &lt;/li&gt;
 &lt;li&gt;flexi ABS (1.75 mm)&lt;/li&gt;
 &lt;li&gt;conductive ABS (1.75 mm) ($65/0.5kg).&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;&lt;a href="http://www.vivenda.co.nz/buildingMaterial/"&gt;Vivenda&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="vivenda"&gt;&lt;a href="http://www.vivenda.co.nz/buildingMaterial/"&gt;Vivenda&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Vivenda have &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Taulman 618 Nylon ($55/0.45 kg), &lt;/li&gt;
@@ -620,12 +620,12 @@ I've tried to get the prices correct, including GST but not necessarily shipping
 &lt;p&gt;So this looked perfect for a new use. A bit of experimenting with a controlled voltage power supply and a thermocouple showed I could get a consistent 30 to 35 deg C temperature at a constant 6 V without any need for a control circuit. Perfect for our new fosterlings. I swapped a car battery charger for the fancy power supply, wrapped the bed well in fleece (ducklings are messy) and installed it in the ducklings' box. After a day of duckling satisfaction testing we built an insulated enclosure over half the bed to provide them with a choice of a warmer enclosed space.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="ducklings" src="http://www.elfnor.com/images/ducklings_crop_02.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Result, Happy Ducklings.&lt;/p&gt;</summary><category term="make"></category></entry><entry><title>Image alignment with markdown</title><link href="http://www.elfnor.com/image-alignment-with-markdown.html" rel="alternate"></link><published>2014-06-21T22:00:00+12:00</published><updated>2014-06-21T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2014-06-21:image-alignment-with-markdown.html</id><summary type="html">&lt;p&gt;The standard syntax for inserting an image into a markdown document &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;![avatar]({filename}/images/El_Avatar2.jpeg)
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;![avatar]({filename}/images/El_Avatar2.jpeg)
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;produces this html:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;img&lt;/span&gt; &lt;span class="na"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;avatar&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;./images/El_Avatar2.jpeg&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;img&lt;/span&gt; &lt;span class="na"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;avatar&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;./images/El_Avatar2.jpeg&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -633,12 +633,12 @@ I've tried to get the prices correct, including GST but not necessarily shipping
 &lt;p&gt;&lt;img alt="avatar" src="http://www.elfnor.com/images/El_Avatar2.jpeg" /&gt;&lt;/p&gt;
 &lt;p&gt;The text then continues underneath the image.&lt;/p&gt;
 &lt;p&gt;To float an image left or right so that the text flows around the image you can include a style in the attribute list after the image filename.  Pelican automatically has the Attribute Lists extension to markdown enabled.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: style=&amp;quot;float:right; margin: 20px 20px&amp;quot;}
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: style=&amp;quot;float:right; margin: 20px 20px&amp;quot;}
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;produces this html:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;img&lt;/span&gt; &lt;span class="na"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;avatar&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;./images/El_Avatar2_face_left.jpeg&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;style&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;float:right; margin: 20px 20px&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;img&lt;/span&gt; &lt;span class="na"&gt;alt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;avatar&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;./images/El_Avatar2_face_left.jpeg&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;style&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;float:right; margin: 20px 20px&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -652,7 +652,7 @@ I've tried to get the prices correct, including GST but not necessarily shipping
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;Better practive would be to define a pair of styles in the &lt;code&gt;main.css&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;/* Images */&lt;/span&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;/* Images */&lt;/span&gt;
 &lt;span class="nc"&gt;.floatright&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nb"&gt;float&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;right&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="nb"&gt;margin&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="m"&gt;20px&lt;/span&gt; &lt;span class="m"&gt;20px&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -668,7 +668,7 @@ I've tried to get the prices correct, including GST but not necessarily shipping
 
 
 &lt;p&gt;Then reference this in the markdown as follows:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: .floatright}
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;![avatar]({filename}/images/El_Avatar2_face_left.jpeg){: .floatright}
 &lt;/pre&gt;&lt;/div&gt;
 
 

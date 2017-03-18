@@ -53,7 +53,7 @@
 one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symmetry groups </a>. These are also known as wallpaper groups or plane crystallographic groups. </p>
 <p>Basically it rotates and or flips copies of the cell, combines them to form a tile and then copies that tile to fill a new image.</p>
 <p>Some galleries of images produced with this plug-in can be found <a href="http://elfnor.github.io/symmetrytilegallery">here</a>.</p>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <p>Requires <a href="http://www.gimp.org/">GIMP</a> to be installed.</p>
 <p>From within GIMP find out where your plug-in directory is:</p>
 <p>Edit&gt;Preferences&gt;Folders&gt;Plug-ins</p>
@@ -61,7 +61,7 @@ one of the <a href="http://en.wikipedia.org/wiki/Wallpaper_groups">17 plane symm
 Copy the file <code>symmetry_tile.py</code> to this folder and make it "executable". To do this: select the plug-in from your file browser, click properties and check the box "Allow executable" under the permissions tab.</p>
 <p>For Windows the plug-in directory will be probably be <code>C:\Users\username\gimp-2.8\plug-ins</code>. Copy the file <code>symmetry_tile.py</code> to this folder.</p>
 <p>Restart GIMP to activate the plugin.</p>
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
 <p>Select an area on an image using the rectangle select tool.
 Start the plug-in via Filters&gt;Render&gt;Symmetry Tile</p>
 <p>You should see the following dialog. </p>
@@ -70,7 +70,7 @@ Start the plug-in via Filters&gt;Render&gt;Symmetry Tile</p>
 The <code>Symmetry group</code> drop down gives you the choice of one of the 17 symmetry groups p1, p2 through to p6m. The last three entries I'll cover later. </p>
 <p>The <code>Multiple Images</code> toggle is set by default to <code>No</code>. In this mode it produces one image for the chosen symmetry group. Some groups (p2, pm, cm, cmm, pg, pgg, pmg, p4, p4g, p6) can produce different patterns depending on, for example, which corner of the cell a copy is rotated around to form the tile. If the <code>Multiple Images</code> toogle is set to <code>Yes</code>, a separate image is produced for each of these different patterns.</p>
 <p>The <code>bdpq string</code> entry box is covered below under Escher's Potato Game.</p>
-<h3>Deriving the initial cell</h3>
+<h3 id="deriving-the-initial-cell">Deriving the initial cell</h3>
 <p>Many of the symmetry groups can be produced from a rectangular cell (p1, p2, pm, cm, cmm, pg, pgg, pmg, pmm). These groups use the user selection unmodified. Some groups (p4, p4g) require an initial square cell. In this case, a square primary cell is derived from the user's initial rectangular selection. The left most side of the rectangle is used as the left edge of the square.</p>
 <p>Two groups (p3m1, p6) are produced from a equilateral triangle shaped cell. This cell is derived from the user's rectangular selection with the triangle sharing the rectangle's left side, and the triangle pointing to the right.</p>
 <p>The p4m group requires a half square triangle for the initial cell.  The left most side of the user's rectangle is used as the left edge of the triangle, with the rectangle and triangle sharing the top left corner.</p>
@@ -79,16 +79,16 @@ The <code>Symmetry group</code> drop down gives you the choice of one of the 17 
 <p>The p31m group uses a kite shape for the initial cell. The kite shares the rectangle's left side and the top left corner.</p>
 <p>The figure below  illustrates this, with the user's rectangular selection shown as a dotted line and the derived initial cell as a solid line.</p>
 <p><img alt="Derived Cells" src="images/derived_cells.png" /></p>
-<h2>Last 3 Symmetry group options</h2>
+<h2 id="last-3-symmetry-group-options">Last 3 Symmetry group options</h2>
 <p>The <code>17 groups</code> option makes all the patterns from the same user selection. If <code>Multiple Images</code> is set to <code>No</code> this will produce 17 images. If it is set to <code>Yes</code>, 40 images will be produced. Depending on your machine's capability its probably not a good idea to make 40 very large images!</p>
 <p>The <code>all square cells</code> option derives a square cell and uses it for all the groups that can be made with a square cell. There are 11 images produced without <code>Multiple Images</code> set and 32 images when <code>Multiple Images</code> is set.</p>
 <p><code>Escher's Potato Game</code> is briefly described <a href="http://www.eschertiles.com/index.html">here</a> along with an interactive app. This paper <a href="http://www.combinatorics.org/Volume_4/PDF/v4i2r17.pdf">(pdf)</a> by Doris Schattschneider describes the idea more fully. In the Symmetry Tile plug-in, if the <code>bdpq string</code> entry is left blank, choosing the <code>Escher's Potato Game</code> option will produce from the user's selection a random pattern conforming to the rules of the Potato Game.</p>
 <p>If the <code>bdpq string</code> entry is filled with an appropriate string that string will be used to construct an image from the user's selection.</p>
 <p><a name="bdpq"></a></p>
-<h3>How to write a bdpq string</h3>
+<h3 id="how-to-write-a-bdpq-string">How to write a bdpq string</h3>
 <p>The "bdpq" notation is a useful shorthand to describe patterns built from square and rectangular cells.</p>
 <p>The <code>bdpq string</code> entry takes a string similar  to <code>bq|qb</code> and builds a tile for a pattern based on the user selected rectangular cell.</p>
-<div class="highlight"><pre><span></span>The syntax for the string:  
+<div class="codehilite"><pre><span></span>The syntax for the string:  
     b  is the original user selected cell
     d is the cell flipped horizontally  
     p is the cell flipped vertically  
@@ -122,9 +122,9 @@ b+, d+, p+, q+  represent each cell rotated 90 deg (clockwise),
 <p><img alt="epg_cell.png" src="images/epg_cell.png" /></p>
 <p>and <code>bdb+d+|pqp+q+</code> entered into the <code>bdpq string</code> entry, produces this pattern</p>
 <p><img alt="epg_bdbtdtlpqptqt.png" src="images/epg_bdbtdtlpqptqt.png" /></p>
-<h3>Extra tip:</h3>
+<h3 id="extra-tip">Extra tip:</h3>
 <p>If after generating 40 images you want to save them all, here is some code to type into the python console. (Filters&gt;Python-Fu&gt;Console)</p>
-<div class="highlight"><pre><span></span><span class="s s-Atom">for</span> <span class="s s-Atom">img</span> <span class="s s-Atom">in</span> <span class="s s-Atom">gimp</span><span class="p">.</span><span class="nf">image_list</span><span class="p">()</span><span class="s s-Atom">:</span>
+<div class="codehilite"><pre><span></span><span class="s s-Atom">for</span> <span class="s s-Atom">img</span> <span class="s s-Atom">in</span> <span class="s s-Atom">gimp</span><span class="p">.</span><span class="nf">image_list</span><span class="p">()</span><span class="s s-Atom">:</span>
    <span class="s s-Atom">new_name</span> <span class="o">=</span> <span class="s2">&quot;/tmp/&quot;</span> <span class="o">+</span> <span class="s s-Atom">img</span><span class="p">.</span><span class="s s-Atom">name</span><span class="p">[:-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
    <span class="s s-Atom">pdb</span><span class="p">.</span><span class="nf">gimp_file_save</span><span class="p">(</span><span class="s s-Atom">img</span><span class="p">,</span> <span class="s s-Atom">img</span><span class="p">.</span><span class="s s-Atom">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s s-Atom">new_name</span><span class="p">,</span> <span class="s s-Atom">new_name</span><span class="p">)</span>
 </pre></div>
@@ -155,6 +155,12 @@ b+, d+, p+, q+  represent each cell rotated 90 deg (clockwise),
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
@@ -191,11 +197,6 @@ b+, d+, p+, q+  represent each cell rotated 90 deg (clockwise),
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -284,33 +285,33 @@ b+, d+, p+, q+  represent each cell rotated 90 deg (clockwise),
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

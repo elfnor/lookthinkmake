@@ -51,7 +51,7 @@
 <p>Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok <em>Generative Art</em> node. See the <a href="http://www.elfnor.com/generative-art-updated-examples.html">updated examples</a> and the <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">node docs</a></p>
 <p>After using the <a href="http://www.elfnor.com/simple-sverchok-05-interpolate-and-iterate-matrix.html">"Matrix Iterate"</a> node to generate some of the simpler structures from <a href="http://structuresynth.sourceforge.net/">Structure Synth</a>. I started to think about how to implement more of Structure Synth directly in Blender. It turned out to be remarkably simple using a scripted node and some existing python code.</p>
 <p>Structure Synth uses a domain specific language called eisenscript to define a design grammar to construct 3D structures (LSystems). Here's the eisenscript for a structure with 6 spirals.</p>
-<div class="highlight"><pre><span></span>set maxdepth 400
+<div class="codehilite"><pre><span></span>set maxdepth 400
 
 r0
 
@@ -78,7 +78,7 @@ rule R2 {
 <p>The interesting bit is that each rule can have multiple definitions that are called randomly according to the weight assigned to each rule definition. This allows structures with random branches and other complexities. This random choice of rule is bit harder to implement directly in Sverchok nodes but I'm thinking about it...</p>
 <p>In the meantime searching the web, I couldn't find anyone who had included a parser for eisenscript files in Blender (there is one in <a href="http://meshlab.sourceforge.net/">MeshLab</a>), but I did find that <a href="http://github.prideout.net/">Little Grasshopper</a> (aka Philip Rideout) had written some <a href="https://github.com/prideout/lsystem">scripts</a> in python go and c++ to work with Structure Synth type LSystems and RenderMan. </p>
 <p>He uses an xml form of eisenscript to define the design grammar. The above script looks like this in Philip's xml:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;400&quot;</span><span class="nt">&gt;</span>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;400&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;3&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rz 120&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">count=</span><span class="s">&quot;3&quot;</span> <span class="na">transforms=</span><span class="s">&quot;rz 120&quot;</span> <span class="na">rule=</span><span class="s">&quot;R2&quot;</span><span class="nt">/&gt;</span>
@@ -103,7 +103,7 @@ rule R2 {
 <p>The module <code>LSystem.py</code> has two dependencies, <code>elementtree</code> for parsing the xml and <code>euclid</code> for the matrix multiplication. I replaced <code>elementtree</code> with <code>xml.etree.cElementTree</code> avaliable in the standard python included with Blender, and replaced <code>euclid</code> with the Blender <code>mathutils</code> module. </p>
 <p>I also added a break to the code on reaching maximum number of objects as I kept crashing/locking Blender/Sverchok when I got more then a few 10s of thousands of objects. </p>
 <p>From there all we need is a simple "Scripted Node" in Sverchok with the following code:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sverchok.data_structure</span> <span class="kn">import</span> <span class="n">Matrix_listing</span>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sverchok.data_structure</span> <span class="kn">import</span> <span class="n">Matrix_listing</span>
 
 <span class="kn">import</span> <span class="nn">LSystem_blender</span> <span class="kn">as</span> <span class="nn">LSystem</span>
 <span class="kn">import</span> <span class="nn">GA_xml</span>
@@ -168,6 +168,12 @@ rule R2 {
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
@@ -202,11 +208,6 @@ rule R2 {
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -295,33 +296,33 @@ rule R2 {
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

@@ -52,13 +52,13 @@
 <p>Arduino of course has a much bigger user base and a huge resource of code libraries and tutorials. Pick up a sensor or motor control board and you can easily find the code to copy and paste and get it going. The pyboard has some great examples on their <a href="docs.micropython.org/en/latest/tutorial/index.html">website</a> and I've found some good github projects, <a href="https://github.com/dhylands/upy-examples">dhylands examples</a> and <a href="https://github.com/mithru/MicroPython-Examples">mithru examples</a> but more beginner friendly  stuff is needed.</p>
 <p>I'm working towards making a ball balancing robot potentially mashing this <a href="https://github.com/jeffmer/micropython-upybbot">electronics and code</a> with this <a href="http://xrobots.co.uk/BB8/">hardware</a>. I'm tackling this in small steps starting with the motors and will blog progress as I go.</p>
 <p>This post covers three ways to drive bipolar stepper motors through the A4988 chip. This chip is available on carrier boards such as the stepstick and polulu. These are used a lot in home built 3D printers and a set of four can be bought for under $12 on <a href="http://www.dx.com/">http://www.dx.com/</a>.</p>
-<h2>Connections</h2>
+<h2 id="connections">Connections</h2>
 <p>Connect the board to the stepper motor and pyboard as shown. The jumper between the <code>RESET</code> and <code>SLEEP</code> pins is important. So is the capacitor on the motor power supply. Put this close to the carrier board. </p>
 <p>The <code>ENABLE</code> pin can be left unconnected. If the pin is unconnected or held low the motor will be braked when power is applied to the motor. If the enable pin is held high the motor is disabled or not braked. Keeping the motor braked draws power so setting the enable pin can be used to save power and reduce the heat of the board and motor.</p>
 <p>The carrier board takes one step for each pulse sent on the <code>STEP</code> pin. The pin needs to be set high for at least 2 µs. The <code>DIR</code> pin determines motor direction. <code>HIGH</code> goes one way, <code>LOW</code> the other. The board can also be used to do microstepping but I won't cover that here. </p>
 <p>The  potentiometer on the carrier board can be used to control the current through the motor. Clockwise increases the current and heat anti-clokwise does the opposite. See the <a href="http://reprap.org/wiki/Pololu_stepper_driver_board">reprap wiki</a> for details on adjusting this correctly. </p>
-<h3>Simple operation</h3>
-<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<h3 id="simple-operation">Simple operation</h3>
+<div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Stepper motor control example using a A4988 carrier board </span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pyb</span>
@@ -96,8 +96,8 @@
 
 <p>This code is about as simple as it gets. The motor should take 1000 steps one way then a 1000 steps the other way at approximately 1000 steps/second. The speed is set by the length of the delay in `pyb.delay(1000). A larger delay means a slower speed. The enable pin is left low at the end so one can see the effect on braking the motor and the current draw from the motor power supply.</p>
 <p>This code could be re-factored into a function with parameters for number of steps, direction and speed but its use is limited to moving a single motor at a time. The code cannot easily do anything like check for end stops while the motor is running.</p>
-<h3>Timer operation</h3>
-<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<h3 id="timer-operation">Timer operation</h3>
+<div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Stepper motor control example using a A4988 carrier board </span>
 <span class="sd">and a Timer</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -153,9 +153,9 @@
 <p>The above code uses a timer <code>tim1</code> and a callback function <code>motor_cb1</code>. The callback function makes a single step. The speed of the motor is set by the frequency of the timer in <code>tim1.init(freq = 1000)</code>. A larger frequency will give a faster speed.</p>
 <p>To prove the program can do other things while turning the motor I'm calling the function <code>disco</code> which cycles through the leds on the board.</p>
 <p>To run more then one motor you need a separate timer and callback function for each motor.</p>
-<h3>nemastepper.py library</h3>
+<h3 id="nemastepperpy-library">nemastepper.py library</h3>
 <p>The next step in refactoring this code to make a general library for stepper motors is to wrap the functionality up in a Class. Rather than do this myself I've used jeffmer's <code>nemastepper.py</code> module available as part of <a href="https://github.com/jeffmer/micropython-upybbot">this github repository</a>.</p>
-<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Stepper motor control example using a A4988 carrier board </span>
 <span class="sd">and the nemastepper.py library available at </span>
 <span class="sd">https://github.com/jeffmer/micropython-upybbot</span>
@@ -234,6 +234,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
@@ -268,11 +274,6 @@
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -361,33 +362,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

@@ -54,9 +54,9 @@
 <p>There's several micro-python data-loggers <a href="http://wiki.micropython.org/SDdatalogger">out there</a> and other <a href="https://github.com/peterhinch/micropython-micropower">projects</a> to investigate minimum power usage on a pyboard. This one is really simple and comes with the files for a nice 3D printed box.</p>
 <p>The box has been frankensteined from at least four things on thingiverse. The outer box is a resized version of <a href="http://www.thingiverse.com/make:75833">this RAMPS box</a>. The battery pack is from this <a href="http://www.thingiverse.com/thing:456900">flexing battery holder</a> with the bottom cut off it. The pyboard tray is based on this <a href="http://www.thingiverse.com/thing:1373291">thing</a> with a <a href="http://www.thingiverse.com/thing:267438">coin cell holder</a> tacked on the end. The coin cell (CR1632, 3V) provides battery backup to keep the pyboard real time clock (RTC) going when the main battery pack or USB power are not connected.</p>
 <p><img alt="circuit" src="./images/datalogger_circuit.png" /></p>
-<h2>Construction</h2>
+<h2 id="construction">Construction</h2>
 <p><img alt="printed parts" src="./images/data_logger_prints.JPG" /></p>
-<h3>Printing</h3>
+<h3 id="printing">Printing</h3>
 <p>Get the files from <a href="http://www.thingiverse.com/thing:1857224">thingiverse</a> and print out one each of:  </p>
 <ul>
 <li>battery holder</li>
@@ -66,25 +66,25 @@
 </ul>
 <p>If you print them in this order you can wire up the batteries while the main box prints. </p>
 <p><img alt="wired up" src="./images/data_logger_innards.JPG" /></p>
-<h3>Wire up battery holder and install switch.</h3>
+<h3 id="wire-up-battery-holder-and-install-switch">Wire up battery holder and install switch.</h3>
 <p>For the battery terminals strip the ends of some solid hook up wire and wrap the bare wire through the holes at each end of each battery compartment. Wire the compartments together so the batteries are in series. I put the two outside batteries with the negative terminal at the spring end and reversed the middle battery. Whichever way you do it, mark the holder with + and - signs to match.</p>
 <p>Add a switch in one of the lines and add a 90 degree terminal header to go into the pyboard. Hot glue the switch on to the front of the battery holder.</p>
-<h3>Wire up and install coin battery.</h3>
+<h3 id="wire-up-and-install-coin-battery">Wire up and install coin battery.</h3>
 <p>Poke the stripped end of a piece of hook up wire through each hole in the coin battery holder. Push the battery in place to hold the wires in. The negative terminal wire goes along the channel on the underside of the pytray and through the hole to the topside. Strip the other ends of the wire and connect to th GND and VBAT terminals on the pyboard. These won't need to be removed very often so I didn't bother with  a connector.</p>
-<h3>Wire up DHT11 sensor.</h3>
+<h3 id="wire-up-dht11-sensor">Wire up DHT11 sensor.</h3>
 <p>My DHT11 sensor came mounted on a small breakout board that included the required 10 k pullup resistor needed between the data pin and VCC. If you have a bare sensor you'll need to add this resistor. Wire the sensor to a 90 degree header as shown. The more accurate DHT22 sensor could be used instead. In this case make sure to change the sensor type in <em>main.py</em>.</p>
 <p>Glue the battery holder into the box base (more hot glue) and slide in the pytray</p>
 <p><img alt="finshed" src="./images/data_logger_closed.JPG" /></p>
 <p>The box can be closed with four screws on the front, but I tend to hold it closed with a rubber band. The DHT11 sensor can be slipped in to the band to hold it in place.</p>
-<h2>Code setup</h2>
+<h2 id="code-setup">Code setup</h2>
 <p>First of all with the coin battery connected and the main battery pack switched off set the clock on the pyboard to the correct time. Make a  USB connection to the pyboard and open an <a href="http://docs.micropython.org/en/latest/pyboard/pyboard/tutorial/repl.html">REPL terminal</a>. </p>
 <p>In Linux, to get a REPL prompt, open a terminal and run:</p>
-<div class="highlight"><pre><span></span>screen /dev/ttyACM0
+<div class="codehilite"><pre><span></span>screen /dev/ttyACM0
 </pre></div>
 
 
 <p>With the python REPL prompt up type in the following (using the current time and date values):</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyb</span>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pyb</span>
 <span class="n">rtc</span> <span class="o">=</span> <span class="n">pyb</span><span class="o">.</span><span class="n">RTC</span><span class="p">()</span>
 <span class="n">rtc</span><span class="o">.</span><span class="n">datetime</span><span class="p">((</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mo">05</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> 
 </pre></div>
@@ -93,7 +93,7 @@
 <p>The clock should now continue to give the correct time whether the pyboard main battery pack is off or on. To be safe I always turn off the main battery pack before connecting the pyboard to the computer via USB. </p>
 <p>Copy <em>dht.py</em> and <em>main.py</em> to a micro SD card, insert the card into the pyboard and turn the battery pack on. The orange LED should blink every time a measurement is made. The dht library used is from <a href="https://github.com/polygontwist/uPython-DHT22">polygontwist on github</a>.</p>
 <p><em>main.py</em>  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyb</span>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pyb</span>
 <span class="kn">import</span> <span class="nn">dht</span>
 
 <span class="n">dht</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">data_pin</span><span class="o">=</span><span class="s1">&#39;X12&#39;</span><span class="p">,</span>  <span class="n">the_dhttype</span><span class="o">=</span><span class="s1">&#39;DHT11&#39;</span><span class="p">)</span>
@@ -125,7 +125,7 @@
 
 <p>The program measures the DHT sensor every 5 minutes (300 000 milliseconds) opens a file on the SD card, writes the values along with the timestamp, closes the file and goes back to low power mode. </p>
 <p>To retrieve data, turn off the battery pack (while the orange LED is off). Remove the SD card and put it in a SD card reader. You should have a file <em>dht.csv</em> that looks like this:</p>
-<div class="highlight"><pre><span></span>2016-10-29 11:35:54, 1562,63,16
+<div class="codehilite"><pre><span></span>2016-10-29 11:35:54, 1562,63,16
 2016-10-29 11:40:53, 1651,63,16
 2016-10-29 11:45:53, 1696,63,16
 2016-10-29 11:50:53, 1740,62,16
@@ -162,6 +162,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
@@ -196,11 +202,6 @@
   <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/penrose-tile-painting-in-blender.html" rel="bookmark" title="Permalink to Penrose Tile Painting in Blender">Penrose Tile Painting in Blender</a>
-  <time datetime="2016-06-04T22:00:00+12:00" pubdate>Sat 04 June 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile  </a></p></a>      			      </li>
 		
 		
 		
@@ -289,33 +290,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
                         </ul>
                       
 		

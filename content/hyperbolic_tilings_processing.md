@@ -4,7 +4,7 @@ Tags: make, think, blender, processing
 Category: think
 Author: elfnor
 
-![plane, sphere and hyperbolic footbal](./images/CORAL_735_02_031.png)
+![plane, sphere and hyperbolic footbal](/images/CORAL_735_02_031.png)
 
 After my [last post]({filename}hyperbolic_tilings.md) on producing tiled hyperbolic planes in 3D, I was still unhappy with the size of the planes I could generate. Using the soft body modifier in Blender I was limited to about 250 faces before everything went unstable. Also after the tiling has been unfurled the length edges were still longer in the middle and shorter towards the edges where they should all be equal. (OK, I'm getting a bit obsessed with this)
 
@@ -18,7 +18,7 @@ If you do want to run the sketch you'll need to [install Processing](https://pro
 
 Download a copy of the [Hyperbolic Coral](https://github.com/elfnor/hyperbolic_coral) files from github and unzip them somewhere.  Run Processing and change the mode to Python. Open the file ```hyperbolic_tiling.pyde``` and create a new folder when prompted. Move a copy of ```hyperbolic_tiling.py``` into the same folder. Run the script and you should see a window displaying the tiling unfolding. 
 
-![screenshot hyperbolic unfurling](./images/processing_unfurl_ht_734.png)
+![screenshot hyperbolic unfurling](/images/processing_unfurl_ht_734.png)
 
 There's no fancy interface for this. Edit the ```p, q, layers``` parameters in the ```setup()``` function and re run. The tilings are described with two numbers, ```p``` the number of sides to the polygons used and ```q``` the number of polygons that meet at each vertex. The number of ```layers``` describes how many rings of polygons to include. Each polygon face is divided into triangles and the polygons are not so obvious in the mesh.
 
@@ -50,7 +50,7 @@ My best advise if playing with this is lower the drag and increase the negative 
 
 Here to follow up on the previous posts is the hyperbolic football with friends.
 
-![plane, sphere and hyperbolic footbal](./images/hexagon_sphere_plane_hyp_processing_019.png)
+![plane, sphere and hyperbolic footbal](/images/hexagon_sphere_plane_hyp_processing_019.png)
 
 ------------------------------------------------------------------------------------
 

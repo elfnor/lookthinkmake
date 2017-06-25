@@ -4,7 +4,7 @@ Tags: photo, astro
 Category: make
 Author: elfnor
 
-![scopius over remarkables](./images/scopius_sml.png)
+![scopius over remarkables](/images/scopius_sml.png)
 
 
 Last month I went to a talk at our local library by [Mark Gee](http://theartofnight.com/) on astrophotography, and I got <s>hooked</s> inspired. 
@@ -30,7 +30,7 @@ Mars and Saturn where in Scorpius which was rising over the Remarkables.
 
 I took a series of shots at F2.8, ISO 6400, Shutter speed 13 s (faster than this gave star trails) in RAW format. I was a bit disappointed with the noise when I looked at the shots at 100%. Also my manual focus could be better. (The focus scale on my lens is way off, other people online seem to also have this problem, but mine might be the result of dropping it on a rock on its first outing...)
 
-![100% jpg](./images/astro_crop_100.JPG)
+![100% jpg](/images/astro_crop_100.JPG)
 
 100% crop of original image
 
@@ -49,13 +49,13 @@ $ enfuse --exposure-weight=1 --saturation-weight=0  --exposure-mu=0.5 --exposure
 
 There were only four images in my stack so I'd only expect to reduce the noise by a half, but it definetly looked better.
 
-![100% jpg](./images/astro_crop_100_mean.JPG)
+![100% jpg](/images/astro_crop_100_mean.JPG)
 
 100% crop of stacked image
 
 After that I played with the image a little in RT again getting the colour balance better and applying a little local contrast. (I didn't really know what I was doing so I just experimented)
 
-![100% jpg](./images/astro_crop_100_final.JPG)
+![100% jpg](/images/astro_crop_100_final.JPG)
 
 100% crop of final image
 

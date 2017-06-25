@@ -5,7 +5,7 @@ Category: think
 Author: elfnor
 Status: published
 
-![P3 tiling](./images/penrose_rhomb_lattice_04_015.png)
+![P3 tiling](/images/penrose_rhomb_lattice_04_015.png)
 
 [Penrose tilings](https://en.wikipedia.org/wiki/Penrose_tiling) are an interesting group of tilings that have no translational symmetry but are self-similar on different scales. One method to construct them is using substitution, the same method I used for the Pentaflake fractal in the [previous post]({filename}lsystem_2d_fractal.md).  
 
@@ -24,7 +24,7 @@ I'll go through how to construct the tilings in [Blender](https://www.blender.or
 
 I'll start at the bottom of the above list with the P3 Penrose tiling made with two types of rhomb or diamond shaped tiles. Each of the diamonds can be divided in half to give two triangles called Robinson triangles.
 
-![rob tris](./images/penrose_rob_tris.png)  
+![rob tris](/images/penrose_rob_tris.png)  
 The thin triangle on the left is an acute isosceles triangle, and the fat one on the right is an obtuse isosceles triangle. There are three constants that we will use a lot in our *eisenxml* files used to describe the tilings.
 
 Golden Ratio:
@@ -35,7 +35,7 @@ $$x_{thin} = \sqrt{\phi + 3/4}$$
 $$x_{fat} = \frac{\sqrt{3-\phi}}{2}$$
 Also a useful identity for deriving these formula is:
 $$\phi^2 = \phi + 1 $$
-![robs tris 2](./images/penrose_robs_tris2.png)
+![robs tris 2](/images/penrose_robs_tris2.png)
 
 Its easy to produce an equilateral triangle in Sverchok using the *Circle* node with *N Vertices* set to 3. This give a triangle centered at the origin and pointing to the right, shown as a blue outline above. This following *eisenxml* scales the equilateral triangle in the x and y directions to give the thin and fat Robinson triangles. It also moves them so one vertex of each triangle is at the origin.
 
@@ -58,7 +58,7 @@ Its easy to produce an equilateral triangle in Sverchok using the *Circle* node 
 </rules>
 ```
 
-![1st division](./images/penrose_robs_tris3.png)
+![1st division](/images/penrose_robs_tris3.png)
 
 Each triangle now needs to be subdivided. The *eisenxml* below subdivides the thin triangle  into one smaller thin and one smaller fat triangle (rule *thin_tri_sub*). The fat triangle is divided into two smaller fat triangles and one smaller thin triangle (rule *fat_tri_sub*).
 
@@ -122,20 +122,20 @@ The complete [eisenxml](https://github.com/elfnor/generative-art-examples/blob/m
 
 The above construction results in all the vertices being doubled. To produce a mesh, use the *Apply Matrix* and *Remove Doubles* nodes. Many of the faces will have their normals flipped but this is fixed with the *Recalc Normals* node.
 
-![penrose nodes](./images/penrose_p3_nodes.png)
+![penrose nodes](/images/penrose_p3_nodes.png)
 
-![p3 gif](./images/penrose_p3.gif)
+![p3 gif](/images/penrose_p3.gif)
 
 At the end of the *gif* above the Robinson triangle tiling is turned into a proper P3 Rhomb tiling. This is done by selecting one of the longest edges (in *Edit* mode), then using *Select > Select Similar > Length* to select all the long edges. Then *Mesh > Delete > Dissolve Edges* to turn the pairs of fat triangles into fat rhombs. Select and dissolve all the short edges in a similar manner to join the thin triangles into thin rhombs.
 
 
 ## P2 Tiling - Kite and Dart
 
-![P2 tiling](./images/penrose_kites-darts-image_04_003.png)
+![P2 tiling](/images/penrose_kites-darts-image_04_003.png)
 
 The Penrose P2 tiling consists of kite and dart shapes. These kite and dart shapes can also be subdivided into Robinson triangles.
 
-![p2 subdivide](./images/penrose_p2_robs_tris2.png)
+![p2 subdivide](/images/penrose_p2_robs_tris2.png)
 
 This time the subdivide/substitution step involves dividing the thin triangle into two smaller thin triangles and one smaller fat triangle. The fat triangle is divided into one smaller thin and one smaller fat triangle. Notice again that the triangle sides are split in the golden ratio.
 
@@ -156,13 +156,13 @@ This time the subdivide/substitution step involves dividing the thin triangle in
 ```
 [full eisenxml](https://github.com/elfnor/generative-art-examples/blob/master/penrose_p2.xml)
 
-![penrsoe p2 gif](./images/penrose_p2.gif)
+![penrsoe p2 gif](/images/penrose_p2.gif)
 
 Turning the pairs of Robinson triangles into kites and darts is harder for this tiling as both edges within the kites and edges between the kites and darts have the same length. Instead we can use the select similar area tool to select all the thin triangles and give them a different material than the fat triangles.
 
 ## P1 Tiling - Pentagonal
 
-![P1 tiling](./images/penrose_p3-banner_01_020.png)
+![P1 tiling](/images/penrose_p3-banner_01_020.png)
 
 The P1 tiling looked much harder to make than the P2 or P3 tilings. The larger number of odd shapes were going to be harder to draw and there are [six substitution rules](http://tilings.math.uni-bielefeld.de/substitution_rules/penrose_pentagon_boat_star) to write.
 
@@ -172,7 +172,7 @@ A closer a look at this diagram on Wikipedia:
 
 showed that the P1 tiling could easily be created from the P3 tiling.
 
-![P3 plus pentagons](./images/penrose_p1p3.png)
+![P3 plus pentagons](/images/penrose_p1p3.png)
 
 Each fat triangle has three pentagons, one centered at a base corner, one centered on a short side and one on a long side.
 
@@ -186,12 +186,12 @@ Each fat triangle has three pentagons, one centered at a base corner, one center
 </rule>
 ...
 ```
-![p1 nodes](./images/penrose_p1_nodes.png)
+![p1 nodes](/images/penrose_p1_nodes.png)
 
 [full eisenxml](https://github.com/elfnor/generative-art-examples/blob/master/penrose_p1.xml), [node json](https://github.com/elfnor/generative-art-examples/blob/master/penrose_p1.json)
 
 This construction doubles up on lots of pentagons but they can be easily removed with the *Remove Doubles* node. There are also star, diamond and boat shaped gaps between the pentagons. The Sverchok *Fill Holes* node can be used to fill these.
 
-![p1 gif](./images/penrose_p1a.gif)
+![p1 gif](/images/penrose_p1a.gif)
 
 ----------------------------------------

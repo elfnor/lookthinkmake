@@ -4,7 +4,7 @@ Tags: make, python, micropython
 Category: make
 Author: elfnor
 
-![oled module](./images/wiring_02.png)
+![oled module](/images/wiring_02.png)
 
 Small OLED modules are [available](http://www.dx.com/p/waveshare-0-96-oled-b-ssd1306-display-screen-module-deep-blue-340467#.VZ9gRqGW4y8) with a resolution 128 x 64 pixels on a 22 x 11 mm display for under seven dollars. They are great for displaying graphics that can't be shown on a standard alphanumeric LCD. [OLED ](https://en.wikipedia.org/wiki/OLED) screens work without a back light and produce bright high contrast displays with a wide viewing angle (>160°) and low power consumption (~20 mA). The monochrome versions are available with a white or blue display on a black background, or as a version where the top quarter is yellow and the the rest blue.  The frame rates are very good and the display can be updated by the pyboard as fast as 333 frames/second.
 

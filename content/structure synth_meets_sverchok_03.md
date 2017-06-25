@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok, structuresynth
 Category: think
 Author: elfnor
 
-![still from fern  animation](./images/fern_anim_still_05.png)
+![still from fern  animation](/images/fern_anim_still_05.png)
 
 Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok *Generative Art* node. See the [updated examples]({filename}generative_art_example_updates.md) and the [node docs]({filename}generative_art_docs.md)
 
@@ -60,7 +60,7 @@ Library["FernVars"] = """
 """
 ```
 
-![node diagram for fern animation](./images/GA_Fern_animation_03.blend.png)
+![node diagram for fern animation](/images/GA_Fern_animation_03.blend.png)
 
 For this animation the index number of the current frame in the animation is translated from the range 1 to 250 to the range 16 to 6 via the formula node  and wired into the "variables" input of the "GA_node". This cause the fern to unwind as the animation proceeds. The separate objects are joined into one using the "Mesh Join" node and this output sent to the "Bmesh Viewer Draw" node. 
 
@@ -72,7 +72,7 @@ transforms = "tx {0} rx {1} sa {2}"
 
 With multiple parameters a "List Join" node is used to make a list to use as the "variables" input of the "GA_node".
 
-![node diagram with list join](./images/GA_node-variables_attributes.blend.png)
+![node diagram with list join](/images/GA_node-variables_attributes.blend.png)
 
 If not enough variables are provided the last one is repeated as many times as required.
 

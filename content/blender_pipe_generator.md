@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok, structuresynth
 Category: think
 Author: elfnor
 
-![pipes](./images/pipe_gen_15.png)
+![pipes](/images/pipe_gen_15.png)
 
 Update: This lsystem/Structure Synth code has now (March 2016) been incorporated into the Sverchok *Generative Art* node. See the [updated examples]({filename}generative_art_example_updates.md) and the [node docs]({filename}generative_art_docs.md)
 
@@ -18,7 +18,7 @@ First of all you need to set up two basic elements a straight section and a bend
 
 Examples of straights and bends. 
 
-![examples of straights and bends](./images/straights_bends.png)
+![examples of straights and bends](/images/straights_bends.png)
 
 Make sure any scaling done in object mode is applied (CTRL-A) to the object. Keep the number of vertices around the ends of the two elements the same for a smooth look. This will also enable the meshes to be nicely joined later if desired.
 
@@ -70,7 +70,7 @@ The following xml defines seven versions of the "R1" rule. The versions have eac
 ```
 Paste the xml code into a text block in the blend file and set up a Sverchok node diagram as follows. Use the drop down on the "Generative Art" node to select the text block with the xml code. Select the straight object in the scene and use the "Get selection" button on one of the "Object In" nodes to import it into the node. Import the bend object into the other node. After doing this you may have to swap the objects over to get the pipe structure to connect up properly.
 
-![screenshot node setup](./images/pipe_gen_demo_01.blend.png)
+![screenshot node setup](/images/pipe_gen_demo_01.blend.png)
 
 Once everything is working, play with the weights associated with each rule. This will change the structure of the pipe network. Changing the rseed value on the node will also change the random basis of the structure.
 
@@ -78,11 +78,11 @@ After changing the xml file in the text editor, the Sverchok nodes can be update
 
 Decorations can be added to the network at random. First model the decorators keeping the origin for each object at (0, 0, 0). Then use the "List Shuffle" and "List Slice" nodes to select a small selection of the original matrices. Use these matrices to place the decorator objects.
 
-![node diagram for decorators](./images/pipe_gen_demo_02.blend.png)
+![node diagram for decorators](/images/pipe_gen_demo_02.blend.png)
 
 ----------------------------------------------------------
 
-![thin pipes](./images/pipe_gen_thin_14.png)
+![thin pipes](/images/pipe_gen_thin_14.png)
 
 ---------------------------------------------------------------------------------
 

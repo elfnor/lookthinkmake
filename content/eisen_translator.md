@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok, structure synth, generative art
 Category: think
 Author: elfnor
 
-![medusas](./images/medusa_spiked_01_016.png)
+![medusas](/images/medusa_spiked_01_016.png)
 
 I've been working on some code to automatically translate the original *eisenscript* files used by [Struture Synth](http://structuresynth.sourceforge.net/) into the *eisenxml* used by the [Generative Art node]({filename}generative_art_docs.md) in the [Sverchok](https://github.com/nortikin/sverchok) addon for [Blender](https://www.blender.org/).
 
@@ -29,7 +29,7 @@ will produce a file `/path/to/file/totranslate.es.xml`
 
 Here's the original eisenscript and translated eisenxml for one of the creatures above.
 
-![ss_medusa](./images/ss_medusa.png)
+![ss_medusa](/images/ss_medusa.png)
 
 ```
 set md 25
@@ -76,7 +76,7 @@ rule spike w 1 {
 
 ```
 
-![ga_medusa](./images/ga_medusa.png)
+![ga_medusa](/images/ga_medusa.png)
 
 ```xml
 <?xml version="1.0" ?>

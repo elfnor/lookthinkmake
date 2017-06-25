@@ -4,7 +4,7 @@ Tags: make, think, blender, symmetrytile
 Category: think
 Author: elfnor
 
-![penrose gears](./images/penrose_painting_banner_002.png)
+![penrose gears](/images/penrose_painting_banner_002.png)
 
 The obvious follow up to [Painting in the Hyperbolic Plane]({filename}hyperbolic_texturing.md) and [Symmetry Tile Painting in Blender]({filename}symmetry_texturing.md) is to do the same thing with my [Penrose tilings]({filename}generative_art_penrose.md).
 
@@ -24,7 +24,7 @@ To use this:
 
 The first three layers already have images loaded into the UV Map. These draw circular arcs on the faces that show how the tiles match up. These can be used as a guide for painting or can be drawn over. Any other image, can of course, be loaded up instead. Move the whole UV map over an image for kaleidoscope effects.
 
-![drawing layers](./images/penrose_layers.png)
+![drawing layers](/images/penrose_layers.png)
 
 The fourth layer contains the P1 pattern of pentagons, stars, boats and triangles with each shape given a different material. There are three different types of pentagon in the tiling. They're are different because they match differently against neighboring tiles. Each type of pentagon has is given its own color.
 

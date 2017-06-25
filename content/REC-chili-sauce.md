@@ -4,7 +4,7 @@ Tags: make, food
 Category: food
 Author: elfnor
 
-![chili sauce](./images/REC-chilli-saucce.JPG)
+![chili sauce](/images/REC-chilli-saucce.JPG)
 
 Many cultures (Louisiana, Thai,  Hunan, Korea, Indonesia, Portugal) make a fermented chili sauce. This is my goto recipe and there's always a jar of this in the fridge. I'm not into fuzzy things like straining it after fermenting preferring the chunky taste surprise. I don't add extra flavorings like ginger or lemon grass as the plain version is more versatile. The fresh red pepper makes sure there are some wild lacto bugs to start the ferment and reduces the heat a little. Feel free to increase the mild pepper to chili ratio for a milder sauce.
 

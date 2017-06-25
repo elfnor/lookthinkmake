@@ -4,7 +4,7 @@ Tags: make, think, blender, sverchok, generative art
 Category: think
 Author: elfnor
 
-![tree](./images/sca-render_005.png)
+![tree](/images/sca-render_005.png)
 
 I tend toward making more abstract than realistic images with Blender.  A [while back]({filename}ivy_generator.md) I played with the *Ivy Generator* addon and so got interested in the underlying procedural algorithms for producing tree and plant structures.  A lot of these techiques use L-systems and could maybe be implemented using the Sverchok [Generative Art]({filename}generative_art_docs.md) node. Except the *Genertive Art* node has no provision (yet) for collision avoidance. This results in intersecting branches which is not always what I want.
 
@@ -21,9 +21,9 @@ Varkenvarken's Space Tree([free github version](https://github.com/varkenvarken/
 
 Here's a simple GIF showing the algorithm in action. The red points are the *End Vertices* or attractor points. There is one start point at (0, 0, 0).
 
-![gif of sca](./images/sca_gif.gif)
+![gif of sca](/images/sca_gif.gif)
 
-![node diagram for gif](./images/sca_gif_nodes.png)
+![node diagram for gif](/images/sca_gif_nodes.png)
 
 I started off looking at varkenvarken's github code but ended up completly rewriting it to use numpy. I then spent far longer than was reasonable optimizing my code to get a real-time response to parameter changes. The heart of the algorithm involves a large number of [nearest neighbor searches](https://en.wikipedia.org/wiki/Nearest_neighbor_search). This is a classic problem with many solutions (kdtrees, octrees, locality sensitive hashing). I looked at some of these but the fastest solution I could code (before I got bored) was to naively calculate every distance using numpy outer product. The whole SC Algorithm would make a great class (or competition) challenge in code speed optimization as there seems to be so many complicated ways to make it slower.
 
@@ -52,12 +52,12 @@ The node outputs:
 
 Here is the Sverchok node diagram to produce the tree in the top image. A spherical cloud of atractor points is produced using the random vector and scalar nodes on the left.  The *Skin Mesher* node is used to give thickness to the trunk and branches. The leaves are produced by the *Mesh Instancer* node. This make copies of a fairly simple leaf object (see insert) that has a image texture with an alpha channel. The textures are from EugeneKiver on [blendswap](http://www.blendswap.com/blends/view/59269). The modifiers on the tree trunk need to be applied before the UV texturing will work.
 
-![sca tree nodes](./images/sca_tree_nodes.png)
+![sca tree nodes](/images/sca_tree_nodes.png)
 
 
 Here is another example (not so tree like) of what is possible with the Tree Generator.
 
-![torus](./images/sca_test3b_004.png)
+![torus](/images/sca_test3b_004.png)
 
 I like to code my Blender procedural experiments ([maze any mesh]({filename}maze_mesh.md), [2D mazes]({filename}/blender_maze_generator.md), [3D mazes]({filename}blender_3D_maze_generator.md), [hyperbolic plane tilings]({filename}hyperbolic_tilings.md), [more hyperbolic planes]({filename}hyperbolic_planes.md), [bloom spheres]({filename}) ) as Sverchok nodes as I can concentrate on getting my code to produce simple lists (of vertices, edges, faces, and matrices) and Sverchok takes care of produing the actual mesh in Blender. The inputs and parameters provide a simple interface for the code without messing with the Blender API.
 

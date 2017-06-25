@@ -4,7 +4,7 @@ Tags: make, python, micropython, 3D Printing
 Category: make
 Author: elfnor
 
-![data-logger open](./images/data_logger_open.JPG)
+![data-logger open](/images/data_logger_open.JPG)
 
 I've been reading Sandor Katz's book [The Art of Fermentation](http://www.wildfermentation.com/the-art-of-fermentation/) and I'm making back-slopped room temperature yogurt, sauerkraut, kim chi, preserved lemons and best of all fermented garlic and chili sauce. Unfortunately the flies got the first salami experiment. 
 
@@ -18,13 +18,13 @@ The box has been frankensteined from at least four things on thingiverse. The ou
 
 
 
-![circuit](./images/datalogger_circuit.png)
+![circuit](/images/datalogger_circuit.png)
 
 
 
 ## Construction
 
-![printed parts](./images/data_logger_prints.JPG)
+![printed parts](/images/data_logger_prints.JPG)
 
 ### Printing
 
@@ -37,7 +37,7 @@ Get the files from [thingiverse](http://www.thingiverse.com/thing:1857224) and p
         
 If you print them in this order you can wire up the batteries while the main box prints. 
 
-![wired up](./images/data_logger_innards.JPG)
+![wired up](/images/data_logger_innards.JPG)
 
 ### Wire up battery holder and install switch.
 
@@ -55,7 +55,7 @@ My DHT11 sensor came mounted on a small breakout board that included the require
 
 Glue the battery holder into the box base (more hot glue) and slide in the pytray
 
-![finshed](./images/data_logger_closed.JPG)
+![finshed](/images/data_logger_closed.JPG)
 
 The box can be closed with four screws on the front, but I tend to hold it closed with a rubber band. The DHT11 sensor can be slipped in to the band to hold it in place.
 

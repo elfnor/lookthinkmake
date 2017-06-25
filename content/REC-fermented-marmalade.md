@@ -4,7 +4,7 @@ Tags: make, food
 Category: food
 Author: elfnor
 
-![feremented marmalade](./images/REC-citrus.JPG)
+![feremented marmalade](/images/REC-citrus.JPG)
 
 After making [preserved lemons]({filename}REC-preserved-lemons.md) I saw a comment somewhere that marmalade was once made by lacto-fermentation rather than with heaps of sugar like jam. I prefer a low sugar, low glycemic index diet so I made up the concoction below. Later I searched on-line for [recipes](http://www.culturesforhealth.com/learn/recipe/lacto-fermentation-recipes/lacto-fermented-orange-marmalade/) and found most of them make a sweeter cooked product. 
 

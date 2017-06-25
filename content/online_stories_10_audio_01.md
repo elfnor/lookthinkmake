@@ -4,7 +4,7 @@ Tags: reading
 Category: look
 Author: elfnor
 
-![online story map](./images/online_stories_map_10.png)
+![online story map](/images/online_stories_map_10.png)
 
 I really enjoyed putting together my list of [100 online stories]({filename}online_stories_100.md) but collating, then reading 100 stories at once was hard work. I'll do some more virtual anthologies with stories in groups of ten or so. This list is audio versions of stories from the big list. I found eight of the stories as audio online. Some of the authors on the list have work in podcasts but different stories than those I choose for the big list. I used a couple of these to make the list up to ten. Four male and six female authors this time. 
 

@@ -5,7 +5,7 @@ Category: think
 Author: elfnor
 Status: published
 
-![6 spirals mesh render](./images/6_spirals_mesh_render_03_018.png)
+![6 spirals mesh render](/images/6_spirals_mesh_render_03_018.png)
 
 I've made some changes and improvements to the *Generative Art* node in Sverchok. This node uses a simple *xml* file to define a set of rules to produce geometry. This node is very strongly based on [Structure Synth](http://structuresynth.sourceforge.net/) and can produce [Lindermayer Systems (lsystems)](https://en.wikipedia.org/wiki/L-system) and fractals as well as more random and interesting creations. 
 
@@ -31,7 +31,7 @@ To use:
 *  download and install [Blender](https://www.blender.org/)   
 *  download the zip file for [Sverchok](https://github.com/nortikin/sverchok)  
 *  Install Sverchok. In Blender , File > User Preferences > Add-ons > Install from zip and select the Sverchok download  
-*  In a node editor window, select display Sverchok nodes (![icon](./images/sverchok_icon.png)), and add a new node tree.
+*  In a node editor window, select display Sverchok nodes (![icon](/images/sverchok_icon.png)), and add a new node tree.
 *  Add a *Generative Art* node (*Add > Generators > Generative Art*)  
 *  Add an *xml* file and other nodes as shown below  
 

@@ -4,7 +4,7 @@ Tags: make, think, blender, symmetrytile
 Category: think
 Author: elfnor
 
-![p6m tiling](./images/blender_sym_tile_p6m.png)
+![p6m tiling](/images/blender_sym_tile_p6m.png)
 
 After working out how to use Blender to paint [hyperbolic tilings]({filename}hyperbolic_texturing.md) I then thought of using Blender to look at planar symmetric tilings. 
 

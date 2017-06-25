@@ -4,7 +4,7 @@ Tags: make, python, micropython
 Category: make
 Author: elfnor
 
-![A4988 circuit](./images/A4988_circuit.jpg)
+![A4988 circuit](/images/A4988_circuit.jpg)
 
 I have a [pyboard](https://micropython.org/) (I get cool birthday presents) and like the look of the micropython language. Python is my first language choice for data analysis at work and I've used it writing add ons for [GIMP](http://elfnor.com/Symmetry%20Tile%20plug-in%20for%20GIMP.html) and [Blender](http://elfnor.com/blender-pipe-generator.html). I can program the [Arduino](http://www.elfnor.com/Arduino%20Bread%20Details.html) in Wiring/Processing but being able to program a micro-controller in python is a big plus. The way the REPL prompt/terminal allows interactive scripting, putting a program on the board is just copying, and the ease of printing statements back to the terminal are all easier to use than the equivalent for the Arduino.
 

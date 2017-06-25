@@ -37,76 +37,38 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/blender-shape-keys-cookbook.html">Blender Shape Keys Cookbook</a></h1>
-        <p><img alt="two meshes" src="./images/TUT_shape_keys_00.png" /></p>
-<p>(<strong>1:</strong> Sphere with both shape keys Value = 0. <strong>2-3:</strong> Two different shape keys <em>Value</em> = 1. <strong>4:</strong> A mix of the two previous shape keys)</p>
-<p>The animation in <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html">Shape Shifting Creatures</a> was the first time I'd used shape keys in Blender. I only decided to animate between the different animal shapes after I modeled both shapes on different meshes.  Then I learnt that shape keys were the way to animate a transition between two mesh shapes. Getting from two meshes to one mesh with shape keys (then add a third mesh, sort out the mesh messes I made..) meant I needed to copy meshes to shape keys, apply shape keys and other things I could have avoided if I'd known what I was doing before I started. But you never learn anything (or go anywhere really interesting) if you know where you're going before you start out.</p>
-<p>All this copying, applying and swapping shape keys is possible in Blender but not always obvious. Here is a little cookbook of how do some of these useful things with shape keys. Thanks to <a href="https://blenderartists.org/forum/">Blender artists</a> and <a href="http://blender.stackexchange.com/">Blender stack exchange</a> for the answers (and interesting places to go).</p>
-<p>Just a couple of points:  </p>
-<ul>
-<li>If you add or subtract vertices while editing meshes with shape keys strange things can sometimes happen. Vertices added while editing the <em>Basis</em> key in areas not affected by other shape keys mostly behave as expected but in general it's best (for beginners anyway and definitely on complicated meshes) to not add or delete vertices after adding shape keys. The techniques below only work if the two meshes involved have the same number of vertices connected to each other in the same way. </li>
-<li>Modifiers  such as <em>Mirror</em>, <em>Subdivision Surface</em>, <em>Boolean</em> can't be applied to a object that has shape keys. </li>
-<li>Most examples of using shape keys are for adding small deformations on a large mesh, such as animating facial expressions or mouth shapes for speech. Shape keys aren't limited to this and can be used for large mesh deformations. One limitation is that the <em>Value</em> slider will interpolate a vertex position along  a straight line between the two extreme positions of a vertex. If you need to move a vertex in a curve you need to either use many shape keys to approximate a curve or a different animating technique.</li>
-</ul>
-<p>To start off learning about shape keys <a href="https://docs.blender.org/manual/en/dev/animation/shape_keys/index.html">RTFM</a>.</p>
-<p><strong>Table of Contents</strong></p>
-<div class="toc">
-<ul>
-<li><a href="#copy-a-mesh-to-a-shape-key">Copy a mesh to a shape key</a></li>
-<li><a href="#replace-the-basis-mesh-of-an-object-with-a-different-mesh-shape">Replace the basis mesh of an object with a different mesh shape</a></li>
-<li><a href="#apply-a-shape-key-to-a-mesh">Apply a shape key to a mesh</a></li>
-<li><a href="#swap-a-shape-key-with-the-basis-key">Swap a shape key with the Basis key</a></li>
-</ul>
-</div>
-<h2 id="copy-a-mesh-to-a-shape-key">Copy a mesh to a shape key</h2>
-<p><strong>Problem</strong></p>
-<p>You already have two meshes with the same number and order of vertices but different shapes (vertex positions). You want to smoothly transition between the two for an animation. </p>
-<p><strong>Solution: Join as Shapes</strong></p>
-<p>Normally you would apply shape keys to an object with the first mesh shape and then edit this object to give the second mesh shape. Both mesh shapes are stored on the same object as shape keys. In this problem we have two separate objects and want to copy the mesh shape from the second object so it becomes a shape key on the first object. This could be because the meshes were produced by a python script or imported from another program. </p>
-<p>Here are two meshes:</p>
-<p><img alt="two meshes" src="./images/TUT_shape_keys_01.png" /></p>
-<p>Add a "Basis" <em>Shape Key</em> to the left object. The <em>Shape Key</em> panel is found in the <em>Properties Editor</em> under the <em>Object Data</em> tab. </p>
-<p><img alt="adding shape key" src="./images/TUT_shape_keys_02a.png" /></p>
-<p>Select the right object then <code class="kbd">Shift-RMB</code> the left object. Both objects are selected and the left object is the active object.</p>
-<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>Join as Shapes</em> option. This will add a shape key with the name of the right object. </p>
-<p><img alt="join as shapes" src="./images/TUT_shape_keys_03.png" /></p>
-<p>If you select this <em>Shape Key</em> and drag the slider below the left object will transition from its original shape to the shape of the right object. </p>
-<p><img alt="transition" src="./images/TUT_shape_keys_04.png" /></p>
-<p>The position of the slider can be added as a keyframe in an animation by either hovering over the slider and pressing <code class="kbd">I</code> or with the context menu by <code class="kbd">RMB</code> a property and choose <em>Insert Keyframe</em> from the menu.</p>
-<h2 id="replace-the-basis-mesh-of-an-object-with-a-different-mesh-shape">Replace the basis mesh of an object with a different mesh shape</h2>
-<p><strong>Problem:</strong></p>
-<p>You have an object with a base mesh and a shape key that changes the shape of the base mesh. You'd like to change the base mesh shape. You can just select the <em>Basis</em> Key under <em>Shape Keys</em> and edit the mesh to change the base shape. In this problem,  the shape we want the base mesh to have already exists on a different object. We need to copy the shape key from the original base mesh to our new base mesh.</p>
-<p><strong>Solution: Transfer Shape Key</strong>  </p>
-<p>The left object is the original object and has a shape key. The right object is the new base mesh. Delete all shape keys from the right object. </p>
-<p><img alt="two more meshes" src="./images/TUT_shape_keys_05.png" /></p>
-<p>Select the left object then <code class="kbd">Shift-RMB</code> the right object. Both objects are selected and the <em>right object</em> is the active object.</p>
-<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>Transfer Shape Key</em> option. This will copy the shape key from the left object to the right object.</p>
-<p><img alt="transfer shape key" src="./images/TUT_shape_keys_06.png" /></p>
-<p>The right object now has the new base mesh and the old shape key.</p>
-<h2 id="apply-a-shape-key-to-a-mesh">Apply a shape key to a mesh</h2>
-<p><strong>Problem:</strong></p>
-<p>You want to fix the mesh shape at a particular value of a shape key.</p>
-<p><strong>Solution: New Shape From Mix</strong></p>
-<p>Set the <em>Shape Key</em> <em>Value</em> slider to give the desired mesh shape. If you have multiple shape keys set all the sliders as needed. </p>
-<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>New Shape From Mix</em> option. This will add a new shape key from the current mix of values.</p>
-<p><img alt="new shape from mix" src="./images/TUT_shape_keys_07.png" /></p>
-<p>Delete all the shape keys making sure to delete the new key last.</p>
-<h2 id="swap-a-shape-key-with-the-basis-key">Swap a shape key with the <em>Basis</em> key</h2>
-<p><strong>Problem:</strong> </p>
-<p>Moving the <em>Value</em> slider on your shape key changes the object shape from the basis shape (shape A) when the value is 0 to the key shape (shape B) when the slider is 1. You want this to work the other way, shape B has a value of 0 and shape A has a value of 1.</p>
-<p><strong>Solution: Move the Shape Key</strong> </p>
-<p>You could do this by duplicating the object, applying the shape keys (at the correct slider value) to give one mesh with shape A and one mesh with shape B. Then copying the shape A mesh to a shape key on the mesh with shape B. But there's also a more straightforward way. </p>
-<p>Use the arrows on the side of the <em>Shape Key</em> panel to move the shape key to the top of the list.</p>
-<p><img alt="move shape key" src="./images/TUT_shape_keys_08.png" /></p>
-<p>The slider no longer moves between shapes. With the <em>Basis</em> key (now at the bottom of the list), click the push pin underneath the key list. Shape A nows shows</p>
-<p><img alt="push pin" src="./images/TUT_shape_keys_09.png" /></p>
-<p>Click the small dark triangle on the <em>Shape Key</em> panel and choose the <em>New Shape From Mix</em> option. This will add a new shape key that has the visible shape (Shape A). Click the push pin again to deselect it. The slider on the second key should now move between shape B at a value of 0 to shape A at a value of 1.</p>
-<p><img alt="new key" src="./images/TUT_shape_keys_10.png" /></p>
-<p>Delete the original <em>Basis</em> key. Rename the shape key at the top of the list to <em>Basis</em>. This is optional but it might avoid you confusing yourself later (I'm very good at doing stuff that confuses me later).</p>
-<p><img alt="rename key" src="./images/TUT_shape_keys_11.png" /></p>
-<hr />
-	<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html">Permalink, </a>
-	<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html#disqus_thread">Comments</a>
+        <h1><a href="http://www.elfnor.com/mesh-maze-blender-add-on.html">Mesh Maze Blender Add-On</a></h1>
+        <p><img alt="maze" src="/images/maze.png" /></p>
+<p>I've completely rewritten my <a href="http://www.elfnor.com/maze-any-mesh-in-blender.html">Maze any Mesh</a> Sverchok scripted node as a standalone Blender add-on. It's available <a href="https://github.com/elfnor/mesh_maze">here</a>.</p>
+<p>This add-on runs a recursive back tracker maze algorithm over the selected part of any mesh to produce a maze.</p>
+<p>A Blender mesh structure can be seen as equivalent to the grid of cells and list of links used as the data structure for 2D mazes (for example by <a href="http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap">Jamis Buck</a> in his book "Mazes for Programmers").</p>
+<p>Here the mesh vertices are equivalent to cells and the mesh edge connections define the cell neighbors. A maze carving function can then return a subset of the edges that define the path of a maze through the mesh.</p>
+<p><img alt="round cube maze" src="/images/round_cube.png" /></p>
+<p>The add-on can be installed in the normal way by downloading the zip file from the <a href="https://github.com/elfnor/mesh_maze">github repository</a>, then <code>File -&gt; User Preferences -&gt; Add-ons -&gt; Install from File...</code></p>
+<p>Once installed and enabled the add-on can be found in <em>Edit Mode</em> on the <em>Specials</em> <code>W</code> menu, or using the <code>Spacebar</code> menu to search for <em>maze</em>.</p>
+<p>After carving the maze along the edges, the add-on (by default) bevels all the edges in the selection to give the maze path some width and then extrudes the walls of the mesh outward to give the maze some height.</p>
+<p><img alt="moebius maze" src="/images/moebius_02_003.png" /></p>
+<h2 id="maze-parameters">Maze Parameters</h2>
+<p>Changing the <em>Random Seed</em> parameter will recalculate a different maze on the same selection.</p>
+<p>The <em>Braid</em> defines whether the maze has dead ends. The higher the value of <em>Braid</em> the less dead ends and the more loops or alternative paths in the maze.</p>
+<p>The <em>Boundary Wall Type</em> is only applicable if part of the mesh is selected to run the maze on, or the mesh has a boundary (for example a grid mesh). This parameter sets the outer wall of the maze to <em>Thin</em>, <em>Thick</em> or <em>None</em>.</p>
+<p><em>Advanced Options</em> adds some extra parameters to the Path and Wall Parameters that effect the bevel and extrude operators.</p>
+<h2 id="path-parameters">Path Parameters</h2>
+<p><em>Bevel Amount Type</em> sets how the amount slider effects the bevel or path width. See the <a href="">bevel operator</a> documentation for details.</p>
+<p>The <em>Path Width</em> sets the width of the path. If set to zero only the edges of the maze within the origina l meash are selected, no bevel or extrude takes place.</p>
+<p>The <em>Clamp Overlay</em> and <em>Loop Slide</em> parameters are passed straight to the <a href="">bevel operator</a>.</p>
+<h2 id="wall-parameters">Wall Parameters</h2>
+<p><em>Offset Relative</em> - scales the offset relative to the surrounding geometry.</p>
+<p><em>Extrude</em> - gives the height of the maze walls.</p>
+<p><em>Offset Even</em> - scales the offset to give more even thickness to the top width of the walls.</p>
+<p><em>Thickness</em> - narrows the top of the wall to give a tapered profile.</p>
+<p><em>Outset</em> - if the walls are tapered the tapered part extends into the path area.</p>
+<p><img alt="large mesh" src="/images/stereosphere_022.png" /></p>
+<h2 id="large-meshes">Large meshes</h2>
+<p>The mesh maze add-on takes about 8 seconds (on my machine) to generate a maze on an icosphere with ~10 000 vertices. It has been optimized so that the maze path is regenerated if the random seed or braiding values are changed but not for changes to the path width or wall height.</p>
+<p><img alt="maze 3d" src="/images/maze_3D.png" /></p>
+	<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html">Permalink, </a>
+	<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -118,9 +80,15 @@
 
 
       <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      </li>
+
+
+      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      </li>
 
 
       <li>
@@ -141,10 +109,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
-  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      </li>
 
 
 
@@ -281,15 +245,21 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -315,11 +285,6 @@
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -392,7 +357,6 @@
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -409,33 +373,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

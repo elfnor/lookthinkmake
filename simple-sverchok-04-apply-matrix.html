@@ -47,14 +47,14 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><img alt="3D T Square Fractal" src="./images/copy_cubes_wireframe_25a.png" /></p>
+		<p><img alt="3D T Square Fractal" src="/images/copy_cubes_wireframe_25a.png" /></p>
 <p>This is part four of my introduction to <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> the parametric node geometry add-on for Blender. This post I'm sticking to my theme of copying one object to the structure (either the vertices or polygons) or another mesh. There is an awful lot more than just copying that can be done with Sverchok (see <a href="http://blendersushi.blogspot.co.nz/">here</a> for example) but copying is good for explaining the basics.</p>
 <p>The very simple node tree below takes a copy of the cube, scales it to half size and places a copy on each each of the corners of the original large cube. The scale values are accessed by clicking on the scale drop down. We could also connect a "Vector In" node here to give the three scale values.</p>
-<p><img alt="first level cube copy" src="./images/copy_cube_post_01.blend.png" /></p>
+<p><img alt="first level cube copy" src="/images/copy_cube_post_01.blend.png" /></p>
 <p>Very straight forward. How would we continue this copy in a recursive fashion to produce a fractal structure? That is copy a small cube (64 in total) to each corner of the eight mid-sized cubes. Then repeat this with 512 tiny cubes etc.  This would produce  a 3D  version of the <a href="http://en.wikipedia.org/wiki/T-square_%28fractal%29">T-square fractal</a>. </p>
 <p>The "Viewer Draw" node takes a list of vertices from the "Object In" node and a list of matrices defining the location of each of vertices of the original cube and a scale factor to apply to each of the copies.  To do another level of copying we need a list of matrices that give the location of the corners of the eight mid-sized cubes. </p>
 <p>The "Matrix Apply" node takes a list of vertices and a list of matrices and produces a nested list of vertices for all the mid sized cubes. Take a look at the output of the "Matrix Apply" node with the "Viewer Text" node. It consists of a nested list with three levels. The outermost level (level 1) contains 8 objects, one for each cube. Each of these level 1 objects contains eight lists (level 2), one for each corner of a cube. Each of these level 2 list contains three numbers (level 3) for the x, y, z coordinates of the vertex. </p>
-<p><img alt="matrix apply node" src="./images/copy_cube_post_02.blend.png" /></p>
+<p><img alt="matrix apply node" src="/images/copy_cube_post_02.blend.png" /></p>
 <div class="codehilite"><pre><span></span>vertices: 
 (8) object(s)
 =0=   (8)
@@ -80,7 +80,7 @@
 
 
 <p>We need to flatten this list so it contains 1 object with a  list of 64 vertices. This is done using the "List Join" node with the "JoinLevelLists" set to 2. Check with the "Viewer Text" node that this is what happened.</p>
-<p><img alt="List join node" src="./images/copy_cube_post_03.blend.png" /></p>
+<p><img alt="List join node" src="/images/copy_cube_post_03.blend.png" /></p>
 <div class="codehilite"><pre><span></span>vertices: 
 (1) object(s)
 =0=   (64)
@@ -94,8 +94,8 @@
 
 
 <p>We then feed this list into another "Matrix In" node, set the scale values and send the resulting list of 64 matrices to another "Viewer Draw" node. We can repeat this process as many times as we like to get a fractal structure.</p>
-<p><img alt="t square fractal node tree" src="./images/copy_cube_post_04.blend.png" />
-<img alt="t square fractal levels" src="./images/copy_cube_post_05.blend.png" /></p>
+<p><img alt="t square fractal node tree" src="/images/copy_cube_post_04.blend.png" />
+<img alt="t square fractal levels" src="/images/copy_cube_post_05.blend.png" /></p>
 <p>Another simple 3D fractal is the <a href="http://en.wikipedia.org/wiki/Menger_sponge">Menger Sponge</a>. The sponge (right) and its negative space (left) are shown below. The sponge and its negative would fit together to completely fill a cube. </p>
 <p><img alt="menger sponge neagtive and positive" src="images/menger_sponge_06.png" /></p>
 <p>Looking at these, the negative sponge looks easier to build by copying. The basic underlying structure is shown below. The structure consists of ever smaller copies of the central cross. The cross can be made by extruding each face of a cube. The positions to copy to are given by the wire frame cube. This is made by deleting the faces from a cube and subdividing each edge. The cross should be three units across and the wire frame cube 2 units across.</p>
@@ -133,15 +133,21 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -167,11 +173,6 @@
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -244,7 +245,6 @@
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -261,33 +261,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

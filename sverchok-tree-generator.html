@@ -47,7 +47,7 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></p></div>		
-		<p><img alt="tree" src="./images/sca-render_005.png" /></p>
+		<p><img alt="tree" src="/images/sca-render_005.png" /></p>
 <p>I tend toward making more abstract than realistic images with Blender.  A <a href="http://www.elfnor.com/blender-ivy-gen-abstracts.html">while back</a> I played with the <em>Ivy Generator</em> addon and so got interested in the underlying procedural algorithms for producing tree and plant structures.  A lot of these techiques use L-systems and could maybe be implemented using the Sverchok <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Generative Art</a> node. Except the <em>Genertive Art</em> node has no provision (yet) for collision avoidance. This results in intersecting branches which is not always what I want.</p>
 <p>Somewhere in my research into procedural plants I came across the Space Colonization Algorithm which is a different approach to tree generation and decided to write this algoithm up as a Sverchok scripted node.</p>
 <p>The Space Colonization Algorithim (SC Algorithm) was originally described in <a href="http://www.academia.edu/download/46349919/colonization.egwnp2007.pdf">this paper</a> by Adam Runions, Brendan Lane and Przemyslaw Prusinkiewicz. </p>
@@ -57,8 +57,8 @@
 </blockquote>
 <p>Varkenvarken's Space Tree(<a href="https://github.com/varkenvarken/spacetree">free github version</a>, <a href="https://cgcookiemarkets.com/all-products/space-tree-pro/">Space Tree Pro</a>) addon for Blender uses the SC Algorithm to produce really versatile and realistic trees. My version is extremely simple but the ability to directly control the cloud of attractor points works well for my abstract doodles.</p>
 <p>Here's a simple GIF showing the algorithm in action. The red points are the <em>End Vertices</em> or attractor points. There is one start point at (0, 0, 0).</p>
-<p><img alt="gif of sca" src="./images/sca_gif.gif" /></p>
-<p><img alt="node diagram for gif" src="./images/sca_gif_nodes.png" /></p>
+<p><img alt="gif of sca" src="/images/sca_gif.gif" /></p>
+<p><img alt="node diagram for gif" src="/images/sca_gif_nodes.png" /></p>
 <p>I started off looking at varkenvarken's github code but ended up completly rewriting it to use numpy. I then spent far longer than was reasonable optimizing my code to get a real-time response to parameter changes. The heart of the algorithm involves a large number of <a href="https://en.wikipedia.org/wiki/Nearest_neighbor_search">nearest neighbor searches</a>. This is a classic problem with many solutions (kdtrees, octrees, locality sensitive hashing). I looked at some of these but the fastest solution I could code (before I got bored) was to naively calculate every distance using numpy outer product. The whole SC Algorithm would make a great class (or competition) challenge in code speed optimization as there seems to be so many complicated ways to make it slower.</p>
 <p>Install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon into <a href="https://www.blender.org/">Blender</a>. Download the Tree Generator code from <a href="https://github.com/elfnor/spacetree-sverchok">github</a>. Then load the python file <em>tree_generator.py</em> as a text blocks into a blend file. Add a <em>Scripted Node</em> to a Sverchok node tree. On the node select the <em>tree_generator.py</em> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.</p>
 <p>The node inputs:  </p>
@@ -81,9 +81,9 @@
 <li><strong>Leaf matrices</strong>:  a list of transform matrices that can be used to place an object at the end of each branch. The x-direction of the object will be aligned with the last segment in the branch.  </li>
 </ul>
 <p>Here is the Sverchok node diagram to produce the tree in the top image. A spherical cloud of atractor points is produced using the random vector and scalar nodes on the left.  The <em>Skin Mesher</em> node is used to give thickness to the trunk and branches. The leaves are produced by the <em>Mesh Instancer</em> node. This make copies of a fairly simple leaf object (see insert) that has a image texture with an alpha channel. The textures are from EugeneKiver on <a href="http://www.blendswap.com/blends/view/59269">blendswap</a>. The modifiers on the tree trunk need to be applied before the UV texturing will work.</p>
-<p><img alt="sca tree nodes" src="./images/sca_tree_nodes.png" /></p>
+<p><img alt="sca tree nodes" src="/images/sca_tree_nodes.png" /></p>
 <p>Here is another example (not so tree like) of what is possible with the Tree Generator.</p>
-<p><img alt="torus" src="./images/sca_test3b_004.png" /></p>
+<p><img alt="torus" src="/images/sca_test3b_004.png" /></p>
 <p>I like to code my Blender procedural experiments (<a href="http://www.elfnor.com/maze-any-mesh-in-blender.html">maze any mesh</a>, <a href="http://www.elfnor.com/blender-2d-maze-generator.html">2D mazes</a>, <a href="http://www.elfnor.com/blender-3d-maze-generator.html">3D mazes</a>, <a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html">hyperbolic plane tilings</a>, <a href="http://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html">more hyperbolic planes</a>, <a href="http://www.elfnor.com/sverchok-tree-generator.html">bloom spheres</a> ) as Sverchok nodes as I can concentrate on getting my code to produce simple lists (of vertices, edges, faces, and matrices) and Sverchok takes care of produing the actual mesh in Blender. The inputs and parameters provide a simple interface for the code without messing with the Blender API.</p>
 <hr />	
 
@@ -111,15 +111,21 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -145,11 +151,6 @@
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -222,7 +223,6 @@
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -239,33 +239,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

@@ -47,14 +47,14 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/processing.html">processing</a></p></div>		
-		<p><img alt="plane, sphere and hyperbolic footbal" src="./images/CORAL_735_02_031.png" /></p>
+		<p><img alt="plane, sphere and hyperbolic footbal" src="/images/CORAL_735_02_031.png" /></p>
 <p>After my <a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html">last post</a> on producing tiled hyperbolic planes in 3D, I was still unhappy with the size of the planes I could generate. Using the soft body modifier in Blender I was limited to about 250 faces before everything went unstable. Also after the tiling has been unfurled the length edges were still longer in the middle and shorter towards the edges where they should all be equal. (OK, I'm getting a bit obsessed with this)</p>
 <p>The physics needed to unfurl the tiling into 3D space is a mass spring network where each vertex of the mesh is a mass and each edge of the mesh is modeled as a spring with a fixed rest length. The rest length needs to be able to be set to be different from the initial edge length. To avoid the mesh intersecting itself each vertex of the mesh also needs to repel all other vertices. </p>
 <p>I can't see any way to set rest lengths directly in either the soft body modifier or the cloth modifier in Blender so I went back to the <a href="http://murderandcreate.com/physics/">Traer Physics</a> library available for Processing. I recently discovered that Processing has a "python mode" that allows python code to be written in the Processing environment. This allowed me to directly combine the <code>hyperbolic_tiling.py</code> code written for Sverchok with the Traer physics library.</p>
 <p>The Processing sketch available in the <a href="https://github.com/elfnor/hyperbolic_coral">Hyperbolic Coral</a> repository on github outputs <code>obj</code> files that can easily be imported into Blender. I've included a number of these files in the repository in case anyone wants to play with them without installing Processing. </p>
 <p>If you do want to run the sketch you'll need to <a href="https://processing.org/">install Processing</a>. Then from with in the Processing environment <code>Tools &gt; Add Tool... &gt; Modes</code> install the python mode. From the libraries tab install the <code>PeasyCam</code> camera library. The <a href="http://murderandcreate.com/physics/">Traer Physics library</a> needs to be downloaded, unzipped and copied to give this folder structure <code>~/sketchbook/libraries/physics/library/physics.jar</code>.</p>
 <p>Download a copy of the <a href="https://github.com/elfnor/hyperbolic_coral">Hyperbolic Coral</a> files from github and unzip them somewhere.  Run Processing and change the mode to Python. Open the file <code>hyperbolic_tiling.pyde</code> and create a new folder when prompted. Move a copy of <code>hyperbolic_tiling.py</code> into the same folder. Run the script and you should see a window displaying the tiling unfolding. </p>
-<p><img alt="screenshot hyperbolic unfurling" src="./images/processing_unfurl_ht_734.png" /></p>
+<p><img alt="screenshot hyperbolic unfurling" src="/images/processing_unfurl_ht_734.png" /></p>
 <p>There's no fancy interface for this. Edit the <code>p, q, layers</code> parameters in the <code>setup()</code> function and re run. The tilings are described with two numbers, <code>p</code> the number of sides to the polygons used and <code>q</code> the number of polygons that meet at each vertex. The number of <code>layers</code> describes how many rings of polygons to include. Each polygon face is divided into triangles and the polygons are not so obvious in the mesh.</p>
 <p>As the number of layers increases the number of faces in the mesh increases exponentially and the simulation slows down but still runs. I've successfully produced meshes with 1624 faces. </p>
 <p>As the unfurling occurs the edges are colored in according to their length. Red edges are shorter and green edges longer than the set rest length. The cutoff values are given by <code>d_long</code> and <code>d_short</code> in the <code>draw()</code> function. When the edges fall between the values they are drawn in black. The tiling lengths are still not perfectly even but they're better than I was getting in Blender.</p>
@@ -75,7 +75,7 @@ repulsion_mindist = 0.5  # Distance from node where repulsion force begins to de
 <p>I've spent some (way too much) time adjusting these parameters to give as even an edge length as possible while still avoiding mesh intersections and aiming for a symmetrical final mesh. Paul Bourke's  <a href="http://paulbourke.net/miscellaneous/particle/">description</a> of the maths and physics of this type of particle system  was a help here (he also provides an implementation in C). </p>
 <p>My best advise if playing with this is lower the drag and increase the negative repulsion force if the mesh has intersecting faces. If the simulation goes unstable reverse the changes incrementally. You normally end up trading longer edges in the center for no intersections toward the edge. </p>
 <p>Here to follow up on the previous posts is the hyperbolic football with friends.</p>
-<p><img alt="plane, sphere and hyperbolic footbal" src="./images/hexagon_sphere_plane_hyp_processing_019.png" /></p>
+<p><img alt="plane, sphere and hyperbolic footbal" src="/images/hexagon_sphere_plane_hyp_processing_019.png" /></p>
 <hr />	
 
 	</article>
@@ -102,15 +102,21 @@ repulsion_mindist = 0.5  # Distance from node where repulsion force begins to de
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -136,11 +142,6 @@ repulsion_mindist = 0.5  # Distance from node where repulsion force begins to de
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -213,7 +214,6 @@ repulsion_mindist = 0.5  # Distance from node where repulsion force begins to de
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -230,33 +230,33 @@ repulsion_mindist = 0.5  # Distance from node where repulsion force begins to de
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

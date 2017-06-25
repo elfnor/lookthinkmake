@@ -49,38 +49,38 @@
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/maze.html">maze</a></p></div>		
 		<p><meta property="og:image"
     content="/images/maze_mesh_mobius.png" /></p>
-<p><img alt="mobius maze" src="./images/maze_mesh_mobius.png" /></p>
+<p><img alt="mobius maze" src="/images/maze_mesh_mobius.png" /></p>
 <p>The grid of cells and list of links used as the data structure for 2D mazes  by <a href="http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap">Jamis Buck's</a> in his book "Mazes for Programmers" can be replaced with a mesh object where the vertices are equivalent to cells and the mesh edge connections define the cell neighbors. The maze carving function can then return a subset of the edges that define the path of the maze.</p>
 <p>I've implemented this in yet another scripted node (<em>maze_mesh.py</em>) for Sverchok avaliable on <a href="https://github.com/elfnor/mazes">github</a>. </p>
 <p>Install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon. Download the maze generation code from <a href="https://github.com/elfnor/mazes">github</a>. Then load the python file <em>maze_mesh.py</em> as a text blocks into a blend file. Add a <em>Scripted Node</em> to a Sverchok node tree. On the node select the <em>maze_mesh.py</em> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.</p>
 <h2 id="path-line-generation">Path Line generation</h2>
-<p><img alt="maze mesh node diagram" src="./images/maze_mesh_node_diagram.png" /></p>
+<p><img alt="maze mesh node diagram" src="/images/maze_mesh_node_diagram.png" /></p>
 <p>Connect the <em>Vertices</em> and <em>Edges</em> input from a mesh. Connect the <em>Link Verticies</em> and <em>Link Edges</em> to a <em>Viewer Draw</em> node. </p>
 <p>This set of verticies and edges without any faces is a bit hard to turn into a good visual representation of a maze. Most of the bevel, solidify or extrude modifiers and nodes need the face informaion to work (the <em>Path</em>, <em>Skin Mesher</em> and <em>Curve Viewer</em> nodes don't require faces and are worth experimenting with).</p>
 <p>One way to make a representaion of the maze is to convert the link mesh to a curve (<em>ALT-C</em>) and then apply a bevel to it under the curve property panel. For a non-flat mesh using the <em>Extrude</em> modification or having a bevel obect that isn't an equal size in x and y tends to have odd effects at the link branches.</p>
-<p><img alt="bevelled maze path" src="./images/maze_mesh_bevel_path.png" /></p>
+<p><img alt="bevelled maze path" src="/images/maze_mesh_bevel_path.png" /></p>
 <p>The curve can also be smoothed by converting the <em>Spline Type</em> to <em>Bezier</em> (on the tool panel in edit mode) and setting all the <em>Handles</em> to <em>Auto</em>.</p>
-<p><img alt="smoothed bevelled maze path" src="./images/maze_mesh_bevel_path_smooth.png" /></p>
+<p><img alt="smoothed bevelled maze path" src="/images/maze_mesh_bevel_path_smooth.png" /></p>
 <h2 id="wall-and-path-generation">Wall and path generation</h2>
 <p>If the scripted node is also provided with the polygons from the mesh, the node will apply an edge bevel to the mesh (this is the same as using <em>CTRL-B</em> on a mesh in edit mode, not to be confused with adding a bevel to a curve as used above). The width of the bevel is set by the offset parameter to be a percent of the adjacent edge length. The node then outputs two subsets of this bevelled mesh. One for the path and one for the walls.</p>
-<p><img alt="node diagram for path and walls" src="./images/maze_mesh_path_wall_nodes.png" /></p>
+<p><img alt="node diagram for path and walls" src="/images/maze_mesh_path_wall_nodes.png" /></p>
 <p>Either the wall or the path faces can be used with a solidify node to produce a maze.</p>
-<p><img alt="node diagram for solidify walls" src="./images/maze_mesh_solidify_walls.png" /></p>
-<p><img alt="solid walls on torus" src="./images/maze_mesh_torus_walls.png" /></p>
-<p><img alt="solid path on torus" src="./images/maze_mesh_torus_path.png" /></p>
+<p><img alt="node diagram for solidify walls" src="/images/maze_mesh_solidify_walls.png" /></p>
+<p><img alt="solid walls on torus" src="/images/maze_mesh_torus_walls.png" /></p>
+<p><img alt="solid path on torus" src="/images/maze_mesh_torus_path.png" /></p>
 <h2 id="full-3d-maze">Full 3d Maze</h2>
 <p>Use the <em>Array Modifier</em> 3 times on the default cube to produce a 3D lattice, at each stage 
 select <em>Merge</em> to merge the vertices of each cube to its neighbor. </p>
-<p><img alt="screenshot of using array modifier" src="./images/maze_mesh_array.png" /></p>
-<p><img alt="lattice" src="./images/maze_mesh_lattice.png" /></p>
+<p><img alt="screenshot of using array modifier" src="/images/maze_mesh_array.png" /></p>
+<p><img alt="lattice" src="/images/maze_mesh_lattice.png" /></p>
 <p>Using the vertices and edges of this mesh as input to the <em>maze_mesh</em> node will give a 3D maze path through the lattice.</p>
-<p><img alt="lattice maze path" src="./images/maze_mesh_lattice_path.png" /></p>
+<p><img alt="lattice maze path" src="/images/maze_mesh_lattice_path.png" /></p>
 <p>Here I've rendered the maze using the <em>Curve Viewer</em> node to fill the link path and the <em>Dupli Instancer</em> node to fill in the corners with a sphere.</p>
-<p><img alt="node diagram Curve Viewer" src="./images/maze_mesh_lattice_nodes.png" /></p>
-<p><img alt="3d maze" src="./images/maze_mesh_3d_016.png" /></p>
+<p><img alt="node diagram Curve Viewer" src="/images/maze_mesh_lattice_nodes.png" /></p>
+<p><img alt="3d maze" src="/images/maze_mesh_3d_016.png" /></p>
 <h2 id="other-ideas">Other Ideas</h2>
 <p>Create an irregular 2d grid maze. Add a fine <em>Grid</em> object, say 100 by 100. Use the circle select tool to draw a shape or word on the grid. Invert the selection and delete the faces. Use this grid as input to the <em>maze_mesh</em> node.</p>
-<p><img alt="Maze maze" src="./images/maze_mesh_shaped_grid.png" /></p>
+<p><img alt="Maze maze" src="/images/maze_mesh_shaped_grid.png" /></p>
 <hr />	
 
 	</article>
@@ -107,15 +107,21 @@ select <em>Merge</em> to merge the vertices of each cube to its neighbor. </p>
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -141,11 +147,6 @@ select <em>Merge</em> to merge the vertices of each cube to its neighbor. </p>
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -218,7 +219,6 @@ select <em>Merge</em> to merge the vertices of each cube to its neighbor. </p>
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -235,33 +235,33 @@ select <em>Merge</em> to merge the vertices of each cube to its neighbor. </p>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

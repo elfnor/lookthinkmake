@@ -47,7 +47,7 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/maze.html">maze</a></p></div>		
-		<p><img alt="red maze blue maze" src="./images/red_maze_blue_maze.png" /></p>
+		<p><img alt="red maze blue maze" src="/images/red_maze_blue_maze.png" /></p>
 <p>The same backtracking algorithm that produces <a href="http://www.elfnor.com/blender-2d-maze-generator.html">2D mazes</a> can be used to produce three dimensional mazes. All that's needed is to set up the cells in the grid with an extra dimension and define the neighbors to include cells on the layers above and below the cell. </p>
 <p>Here I've chosen the neighbors to be the 4 adjacent cells on the same layer, the 4 cells above these adjacent cells  and the 4 cells below them. This gives each cell 12 neighbors and allows the maze to be drawn with ramps or diagonal staircases. This configuration is good for marble runs and mazes to explore in a game environment. A more common alternative would be to just add the cells directly above and below the original cells to give only six neighbors. This would require staircases going directly up from one level to the next.</p>
 <p>With 12 potential neighbors its impractical to include a different tile for each possible combination of links (as we did with  the 2D maze). For 12 neighbors there would be <span class="math">\(2^{12} - 1 = 4095\)</span> different tiles needed most of which would not occur in any given maze. Instead I've limited the maze components to a platform that sits at the center of each cell,  a straight bridge that goes to a linked neighbor on the same level and a ramp that either goes up to the platform diagonally above or below the cell.</p>
@@ -61,7 +61,7 @@
 <li><code>scaleZ</code> sets the vertical spacing of the components and should be equal to the Z dimension of the ramp or staircase. </li>
 <li><code>braid</code> set the proportion of dead ends to loops in the maze. Set to 0 there will be dead ends and no loops. There will only be one path between any two platforms in the maze. Set to 1 there will be lots of loops and no dead ends. Each platform will be connected by at least two bridges or ramps.</li>
 </ul>
-<p><img alt="node diagram" src="./images/maze_3D_nodes.png" /></p>
+<p><img alt="node diagram" src="/images/maze_3D_nodes.png" /></p>
 <p>The <code>matrices</code> output gives a list of matrices define the location, and rotation of each maze component. The <code>mask</code> output gives a list of integers which define which component to place with each matrix. </p>
 <ul>
 <li>0 : platform</li>
@@ -74,18 +74,18 @@
 <li>7 : missing down ramp rail (edge)</li>
 </ul>
 <p>Only the first 3 components are needed to produce a maze. I'll explain the other 5 components later. The platform component needs to have its origin at (0, 0, 0). The bridge component should also be centered at the origin.  The ramp should also have its origin at (0, 0, 0) and needs to go upward from -X to + X. The ramp mesh needs to be offset from its origin  in the y-direction. When the up ramp mesh is rotated 180 degrees around its origin it should be in the correct position to function as a down ramp without intersecting with either the up ramp or the bridge. A picture of a the simplest mesh for each component should make this clear. </p>
-<p><img alt="3D components" src="./images/maze_3D_components.png" /></p>
-<p><img alt="3D maze" src="./images/maze_3D_maze.png" /></p>
+<p><img alt="3D components" src="/images/maze_3D_components.png" /></p>
+<p><img alt="3D maze" src="/images/maze_3D_maze.png" /></p>
 <p>It is possible to move the mesh of the bridge and ramp components relative to their origins (in edit mode) to get different configurations. For example the bridges could be set to be at the end of the platforms.</p>
 <p>The lack of rails on the platforms above is a serious health and safety issue. To address this the additional matrices corresponding to the mask values 3 to 7 can be used to apply rails to the platforms where there is no link to another platform. For example the following components give the accompanying maze. Components 5, 6  and 7 are used at the edge of the maze while components 3 and 4 fill in the gaps in the middle of the maze. For a different look a broken bridge or a blocked passage way could be used instead of rails.</p>
-<p><img alt="3D rail components" src="./images/maze_3d_rail_components.png" /></p>
-<p><img alt="3D rail maze" src="./images/maze_3d_rail_maze.png" /></p>
+<p><img alt="3D rail components" src="/images/maze_3d_rail_components.png" /></p>
+<p><img alt="3D rail maze" src="/images/maze_3d_rail_maze.png" /></p>
 <p>The extra edge rail components could also be used  to place windows in a house maze. The internal rail components (3, 4) would be walls in the rooms.</p>
 <p>The screen shot at the top of the post is from <code>red_maze_blue_maze.blend</code> where more complex meshes have been used for the components. Three different objects have been used for the platforms to give some variation to the maze look. The matrix list was split into three random parts using <em>List Shuffle</em>, <em>List Split</em> and <em>List Slice</em> nodes.</p>
 <p>Laser Blaster provided the template for the awesome player character I've used in the game. It's available from this <a href="http://blenderartists.org/forum/showthread.php?304200-Third-Person-Template-%28Xbox-360-gamepad-support-and-Mario-Galaxy-style-gravity%29">blender artists post</a> with a use it however you like license.</p>
 <p>This <code>red_maze_blue_maze.blend</code> file is playable as a blender game with unlimited mazes to solve. Generate your own level (set the size and rseed values). Move the <em>Spawn Here</em> empty to the desired start point and the <em>flag</em> to the end point. Then just play (<em>P</em>). The character is moved with the <em>WASD</em> keys and the camera view can be moved around using the mouse (press the middle mouse button to activate).</p>
 <p>The camera view gets blocked by the geometry. This can be fixed by giving the <em>Game Logic</em> property <em>CamBlock</em> to any geometry you want the camera to avoid. The easiest way to do this is select all the maze components, join them together (<em>CTRL-J</em>) then in a <em>Logic Editor</em> view on the properties panel click the <em>Add Game Property</em> and type <em>CamBlock</em> in the field.</p>
-<p><img alt="screen shot game property" src="./images/maze_3D_camblock.png" /></p>
+<p><img alt="screen shot game property" src="/images/maze_3D_camblock.png" /></p>
 <hr />
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
@@ -168,15 +168,21 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -202,11 +208,6 @@
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -279,7 +280,6 @@
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -296,33 +296,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

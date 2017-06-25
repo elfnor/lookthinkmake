@@ -47,7 +47,7 @@
     </address>
   in <a href="http://www.elfnor.com/category/think.html">think</a>
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
-		<p><img alt="final render sverchok centres polygon demo" src="./images/centers_polygon_demo_image.png" /></p>
+		<p><img alt="final render sverchok centres polygon demo" src="/images/centers_polygon_demo_image.png" /></p>
 <p><a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> is an add-on for Blender. It allows you to generate geometry in Blender in a parametric way by wiring visual nodes together rather than programming in Blender python.</p>
 <p>This is the first of hopefully a series on very simple examples of using Sverchok. I'm learning this as I blog about it (the best way of learning something is to try and teach someone else) so if I make mistakes or find a better way of doing something later I'll try and come back and update these posts.</p>
 <h2 id="installation-and-setup">Installation and setup</h2>
@@ -66,7 +66,7 @@
 <p>I'll explain it in some detail to help us get a feel for how Sverchok handles the data for a mesh.</p>
 <p>The two green "Objects_in" Scene nodes allow access to the data from objects in the scene. Select the scene object and press the "Get Selection" button to read in the data.</p>
 <p>Each of the connections on the right side of the "Object_in" node outputs some of the mesh data for its object. To see what this data looks like connect a "Viewer_text" Text node to one of the outputs. Change one of  the panels in the blender window to a  text editor and select  the "Sverchok_viewer" from the data block selector. When the "VIEW" button on the "Viewer_text" node is pressed the data stream connected to the node will be written to this panel.</p>
-<p><img alt="Viewer text node" src="./images/centers_polygons1a.blend.png" /></p>
+<p><img alt="Viewer text node" src="/images/centers_polygons1a.blend.png" /></p>
 <p>A blender mesh is described as the (x, y, z) coordinates of the vertices of the object. These are given relative to the origin of the object.</p>
 <p>The edges and polygons describe how the vertices are connected to form the mesh. The edges are list of pairs that are connected by an edge. For instances (1, 5) means there is an edge between the <code>obj.data.vertices[1]</code> and <code>obj.data.vertices[5]</code>*. The polygons are similarly a list of the vertices connected by each polygon in the mesh.</p>
 <p>In Sverchok it only makes sense to wire the same colored nodes together. Orange vertices coordinates  to orange vertices coordinates, Green lists of vertices (edges or polygons) to other lists etc.</p>
@@ -82,12 +82,12 @@
 <p>where x, y, z are the location and sx, sy, sz, are the scale values.</p>
 <p>Rotations affect the 3 x 3 top left corner of the matrix. If you're interested in more detail on how transform matrices really work see these <a href="http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/geometry/geo-tran.html">notes</a>.</p>
 <p>To separate out the various parts of the transform matrix use the "Matrix out" node from the "Matrix" node set.  This takes a matrix (or many matrices) and outputs separately the location, scale, rotation and angle represented by that transform matrix. </p>
-<p><img alt="Matrix out node" src="./images/centers_polygons1b.blend.png" /></p>
+<p><img alt="Matrix out node" src="/images/centers_polygons1b.blend.png" /></p>
 <p>The rotation output of the node is a list of three numbers which correspond to the X, Y, Z values of the rotation given in the transform panel of the 3D view when the "Axis Angle" display option is selected. The Angle  output of the node is the W value (in degrees) from the transform panel. In the "Axis Angle" mode,  X, Y, Z describe an axis and W describes a angle that the object is rotated about this axis. </p>
 <p>If you apply the transform (CTRL-A) (location, scale and rotation to the object the transfrom matrix will be reset to the identity matrix (diagonal 1s, 0s everywhere else), the origin of the object will be moved to the scene origin and the vertices of the object will be recalculated to reflect this change in origin. The edges and polygons do not need to be updated through any of these transforms as they are only lists of the connections between vertices and as such contain no positional information.</p>
 <p>Also play with moving, rotating or scaling the mesh in "EDIT" mode. You will find that this effects the vertex coordinates but not the transform matrix.</p>
 <p>Getting back to the "Centers Polygons" node from the "Analysers" node set. It takes a set of vertex coordinates and a list of polygon connections as its inputs and outputs data about the centers of each of those polygons.</p>
-<p><img alt="centers polygon nodes only" src="./images/centers_polygons1.blend_diagram.png" /></p>
+<p><img alt="centers polygon nodes only" src="/images/centers_polygons1.blend_diagram.png" /></p>
 <p>The "Centers" output of the node is colored blue, meaning its going to output matrices. 
 In the node diagram the "Centers" output from the "Centers Polygons" node is connected to the matrix input of a "Viewer Draw" node. Connecting another mesh to the "Vertices" "Edge pol" inputs produces a copy of the second mesh at the center of each polygon on the first mesh.</p>
 <p>Moving the second mesh with respect to its own origin will move (when everything is updated) the copies with respect to the polygon on the second mesh. The orientation of the copy is such that the copied objects z-direction is normal to the face. To see how the x and y directions map to the face select a face of the first object and change the transformation display to "Normal" mode. A little experimentation will show that the x axis of the second object is mapped to the y axis of the face normal.</p>
@@ -130,15 +130,21 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -164,11 +170,6 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -241,7 +242,6 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -258,33 +258,33 @@ In the node diagram the "Centers" output from the "Centers Polygons" node is con
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

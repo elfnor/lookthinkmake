@@ -49,7 +49,7 @@
 <p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></p></div>		
 		<p><meta property="og:image"
     content="/images/koch_vase_render_01_003.png" /></p>
-<p><img alt="koch vase" src="./images/koch_vase_render_01_003.png" /></p>
+<p><img alt="koch vase" src="/images/koch_vase_render_01_003.png" /></p>
 <p>This post is hopefully the first in a series of examples and demos for the <em>Generative Art</em> node for the  [Sverchok}(https://github.com/nortikin/sverchok) addon for <a href="https://www.blender.org">Blender</a>.</p>
 <p>This node is very strongly based on <a href="http://structuresynth.sourceforge.net/">Structure Synth</a> and can produce <a href="https://en.wikipedia.org/wiki/L-system">Lindermayer Systems (lsystems)</a> and fractals as well as more random and interesting creations.</p>
 <p>For some examples I've also given a link to an <em>eisenscript</em> version to be used in the original <a href="">StructureSynth</a>. These are not always exactly equivalent due to some differences between the two implementations but should help those who are more familiar with <em>eisenscript</em> make the transition to the xml format. I'm also most of the way through writing a program (using pyparsing) to translate from <em>eisenscript</em> to the xml format (<em>eisenxml</em>).</p>
@@ -57,7 +57,7 @@
 <p>The documentation for the node is <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">here</a>.</p>
 <p>I have also started a <a href="https://github.com/elfnor/generative-art-examples">repo</a> on github for <em>Generative Art</em> examples. These examples include the <em>eisenxml</em> and the <em>json</em> for the nodes (this can be imported into Sverchok using the <em>Import</em> button on the Sverchok panel). For some examples I've also included an <em>eisenscript</em> version.</p>
 <h2 id="koch-snowflake">Koch Snowflake</h2>
-<p><img alt="koch snowflake" src="./images/ga_koch_snowflake.png" /></p>
+<p><img alt="koch snowflake" src="/images/ga_koch_snowflake.png" /></p>
 <div class="codehilite"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">transforms=</span><span class="s">&quot;ty 0.5*3**0.5&quot;</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
@@ -82,7 +82,7 @@
 <p>This is one of the earliest fractals described (1904). The basic unit is only drawn at the smallest size. This is achieved by using the <em>successor</em> attribute in the <em>R1</em> rule element. The <em>successor</em> attribute defines the rule to be called when the <em>max_depth</em> has been reached. That is after the <em>R1</em> rule has been called recursively four times the <em>unit</em> rule is called. </p>
 <p><a href="https://github.com/elfnor/generative-art-examples/blob/master/koch_snowflake.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/koch_snowflake.json">nodes in json</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/koch_snowflake.es">eisenscript</a>, <a href="https://en.wikipedia.org/wiki/Koch_snowflake">info</a></p>
 <h2 id="t-square">T-Square</h2>
-<p><img alt="t square" src="./images/ga_tsquare_2d.png" /></p>
+<p><img alt="t square" src="/images/ga_tsquare_2d.png" /></p>
 <div class="codehilite"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
@@ -106,7 +106,7 @@
 <p>This fractal has the basic unit (a box) repeated at ever decreasing scales. at each iteration it is scaled in x and y by one half.  The <em>R1</em> rule places a <em>box</em> and then calls itself 3 times, rotating 90 degrees and scaling by a half each time. This places an ever decreasing set of boxes on three corners of the original box. Iterating over only three corners avoids placing boxes on the internal corner. The <em>R2</em> rule finishes the fourth corner.</p>
 <p><a href="https://github.com/elfnor/generative-art-examples/blob/master/t_square_2d.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/t_square_2d.json">nodes in json</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/t_square_2d.es">eisenscript</a>, <a href="https://en.wikipedia.org/wiki/T-square_%28fractal%29">info</a></p>
 <h2 id="pentaflake">Pentaflake</h2>
-<p><img alt="pentaflake" src="./images/ga_pentaflake.png" /></p>
+<p><img alt="pentaflake" src="/images/ga_pentaflake.png" /></p>
 <div class="codehilite"><pre><span></span><span class="nt">&lt;rules</span> <span class="na">max_depth=</span><span class="s">&quot;100&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;rule</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
         <span class="nt">&lt;call</span> <span class="na">rule=</span><span class="s">&quot;R1&quot;</span><span class="nt">/&gt;</span>
@@ -131,7 +131,7 @@
 
 <p><a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake.json">nodes in json</a>, <a href="https://en.wikipedia.org/wiki/N-flake">info</a></p>
 <p>The pentaflake is constructed by replacing a pentagon with six smaller pentagons. This in then repeated until the maximum depth is reached. this fractal is even older than the Koch curve appearing in a manuscript by Albrecht Durer in 1525. Its outer border is a version of the Koch snowflake. The structure is also closely related to the P1 <a href="">Penrose tiling</a>.</p>
-<p><img alt="pentagon" src="./images/ga_pentaflake_01.png" /></p>
+<p><img alt="pentagon" src="/images/ga_pentaflake_01.png" /></p>
 <p>I've used approximate values for the scaling and transforms in the above xml. For the pedantic the values are given by:</p>
 <p>Scaling:</p>
 <div class="math">$$
@@ -218,10 +218,10 @@ $$</div>
 
 
 <p>The <em>Generative Art</em> node that uses this xml then acquires an extra input <em>md</em> which can be wired to another node. If no input is connected the variable value will default to zero.</p>
-<p><img alt="variable node diagram" src="./images/ga_pentaflake_node_02.png" /></p>
+<p><img alt="variable node diagram" src="/images/ga_pentaflake_node_02.png" /></p>
 <p><a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake_vars.xml">xml</a>, <a href="https://github.com/elfnor/generative-art-examples/blob/master/pentaflake_vars.json">nodes in json</a>, <a href="https://en.wikipedia.org/wiki/N-flake">info</a></p>
 <p>By varying the value of the <em>Integer</em> node it is very easy to produce a set of images to show each iteration of the pentaflake fractal.</p>
-<p><img alt="pentaflake gif" src="./images/pentaflake.gif" /></p>
+<p><img alt="pentaflake gif" src="/images/pentaflake.gif" /></p>
 <hr />
 <hr />
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
@@ -305,15 +305,21 @@ $$</div>
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
 <a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
   <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 	
 			      <li>
@@ -339,11 +345,6 @@ $$</div>
   <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/sverchok-tree-generator.html" rel="bookmark" title="Permalink to Sverchok Tree Generator">Sverchok Tree Generator</a>
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a><a href="http://www.elfnor.com/tag/generative-art.html">generative art  </a></p></a>      			      </li>
 		
 		
 		
@@ -416,7 +417,6 @@ $$</div>
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="http://www.elfnor.com/category/make-think.html">make, think</a></li>
 	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
@@ -433,33 +433,33 @@ $$</div>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                         </ul>
                       
 		

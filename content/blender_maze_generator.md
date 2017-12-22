@@ -6,7 +6,7 @@ Author: elfnor
 
 ![game wide shot](/images/maze_2d_steey_taws_01.png)
 
-The [game levels]({fileame}blender_game_level_generator.md) that can be produced by the *Generative Art* Sverchok node in Blender are lots of fun to explore but there's nothing to stop them producing overlapping paths like this:
+The [game levels]({filename}blender_game_level_generator.md) that can be produced by the *Generative Art* Sverchok node in Blender are lots of fun to explore but there's nothing to stop them producing overlapping paths like this:
 
 ![overlaps in Steely Taws](/images/level_gen_STD_ramps_render_015.png)
 

@@ -53,7 +53,19 @@ STATCOUNTER = False
 PLUGIN_PATHS = ["plugins"]
 PLUGINS = ["render_math", "tag_cloud"]
 
-MD_EXTENSIONS =  [ 'toc', 'codehilite','extra']
+MARKDOWN = {
+    'extension_configs' : {
+        'markdown.extensions.codehilite' : {},
+        'markdown.extensions.abbr' : {},
+        'markdown.extensions.footnotes' : {},
+        'markdown.extensions.tables' : {},
+        'markdown.extensions.toc' : {},
+        'markdown.extensions.fenced_code' : {},
+        'markdown.extensions.attr_list' : {}
+
+        
+    }
+}
 
 TAG_CLOUD_STEPS = 4 	
 TAG_CLOUD_MAX_ITEMS = 100 	

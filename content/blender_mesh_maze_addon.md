@@ -37,11 +37,11 @@ The *Boundary Wall Type* is only applicable if part of the mesh is selected to r
 
 ## Path Parameters
 
-*Bevel Amount Type* sets how the amount slider effects the bevel or path width. See the [bevel operator]() documentation for details.
+*Bevel Amount Type* sets how the amount slider effects the bevel or path width. See the [bevel operator](https://docs.blender.org/manual/en/dev/modeling/meshes/editing/subdividing/bevel.html) documentation for details.
 
 The *Path Width* sets the width of the path. If set to zero only the edges of the maze within the origina l meash are selected, no bevel or extrude takes place.
 
-The *Clamp Overlay* and *Loop Slide* parameters are passed straight to the [bevel operator]().
+The *Clamp Overlay* and *Loop Slide* parameters are passed straight to the [bevel operator](https://docs.blender.org/manual/en/dev/modeling/meshes/editing/subdividing/bevel.html).
 
 ## Wall Parameters
 

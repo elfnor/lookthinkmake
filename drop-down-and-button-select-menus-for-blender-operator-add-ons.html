@@ -6,7 +6,7 @@
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="Note: Examples were tested in Blender 2.71 running on Linux Mint. While making the fancy new interface for my copy2 add-on I needed to work out how to display choices to the user. There are many examples around for drop down menus etc. So many examples that I got ...">
+	<meta name="description" content="Note: Examples were tested in Blender 2.71 running on Linux Mint. While making the fancy new interface for my copy2 add-on I needed to work out how to display choices to the user. There are many examples around for drop down menus etc. So many examples that I got …">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -73,14 +73,14 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>       
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>   
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>   
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span>
 </pre></div>
 
@@ -117,15 +117,15 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>       
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>   
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>   
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span>
 </pre></div>
 
@@ -162,15 +162,15 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>       
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>   
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>   
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span>
 </pre></div>
 
@@ -201,15 +201,15 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>       
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_PT_tools_object</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>   
 
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>   
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>   
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_PT_tools_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>   
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span> 
 </pre></div>
 
@@ -252,15 +252,15 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>       
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_PT_tools_object</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>   
 
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>   
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>   
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_PT_tools_object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>   
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span> <span class="p">:</span>  
     <span class="n">register</span><span class="p">()</span> 
 </pre></div>
 
@@ -312,7 +312,7 @@ The icons avaliable and their names can be found using the <code>Development: Ic
     <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;mesh.dropdownexample&quot;</span><span class="p">,</span> <span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;PLUGIN&quot;</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">register</span><span class="p">()</span> <span class="p">:</span>  
-    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>       
+    <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>       
     <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">VIEW3D_MT_object</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">add_to_menu</span><span class="p">)</span>  
 
 <span class="k">def</span> <span class="nf">unregister</span><span class="p">()</span> <span class="p">:</span> 
@@ -345,6 +345,12 @@ The icons avaliable and their names can be found using the <code>Development: Ic
 	        <nav>
 		  <h2>Recent Posts</h2>
 			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
 	
 			      <li>
 <a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
@@ -381,11 +387,6 @@ The icons avaliable and their names can be found using the <code>Development: Ic
   <time datetime="2017-01-06T22:00:00+13:00" pubdate>Fri 06 January 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/pyboard-datalogger.html" rel="bookmark" title="Permalink to PyBoard Datalogger">PyBoard Datalogger</a>
-  <time datetime="2016-10-21T22:00:00+13:00" pubdate>Fri 21 October 2016</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/python.html">python  </a><a href="http://www.elfnor.com/tag/micropython.html">micropython  </a><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing  </a></p></a>      			      </li>
 		
 		
 		
@@ -475,33 +476,33 @@ The icons avaliable and their names can be found using the <code>Development: Ic
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
                         </ul>
                       
 		

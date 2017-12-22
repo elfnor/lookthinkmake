@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Conway Polyhedron Operators in Sverchok - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="I was working with abstract sculptures in Blender based on polyhedra and was getting annoyed that the Regular Solids (part of the Extra Objects add-on) still divides polyhedron faces into quads and tris rather than using ngons for pentagonal faces for example. A quick look at the source code and …">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="http://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="http://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="http://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="http://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Conway Polyhedron Operators in Sverchok</h1>
+		
+<div class="metadata">
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
+		<p><img alt="conway example" src="/images/conway_img_03_017.png" /></p>
+<p>I was working with abstract sculptures in Blender based on polyhedra and was getting annoyed that the Regular Solids (part of the <a href="https://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Add_Mesh/Add_Extra">Extra Objects</a> add-on) still divides polyhedron faces into quads and tris rather than using ngons for pentagonal faces for example. A quick look at the source code and it was obvious how to change this. But I started an Internet search on how the snub polyhedron were formed, this led to <a href="https://en.wikipedia.org/wiki/Conway_polyhedron_notation">Conway Polyhedra</a> and I was deep in a <a href="https://www.urbandictionary.com/define.php?term=Rabbit%20Hole">rabbit hole</a>.</p>
+<p>from <a href="https://en.wikipedia.org/wiki/Conway_polyhedron_notation">Wikipedia</a></p>
+<p><img alt="conway operators" src="/images/conway_examples.png" /></p>
+<p>Conway Polyhedra are formed by applying various operators to a seed polyhedron such as one of the platonic solids. Some of the operators are similar to modifiers already present in Blender or nodes already in <a href="https://github.com/nortikin/sverchok/">Sverchok</a>. For example the <em>ambo</em> Conway operator is the same as the <em>Bevel</em> modifier with <em>Only vertices</em> checked and a <em>Width</em> of 1.0. The <em>kis</em> Conway operator is equivalent to <em>Mesh &gt; Faces &gt; Poke Faces</em> in edit mode.</p>
+<p>Other of the Conway operators are more challenging to reproduce in Blender and Sverchok. I went searching expecting to find a python implementation of the Conway operators I could adapt to Sverchok but no luck. There is a very good online <a href="https://github.com/levskaya/polyhedronisme">coffeescript app</a> and Kit Wallace has a great <a href="https://github.com/KitWallace/openscad/blob/master/conway.scad">openscad implementation</a></p>
+<p>So I've written a <a href="https://github.com/elfnor/conway_polyhedron_operators">module</a> to implement a subset of the Conway operators in python. I've made the only dependency Blender's mathutils library. This means the code can be run outside Blender using a <a href="https://github.com/majimboo/py-mathutils">standalone version of the mathutils module</a>.</p>
+<h2 id="usage-notes">Usage Notes</h2>
+<p>The <em>conway.py</em>  module is designed to be used in Blender with Sverchok's <em>Scripted Node Lite</em>.</p>
+<ul>
+<li>Install <a href="https://github.com/nortikin/sverchok/">Sverchok</a> in <a href="https://www.blender.org/">Blender</a>.</li>
+<li>Download and unzip (or clone) from the <a href="https://github.com/elfnor/conway_polyhedron_operators">repo</a> on github</li>
+<li>Open <em>conway.py</em> as a text block in Blender.</li>
+<li>Open <em>snl_plato.py</em> and <em>snl_conway_op.py</em>  as text blocks in Blender. These contain code for each Sverchok <em>Scripted Node Lite</em>.</li>
+<li>In a <em>Node Editor</em> view create a new <em>Node Tree</em> and add two <em>Scripted Node Lite</em> nodes.</li>
+<li>Use the notebook icon on the node to select <em>snl_plato.py</em> on the left node and <em>snl_comway_op.py</em> on the right node. Click the plug icon on each node to load the code.</li>
+<li>Wire up the nodes along with a <em>Viewer Draw</em> node as shown below.</li>
+</ul>
+<p><img alt="conway nodes" src="/images/conway_aD.png" /></p>
+<p>Wire up multiple copies of <em>snl_conway_op.py</em> in a row to produce more complex shapes.</p>
+<p><img alt="conway_aagD" src="/images/conway_aagD.png" /></p>
+<p>Two of the operators <em>kis</em> and <em>chamfer</em> can take parameters such as the height of the <em>kis</em> pyramid or the <em>height</em> and <em>thickness</em> of the <em>chamfer</em>. There is a separate <em>Scripted Node Lite</em> given for these two operators with sliders for the parameters.</p>
+<p>Some operators, particularly <em>gyro</em>, <em>propellor</em> and <em>whirl</em> and <em>chamfer</em> give polyhedra that are not particularly smooth or convex, the faces may not be flat or symmetric.</p>
+<p><img alt="conway cgC" src="/images/conway_cgC.png" /></p>
+<p>The canonical form of a convex polyhedra has all faces planar and all edges tangential to the unit sphere. The centre of gravity of the tangential points is also at the centre of the same unit sphere.</p>
+<p>The module <em>canon.py</em> contiains functions that attempt to shift the points of a polyhedron to satisfy these conditions. This is a iterative process and can take several hundred steps to converge.</p>
+<p>To try this in Sverchok, add the <em>canon.py</em> and <em>snl_canon.py</em> files as text blocks in your Blender file and add <em>snl_canon.py</em> as a <em>Scripted Node Lite</em>. The node has two parameters <em>iterations</em> and <em>scale_factor</em>. At each iteration the vertices are moved a <em>scale_factor</em> fraction of the calculated distance. Setting this parameter too high may cause the shape to become unstable. Increasing the <em>iterations</em> will increase the calculation time.</p>
+<p><img alt="conway_CcgC.png" src="/images/conway_CcgC.png" /></p>
+<p>The canonicalization can also be applied after each operator. In the example below just enough iterations have been applied to form a pleasing shape. The proper canonical form of this polyhedra should be the same whether the canonicalization is performed once or twice.</p>
+<p><img alt="conway_CcCgC.png" src="/images/conway_CcCgC.png" /></p>
+<p>These Conway operators can be applied to any manifold (ie. a closed solid) mesh not just the platonic solids. They currently don't work on planar grids unless one applies a solidify node to the grid first.</p>
+<p><img alt="conway_kg_hexa_grid" src="/images/conway_kg_hexa_grid.png" /></p>
+<p>Other Sverchok nodes of course can be used interspersed with the Conway operators for other effects.</p>
+<p>I've only implemented a subset of the operators defined on the Wikipedia page. Many of the operators are equivalent to a combination of other operators as shown in the chart</p>
+<h3 id="conversion-chart">Conversion chart</h3>
+<p>The operator order is given as the left to right node order. Note that this is the opposite to the order given in the Conway notation.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">Description</th>
+<th align="left">Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">kis</td>
+<td align="left">poke face</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">dual</td>
+<td align="left">faces become vertices, vertices become faces</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">ambo</td>
+<td align="left">full vertex bevel</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">chamfer</td>
+<td align="left">hexagons replace edges</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">gyro</td>
+<td align="left">faces divided into pentagons</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">whirl</td>
+<td align="left">insets a smaller rotated copy of the face</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">propellor</td>
+<td align="left">insets a rotated copy of the face</td>
+<td align="left">node</td>
+</tr>
+<tr>
+<td align="left">zip</td>
+<td align="left">dual of kis</td>
+<td align="left">kis dual</td>
+</tr>
+<tr>
+<td align="left">expand</td>
+<td align="left">edge bevel</td>
+<td align="left">ambo ambo</td>
+</tr>
+<tr>
+<td align="left">bevel</td>
+<td align="left">vertex bevel applied twice</td>
+<td align="left">ambo dual kis dual</td>
+</tr>
+<tr>
+<td align="left">snub</td>
+<td align="left">dual of gyro</td>
+<td align="left">gyro dual</td>
+</tr>
+<tr>
+<td align="left">join</td>
+<td align="left">dual of ambo</td>
+<td align="left">ambo dual</td>
+</tr>
+<tr>
+<td align="left">needle</td>
+<td align="left">dual of truncate</td>
+<td align="left">dual kis</td>
+</tr>
+<tr>
+<td align="left">ortho</td>
+<td align="left">single subdivide</td>
+<td align="left">ambo ambo dual</td>
+</tr>
+<tr>
+<td align="left">meta</td>
+<td align="left">poke face and subdivide edges</td>
+<td align="left">ambo dual kis</td>
+</tr>
+<tr>
+<td align="left">truncate</td>
+<td align="left">half vertex bevel</td>
+<td align="left">dual kis dual</td>
+</tr>
+</tbody>
+</table>
+<h2 id="future">Future</h2>
+<p>Ironically I haven't coded the <em>snub</em> operator directly, and I've used the code from <em>add_mesh_extra_objects.add_mesh_solid</em> to implement the platonic solids with n-gons.</p>
+<p>Some of these operators would be useful as full nodes in Sverchok, particularly <em>dual</em>.</p>
+<p>Make the operators work on open edge meshes.</p>
+<p>Another way of making the polyhedra more "regular" would be to use an algorithm that evens up the edge lengths while leaving the vertices on the surface of the unit sphere. This could be done with a particle simulation similar to that I used for the <a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html">Hyperbolic Plane</a> generation. A much simpler approach would be to implement a simple version of a repulsion algorithm, iterating over each point and only calculating <span class="math">\(1/r^2\)</span> repulsion forces for vertices connected by an edge.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "conway-polyhedron-operators-in-sverchok.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
+  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/sugar-free-fermented-marmalade.html" rel="bookmark" title="Permalink to Sugar-Free Fermented Marmalade">Sugar-Free Fermented Marmalade</a>
+  <time datetime="2017-01-29T22:00:00+13:00" pubdate>Sun 29 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/preserved-lemons.html" rel="bookmark" title="Permalink to Preserved Lemons">Preserved Lemons</a>
+  <time datetime="2017-01-13T22:00:00+13:00" pubdate>Fri 13 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/fermented-chili-and-garlic-sauce.html" rel="bookmark" title="Permalink to Fermented Chili and Garlic sauce">Fermented Chili and Garlic sauce</a>
+  <time datetime="2017-01-06T22:00:00+13:00" pubdate>Fri 06 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

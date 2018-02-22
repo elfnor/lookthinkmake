@@ -4,7 +4,7 @@ Tags: reading
 Category: look
 Author: elfnor
 
-![banner](https://gatheringbooks.org/literary-voyage-around-the-world-reading-challenge-2018/img_4386)
+![banner](/images/litworld2018gb_img_4389.jpg)
 
 [Gathering Books](https://gatheringbooks.org/literary-voyage-around-the-world-reading-challenge-2018/) is running a Literary Voyage Reading Challenge for 2018 (#LitWorld2018GB). I never finished my blog posts on audio short stories from around the world. So I thought I'd challenge myself to collect and listen to a short story available online (for free, read in English) from as many individual countries as possible. This is slightly subverting the challenge but not outside their guidelines.
 
@@ -30,45 +30,90 @@ PS: I previously [blogged a list](http://elfnor.com/reading-the-world-100-online
 
 ## January/February reviews
 
-**Weep for Day**: *Indraparmit Das* - India, M - 2012 - R
-[text](http://clarkesworldmagazine.com/das_04_15_reprint/), [audio](http://clarkesworldmagazine.com/podpress_trac/web/1275/0/clarkesworld_04_15_das.mp3)
-
-Sister and brother, on a tidally locked planet during a genocidal war, respond to fear of the others. One becomes a scientist the other a soldier.
-
-**Oracle**: *Lavie Tidhar* - Israel, M - 2013
-[text](http://clarkesworldmagazine.com/tidhar_07_17_reprint/), [audio](http://clarkesworldmagazine.com/podpress_trac/web/1820/0/clarkesworld_07_17_tidhar.mp3)
-
-A women finds her purpose Joined to a vast network of AI computers. To understand this (?) see Tidhar's Central Station story cycle.
-
-**Old Domes**: *JY Yang* - Singapore, F - 2013 - R
-[text](http://clarkesworldmagazine.com/yang_10_16_reprint/), [audio](http://clarkesworldmagazine.com/podpress_trac/web/1639/0/clarkesworld_10_16_yang.mp3)
-
-The Guardians of old buildings resist redevelopment, fighting back against a sympathetic young Cullmaster armed only with a plastic sword.
-
-**Snow Day**: *Nalo Hopkinson* - Jamaica, F - 2015 - R
-[text](http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/), [audio](http://media.blubrry.com/drabblecast/p/www.drabblecast.org/wp-content/uploads/2015/03/Drabblecast-352-Snow-Day.mp3)
-
-A talking raccoon and all the world are offered the stars. Would you accept?
-
-**The Steam Dancer (1896)**: *Caitlín R. Kiernan* - Ireland, F - 2012 - R
-[text](http://www.lightspeedmagazine.com/fiction/the-steam-dancer-1896/), [audio](http://www.podtrac.com/pts/redirect.mp3/lightspeedmagazine.com/podcasts/podcast_the_steam_dancer_caitlin_r_kiernan.mp3)
-
-A steampunk cyborg lives to dance.
-
-**Pas de Deux**: *Anatoly Belilovsky* - Ukraine, M - 2013
-[audio](http://toastedcake.com/podcasts/TC139-pas-de-deux.mp3)
-
-**Connoisseurs of the Eccentric**: *Jetse de Vries* - Netherlands, M - 2012 - R
-[text](http://escapepod.org/2012/08/09/ep357-connoisseurs-of-the-eccentric/), [audio](http://traffic.libsyn.com/escapepod/EP357_ConnoisseursoftheEccentric.mp3)
-
-Aliens trade new technology for Earth's most spectacular failures.
-
-**His Master’s Voice**: *Hannu Rajaniemi* - Finland, M - 2008 - R
-[text](http://escapepod.org/2009/12/03/ep227-his-masters-voice/), [audio](http://media.rawvoice.com/escapepod/p/media.libsyn.com/media/escapepod/EP227_HisMastersVoice.mp3)
-
-A dog and cat with augmented intelligence save their master.
-
-**Communion**: *Mary Anne Mohanraj* - Sri Lanka, F - 2014 - R
-[text](http://clarkesworldmagazine.com/audio_06_14b/), [audio](http://clarkesworldmagazine.com/podpress_trac/web/1071/0/clarkesworld_06_14_mohanraj.mp3)
-
-Humans and aliens share grief over alien funeral customs.
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Author</th>
+<th>Gender</th>
+<th>Year</th>
+<th>Title</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width:10%">Sri Lanka</td>
+<td style="width:15%">Mary Anne Mohanraj</td>
+<td style="width:5%">F</td>
+<td style="width:5%">2014</td>
+<td style="width:25%">Communion <a href="http://clarkesworldmagazine.com/audio_06_14b/">&#128441;</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1071/0/clarkesworld_06_14_mohanraj.mp3"> &#128265;</a></td>
+<td style="width:30%">Humans and aliens share alien funeral customs</td>
+</tr>
+<tr>
+<td>Finland</td>
+<td>Hannu Rajaniemi</td>
+<td>M</td>
+<td>2008</td>
+<td>His Master’s Voice  <a href="http://escapepod.org/2009/12/03/ep227-his-masters-voice/">&#128441;</a> <a href="http://media.rawvoice.com/escapepod/p/media.libsyn.com/media/escapepod/EP227_HisMastersVoice.mp3">&#128265;</a></td>
+<td>A dog and cat with augmented intelligence save their master</td>
+</tr>
+<tr>
+<td>Netherlands</td>
+<td>Jetse de Vries</td>
+<td>M</td>
+<td>2012</td>
+<td>Connoisseurs of the Eccentric  <a href="http://escapepod.org/2012/08/09/ep357-connoisseurs-of-the-eccentric/">&#128441;</a> <a href="http://traffic.libsyn.com/escapepod/EP357_ConnoisseursoftheEccentric.mp3">&#128265;</a></td>
+<td>Aliens trade new technology for Earth's most spectacular failures</td>
+</tr>
+<tr>
+<td>Ukraine</td>
+<td>Anatoly Belilovsky</td>
+<td>M</td>
+<td>2013</td>
+<td>Pas de Deux <a href="http://toastedcake.com/podcasts/TC139-pas-de-deux.mp3">&#128265;</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Ireland</td>
+<td>Caitlín R. Kiernan</td>
+<td>F</td>
+<td>2012</td>
+<td>The Steam Dancer (1896) <a href="http://www.lightspeedmagazine.com/fiction/the-steam-dancer-1896/">&#128441;</a> <a href="http://www.podtrac.com/pts/redirect.mp3/lightspeedmagazine.com/podcasts/podcast_the_steam_dancer_caitlin_r_kiernan.mp3">&#128265;</a></td>
+<td>A steampunk cyborg lives to dance</td>
+</tr>
+<tr>
+<td>Jamaica</td>
+<td>Nalo Hopkinson</td>
+<td>F</td>
+<td>2015</td>
+<td>Snow Day <a href="http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/">&#128441;</a> <a href="http://media.blubrry.com/drabblecast/p/www.drabblecast.org/wp-content/uploads/2015/03/Drabblecast-352-Snow-Day.mp3">&#128265;</a></td>
+<td>A talking raccoon and all the world are offered the stars. Would you accept?</td>
+</tr>
+<tr>
+<td>Israel</td>
+<td>Lavie Tidhar</td>
+<td>M</td>
+<td>2013</td>
+<td>Oracle <a href="http://clarkesworldmagazine.com/tidhar_07_17_reprint/"> &#128441;</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1820/0/clarkesworld_07_17_tidhar.mp3">&#128265;</a></td>
+<td>A women finds her purpose Joined to a vast network of AI computers. To understand this (?) see Tidhar's Central Station story cycle</td>
+</tr>
+<tr>
+<td>India</td>
+<td>Indraparmit Das</td>
+<td>M</td>
+<td>2012</td>
+<td>Weep for Day <a href="http://clarkesworldmagazine.com/das_04_15_reprint/">&#128441;</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1275/0/clarkesworld_04_15_das.mp3">&#128265;</a></td>
+<td>Sister and brother, on a tidally locked planet during a genocidal war, respond to fear of the others. One becomes a scientist the other a soldier</td>
+</tr>
+<tr>
+<td>Singapore</td>
+<td>JY Yang</td>
+<td>F</td>
+<td>2013</td>
+<td>Old Domes<a href="http://clarkesworldmagazine.com/yang_10_16_reprint/">&#128441;</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1639/0/clarkesworld_10_16_yang.mp3">&#128265;</a></td>
+<td>The Guardians of old buildings resist redevelopment, fighting back against a sympathetic young Cullmaster armed only with a plastic sword.
+</td>
+</tr>
+</tbody>
+</table>

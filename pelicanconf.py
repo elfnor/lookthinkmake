@@ -55,19 +55,20 @@ PLUGINS = ["render_math", "tag_cloud"]
 
 MARKDOWN = {
     'extension_configs' : {
+        'markdown.extensions.extra': {},
         'markdown.extensions.codehilite' : {},
         'markdown.extensions.abbr' : {},
         'markdown.extensions.footnotes' : {},
         'markdown.extensions.tables' : {},
         'markdown.extensions.toc' : {},
         'markdown.extensions.fenced_code' : {},
-        'markdown.extensions.attr_list' : {}
+        'markdown.extensions.attr_list' : {},
+        'grid_tables' : {}
 
-        
+
     }
 }
 
-TAG_CLOUD_STEPS = 4 	
-TAG_CLOUD_MAX_ITEMS = 100 	
+TAG_CLOUD_STEPS = 4
+TAG_CLOUD_MAX_ITEMS = 100
 TAG_CLOUD_SORTING = 'random'
-

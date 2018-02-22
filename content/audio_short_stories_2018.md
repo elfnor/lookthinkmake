@@ -102,18 +102,49 @@ PS: I previously [blogged a list](http://elfnor.com/reading-the-world-100-online
 <td>India</td>
 <td>Indraparmit Das</td>
 <td>M</td>
-<td>2012</td>
+<td>2012</td>http://clarkesworldmagazine.com/das_04_15_reprint/
 <td>Weep for Day <a href="http://clarkesworldmagazine.com/das_04_15_reprint/">&#128441;</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1275/0/clarkesworld_04_15_das.mp3">&#128265;</a></td>
 <td>Sister and brother, on a tidally locked planet during a genocidal war, respond to fear of the others. One becomes a scientist the other a soldier</td>
 </tr>
 <tr>
-<td>Singapore</td>
+<td>Singapore</td>🔉http://clarkesworldmagazine.com/das_04_15_reprint/
 <td>JY Yang</td>
-<td>F</td>
+<td>F</td>http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/
 <td>2013</td>
 <td>Old Domes<a href="http://clarkesworldmagazine.com/yang_10_16_reprint/">&#128441;</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1639/0/clarkesworld_10_16_yang.mp3">&#128265;</a></td>
 <td>The Guardians of old buildings resist redevelopment, fighting back against a sympathetic young Cullmaster armed only with a plastic sword.
-</td>
+</td>http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/
 </tr>
 </tbody>
 </table>
+
+
+| Country     | Author                          ·| Gender | Year | Title                                                            ·| Comment |
+|-------------|--------------------------------|--------|------|----------------------------|---------|
+| Sri Lanka   | Mary Anne Mohanraj | F      | 2014 | Communion [🖹][pdf_1] [🔉][mp3_1]   | Humans and aliens share alien funeral customs |
+| Finland     | Hannu Rajaniemi    | M      | 2008 | His Master’s Voice [🖹][pdf_2] [🔉][mp3_2] | A dog and cat with augmented intelligence save their master |
+| Netherlands | Jetse de Vries     | M      | 2012 | Connoisseurs of the Eccentric [🖹][pdf_3] [🔉][mp3_3] | Aliens trade new technology for Earth's most spectacular failures |
+| Ukraine     | Anatoly Belilovsky | M      | 2013 | Pas de Deux [🔉][mp3_4] |   |               
+| Ireland     | Caitlín R. Kiernan | F      | 2012 | The Steam Dancer (1896) [🖹][pdf_5] [🔉][mp3_5] | A steampunk cyborg lives to dance |
+| Jamaica     | Nalo Hopkinson     | F      | 201🔉5 | Snow Day [🖹][pdf_6] [🔉][mp3_6] | A talking raccoon and all the world are offered the stars. Would you accept? |
+| Israel      | Lavie Tidhar       | M      | 2013 | Oracle [🖹][pdf_7] [🔉][mp3_7]  | A women finds her purpose Joined to a vast network of AI computers. To understand this (?) see Tidhar's Central Station story cycle |
+| India       | Indraparmit Das    | M      | 2012 | Weep for Day [🖹][pdf_8] [🔉][mp3_8] | Sister and brother, on a tidally locked planet during a genocidal war, respond to fear of the others. One becomes a scientist the other a soldier |
+| Singapore   | JY Yang            | F      | 2013 | Old Domes [🖹][pdf_9] [🔉][mp3_9] | The Guardians of old buildings resist redevelopment, fighting back against a sympathetic young Cullmaster armed only with a plastic sword. |
+
+[pdf_1]: <http://clarkesworldmagazine.com/audio_06_14b/>
+[mp3_1]: <http://clarkesworldmagazine.com/podpress_trac/web/1071/0/clarkesworld_06_14_mohanraj.mp3>
+[pdf_2]: <http://escapepod.org/2009/12/03/ep227-his-masters-voice/>
+[mp3_2]: <http://media.rawvoice.com/escapepod/p/media.libsyn.com/media/escapepod/EP227_HisMastersVoice.mp3>
+[pdf_3]: <http://escapepod.org/2012/08/09/ep357-connoisseurs-of-the-eccentric/>
+[mp3_3]: <http://traffic.libsyn.com/escapepod/EP357_ConnoisseursoftheEccentric.mp3>
+[mp3_4]: <http://toastedcake.com/podcasts/TC139-pas-de-deux.mp3>
+[pdf_5]: <http://www.lightspeedmagazine.com/fiction/the-steam-dancer-1896/>
+[mp3_5]: <http://www.podtrac.com/pts/redirect.mp3/lightspeedmagazine.com/podcasts/podcast_the_steam_dancer_caitlin_r_kiernan.mp3>
+[pdf_6]: <http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/>
+[mp3_6]: <http://media.blubrry.com/drabblecast/p/www.drabblecast.org/wp-content/uploads/2015/03/Drabblecast-352-Snow-Day.mp3>
+[pdf_7]: <http://clarkesworldmagazine.com/tidhar_07_17_reprint/>
+[mp3_7]: <http://clarkesworldmagazine.com/podpress_trac/web/1820/0/clarkesworld_07_17_tidhar.mp3>
+[pdf_8]: <http://clarkesworldmagazine.com/das_04_15_reprint/>
+[mp3_8]: <http://clarkesworldmagazine.com/podpress_trac/web/1275/0/clarkesworld_04_15_das.mp3>
+[pdf_9]: <http://clarkesworldmagazine.com/yang_10_16_reprint/>
+[mp3_9]: <http://clarkesworldmagazine.com/podpress_trac/web/1639/0/clarkesworld_10_16_yang.mp3>

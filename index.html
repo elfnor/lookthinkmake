@@ -37,196 +37,121 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html">Conway Polyhedron Operators in Sverchok</a></h1>
-        <p><img alt="conway example" src="/images/conway_img_03_017.png" /></p>
-<p>I was working with abstract sculptures in Blender based on polyhedra and was getting annoyed that the Regular Solids (part of the <a href="https://wiki.blender.org/index.php/Extensions:2.6/Py/Scripts/Add_Mesh/Add_Extra">Extra Objects</a> add-on) still divides polyhedron faces into quads and tris rather than using ngons for pentagonal faces for example. A quick look at the source code and it was obvious how to change this. But I started an Internet search on how the snub polyhedron were formed, this led to <a href="https://en.wikipedia.org/wiki/Conway_polyhedron_notation">Conway Polyhedra</a> and I was deep in a <a href="https://www.urbandictionary.com/define.php?term=Rabbit%20Hole">rabbit hole</a>.</p>
-<p>from <a href="https://en.wikipedia.org/wiki/Conway_polyhedron_notation">Wikipedia</a></p>
-<p><img alt="conway operators" src="/images/conway_examples.png" /></p>
-<p>Conway Polyhedra are formed by applying various operators to a seed polyhedron such as one of the platonic solids. Some of the operators are similar to modifiers already present in Blender or nodes already in <a href="https://github.com/nortikin/sverchok/">Sverchok</a>. For example the <em>ambo</em> Conway operator is the same as the <em>Bevel</em> modifier with <em>Only vertices</em> checked and a <em>Width</em> of 1.0. The <em>kis</em> Conway operator is equivalent to <em>Mesh &gt; Faces &gt; Poke Faces</em> in edit mode.</p>
-<p>Other of the Conway operators are more challenging to reproduce in Blender and Sverchok. I went searching expecting to find a python implementation of the Conway operators I could adapt to Sverchok but no luck. There is a very good online <a href="https://github.com/levskaya/polyhedronisme">coffeescript app</a> and Kit Wallace has a great <a href="https://github.com/KitWallace/openscad/blob/master/conway.scad">openscad implementation</a></p>
-<p>So I've written a <a href="https://github.com/elfnor/conway_polyhedron_operators">module</a> to implement a subset of the Conway operators in python. I've made the only dependency Blender's mathutils library. This means the code can be run outside Blender using a <a href="https://github.com/majimboo/py-mathutils">standalone version of the mathutils module</a>.</p>
-<h2 id="usage-notes">Usage Notes</h2>
-<p>The <em>conway.py</em>  module is designed to be used in Blender with Sverchok's <em>Scripted Node Lite</em>.</p>
-<ul>
-<li>Install <a href="https://github.com/nortikin/sverchok/">Sverchok</a> in <a href="https://www.blender.org/">Blender</a>.</li>
-<li>Download and unzip (or clone) from the <a href="https://github.com/elfnor/conway_polyhedron_operators">repo</a> on github</li>
-<li>Open <em>conway.py</em> as a text block in Blender.</li>
-<li>Open <em>snl_plato.py</em> and <em>snl_conway_op.py</em>  as text blocks in Blender. These contain code for each Sverchok <em>Scripted Node Lite</em>.</li>
-<li>In a <em>Node Editor</em> view create a new <em>Node Tree</em> and add two <em>Scripted Node Lite</em> nodes.</li>
-<li>Use the notebook icon on the node to select <em>snl_plato.py</em> on the left node and <em>snl_comway_op.py</em> on the right node. Click the plug icon on each node to load the code.</li>
-<li>Wire up the nodes along with a <em>Viewer Draw</em> node as shown below.</li>
-</ul>
-<p><img alt="conway nodes" src="/images/conway_aD.png" /></p>
-<p>Wire up multiple copies of <em>snl_conway_op.py</em> in a row to produce more complex shapes.</p>
-<p><img alt="conway_aagD" src="/images/conway_aagD.png" /></p>
-<p>Two of the operators <em>kis</em> and <em>chamfer</em> can take parameters such as the height of the <em>kis</em> pyramid or the <em>height</em> and <em>thickness</em> of the <em>chamfer</em>. There is a separate <em>Scripted Node Lite</em> given for these two operators with sliders for the parameters.</p>
-<p>Some operators, particularly <em>gyro</em>, <em>propellor</em> and <em>whirl</em> and <em>chamfer</em> give polyhedra that are not particularly smooth or convex, the faces may not be flat or symmetric.</p>
-<p><img alt="conway cgC" src="/images/conway_cgC.png" /></p>
-<p>The canonical form of a convex polyhedra has all faces planar and all edges tangential to the unit sphere. The centre of gravity of the tangential points is also at the centre of the same unit sphere.</p>
-<p>The module <em>canon.py</em> contiains functions that attempt to shift the points of a polyhedron to satisfy these conditions. This is a iterative process and can take several hundred steps to converge.</p>
-<p>To try this in Sverchok, add the <em>canon.py</em> and <em>snl_canon.py</em> files as text blocks in your Blender file and add <em>snl_canon.py</em> as a <em>Scripted Node Lite</em>. The node has two parameters <em>iterations</em> and <em>scale_factor</em>. At each iteration the vertices are moved a <em>scale_factor</em> fraction of the calculated distance. Setting this parameter too high may cause the shape to become unstable. Increasing the <em>iterations</em> will increase the calculation time.</p>
-<p><img alt="conway_CcgC.png" src="/images/conway_CcgC.png" /></p>
-<p>The canonicalization can also be applied after each operator. In the example below just enough iterations have been applied to form a pleasing shape. The proper canonical form of this polyhedra should be the same whether the canonicalization is performed once or twice.</p>
-<p><img alt="conway_CcCgC.png" src="/images/conway_CcCgC.png" /></p>
-<p>These Conway operators can be applied to any manifold (ie. a closed solid) mesh not just the platonic solids. They currently don't work on planar grids unless one applies a solidify node to the grid first.</p>
-<p><img alt="conway_kg_hexa_grid" src="/images/conway_kg_hexa_grid.png" /></p>
-<p>Other Sverchok nodes of course can be used interspersed with the Conway operators for other effects.</p>
-<p>I've only implemented a subset of the operators defined on the Wikipedia page. Many of the operators are equivalent to a combination of other operators as shown in the chart</p>
-<h3 id="conversion-chart">Conversion chart</h3>
-<p>The operator order is given as the left to right node order. Note that this is the opposite to the order given in the Conway notation.</p>
+        <h1><a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html">Literary Voyage Reading Challenge for 2018</a></h1>
+        <p><img alt="banner" src="/images/litworld2018gb_img_4389.jpg" /></p>
+<p><a href="https://gatheringbooks.org/literary-voyage-around-the-world-reading-challenge-2018/">Gathering Books</a> is running a Literary Voyage Reading Challenge for 2018 (#LitWorld2018GB). I never finished my blog posts on audio short stories from around the world. So I thought I'd challenge myself to collect and listen to a short story available online (for free, read in English) from as many individual countries as possible. This is slightly subverting the challenge but not outside their guidelines.</p>
+<p>The Literary Voyage Reading Challenge has 5 goals to choose from:</p>
+<ol>
+<li>Literary Hitchhiker – 25-40 countries</li>
+<li>Literary Vagabond – 41-60 countries</li>
+<li>Literary Explorer – 61-80 countries</li>
+<li>Literary Adventurer – 81-99 countries</li>
+<li>Literary Globetrotter – 100 countries and above</li>
+</ol>
+<p>There are many more audio stories available on-line than when I last blogged audio short stories in 2015. This is due to magazines such as <a href="http://strangehorizons.com/">Strange Horizons</a> (especially <a href="http://samovar.strangehorizons.com/">Samovar</a>), and <a href="http://clarkesworldmagazine.com/">Clarkesworld</a> making huge contributions to publishing short speculative fiction in translation. Most of the short story podcasts concentrate on science fiction and fantasy so, with maybe a few exceptions, this will be reflected in my challenge list.</p>
+<p>I'm aiming for goal 3: Literary Explorer as I already have a collection of audio stories from around 60 separate countries. These were first published in 2017 or earlier.</p>
+<p>I'm posting links to the stories via <a href="https://huffduffer.com">Huffduffer</a> so I can download and listen to them using pod casting software. These collections are public so feel free to subscribe to these lists using RSS or you favourite app and follow along. I have two lists, <a href="https://huffduffer.com/tags/litworld2018gb">LitWorld2018GB</a> is the list of stories I've already listened to for this challenge and will eventually contain a single story from each country.  My "stories to be listened to" pile is under <a href="https://huffduffer.com/elfnor/tags/rtwoa">rtwoa</a>. As I find new stories I'll add them to this second list, including stories published in 2018. This second list may contain more than one story from some countries.</p>
+<p>As I listen to the stories I'll try to publish very short (~140 character) reviews/descriptions here is small groups.</p>
+<p>As always I encourage you to support the magazines publishing these stories with donations to make sure they can keep on doing such great work.</p>
+<p>PS: I previously <a href="http://elfnor.com/reading-the-world-100-online-stories.html">blogged a list</a> of online stories (text not audio) from 100 different countries for those interested in <em>reading</em> the world.</p>
+<h2 id="januaryfebruary-reviews">January/February reviews</h2>
 <table>
 <thead>
 <tr>
-<th align="left">Operator</th>
-<th align="left">Description</th>
-<th align="left">Implementation</th>
+<th>Country</th>
+<th>Author</th>
+<th>Gender</th>
+<th>Year</th>
+<th>Title</th>
+<th>Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">kis</td>
-<td align="left">poke face</td>
-<td align="left">node</td>
+<td>Sri Lanka</td>
+<td>Mary&#160;Anne&#160;Mohanraj</td>
+<td>F</td>
+<td>2014</td>
+<td>Communion <a href="http://clarkesworldmagazine.com/audio_06_14b/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1071/0/clarkesworld_06_14_mohanraj.mp3">🔉</a></td>
+<td>Humans and aliens share alien funeral customs</td>
 </tr>
 <tr>
-<td align="left">dual</td>
-<td align="left">faces become vertices, vertices become faces</td>
-<td align="left">node</td>
+<td>Finland</td>
+<td>Hannu Rajaniemi</td>
+<td>M</td>
+<td>2008</td>
+<td>His Master’s Voice <a href="http://escapepod.org/2009/12/03/ep227-his-masters-voice/">🖹</a> <a href="http://media.rawvoice.com/escapepod/p/media.libsyn.com/media/escapepod/EP227_HisMastersVoice.mp3">🔉</a></td>
+<td>A dog and cat with augmented intelligence save their master</td>
 </tr>
 <tr>
-<td align="left">ambo</td>
-<td align="left">full vertex bevel</td>
-<td align="left">node</td>
+<td>Netherlands</td>
+<td>Jetse de Vries</td>
+<td>M</td>
+<td>2012</td>
+<td>Connoisseurs&#160;of&#160;the&#160;Eccentric&#160;<a href="http://escapepod.org/2012/08/09/ep357-connoisseurs-of-the-eccentric/">🖹</a>&#160;<a href="http://traffic.libsyn.com/escapepod/EP357_ConnoisseursoftheEccentric.mp3">🔉</a></td>
+<td>Aliens trade new technology for Earth's most spectacular failures</td>
 </tr>
 <tr>
-<td align="left">chamfer</td>
-<td align="left">hexagons replace edges</td>
-<td align="left">node</td>
+<td>Ukraine</td>
+<td>Anatoly Belilovsky</td>
+<td>M</td>
+<td>2013</td>
+<td>Pas de Deux <a href="http://toastedcake.com/podcasts/TC139-pas-de-deux.mp3">🔉</a></td>
+<td>Blowing things up for hidden motives</td>
 </tr>
 <tr>
-<td align="left">gyro</td>
-<td align="left">faces divided into pentagons</td>
-<td align="left">node</td>
+<td>Ireland</td>
+<td>Caitlín R. Kiernan</td>
+<td>F</td>
+<td>2012</td>
+<td>The Steam Dancer (1896) <a href="http://www.lightspeedmagazine.com/fiction/the-steam-dancer-1896/">🖹</a> <a href="http://www.podtrac.com/pts/redirect.mp3/lightspeedmagazine.com/podcasts/podcast_the_steam_dancer_caitlin_r_kiernan.mp3">🔉</a></td>
+<td>A steampunk cyborg lives to dance</td>
 </tr>
 <tr>
-<td align="left">whirl</td>
-<td align="left">insets a smaller rotated copy of the face</td>
-<td align="left">node</td>
+<td>Jamaica</td>
+<td>Nalo Hopkinson</td>
+<td>F</td>
+<td>2015</td>
+<td>Snow Day <a href="http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/">🖹</a> <a href="http://media.blubrry.com/drabblecast/p/www.drabblecast.org/wp-content/uploads/2015/03/Drabblecast-352-Snow-Day.mp3">🔉</a></td>
+<td>A talking raccoon and all the world are offered the stars. Would you accept?</td>
 </tr>
 <tr>
-<td align="left">propellor</td>
-<td align="left">insets a rotated copy of the face</td>
-<td align="left">node</td>
+<td>Israel</td>
+<td>Lavie Tidhar</td>
+<td>M</td>
+<td>2013</td>
+<td>Oracle <a href="http://clarkesworldmagazine.com/tidhar_07_17_reprint/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1820/0/clarkesworld_07_17_tidhar.mp3">🔉</a></td>
+<td>A women finds her purpose Joined to a vast network of AI computers. To understand this (?) see Tidhar's Central Station story cycle</td>
 </tr>
 <tr>
-<td align="left">zip</td>
-<td align="left">dual of kis</td>
-<td align="left">kis dual</td>
+<td>India</td>
+<td>Indraparmit Das</td>
+<td>M</td>
+<td>2012</td>
+<td>Weep for Day <a href="http://clarkesworldmagazine.com/das_04_15_reprint/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1275/0/clarkesworld_04_15_das.mp3">🔉</a></td>
+<td>Sister and brother, on a tidally locked planet during a genocidal war, respond to fear of the others. One becomes a scientist the other a soldier</td>
 </tr>
 <tr>
-<td align="left">expand</td>
-<td align="left">edge bevel</td>
-<td align="left">ambo ambo</td>
+<td>Singapore</td>
+<td>JY Yang</td>
+<td>F</td>
+<td>2013</td>
+<td>Old Domes <a href="http://clarkesworldmagazine.com/yang_10_16_reprint/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1639/0/clarkesworld_10_16_yang.mp3">🔉</a></td>
+<td>Guardians of old buildings fight a sympathetic Cullmaster armed only with a plastic sword</td>
 </tr>
 <tr>
-<td align="left">bevel</td>
-<td align="left">vertex bevel applied twice</td>
-<td align="left">ambo dual kis dual</td>
-</tr>
-<tr>
-<td align="left">snub</td>
-<td align="left">dual of gyro</td>
-<td align="left">gyro dual</td>
-</tr>
-<tr>
-<td align="left">join</td>
-<td align="left">dual of ambo</td>
-<td align="left">ambo dual</td>
-</tr>
-<tr>
-<td align="left">needle</td>
-<td align="left">dual of truncate</td>
-<td align="left">dual kis</td>
-</tr>
-<tr>
-<td align="left">ortho</td>
-<td align="left">single subdivide</td>
-<td align="left">ambo ambo dual</td>
-</tr>
-<tr>
-<td align="left">meta</td>
-<td align="left">poke face and subdivide edges</td>
-<td align="left">ambo dual kis</td>
-</tr>
-<tr>
-<td align="left">truncate</td>
-<td align="left">half vertex bevel</td>
-<td align="left">dual kis dual</td>
+<td>Russia</td>
+<td>Ekaterina Sedia</td>
+<td>F</td>
+<td>2009</td>
+<td>Herding Vegetable Sheep <a href="http://clarkesworldmagazine.com/sedia_03_09/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/292/0/clarkesworld_03_09_sedia.mp3">🔉</a></td>
+<td>A pilot helps her grand daughter in a country isolated by information control - bonus for NZ reference</td>
 </tr>
 </tbody>
 </table>
-<h2 id="future">Future</h2>
-<p>Ironically I haven't coded the <em>snub</em> operator directly, and I've used the code from <em>add_mesh_extra_objects.add_mesh_solid</em> to implement the platonic solids with n-gons.</p>
-<p>Some of these operators would be useful as full nodes in Sverchok, particularly <em>dual</em>.</p>
-<p>Make the operators work on open edge meshes.</p>
-<p>Another way of making the polyhedra more "regular" would be to use an algorithm that evens up the edge lengths while leaving the vertices on the surface of the unit sphere. This could be done with a particle simulation similar to that I used for the <a href="http://www.elfnor.com/larger-hyperbolic-tilings-in-3d-using-processing.html">Hyperbolic Plane</a> generation. A much simpler approach would be to implement a simple version of a repulsion algorithm, iterating over each point and only calculating <span class="math">\(1/r^2\)</span> repulsion forces for vertices connected by an edge.</p>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-	<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html">Permalink, </a>
-	<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html#disqus_thread">Comments</a>
+<hr />
+	<a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html">Permalink, </a>
+	<a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -235,6 +160,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
       <li>
@@ -261,10 +192,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/preserved-lemons.html" rel="bookmark" title="Permalink to Preserved Lemons">Preserved Lemons</a>
-  <time datetime="2017-01-13T22:00:00+13:00" pubdate>Fri 13 January 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      </li>
 
 
 
@@ -405,6 +332,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
+  <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
   <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
@@ -439,11 +372,6 @@
   <time datetime="2017-01-13T22:00:00+13:00" pubdate>Fri 13 January 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/fermented-chili-and-garlic-sauce.html" rel="bookmark" title="Permalink to Fermented Chili and Garlic sauce">Fermented Chili and Garlic sauce</a>
-  <time datetime="2017-01-06T22:00:00+13:00" pubdate>Fri 06 January 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
 		
 		
 		
@@ -534,33 +462,33 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
                             <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
                         </ul>
                       
 		

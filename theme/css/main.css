@@ -79,7 +79,7 @@ footer {
   border-top: 1px dotted #D6D6D6;
   line-height: 30px;
   padding: 0 1em;
-  font-size: 0.8em; 
+  font-size: 0.8em;
   background-color: white;
 }
 
@@ -135,7 +135,7 @@ header .pages a {
 /* Titles */
 
 h1, h2, h3, h4, h5, h6 {
-    color: #711; 	
+    color: #711;
     font-family: 'Bitter', serif;
     font-weight: 400;
     text-shadow: 0.1em 0.1em 0.1em #EFEFEF;
@@ -245,7 +245,6 @@ table {
 	border-width: 1px;
 	border-color: #666666;
 	border-collapse: collapse;
-	width: 100%;
 }
 table th {
 	border-width: 1px;
@@ -266,6 +265,16 @@ table.redtable {
 	background-color: red;
 }
 
+
+div.test th {
+  color: #711;
+  background-color: #c14c4c;
+}
+div.test td {
+	background-color: #ccc;
+}
+
+
 /* Article */
 
 article.summary {
@@ -279,7 +288,7 @@ article.summary > div {
 
 article.full .metadata,
 article.summary .metadata {
-  padding: 1%;  
+  padding: 1%;
   border: 1px dotted #EFEFEF;
   box-shadow: 0.1em 0.1em 0.1em #EFEFEF;
   font-style: italic;
@@ -289,7 +298,7 @@ article.full .metadata {
   width: 25%;
   float: right;
   margin: 0 0 2% 1%;
- 
+
 }
 
 article.summary .metadata {
@@ -314,7 +323,7 @@ ol.archive li .tags
  {
   line-height: 140%;
   font-size: 0.8em;
-  margin: 0; 
+  margin: 0;
 }
 
 ul.archive li {
@@ -348,7 +357,7 @@ ul.archive li .tags
 
 .social a {}
 
-.social i { 
+.social i {
   float: left;
   margin-right: 3px;
   padding-top: 4px;
@@ -411,4 +420,3 @@ li.tag-4 { font-size: 60%; margin: 0 1em; }
     margin: 0 4%;
   }
 }
-

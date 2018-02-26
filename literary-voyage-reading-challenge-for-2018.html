@@ -2,11 +2,11 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Sverchok Tree Generator - Look Think Make</title>	
+	<title>Literary Voyage Reading Challenge for 2018 - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
 
-	<meta name="description" content="I tend toward making more abstract than realistic images with Blender. A while back I played with the Ivy Generator addon and so got interested in the underlying procedural algorithms for producing tree and plant structures. A lot of these techiques use L-systems and could maybe be implemented using the …">
+	<meta name="description" content="Gathering Books is running a Literary Voyage Reading Challenge for 2018 (#LitWorld2018GB). I never finished my blog posts on audio short stories from around the world. So I thought I'd challenge myself to collect and listen to a short story available online (for free, read in English) from as many …">
 
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
@@ -38,53 +38,126 @@
 		  <div role="main" class="content">
 	<article class="full">
 			
-		<h1>Sverchok Tree Generator</h1>
+		<h1>Literary Voyage Reading Challenge for 2018</h1>
 		
 <div class="metadata">
-  <time datetime="2016-08-12T22:00:00+12:00" pubdate>Fri 12 August 2016</time>
+  <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
     <address class="vcard author">
       by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
     </address>
-  in <a href="http://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a>, <a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></p></div>		
-		<p><img alt="tree" src="/images/sca-render_005.png" /></p>
-<p>I tend toward making more abstract than realistic images with Blender.  A <a href="http://www.elfnor.com/blender-ivy-gen-abstracts.html">while back</a> I played with the <em>Ivy Generator</em> addon and so got interested in the underlying procedural algorithms for producing tree and plant structures.  A lot of these techiques use L-systems and could maybe be implemented using the Sverchok <a href="http://www.elfnor.com/generative-art-sverchok-node-update.html">Generative Art</a> node. Except the <em>Genertive Art</em> node has no provision (yet) for collision avoidance. This results in intersecting branches which is not always what I want.</p>
-<p>Somewhere in my research into procedural plants I came across the Space Colonization Algorithm which is a different approach to tree generation and decided to write this algoithm up as a Sverchok scripted node.</p>
-<p>The Space Colonization Algorithim (SC Algorithm) was originally described in <a href="http://www.academia.edu/download/46349919/colonization.egwnp2007.pdf">this paper</a> by Adam Runions, Brendan Lane and Przemyslaw Prusinkiewicz. </p>
-<p>There are good short descriptions of how the algorithm works on <a href="http://www.jgallant.com/procedurally-generating-trees-with-space-colonization-algorithm-in-xna/">jgallant's blog</a> or on <a href="Jose's Sketchbook">Jose's Sketchbook</a>.</p>
-<blockquote>
-<p>The idea for the <strong>Space Colonization Algorithm</strong> is brilliantly simple: instead of generating the nodes that build our structure by using a set of rules (e.g. a grammar), we begin by producing a set of <strong>attractor points</strong> by sampling a domain -the surface of an object in our case-. Then we provide one or several <strong>start locations</strong>, and we iteratively start adding nodes by looking for the set of <strong>nearest <em>active</em> attractors</strong>, and growing towards them. When a new node is added, it <strong>kills all the attractor points</strong> which fall within a specified range, preventing other branches to fill in the same space, and directing the growth forward.</p>
-</blockquote>
-<p>Varkenvarken's Space Tree(<a href="https://github.com/varkenvarken/spacetree">free github version</a>, <a href="https://cgcookiemarkets.com/all-products/space-tree-pro/">Space Tree Pro</a>) addon for Blender uses the SC Algorithm to produce really versatile and realistic trees. My version is extremely simple but the ability to directly control the cloud of attractor points works well for my abstract doodles.</p>
-<p>Here's a simple GIF showing the algorithm in action. The red points are the <em>End Vertices</em> or attractor points. There is one start point at (0, 0, 0).</p>
-<p><img alt="gif of sca" src="/images/sca_gif.gif" /></p>
-<p><img alt="node diagram for gif" src="/images/sca_gif_nodes.png" /></p>
-<p>I started off looking at varkenvarken's github code but ended up completly rewriting it to use numpy. I then spent far longer than was reasonable optimizing my code to get a real-time response to parameter changes. The heart of the algorithm involves a large number of <a href="https://en.wikipedia.org/wiki/Nearest_neighbor_search">nearest neighbor searches</a>. This is a classic problem with many solutions (kdtrees, octrees, locality sensitive hashing). I looked at some of these but the fastest solution I could code (before I got bored) was to naively calculate every distance using numpy outer product. The whole SC Algorithm would make a great class (or competition) challenge in code speed optimization as there seems to be so many complicated ways to make it slower.</p>
-<p>Install the <a href="http://nikitron.cc.ua/sverchok_en.html">Sverchok</a> addon into <a href="https://www.blender.org/">Blender</a>. Download the Tree Generator code from <a href="https://github.com/elfnor/spacetree-sverchok">github</a>. Then load the python file <em>tree_generator.py</em> as a text blocks into a blend file. Add a <em>Scripted Node</em> to a Sverchok node tree. On the node select the <em>tree_generator.py</em> code from the lower drop down. Then click the plugin icon to the right of this field. The node should turn blue with some inputs and outputs.</p>
-<p>The node inputs:  </p>
-<ul>
-<li><strong>maximum branches</strong>: the number of iterations of the algorithm. The number of tree vertices will actually be greater than this  </li>
-<li><strong>branch length</strong>: distance beween tree vertices  </li>
-<li><strong>minimum distance</strong>:  when a new tree vertex is added, all the attractor points within this radius are "killed"  </li>
-<li><strong>maximum distance</strong>:  attractor points greater than this distance are ignored  </li>
-<li><strong>tip radius</strong>:  used to calculate branch radii, the radius of the tip at the end of the branches  </li>
-<li><strong>tropism</strong>:  vector that is added to each new branch segment, can be used to make branches droop under gravity. Length of vector needs to be smaller than branch length.  </li>
-<li><strong>End Vertices</strong>:  set of attractor points that the tree will grow toward  </li>
-<li><strong>Start Vertices</strong>:  start locations for tree to grow from  </li>
-</ul>
-<p>The node outputs:  </p>
-<ul>
-<li><strong>Vertices</strong>:  vertices (nodes) in tree structure  </li>
-<li><strong>Edges</strong>:  edges conectiong vertices in tree structure  </li>
-<li><strong>Branch radii</strong>:  radius of tree at each vertex.  This is calculated using a "pipe model". That is at a vertex where two branches join,  the area of the cross section is the sum of the areas of the two branches.  </li>
-<li><strong>Ends mask</strong>:  a boolean list that is true for vertices that are at the end of a branch. Can be used with a <em>List Mask</em> node.  </li>
-<li><strong>Leaf matrices</strong>:  a list of transform matrices that can be used to place an object at the end of each branch. The x-direction of the object will be aligned with the last segment in the branch.  </li>
-</ul>
-<p>Here is the Sverchok node diagram to produce the tree in the top image. A spherical cloud of atractor points is produced using the random vector and scalar nodes on the left.  The <em>Skin Mesher</em> node is used to give thickness to the trunk and branches. The leaves are produced by the <em>Mesh Instancer</em> node. This make copies of a fairly simple leaf object (see insert) that has a image texture with an alpha channel. The textures are from EugeneKiver on <a href="http://www.blendswap.com/blends/view/59269">blendswap</a>. The modifiers on the tree trunk need to be applied before the UV texturing will work.</p>
-<p><img alt="sca tree nodes" src="/images/sca_tree_nodes.png" /></p>
-<p>Here is another example (not so tree like) of what is possible with the Tree Generator.</p>
-<p><img alt="torus" src="/images/sca_test3b_004.png" /></p>
-<p>I like to code my Blender procedural experiments (<a href="http://www.elfnor.com/maze-any-mesh-in-blender.html">maze any mesh</a>, <a href="http://www.elfnor.com/blender-2d-maze-generator.html">2D mazes</a>, <a href="http://www.elfnor.com/blender-3d-maze-generator.html">3D mazes</a>, <a href="http://www.elfnor.com/hyperbolic-tiling-in-3d.html">hyperbolic plane tilings</a>, <a href="http://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html">more hyperbolic planes</a>, <a href="http://www.elfnor.com/sverchok-tree-generator.html">bloom spheres</a> ) as Sverchok nodes as I can concentrate on getting my code to produce simple lists (of vertices, edges, faces, and matrices) and Sverchok takes care of produing the actual mesh in Blender. The inputs and parameters provide a simple interface for the code without messing with the Blender API.</p>
+  in <a href="http://www.elfnor.com/category/look.html">look</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/reading.html">reading</a></p></div>		
+		<p><img alt="banner" src="/images/litworld2018gb_img_4389.jpg" /></p>
+<p><a href="https://gatheringbooks.org/literary-voyage-around-the-world-reading-challenge-2018/">Gathering Books</a> is running a Literary Voyage Reading Challenge for 2018 (#LitWorld2018GB). I never finished my blog posts on audio short stories from around the world. So I thought I'd challenge myself to collect and listen to a short story available online (for free, read in English) from as many individual countries as possible. This is slightly subverting the challenge but not outside their guidelines.</p>
+<p>The Literary Voyage Reading Challenge has 5 goals to choose from:</p>
+<ol>
+<li>Literary Hitchhiker – 25-40 countries</li>
+<li>Literary Vagabond – 41-60 countries</li>
+<li>Literary Explorer – 61-80 countries</li>
+<li>Literary Adventurer – 81-99 countries</li>
+<li>Literary Globetrotter – 100 countries and above</li>
+</ol>
+<p>There are many more audio stories available on-line than when I last blogged audio short stories in 2015. This is due to magazines such as <a href="http://strangehorizons.com/">Strange Horizons</a> (especially <a href="http://samovar.strangehorizons.com/">Samovar</a>), and <a href="http://clarkesworldmagazine.com/">Clarkesworld</a> making huge contributions to publishing short speculative fiction in translation. Most of the short story podcasts concentrate on science fiction and fantasy so, with maybe a few exceptions, this will be reflected in my challenge list.</p>
+<p>I'm aiming for goal 3: Literary Explorer as I already have a collection of audio stories from around 60 separate countries. These were first published in 2017 or earlier.</p>
+<p>I'm posting links to the stories via <a href="https://huffduffer.com">Huffduffer</a> so I can download and listen to them using pod casting software. These collections are public so feel free to subscribe to these lists using RSS or you favourite app and follow along. I have two lists, <a href="https://huffduffer.com/tags/litworld2018gb">LitWorld2018GB</a> is the list of stories I've already listened to for this challenge and will eventually contain a single story from each country.  My "stories to be listened to" pile is under <a href="https://huffduffer.com/elfnor/tags/rtwoa">rtwoa</a>. As I find new stories I'll add them to this second list, including stories published in 2018. This second list may contain more than one story from some countries.</p>
+<p>As I listen to the stories I'll try to publish very short (~140 character) reviews/descriptions here is small groups.</p>
+<p>As always I encourage you to support the magazines publishing these stories with donations to make sure they can keep on doing such great work.</p>
+<p>PS: I previously <a href="http://elfnor.com/reading-the-world-100-online-stories.html">blogged a list</a> of online stories (text not audio) from 100 different countries for those interested in <em>reading</em> the world.</p>
+<h2 id="januaryfebruary-reviews">January/February reviews</h2>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Author</th>
+<th>Gender</th>
+<th>Year</th>
+<th>Title</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sri Lanka</td>
+<td>Mary&#160;Anne&#160;Mohanraj</td>
+<td>F</td>
+<td>2014</td>
+<td>Communion <a href="http://clarkesworldmagazine.com/audio_06_14b/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1071/0/clarkesworld_06_14_mohanraj.mp3">🔉</a></td>
+<td>Humans and aliens share alien funeral customs</td>
+</tr>
+<tr>
+<td>Finland</td>
+<td>Hannu Rajaniemi</td>
+<td>M</td>
+<td>2008</td>
+<td>His Master’s Voice <a href="http://escapepod.org/2009/12/03/ep227-his-masters-voice/">🖹</a> <a href="http://media.rawvoice.com/escapepod/p/media.libsyn.com/media/escapepod/EP227_HisMastersVoice.mp3">🔉</a></td>
+<td>A dog and cat with augmented intelligence save their master</td>
+</tr>
+<tr>
+<td>Netherlands</td>
+<td>Jetse de Vries</td>
+<td>M</td>
+<td>2012</td>
+<td>Connoisseurs&#160;of&#160;the&#160;Eccentric&#160;<a href="http://escapepod.org/2012/08/09/ep357-connoisseurs-of-the-eccentric/">🖹</a>&#160;<a href="http://traffic.libsyn.com/escapepod/EP357_ConnoisseursoftheEccentric.mp3">🔉</a></td>
+<td>Aliens trade new technology for Earth's most spectacular failures</td>
+</tr>
+<tr>
+<td>Ukraine</td>
+<td>Anatoly Belilovsky</td>
+<td>M</td>
+<td>2013</td>
+<td>Pas de Deux <a href="http://toastedcake.com/podcasts/TC139-pas-de-deux.mp3">🔉</a></td>
+<td>Blowing things up for hidden motives</td>
+</tr>
+<tr>
+<td>Ireland</td>
+<td>Caitlín R. Kiernan</td>
+<td>F</td>
+<td>2012</td>
+<td>The Steam Dancer (1896) <a href="http://www.lightspeedmagazine.com/fiction/the-steam-dancer-1896/">🖹</a> <a href="http://www.podtrac.com/pts/redirect.mp3/lightspeedmagazine.com/podcasts/podcast_the_steam_dancer_caitlin_r_kiernan.mp3">🔉</a></td>
+<td>A steampunk cyborg lives to dance</td>
+</tr>
+<tr>
+<td>Jamaica</td>
+<td>Nalo Hopkinson</td>
+<td>F</td>
+<td>2015</td>
+<td>Snow Day <a href="http://www.drabblecast.org/2015/03/18/drabblecast-352-snow-day/">🖹</a> <a href="http://media.blubrry.com/drabblecast/p/www.drabblecast.org/wp-content/uploads/2015/03/Drabblecast-352-Snow-Day.mp3">🔉</a></td>
+<td>A talking raccoon and all the world are offered the stars. Would you accept?</td>
+</tr>
+<tr>
+<td>Israel</td>
+<td>Lavie Tidhar</td>
+<td>M</td>
+<td>2013</td>
+<td>Oracle <a href="http://clarkesworldmagazine.com/tidhar_07_17_reprint/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1820/0/clarkesworld_07_17_tidhar.mp3">🔉</a></td>
+<td>A women finds her purpose Joined to a vast network of AI computers. To understand this (?) see Tidhar's Central Station story cycle</td>
+</tr>
+<tr>
+<td>India</td>
+<td>Indraparmit Das</td>
+<td>M</td>
+<td>2012</td>
+<td>Weep for Day <a href="http://clarkesworldmagazine.com/das_04_15_reprint/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1275/0/clarkesworld_04_15_das.mp3">🔉</a></td>
+<td>Sister and brother, on a tidally locked planet during a genocidal war, respond to fear of the others. One becomes a scientist the other a soldier</td>
+</tr>
+<tr>
+<td>Singapore</td>
+<td>JY Yang</td>
+<td>F</td>
+<td>2013</td>
+<td>Old Domes <a href="http://clarkesworldmagazine.com/yang_10_16_reprint/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/1639/0/clarkesworld_10_16_yang.mp3">🔉</a></td>
+<td>Guardians of old buildings fight a sympathetic Cullmaster armed only with a plastic sword</td>
+</tr>
+<tr>
+<td>Russia</td>
+<td>Ekaterina Sedia</td>
+<td>F</td>
+<td>2009</td>
+<td>Herding Vegetable Sheep <a href="http://clarkesworldmagazine.com/sedia_03_09/">🖹</a> <a href="http://clarkesworldmagazine.com/podpress_trac/web/292/0/clarkesworld_03_09_sedia.mp3">🔉</a></td>
+<td>A pilot helps her grand daughter in a country isolated by information control - bonus for NZ reference</td>
+</tr>
+</tbody>
+</table>
 <hr />	
 
 	</article>
@@ -93,7 +166,7 @@
 	<h2>Comments !</h2>
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
-	       var disqus_identifier = "sverchok-tree-generator.html";
+	       var disqus_identifier = "literary-voyage-reading-challenge-for-2018.html";
 	       (function() {
 	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
@@ -223,9 +296,9 @@
 	          <ul class = "social">
 		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
 	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
-	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
-	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	              <li ><a href="http://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

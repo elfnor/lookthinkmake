@@ -4,7 +4,7 @@ Tags: reading
 Category: look
 Author: elfnor
 
-![banner](/images/litworld2018gb_img_4389.jpg)
+![banner](/images/litworld2018gb.png)
 
 [Gathering Books](https://gatheringbooks.org/literary-voyage-around-the-world-reading-challenge-2018/) is running a Literary Voyage Reading Challenge for 2018 (#LitWorld2018GB). I never finished my blog posts on audio short stories from around the world. So I thought I'd challenge myself to collect and listen to a short story available online (for free, read in English) from as many individual countries as possible. This is slightly subverting the challenge but not outside their guidelines.
 

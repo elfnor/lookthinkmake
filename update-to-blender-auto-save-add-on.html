@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Update to Blender Auto Save add-on - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="I "version control" my Blender work using my add-on that auto saves a copy of the Blender file along with the rendered image, each time a render is completed. This allows me to work with low resolution (pixels or cycles) renders for speed. I can then go back and browse …">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="http://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="http://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="http://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="http://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Update to Blender Auto Save add-on</h1>
+		
+<div class="metadata">
+  <time datetime="2018-03-31T22:00:00+13:00" pubdate>Sat 31 March 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
+		<p><img alt="" src="/images/celadon_glaze_blend_01_027.png" /></p>
+<p>I "version control" my Blender work using my <a href="http://elfnor.com/blender-auto-save-add-on.html">add-on</a> that auto saves a copy of the Blender file along with the rendered image, each time a render is completed. This allows me to work with low resolution (pixels or cycles) renders for speed. I can then go back and browse the images, and re-render the best images at higher resolution.</p>
+<p>This works great, but as the files only have consecutive numbers there is no indication what was changed or why. What's missing in version control terms is both a "commit" message and the ability to see a "diff" between the Blender files.</p>
+<p>Other people have thought about "diff" for Blender files. See <a href="https://blender.stackexchange.com/questions/7484/get-a-diff-between-two-blend-files">Get a diff between two .blend files - Blender Stack Exchange</a>, <a href="https://github.com/CoDEmanX/blend_stats">CoDEmanX/blend_stats</a>, and <a href="https://blenderartists.org/forum/showthread.php?298560-Blender-python-script-to-see-changes-in-blend-files-%28patch%29">Blender python script to see changes in blend file - Blender Artists</a> for other people thinking along these lines. As far as Google knows, no-one has implemented this.</p>
+<p>I decided a much lighter solution was what I needed (and more achievable). Mostly, at the time I'm working on a blend, I have some idea what settings I've just changed and why. Capturing these in a "commit" message should be enough.</p>
+<p>I've updated my version of the <a href="https://github.com/elfnor/blender_auto_save_on_render">Auto Save on Render add-on</a> to have an optional log file text block. This is in <a href="https://daringfireball.net/projects/markdown">markdown</a> format and should be saved in the same folder as the auto-saved blend and image pairs. Each time the file is rendered, the add-on appends the filename of the blend and image pair, a datestamp, a markdown link to the image file and the render time to the log file. If the user keeps this file open in a Text Editor in Blender, they can very quickly add a comment to each render, covering what changes have been made and what the intent was.</p>
+<p>If the markdown file is opened in an editor with in-line markdown images or markdown preview, the user can browse through the images, along with the comments. Extra comments can be added, at this point on the quality of the image, what still needs to be done, or anything else. This markdown file becomes a record of the project progress and could also be used for review by a second person.</p>
+<div class="codehilite"><pre><span></span>Default material  
+**celadon_glaze_001** {2018-04-13 16:51}
+![](celadon_glaze_001.png)
+Render time: 0:00:20.183531
+
+Add some color to diffuse
+
+**celadon_glaze_002** {2018-04-13 16:57}
+![](celadon_glaze_002.png)
+Render time: 0:00:20.045838
+Too smooth but highlights are sharper
+
+Roughen diffuse
+
+**celadon_glaze_003** {2018-04-13 17:11}
+![](celadon_glaze_003.png)
+Render time: 0:00:20.356762
+</pre></div>
+
+
+<p>The add-on is intended to be unobtrusive and deliberately doesn't prompt the user for a comment or automatically save the text file externally to Blender.</p>
+<p><img alt="addon screen shot" src="/images/auto_save_screenshot.png" /></p>
+<p>On the first render with the Auto Save on Render add-on enabled, and "with log file" checked, the add-on will add a text-data-block called "save log" to the Blender file. To see this after the first render, use the "Browse text to be linked" drop down below the text editor to make the "save log" the active text block. Add any comments desired. To save a copy externally to Blender use the "Text &gt; Save As" menu. The default save name has been set to "blendfilebasename_log.md". This can be changed but the markdown file link format requires the log file be in the same folder as the auto-saved images.  </p>
+<p>I find this approach to version control is really suited to the texturing and lighting part of the development cycle when I'm making lots of test renders. When I'm modeling, I'm now intending to set up a basic scene that I can periodically rendered just to use this style of version control. Of course large image sizes and large Blender files can quickly eat up hard drive space.</p>
+<p>Here's an example of a the <a href="http://www.elfnor.com/drafts/example-of-a-log-file-from-blender-auto-save-add-on.html">log file</a> used to develop the material used in the banner image. Its shows how the file with the addition of some simple annotations and screen shot clippings can become a good record of project progress or the start of a tutorial.</p>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "update-to-blender-auto-save-add-on.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/update-to-blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Update to Blender Auto Save add-on">Update to Blender Auto Save add-on</a>
+  <time datetime="2018-03-31T22:00:00+13:00" pubdate>Sat 31 March 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
+  <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
+  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/sugar-free-fermented-marmalade.html" rel="bookmark" title="Permalink to Sugar-Free Fermented Marmalade">Sugar-Free Fermented Marmalade</a>
+  <time datetime="2017-01-29T22:00:00+13:00" pubdate>Sun 29 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

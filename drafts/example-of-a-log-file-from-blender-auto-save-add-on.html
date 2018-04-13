@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Example of a log file from Blender Auto Save Add-on - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="This is an example of how the markdown log file produced by my latest version of the Blender Auto Save on RenderAdd-on can be annotated to keep a record of blender file changes and why they were made. Each time a blend file with the add-on enabled is rendered, the …">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="http://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="http://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="http://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="http://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Example of a log file from Blender Auto Save Add-on</h1>
+		
+<div class="metadata">
+  <time datetime="2018-04-13T22:00:00+12:00" pubdate>Fri 13 April 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/make.html">make</a>, <a href="http://www.elfnor.com/tag/think.html">think</a>, <a href="http://www.elfnor.com/tag/blender.html">blender</a></p></div>		
+		<p>This is an example of how the markdown log file produced by my latest version of the Blender <a href="http://www.elfnor.com/update-to-blender-auto-save-add-on.html">Auto Save on RenderAdd-on</a> can be annotated to keep a record of blender file changes and why they were made. Each time a blend file with the add-on enabled is rendered, the add-on saves a image and blend file copy with the same base file name in  an <code>auto_saves</code> folder. The add-on also automatically adds the the filename of the blend and image pair, a datestamp, a markdown link to the image file and the render time to the log file.</p>
+<p>As I worked on developing a celadon glaze material, I annotated this log file with what I was changing and what I thought of the result. I screen grabbed the node diagram when I changed its layout and added links to my reference image. This very easily gave me the record below of this little project to quickly develop a material for a celadon style glaze.</p>
+<hr />
+<p>Reference image<br />
+<img alt="" src="/images/celadon_glaze/celadon_vase_03.jpeg" /></p>
+<p>Default material    </p>
+<p><strong>celadon_glaze_001</strong> {2018-04-13 16:51}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_001.png" /><br />
+Render time: 0:00:20.183531  </p>
+<p><img alt="" src="/images/celadon_glaze/celadon_glaze_ss_01.png" /></p>
+<p>Add some color to diffuse  </p>
+<p><strong>celadon_glaze_002</strong> {2018-04-13 16:57}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_002.png" /><br />
+Render time: 0:00:20.045838https://github.com/elfnor/blender_auto_save_on_render<br />
+Too smooth but highlights are sharper    </p>
+<p>Roughen diffuse  </p>
+<p><strong>celadon_glaze_003</strong> {2018-04-13 17:11}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_003.png" /><br />
+Render time: 0:00:20.356762   </p>
+<p>Try differnt glossy shader types  </p>
+<p>Sharp  </p>
+<p><strong>celadon_glaze_004</strong> {2018-04-13 17:13}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_004.png" /><br />
+Render time: 0:00:20.082703<br />
+Too glossy  </p>
+<p>Beckmann  </p>
+<p><strong>celadon_glaze_005</strong> {2018-04-13 17:14}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_005.png" /><br />
+Render time: 0:00:20.434412<br />
+Better but glossy highlight needs to be sharper  </p>
+<p>Lower glossy roughness  </p>
+<p><strong>celadon_glaze_006</strong> {2018-04-13 17:17}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_006.png" /><br />
+Render time: 0:00:20.392772 <br />
+Better  </p>
+<p>Make mix use more of diffuse  </p>
+<p><strong>celadon_glaze_007</strong> {2018-04-13 17:18}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_007.png" /><br />
+Render time: 0:00:20.221339<br />
+Better  </p>
+<p>Try using Layer Weight for mix factor  </p>
+<p><strong>celadon_glaze_008</strong> {2018-04-13 17:22}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_008.png" /><br />
+Render time: 0:00:20.346465  </p>
+<p><img alt="" src="/images/celadon_glaze/celadon_glaze_ss_02.png" />  </p>
+<p>Facing instead of Fresnel</p>
+<p><strong>celadon_glaze_009</strong> {2018-04-13 17:24}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_009.png" /><br />
+Render time: 0:00:20.525302<br />
+This is much darker around back edges</p>
+<p>Lower Layer Weight Blend value</p>
+<p><strong>celadon_glaze_010</strong> {2018-04-13 17:26}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_010.png" /><br />
+Render time: 0:00:20.299810  </p>
+<p>Make both glossy and diffuse less rough</p>
+<p><strong>celadon_glaze_011</strong> {2018-04-13 17:28}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_011.png" /><br />
+Render time: 0:00:20.267659<br />
+This has sharpened up highlight</p>
+<p>Pick the colors off reference image</p>
+<p><strong>celadon_glaze_012</strong> {2018-04-13 17:34}<br />
+<img alt="" src="/images/celadon_glaze/celadon_glaze_012.png" /><br />
+Render time: 0:00:20.231184 <br />
+Not bad!</p>
+<p><img alt="" src="/images/celadon_glaze/celadon_vase_03.jpeg" />  </p>
+<p>Final node setup</p>
+<p><img alt="" src="/images/celadon_glaze/celadon_glaze_ss_03.png" />  </p>
+<p>Could use a geometry pointedness input node to mix a lighter shade to give the look of a breaking glaze on sharp edges or play with a Voronoi texture for crazing.</p>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "drafts/example-of-a-log-file-from-blender-auto-save-add-on.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/update-to-blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Update to Blender Auto Save add-on">Update to Blender Auto Save add-on</a>
+  <time datetime="2018-03-31T22:00:00+13:00" pubdate>Sat 31 March 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
+  <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
+  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
+  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/sugar-free-fermented-marmalade.html" rel="bookmark" title="Permalink to Sugar-Free Fermented Marmalade">Sugar-Free Fermented Marmalade</a>
+  <time datetime="2017-01-29T22:00:00+13:00" pubdate>Sun 29 January 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

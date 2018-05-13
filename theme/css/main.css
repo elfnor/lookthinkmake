@@ -237,6 +237,12 @@ hr {
     border: 2px solid #ccc;
 }
 
+img + em {
+  display: block;
+  color: #711;
+  font-size: 0.9em;
+}
+
 /*tables test */
 
 table {

@@ -37,35 +37,81 @@
 
 
       <article>
-        <h1><a href="http://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html">Fermented Feijoa Pickle - sugar free</a></h1>
-        <p><img alt="feremented feijoa" src="/images/REC-feijoa_pickle.png" /></p>
-<p>Its that time of year, in my neighbourhood, where everybody is trying to give away feijoas. <a href="https://en.wikipedia.org/wiki/Acca_sellowiana">Acca sellowiana</a> fruit also known as pineapple guava or guavasteen have a short shelf life and are not sold in the markets for long or exported. They're one of those great seasonal treats where the first of the season are a delicacy and a week or so later one's looking for recipes to use them in bulk.</p>
-<p>This is a lacto-fermented pickle (<a href="https://en.wikipedia.org/wiki/Lactic_acid_fermentation">Lactic acid fermentation - Wikipedia</a>) like kimchi or sauerkraut and has no added sugar other than that naturally present in the fruit. The pickle (or is it a chutney?) goes great with meat, sausages, or fish. I love it mixed with caramelised onions and served over venison sausages.</p>
-<p>If you like, some whey drained from live yoghurt can be added to the pickle as a starter, but I've always found the ferment starts on its own from wild bacteria. The salt help select for the right type of bacteria. Once the ferment starts, its pretty good at out-competing any moulds or yeasts.</p>
-<h2 id="fermented-feijoa-pickle">Fermented Feijoa Pickle</h2>
-<p><em>Makes 4 x 400 ml jars</em></p>
-<p>1.5 litres chopped feijoa  ~half with skins ~half scooped<br />
-2 T <a href="http://elfnor.com/fermented-chili-and-garlic-sauce.html">fermented chili and garlic sauce</a> - or any chili paste to taste<br />
-2 T black peppercorns<br />
-1 T parsley seed <br />
-1 T black mustard seed<br />
-1 T yellow mustard seed<br />
-1 T klonji seed<br />
-10 kaffir lime leaves<br />
-1 T salt  </p>
-<p>The spices were an arbitrary combination of what I had available. Feel free to vary, substitute and impersonate, but stick to this amount of salt. I actually used fermented kawakawa berries instead of black peppercorns. The kawakawa berry season finishes long before the feijoa season starts, so I'm probably the only one with both in my garden, and a tendency to experiment with strange ferments. (Don't worry this feijoa pickle is a very successful experiment)</p>
-<p>Find enough glass jars with reasonably wide mouths and another set of small glass jars or tumblers that fit nicely inside the mouth of the larger jars. Clean both jars inside and out. See the <a href="http://www.elfnor.com/preserved-lemons.html">preserved lemons</a> post for a diagram of the airlock setup.</p>
-<p>Go through the fruit, cutting any with unblemished skins up whole. Any with less than perfect skins, cut in half and scoop out the insides. Mix in a bowl with everything else. The salt should start to bring out the juice in the fruit.</p>
-<p>Pack the mixture into the jars. When each jar is almost full, push the small jar into the large jar so that the small jar hold the fruit pieces under the juice. The juice should come part way up the outside of the small jar. If necessary, add some weight to the small jar to keep it in place. All this minimizes the surface area exposed to the air and the potential for mould. Put the large jars into a bowl to contain any overflow and cover everything with a plastic bag to keep it all clean.</p>
-<p>Leave to ferment in a warm place (20 &deg;C to 30 &deg;C) for two or maybe three weeks, the mixture should bubble after the first few days. Any overflow juice can be used in cooking.</p>
-<p>After 2 weeks the fruit should have changed texture and be a lot softer. Put a lid on the large jar and store in the fridge. The pickle should keep for several months at least. Stir occasionally to keep the top layer under the salty juice.</p>
-<hr />
-<p>Similar recipes: (links added as I write them)</p>
+        <h1><a href="http://www.elfnor.com/npr-using-compositing-nodes.html">NPR using compositing nodes</a></h1>
+        <p><img alt="" src="./images/npr_composite_lion_034.png" /></p>
+<p>Most of my Blender work is abstract or mathematical and very rarely photo-realistic. I've been experimenting with the different ways to achieve NPR (non-photo realistic rendering) in Blender.</p>
+<p>This first post is about using post-render compositing as its something I've very rarely used. I intend to  do to some later posts on using cycles shaders for NPR.</p>
+<p>My experimental or learning method is to take someone else's work, often from <a href="">BlendSwap</a>, sometimes an on-line tutorial, and pull it apart and delete bits until it stops working. Once I can rebuild an effect from an empty blend file, then I hopefully understand it. I know I understand it when I can do that <strong>and</strong> write a blog post about it.</p>
+<p>Human brains (or mine at least) learn stuff by clumping things up into groups, and then clumping the groups into bigger groups and so on. My aim, in pulling a node tree apart, is to get a material or compositor with  no-more than 10 to 12 nodes, in two to three groups, where each group has a clear function. These also make for node trees that can be shown in a simple screen shot. More complicated effects can then be made by combining groups once they're understood. This breaking things down, and building back up means I have some hope of making a directed change rather than randomly fiddling on somebody else's insane 100 node setup nested 3 groups deep.</p>
+<p>I'm interested in a wider range of NPR looks than toon or cell shading, but studying how these are done gives access to techniques to experiment with.</p>
+<p>Many NPR techniques rely on particular lighting setups, or setting of the World background. I'll detail these where they're important.</p>
+<p>Using the compositor is like using GIMP as an image processor. Each node is like applying a filter or color correction to a layer. Blender is more versatile as the nodes are live and you can twiddle setting deeper down the node stack at any time.</p>
+<h2 id="flat-colour">Flat Colour</h2>
+<p>For the first example we'll produce a completely flat style using the diffuse color pass and use the compositor to just add a plain background and the freestyle lines as separate layers.</p>
+<p>The lighting here and for the following examples is a single sun lamp with the size set to less than 0.0. (The lamp isn't needed for the flat style, but helps you to see what's going on in render preview)</p>
+<p>The World background is set to a <em>Strength</em> of 0.0, making the only light that from the sun lamp. (Not so necessary for these styles)</p>
+<p>Under <em>Properties -&gt; Render -&gt; Film</em> set the background to transparent
+Sampling can be set very low (10) and light path bounce need to be set low or zero for these styles to give hard edges between color areas.</p>
+<p>Here's a normal render layer and the same scene using the compositor to only show the diffuse color pass. In the first image the background is transparent. In the second the diffuse color pass as been superimposed over a yellow background using the <em>Alpha Over</em> node.</p>
+<p><img alt="" src="./images/npr_compositing-edadd.png" />
+<em>render layer</em></p>
+<p><img alt="" src="./images/npr_compositing-2c93d.png" />
+<em>compositor nodes</em></p>
+<p><img alt="" src="./images/npr_compositing-d2ec1.png" />
+<em>diffuse color pass</em></p>
+<p><img alt="" src="./images/npr_compositing-90051.png" />
+<em>how to make the diffuse color pass available</em></p>
+<p>Most NPR styles will use freestyle lines. It's best to render these on a separate layer so that separate effects can be applied to the rest of the image without changing the lines.</p>
+<p><img alt="" src="./images/npr_compositing-bf0c6.png" />
+<em>remove any Freestyle Line Sets from the RenderLayer and add one to the LineLayer</em></p>
+<p>Also turn off the <em>Use Surfaces</em> etc. under <em>Layer</em> only for the <em>LineLayer</em>.</p>
+<p><img alt="" src="./images/npr_compositing-59687.png" />
+<em>Use Surfaces disabled for the LineLayer</em></p>
+<p>In the Compositor, add another <em>RenderLayer</em> node, select the LineLayer and use another <em>Alpha Over</em> to combine this with the diffuse color pass and the background.</p>
+<p><img alt="" src="./images/npr_compositing-94d4d.png" /></p>
+<p><img alt="" src="./images/npr_compositing-1b352.png" />
+<em>diffuse color mixed with yellow background and freestyle layer</em></p>
+<h2 id="two-color">Two Color</h2>
+<p>Having achieved a one color style, we'll now do two colors like a typical toon-shader.</p>
+<p>A typical toon look is a two-colour shader with a sharp separation between the two colours. This can be achieved by using the shadow pass to add a single darker version of the diffuse color into the shadowed areas.</p>
+<p><img alt="" src="./images/npr_compositing_shadow-4635d.png" /></p>
+<p><img alt="" src="./images/npr_compositing_shadow-91858.png" />
+<em>diffuse color and shadow pass with low value (more gray) diffuse color</em></p>
+<p>There is still some fuzziness between the shadow color and the main color on the sphere. If you want a really hard edge us a black/white constant color ramp node on the shadow pass to sharpen this.</p>
+<p><img alt="" src="./images/npr_compositing_shadow-4f80d.png" /></p>
+<p><img alt="" src="./images/npr_compositing_shadow-9c194.png" />
+<em>using a color ramp to sharpen the edge of the shadow</em></p>
+<p>A softer line can be achieved by increasing the size of the sun,</p>
+<p>Use the same node setup to mix a cross hatching image or texture with a flat color instead of mixing the two shades of the diffuse color.</p>
+<p><img alt="" src="./images/npr_compositing_shadow-5b485.png" /></p>
+<p><img alt="" src="./images/npr_compositing_shadow-0bba7.png" />
+<em>using a texture in the shadow pass areas</em></p>
+<p>Unfortunately, we've lost any detail of the color bands on the hat or kite.</p>
+<p>The below method fixes that by using the black/white color ramp to pick light and dark values from the original image, rather than just using the shadow pass. This picks up the darker red shades on the kite and ball. Use the <em>Gamma</em> node to adjust where the boundary of the cross-hatching occurs.</p>
+<p><img alt="" src="./images/npr_compositing-16c42.png" /></p>
+<p><img alt="" src="./images/npr_compositing-c21f0.png" />
+<em>using a texture in the darker areas of the rendered image</em></p>
+<p>Combining the two last techniques:</p>
+<p><img alt="" src="./images/npr_compositing_shadow-976b8.png" />
+<img alt="" src="./images/npr_compositing_shadow-995a1.png" />
+<em>apply a texture in the shadow areas, same texture at 90&deg; in the dark areas</em></p>
+<p>We're now past my 12 node limit so I'll leave other ideas for another post. Then I'll concentrate more on pencil and watercolor styles.</p>
+<p>Mess with any of these setups but try to keep the messing directed.
+- I want to achieve this,
+- so I'll try that
+- but oops, I got something else.
+- Why?</p>
+<p>Try using my <a href="http://www.elfnor.com/update-to-blender-auto-save-add-on.html">Auto Save and logging add-on</a>  to keep track of and document your experiments.</p>
+<p>References  </p>
 <ul>
-<li><a href="http://www.elfnor.com/preserved-lemons.html">preserved lemons</a></li>
+<li><a href="https://www.blendswap.com/blends/view/68181">Freestyle Black &amp; White Render | Blend Swap</a></li>
+<li><a href="https://www.blendswap.com/blends/view/89693">Old-Time Engraved Style via composite nodes | Blend Swap</a></li>
+<li><a href="https://www.blendswap.com/blends/view/68434">PenSketch Material and Freestyle | Blend Swap</a></li>
+<li><a href="https://blenderartists.org/forum/showthread.php?325929-Cell-Shading-Soft-Cell-Shading-Using-Multi-pass-Renders-and-the-Compositor">Cell Shading/ Soft-Cell Shading Using Multi-pass Renders and the Compositor</a></li>
+<li><a href="http://www.cgmeetup.net/home/mastering-toon-lighting-compositing-and-freestyle-in-blender/">Mastering Toon Lighting, Compositing and Freestyle in Blender - CGMeetup : Community for CG &amp; Digital Artists</a></li>
 </ul>
-	<a href="http://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html">Permalink, </a>
-	<a href="http://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html#disqus_thread">Comments</a>
+	<a href="http://www.elfnor.com/npr-using-compositing-nodes.html">Permalink, </a>
+	<a href="http://www.elfnor.com/npr-using-compositing-nodes.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -74,6 +120,12 @@
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="http://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html" rel="bookmark" title="Permalink to Fermented Feijoa Pickle - sugar free">Fermented Feijoa Pickle - sugar free</a>
+  <time datetime="2018-04-23T22:00:00+12:00" pubdate>Mon 23 April 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      </li>
 
 
       <li>
@@ -100,10 +152,6 @@
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      </li>
 
 
-      <li>
-<a href="http://www.elfnor.com/blender-shape-keys-cookbook.html" rel="bookmark" title="Permalink to Blender Shape Keys Cookbook">Blender Shape Keys Cookbook</a>
-  <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      </li>
 
 
 
@@ -250,6 +298,12 @@
 			<ul class="archive">
 	
 			      <li>
+<a href="http://www.elfnor.com/npr-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR using compositing nodes">NPR using compositing nodes</a>
+  <time datetime="2018-05-12T22:00:00+12:00" pubdate>Sat 12 May 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/npr.html">npr  </a><a href="http://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="http://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html" rel="bookmark" title="Permalink to Fermented Feijoa Pickle - sugar free">Fermented Feijoa Pickle - sugar free</a>
   <time datetime="2018-04-23T22:00:00+12:00" pubdate>Mon 23 April 2018</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
@@ -284,11 +338,6 @@
   <time datetime="2017-03-12T22:00:00+13:00" pubdate>Sun 12 March 2017</time>
 <p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="http://www.elfnor.com/shape-shifting-creatures.html" rel="bookmark" title="Permalink to Shape Shifting Creatures">Shape Shifting Creatures</a>
-  <time datetime="2017-03-05T22:00:00+13:00" pubdate>Sun 05 March 2017</time>
-<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/think.html">think  </a></p></a>      			      </li>
 		
 		
 		
@@ -382,33 +431,35 @@
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/npr.html">npr</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/compositing.html">compositing</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
                             <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
                             <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
                         </ul>
                       
 		

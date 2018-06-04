@@ -237,7 +237,7 @@ hr {
     border: 2px solid #ccc;
 }
 
-img + em {
+img + em, em.caption {
   display: block;
   color: #711;
   font-size: 0.9em;

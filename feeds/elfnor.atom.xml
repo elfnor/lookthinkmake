@@ -1,5 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make - elfnor</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/elfnor.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2018-05-12T22:00:00+12:00</updated><entry><title>NPR using compositing nodes</title><link href="http://www.elfnor.com/npr-using-compositing-nodes.html" rel="alternate"></link><published>2018-05-12T22:00:00+12:00</published><updated>2018-05-12T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2018-05-12:/npr-using-compositing-nodes.html</id><summary type="html">&lt;p&gt;&lt;img alt="" src="./images/npr_composite_lion_034.png" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Look Think Make - elfnor</title><link href="http://www.elfnor.com/" rel="alternate"></link><link href="http://www.elfnor.com/feeds/elfnor.atom.xml" rel="self"></link><id>http://www.elfnor.com/</id><updated>2018-05-27T22:00:00+12:00</updated><entry><title>NPR- color pencil using compositing nodes</title><link href="http://www.elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="alternate"></link><published>2018-05-27T22:00:00+12:00</published><updated>2018-05-27T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2018-05-27:/npr-color-pencil-using-compositing-nodes.html</id><summary type="html">&lt;p&gt;&lt;img alt="" src="./images/fruits_divide_05.png" /&gt;&lt;/p&gt;
+&lt;p&gt;These are my experiments with getting a color pencil look using the compositing nodes in Blender.&lt;/p&gt;
+&lt;p&gt;The original blend file of the bowl of fruit comes from monomorph (David Bornemann) at &lt;a href="https://www.blendswap.com/blends/view/44482"&gt;Fruits | Blend Swap&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The original has beautiful procedural cycles shaders with the skin texture given by voronoi displacements at …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="" src="./images/fruits_divide_05.png" /&gt;&lt;/p&gt;
+&lt;p&gt;These are my experiments with getting a color pencil look using the compositing nodes in Blender.&lt;/p&gt;
+&lt;p&gt;The original blend file of the bowl of fruit comes from monomorph (David Bornemann) at &lt;a href="https://www.blendswap.com/blends/view/44482"&gt;Fruits | Blend Swap&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The original has beautiful procedural cycles shaders with the skin texture given by voronoi displacements at a couple of scales.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/fruits_bs_002.png" /&gt;
+&lt;em&gt;original render&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;We're now going to mess with this in the compositor to get a color pencil look. This effect works very well with simple diffuse materials on the scene objects. It can also be used on photos as I'll show at the end of this post.&lt;/p&gt;
+&lt;h2 id="edges"&gt;Edges&lt;/h2&gt;
+&lt;p&gt;In the &lt;a href="http://www.elfnor.com/npr-using-compositing-nodes.html"&gt;previous post&lt;/a&gt; I used a freestyle render layer to give line effects. Here we'll produce them directly from the image. We want lines along the edges in the image, or put differently, in the parts of the image where the color or value of the image changes quickly.&lt;/p&gt;
+&lt;p&gt;There lots of ways to do this. Here we'll convert the image to values only, then divide the image by a blurred copy of itself.  This works to as a high pass filter to detect the parts of the image where the value changes quickly.&lt;/p&gt;
+&lt;p&gt;In the parts of the image with little value change
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\text{blur}(image) \approx image
+$$&lt;/div&gt;
+&lt;p&gt;
+therefore
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\frac{image}{\text{blur}(image)} \approx 1
+$$&lt;/div&gt;
+&lt;p&gt;
+giving white.  &lt;/p&gt;
+&lt;p&gt;Where the image value changes quickly
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+\frac{image}{\text{blur}(image)} &amp;lt; 1
+$$&lt;/div&gt;
+&lt;p&gt;
+giving dark pixels.&lt;/p&gt;
+&lt;p&gt;Here's a toy example. The top row of the table represents the image.  The blur function in the second row just averages across the neighboring 3 pixels. After we divide the image by the blur and clamp the values to between [0, 1] we have a white image with a single dark pixel at the edge.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/npr_color_pencil_divide-ebd5a.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="./images/node_diagram_div_a.png"&gt;&lt;img alt="node a" src="./images/node_diagram_div_a_660.png" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;nodes for isolating changes in value&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/fruits_dodge_02.png" /&gt;
+&lt;em&gt;result&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The width of the edge lines can be controlled by the size of the &lt;em&gt;Blur&lt;/em&gt;. Also try different blur types for different effects.&lt;/p&gt;
+&lt;p&gt;The contrast in the edges can be strengthened with an &lt;em&gt;RGB Curves&lt;/em&gt; node. I've also added another &lt;em&gt;RGB Curves&lt;/em&gt; before the edge nodes to give some control over how much value change produces an edge.&lt;/p&gt;
+&lt;p&gt;&lt;a href="./images/node_diagram_div_b.png"&gt;&lt;img alt="node a" src="./images/node_diagram_div_b_660.png" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;add contrast to the edges&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/fruits_dodge_03.png" /&gt;
+&lt;em&gt;result&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="colors"&gt;Colors&lt;/h2&gt;
+&lt;p&gt;Now we add some color back into the image,using the &lt;em&gt;Value&lt;/em&gt; node. This takes the value from the edges, but the hue and saturation from the image. I've also added a &lt;em&gt;Blur&lt;/em&gt; to the color pass along with yet another &lt;em&gt;RGB Curves&lt;/em&gt; for color adjustment.&lt;/p&gt;
+&lt;p&gt;&lt;a href="./images/node_diagram_div_c.png"&gt;&lt;img alt="node a" src="./images/node_diagram_div_c_660.png" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;adding color&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/fruits_dodge_04.png" /&gt;
+&lt;em&gt;result&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="textures"&gt;Textures&lt;/h2&gt;
+&lt;p&gt;The last thing to do is to add a texture to the whole image to simulate pencil strokes. This invloves combining a gray scale pencil stroke texture with the color image using the &lt;em&gt;Overlay&lt;/em&gt; mode of the &lt;em&gt;Mix&lt;/em&gt; node.&lt;/p&gt;
+&lt;p&gt;The overlay mode does different thing depending on whether the background(colored) image is light (&amp;gt; 0.5) or dark (&amp;lt; 0.5).&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/npr_color_pencil_divide-3d2b2.png" /&gt;&lt;/p&gt;
+&lt;p&gt;This has the effect of overlaying the contrast of the greyscale texture on the colored image. The texture doesn't appear on the white or the black parts of the image.&lt;/p&gt;
+&lt;p&gt;Below is an example of a gray scale texture and some color swatches combined with the overlay mode. The circles are all 0.5 gray to show the color of the background square color swatches. Mouse over to show the gray scale texture.&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/overlay_example.png" onmouseover="this.src='./images/overlay_example_texture.png'" onmouseout="this.src='./images/overlay_example.png'" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;overlay with gray scale texture and color swatches&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In the above image, the 9 color swatches on the left have at least one of their RGB channels greater than 0.5. For these colors the dark part of the texture takes the image toward the color defined by these channels. The 9 color swatches on the left have all their channels less than 0.5 and the dark part of the texture takes the image toward black.&lt;/p&gt;
+&lt;p&gt;Next, I've used a paper texture taken from the GIMP fill dialog and mixed it with the color swatch image using the overlay mode. This works, a little, to give the effect of light and heavy pencil strokes, with a black pencil being used on the darker parts of the image.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/paper_gimp.png" /&gt;
+&lt;em&gt;paper texture&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/overlay_colors_paper.png" onmouseover="this.src='./images/overlay_paper.png'" onmouseout="this.src='./images/overlay_colors_paper.png'" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;overlay with gray scale paper texture and color swatches&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;Soft Light&lt;/em&gt; mode would also be a good choice here. It doesn't have a sharp cutoff at 0.5 so gives an overall smother transition. The dark parts of the texture always produce a darker version of the image color.&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/soft_light_example.png" onmouseover="this.src='./images/overlay_colors_example.png'" onmouseout="this.src='./images/soft_light_example.png'" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;soft light with gray scale texture and color swatches&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="./images/soft_light_paper.png" /&gt;
+&lt;em&gt;soft light with grey scale paper and color swatches&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Anyway, after the digression in to the &lt;em&gt;Overlay&lt;/em&gt; mode, here is the node diagram used to combine the pencil texture with the color image to get our final result.&lt;/p&gt;
+&lt;p&gt;&lt;a href="./images/node_diagram_div_d.png"&gt;&lt;img alt="node a" src="./images/node_diagram_div_d_660.png" /&gt;&lt;/a&gt;
+&lt;em class="caption"&gt;adding paper texture&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/fruits_divide_05.png" onmouseover="this.src='./images/fruits_bs_002.png'" onmouseout="this.src='./images/fruits_divide_05.png'" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A good result will require tweaking each of the four &lt;em&gt;RGB Curves&lt;/em&gt; nodes. It worth while taking some time to understand how grading an image using curves works. Curves can be used to invert, posterize, gamma correct and more all with the same node. See the references below for more detail.&lt;/p&gt;
+&lt;p&gt;Many NPR techniques only seem to work well on the particular image or render given in the tutorial. A robust node setup should work over a range of images, with at most some tweaking of the &lt;em&gt;RGB Curves&lt;/em&gt; for some fine tuning.&lt;/p&gt;
+&lt;p&gt;Here are a series of tests, with the same node setup used for the fruit bowl. Mouse over each to see the original.&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/sintel_pencil.png" onmouseover="this.src='./images/sintel_render.png'" onmouseout="this.src='./images/sintel_pencil.png'" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This render is of Sintel from the Blender movie via &lt;a href="https:final//www.blendswap.com/blends/view/53062"&gt;Sintel Lite Cicles - Blender Guru | Blend Swap&lt;/a&gt; and has similar settings as the fruit bowl. The next two are photographs and I tweaked the &lt;em&gt;RGB Curves&lt;/em&gt; just a little bit to improve the final result.&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/feijoas_pencil.png" onmouseover="this.src='./images/feijoas_image.png'" onmouseout="this.src='./images/feijoas_pencil.png'" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a &gt;&lt;img src="./images/tiger_pencil.png" onmouseover="this.src='./images/tiger_image.png'" onmouseout="this.src='./images/tiger_pencil.png'" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="references"&gt;References&lt;/h2&gt;
+&lt;p&gt;Working well with compositing (rather than random fiddling, hoping for a good result) requires a good knowledge of how to use the &lt;em&gt;RGB Curves&lt;/em&gt; node and the various modes of the &lt;em&gt;Mix&lt;/em&gt; node. This knowledge can be gained by making your own experiments similar to my above color swatch tests and by reading other's explanations.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RGB Curves&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://docs.blender.org/manual/en/dev/render/blender_render/textures/nodes/types/color/rgb_curves.html"&gt;RGB Curves Node — Blender Manual&lt;/a&gt; - especially the diagram that shows the curves for lighten, negative, decrease contrast and posterize.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://pixls.us/articles/basic-color-curves/"&gt;PIXLS.US - Basic Color Curves&lt;/a&gt;&lt;br /&gt;
+&lt;a href="https://pixls.us/articles/color-curves-matching/"&gt;PIXLS.US - Color Curves Matching&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mix node modes&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Blend_modes"&gt;Blend modes - Wikipedia&lt;/a&gt;&lt;br /&gt;
+&lt;a href="https://gumroad.com/l/jOAsw"&gt;Pixel Math [Ebook]&lt;/a&gt; - this gives the mathematics behind each of the mix modes as implemented in the Blender source code.&lt;br /&gt;
+&lt;a href="https://clownfishcafe.blogspot.com/2013/11/gimp-layer-modes-normal-to-addition.html"&gt;Clown Fish Cafe: GIMP's Layer Modes (Somewhat) Demystified&lt;/a&gt;&lt;br /&gt;
+&lt;a href="https://elbrujodelatribu.blogspot.com/2013/02/color-mix-modes-in-blender-cycles.html"&gt;El Brujo de la Tribu: Color Mix Modes in Blender / Cycles&lt;/a&gt;  &lt;/p&gt;
+&lt;hr /&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="blender"></category><category term="npr"></category><category term="compositing"></category></entry><entry><title>NPR using compositing nodes</title><link href="http://www.elfnor.com/npr-using-compositing-nodes.html" rel="alternate"></link><published>2018-05-12T22:00:00+12:00</published><updated>2018-05-12T22:00:00+12:00</updated><author><name>elfnor</name></author><id>tag:www.elfnor.com,2018-05-12:/npr-using-compositing-nodes.html</id><summary type="html">&lt;p&gt;&lt;img alt="" src="./images/npr_composite_lion_034.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Most of my Blender work is abstract or mathematical and very rarely photo-realistic. I've been experimenting with the different ways to achieve NPR (non-photo realistic rendering) in Blender.&lt;/p&gt;
 &lt;p&gt;This first post is about using post-render compositing as its something I've very rarely used. I intend to  do to some later …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="" src="./images/npr_composite_lion_034.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Most of my Blender work is abstract or mathematical and very rarely photo-realistic. I've been experimenting with the different ways to achieve NPR (non-photo realistic rendering) in Blender.&lt;/p&gt;

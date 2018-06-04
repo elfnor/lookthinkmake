@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>NPR- color pencil using compositing nodes - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="These are my experiments with getting a color pencil look using the compositing nodes in Blender. The original blend file of the bowl of fruit comes from monomorph (David Bornemann) at Fruits | Blend Swap. The original has beautiful procedural cycles shaders with the skin texture given by voronoi displacements at …">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="http://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="http://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="http://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="http://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="http://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>NPR- color pencil using compositing nodes</h1>
+		
+<div class="metadata">
+  <time datetime="2018-05-27T22:00:00+12:00" pubdate>Sun 27 May 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="http://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="http://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="http://www.elfnor.com/tag/blender.html">blender</a>, <a href="http://www.elfnor.com/tag/npr.html">npr</a>, <a href="http://www.elfnor.com/tag/compositing.html">compositing</a></p></div>		
+		<p><img alt="" src="./images/fruits_divide_05.png" /></p>
+<p>These are my experiments with getting a color pencil look using the compositing nodes in Blender.</p>
+<p>The original blend file of the bowl of fruit comes from monomorph (David Bornemann) at <a href="https://www.blendswap.com/blends/view/44482">Fruits | Blend Swap</a>.</p>
+<p>The original has beautiful procedural cycles shaders with the skin texture given by voronoi displacements at a couple of scales.</p>
+<p><img alt="" src="./images/fruits_bs_002.png" />
+<em>original render</em></p>
+<p>We're now going to mess with this in the compositor to get a color pencil look. This effect works very well with simple diffuse materials on the scene objects. It can also be used on photos as I'll show at the end of this post.</p>
+<h2 id="edges">Edges</h2>
+<p>In the <a href="http://www.elfnor.com/npr-using-compositing-nodes.html">previous post</a> I used a freestyle render layer to give line effects. Here we'll produce them directly from the image. We want lines along the edges in the image, or put differently, in the parts of the image where the color or value of the image changes quickly.</p>
+<p>There lots of ways to do this. Here we'll convert the image to values only, then divide the image by a blurred copy of itself.  This works to as a high pass filter to detect the parts of the image where the value changes quickly.</p>
+<p>In the parts of the image with little value change
+</p>
+<div class="math">$$
+\text{blur}(image) \approx image
+$$</div>
+<p>
+therefore
+</p>
+<div class="math">$$
+\frac{image}{\text{blur}(image)} \approx 1
+$$</div>
+<p>
+giving white.  </p>
+<p>Where the image value changes quickly
+</p>
+<div class="math">$$
+\frac{image}{\text{blur}(image)} &lt; 1
+$$</div>
+<p>
+giving dark pixels.</p>
+<p>Here's a toy example. The top row of the table represents the image.  The blur function in the second row just averages across the neighboring 3 pixels. After we divide the image by the blur and clamp the values to between [0, 1] we have a white image with a single dark pixel at the edge.</p>
+<p><img alt="" src="./images/npr_color_pencil_divide-ebd5a.png" /></p>
+<p><a href="./images/node_diagram_div_a.png"><img alt="node a" src="./images/node_diagram_div_a_660.png" /></a>
+<em class="caption">nodes for isolating changes in value</em></p>
+<p><img alt="" src="./images/fruits_dodge_02.png" />
+<em>result</em></p>
+<p>The width of the edge lines can be controlled by the size of the <em>Blur</em>. Also try different blur types for different effects.</p>
+<p>The contrast in the edges can be strengthened with an <em>RGB Curves</em> node. I've also added another <em>RGB Curves</em> before the edge nodes to give some control over how much value change produces an edge.</p>
+<p><a href="./images/node_diagram_div_b.png"><img alt="node a" src="./images/node_diagram_div_b_660.png" /></a>
+<em class="caption">add contrast to the edges</em></p>
+<p><img alt="" src="./images/fruits_dodge_03.png" />
+<em>result</em></p>
+<h2 id="colors">Colors</h2>
+<p>Now we add some color back into the image,using the <em>Value</em> node. This takes the value from the edges, but the hue and saturation from the image. I've also added a <em>Blur</em> to the color pass along with yet another <em>RGB Curves</em> for color adjustment.</p>
+<p><a href="./images/node_diagram_div_c.png"><img alt="node a" src="./images/node_diagram_div_c_660.png" /></a>
+<em class="caption">adding color</em></p>
+<p><img alt="" src="./images/fruits_dodge_04.png" />
+<em>result</em></p>
+<h2 id="textures">Textures</h2>
+<p>The last thing to do is to add a texture to the whole image to simulate pencil strokes. This invloves combining a gray scale pencil stroke texture with the color image using the <em>Overlay</em> mode of the <em>Mix</em> node.</p>
+<p>The overlay mode does different thing depending on whether the background(colored) image is light (&gt; 0.5) or dark (&lt; 0.5).</p>
+<p><img alt="" src="./images/npr_color_pencil_divide-3d2b2.png" /></p>
+<p>This has the effect of overlaying the contrast of the greyscale texture on the colored image. The texture doesn't appear on the white or the black parts of the image.</p>
+<p>Below is an example of a gray scale texture and some color swatches combined with the overlay mode. The circles are all 0.5 gray to show the color of the background square color swatches. Mouse over to show the gray scale texture.</p>
+<p><a ><img src="./images/overlay_example.png" onmouseover="this.src='./images/overlay_example_texture.png'" onmouseout="this.src='./images/overlay_example.png'" /></a>
+<em class="caption">overlay with gray scale texture and color swatches</em></p>
+<p>In the above image, the 9 color swatches on the left have at least one of their RGB channels greater than 0.5. For these colors the dark part of the texture takes the image toward the color defined by these channels. The 9 color swatches on the left have all their channels less than 0.5 and the dark part of the texture takes the image toward black.</p>
+<p>Next, I've used a paper texture taken from the GIMP fill dialog and mixed it with the color swatch image using the overlay mode. This works, a little, to give the effect of light and heavy pencil strokes, with a black pencil being used on the darker parts of the image.</p>
+<p><img alt="" src="./images/paper_gimp.png" />
+<em>paper texture</em></p>
+<p><a ><img src="./images/overlay_colors_paper.png" onmouseover="this.src='./images/overlay_paper.png'" onmouseout="this.src='./images/overlay_colors_paper.png'" /></a>
+<em class="caption">overlay with gray scale paper texture and color swatches</em></p>
+<p>The <em>Soft Light</em> mode would also be a good choice here. It doesn't have a sharp cutoff at 0.5 so gives an overall smother transition. The dark parts of the texture always produce a darker version of the image color.</p>
+<p><a ><img src="./images/soft_light_example.png" onmouseover="this.src='./images/overlay_colors_example.png'" onmouseout="this.src='./images/soft_light_example.png'" /></a>
+<em class="caption">soft light with gray scale texture and color swatches</em></p>
+<p><img alt="" src="./images/soft_light_paper.png" />
+<em>soft light with grey scale paper and color swatches</em></p>
+<p>Anyway, after the digression in to the <em>Overlay</em> mode, here is the node diagram used to combine the pencil texture with the color image to get our final result.</p>
+<p><a href="./images/node_diagram_div_d.png"><img alt="node a" src="./images/node_diagram_div_d_660.png" /></a>
+<em class="caption">adding paper texture</em></p>
+<p><a ><img src="./images/fruits_divide_05.png" onmouseover="this.src='./images/fruits_bs_002.png'" onmouseout="this.src='./images/fruits_divide_05.png'" /></a></p>
+<p>A good result will require tweaking each of the four <em>RGB Curves</em> nodes. It worth while taking some time to understand how grading an image using curves works. Curves can be used to invert, posterize, gamma correct and more all with the same node. See the references below for more detail.</p>
+<p>Many NPR techniques only seem to work well on the particular image or render given in the tutorial. A robust node setup should work over a range of images, with at most some tweaking of the <em>RGB Curves</em> for some fine tuning.</p>
+<p>Here are a series of tests, with the same node setup used for the fruit bowl. Mouse over each to see the original.</p>
+<p><a ><img src="./images/sintel_pencil.png" onmouseover="this.src='./images/sintel_render.png'" onmouseout="this.src='./images/sintel_pencil.png'" /></a></p>
+<p>This render is of Sintel from the Blender movie via <a href="https:final//www.blendswap.com/blends/view/53062">Sintel Lite Cicles - Blender Guru | Blend Swap</a> and has similar settings as the fruit bowl. The next two are photographs and I tweaked the <em>RGB Curves</em> just a little bit to improve the final result.</p>
+<p><a ><img src="./images/feijoas_pencil.png" onmouseover="this.src='./images/feijoas_image.png'" onmouseout="this.src='./images/feijoas_pencil.png'" /></a></p>
+<p><a ><img src="./images/tiger_pencil.png" onmouseover="this.src='./images/tiger_image.png'" onmouseout="this.src='./images/tiger_pencil.png'" /></a></p>
+<h2 id="references">References</h2>
+<p>Working well with compositing (rather than random fiddling, hoping for a good result) requires a good knowledge of how to use the <em>RGB Curves</em> node and the various modes of the <em>Mix</em> node. This knowledge can be gained by making your own experiments similar to my above color swatch tests and by reading other's explanations.</p>
+<p><strong>RGB Curves</strong></p>
+<p><a href="https://docs.blender.org/manual/en/dev/render/blender_render/textures/nodes/types/color/rgb_curves.html">RGB Curves Node — Blender Manual</a> - especially the diagram that shows the curves for lighten, negative, decrease contrast and posterize.</p>
+<p><a href="https://pixls.us/articles/basic-color-curves/">PIXLS.US - Basic Color Curves</a><br />
+<a href="https://pixls.us/articles/color-curves-matching/">PIXLS.US - Color Curves Matching</a></p>
+<p><strong>Mix node modes</strong></p>
+<p><a href="https://en.wikipedia.org/wiki/Blend_modes">Blend modes - Wikipedia</a><br />
+<a href="https://gumroad.com/l/jOAsw">Pixel Math [Ebook]</a> - this gives the mathematics behind each of the mix modes as implemented in the Blender source code.<br />
+<a href="https://clownfishcafe.blogspot.com/2013/11/gimp-layer-modes-normal-to-addition.html">Clown Fish Cafe: GIMP's Layer Modes (Somewhat) Demystified</a><br />
+<a href="https://elbrujodelatribu.blogspot.com/2013/02/color-mix-modes-in-blender-cycles.html">El Brujo de la Tribu: Color Mix Modes in Blender / Cycles</a>  </p>
+<hr />
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "npr-color-pencil-using-compositing-nodes.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="http://www.elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR- color pencil using compositing nodes">NPR- color pencil using compositing nodes</a>
+  <time datetime="2018-05-27T22:00:00+12:00" pubdate>Sun 27 May 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/npr.html">npr  </a><a href="http://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/npr-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR using compositing nodes">NPR using compositing nodes</a>
+  <time datetime="2018-05-12T22:00:00+12:00" pubdate>Sat 12 May 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/npr.html">npr  </a><a href="http://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html" rel="bookmark" title="Permalink to Fermented Feijoa Pickle - sugar free">Fermented Feijoa Pickle - sugar free</a>
+  <time datetime="2018-04-23T22:00:00+12:00" pubdate>Mon 23 April 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/update-to-blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Update to Blender Auto Save add-on">Update to Blender Auto Save add-on</a>
+  <time datetime="2018-03-31T22:00:00+13:00" pubdate>Sat 31 March 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
+  <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="http://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="http://www.elfnor.com/tag/make.html">make  </a><a href="http://www.elfnor.com/tag/think.html">think  </a><a href="http://www.elfnor.com/tag/blender.html">blender  </a><a href="http://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="http://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="http://www.elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="http://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="http://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="http://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/compositing.html">compositing</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-1"><a href="http://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/npr.html">npr</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="http://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-2"><a href="http://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-4"><a href="http://www.elfnor.com/tag/processing.html">processing</a></li>
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

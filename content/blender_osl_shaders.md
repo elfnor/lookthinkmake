@@ -3,6 +3,7 @@ Date: 2018-09-07 22:00
 Tags: make, think, blender
 Category: think
 Author: elfnor
+Status: draft
 
 ![](assets/blender_osl_shaders-53a4a.png)
 I've started learning how to write Cycles [script nodes]() for Blender. These are written in Open Shading Language. A couple of good places to start are ...

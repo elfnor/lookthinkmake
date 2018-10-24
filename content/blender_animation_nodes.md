@@ -3,6 +3,7 @@ Date: 2018-06-30 22:00
 Tags: make, think, blender
 Category: think
 Author: elfnor
+Status: draft
 
 The Blender add-on Animation Nodes has been around almost as long as the Sverchok add-on. Both started around 2013/14. I'm far more familiar with Sverchok and have contributed code to it. I thought I'd take a look at Animation Nodes (AN) and see how it differs and compares.
 

@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Look Think Make</title>	
+	<title>Blender Animation Nodes - Look Think Make</title>	
 	<meta name="author" content="elfnor">
 	
+
+	<meta name="description" content="The Blender add-on Animation Nodes has been around almost as long as the Sverchok add-on. Both started around 2013/14. I'm far more familiar with Sverchok and have contributed code to it. I thought I'd take a look at Animation Nodes (AN) and see how it differs and compares. Both …">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
@@ -33,40 +36,57 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-<h1>Tags</h1>
-	
-<ul class="tagcloud">
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/materials.html">materials</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/markdown.html">markdown</a></li>
-    <li class="tag-2"><a href="https://www.elfnor.com/tag/food.html">food</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/astro.html">astro</a></li>
-    <li class="tag-1"><a href="https://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-    <li class="tag-2"><a href="https://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/ebook.html">ebook</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/processing.html">processing</a></li>
-    <li class="tag-1"><a href="https://www.elfnor.com/tag/blender.html">blender</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/micropython.html">micropython</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/cats.html">cats</a></li>
-    <li class="tag-2"><a href="https://www.elfnor.com/tag/reading.html">reading</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/pelican.html">pelican</a></li>
-    <li class="tag-1"><a href="https://www.elfnor.com/tag/think.html">think</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/python.html">python</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/copy2.html">copy2</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-    <li class="tag-1"><a href="https://www.elfnor.com/tag/make.html">make</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/npr.html">npr</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/kites.html">kites</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/compositing.html">compositing</a></li>
-    <li class="tag-2"><a href="https://www.elfnor.com/tag/maze.html">maze</a></li>
-    <li class="tag-3"><a href="https://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/photo.html">photo</a></li>
-    <li class="tag-2"><a href="https://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-    <li class="tag-4"><a href="https://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+	<article class="full">
+			
+		<h1>Blender Animation Nodes</h1>
+		
+<div class="metadata">
+  <time datetime="2018-06-30T22:00:00+12:00" pubdate>Sat 30 June 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="https://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="https://www.elfnor.com/tag/make.html">make</a>, <a href="https://www.elfnor.com/tag/think.html">think</a>, <a href="https://www.elfnor.com/tag/blender.html">blender</a></p></div>		
+		<p>The Blender add-on Animation Nodes has been around almost as long as the Sverchok add-on. Both started around 2013/14. I'm far more familiar with Sverchok and have contributed code to it. I thought I'd take a look at Animation Nodes (AN) and see how it differs and compares.</p>
+<p>Both are node based tools for working with geometry in Blender. Sverchok is a bit more orientated to meshes (think edit mode) and AN more towards objects. But there's heaps of overlap. Both have between 200 and 300 nodes to play with.</p>
+<p>Going by commits on github, Sverchok has more people making a significant contribution but AN has more watchers and stars. AN also has more of a presence on Blender stack exchange and on youtube.</p>
+<p>Good places to learn more about AN include the <a href="https://animation-nodes-manual.readthedocs.io/en/latest/">docs</a>, these <a href="https://squircleart.github.io/index.html">text tutorials</a>, <a href="http://www.local-guru.net/">locul guru's</a> short animations.</p>
+<p>Here I'm just going to give a few quick node diagrams comparing how to do the same thing in Sverchok and Animation Nodes.</p>
+<p>For future reference I'm using version 2.1.2</p>
+<h2 id="copy-object-to-center-of-the-polygons-of-another-object">Copy object to center of the polygons of another object</h2>
+<p><img alt="" src="./images/blender_animation_nodes-9ef99.png" /></p>
+<h2 id="iterate-matrix">Iterate Matrix</h2>
+<h2 id="3d-fractals">3D Fractals</h2>
+<h2 id="random-walk">Random walk</h2>
+<h2 id="eulers-theorem">Euler's Theorem</h2>
+<p>to show how groups work</p>
+<h2 id="thoughts-so-far">Thoughts so far</h2>
+<ul>
+<li>In AN, I miss being able to save node diagrams as json.</li>
+<li>I really like the looping subprogram mechanism in AN.</li>
+<li>AN should be faster due to it being compiled in cython, but I haven't come up with a reasonable test of this.</li>
+<li>Sverchok has many more nodes for generating objects or meshes (28 vs 5).</li>
+<li>Animation nodes uses the materials from the objects in the display.</li>
+<li>Sverchok uses multi-level lists of lists which means many nodes automatically are vectorized. Not all AN nodes are vectorized - need to use loops.</li>
+<li>It easier to temporarily hide output in Sverchok</li>
+<li>Sverchok source code is easier to read. This is probably just that I'm more familiar with the coding style.</li>
 </ul>
+<p>Its not either AN or Sverchok, parts of a process can be done in one then moved to the other, as both node tools input and  output objects and meshes to the Blender interface.</p>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "drafts/blender-animation-nodes.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
 
 		  </div>	
 		  
@@ -195,7 +215,7 @@
 	              <li ><a href="https://www.elfnor.com/category/food.html">food</a></li>
 	              <li ><a href="https://www.elfnor.com/category/look.html">look</a></li>
 	              <li ><a href="https://www.elfnor.com/category/make.html">make</a></li>
-	              <li ><a href="https://www.elfnor.com/category/think.html">think</a></li>
+	              <li class="active"><a href="https://www.elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 

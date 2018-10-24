@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Scripted Shaders in Blender - Packing Spheres - Look Think Make</title>	
+	<meta name="author" content="elfnor">
+	
+
+	<meta name="description" content="I've started learning how to write Cycles script nodes for Blender. These are written in Open Shading Language. A couple of good places to start are ... Here are my first experiments with a shader based on packing spheres onto cubic grid. The layering of shaders onto each other is inspired …">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://www.elfnor.com/theme/css/main.css" type="text/css" />
+		
+
+    <link href="https://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	        <a href="https://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	    </div>
+	      <nav class="pages">
+			  <a href="https://www.elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="https://www.elfnor.com/pages/galleries.html">Galleries</a>
+	      </nav>
+		<a href="https://www.elfnor.com" class="title">Look Think Make</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Scripted Shaders in Blender - Packing Spheres</h1>
+		
+<div class="metadata">
+  <time datetime="2018-09-07T22:00:00+12:00" pubdate>Fri 07 September 2018</time>
+    <address class="vcard author">
+      by <a class="url fn" href="https://www.elfnor.com/author/elfnor.html">elfnor</a>
+    </address>
+  in <a href="https://www.elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="https://www.elfnor.com/tag/make.html">make</a>, <a href="https://www.elfnor.com/tag/think.html">think</a>, <a href="https://www.elfnor.com/tag/blender.html">blender</a></p></div>		
+		<p><img alt="" src="assets/blender_osl_shaders-53a4a.png" />
+I've started learning how to write Cycles <a href="">script nodes</a> for Blender. These are written in Open Shading Language. A couple of good places to start are ...</p>
+<p>Here are my first experiments with a shader based on packing spheres onto cubic grid. The layering of shaders onto each other is inspired by a <a href="https://blendersushi.blogspot.com/2013/08/osl-disk-grid.html">Blender Suhsi </a> post.</p>
+<p>Shaders make you think about pattern quite differently than when using a drawing package. The shader (as they're used here to create a procedural texture) take a pixel position on an object and decides what color to paint it. The shader is going to be called at least once per pixel and needs to be reasonably efficient, as the OSL script nodes in Blender are calculated on the CPU.</p>
+<p>The shader function only knows about its inputs (and some global variables). It has no information, for example, about the color of neighboring pixels.</p>
+<p>To draw spheres we need to decide whether the current pixel is inside or outside the desired spheres.</p>
+<p>This first shader draws a single sphere. It calculates the distance from the <em>Vector</em> input point to the origin. It then creates a step function where the distance equals the radius and assigns the colors accordingly.</p>
+<div class="codehilite"><pre><span></span><span class="n">shader</span> <span class="nf">sphere</span><span class="p">(</span>
+    <span class="n">vector</span> <span class="n">Vector</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span>    
+    <span class="kt">float</span> <span class="n">Radius</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">vector</span> <span class="n">Offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">color</span> <span class="n">ColorA</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">color</span> <span class="n">ColorB</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="n">output</span> <span class="n">color</span> <span class="n">Color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">output</span> <span class="kt">float</span> <span class="n">Fac</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">){</span>
+  <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">Vector</span> <span class="o">+</span> <span class="n">Offset</span><span class="p">,</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+  <span class="kt">float</span> <span class="n">inDisk</span> <span class="o">=</span> <span class="n">step</span><span class="p">(</span><span class="n">Radius</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+  <span class="n">Color</span>  <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">ColorA</span><span class="p">,</span> <span class="n">ColorB</span><span class="p">,</span> <span class="n">inDisk</span><span class="p">);</span>
+  <span class="n">Fac</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The input vector is assigned to <em>P</em> if no input is connected to this socket. <em>P</em> is a global variable that gives the world coordinates of the pixel being colored. If we move the object away from the origin, the texture will stay at the origin fixed in world space.</p>
+<p>The above shader describes a sphere at the origin. In the image below, the circles on each face vary in radius, depending on where the face intersects the texture sphere at the origin. Notice how the texture also intersects the cube on the right just a little.</p>
+<p><img alt="noodle + render" src="assets/blender_osl_shaders-b2b2a.png" />
+<em>A series of cubes (Dimensions = (1.0, 2.0, 2.0)) with the circle shader applied in world coordinates. The texture radius has been increased to 1.2</em></p>
+<p>We can connect different texture coordinates to the <em>Vector</em> input to map the texture to the object in different ways. The most useful are <em>Generated</em>, <em>UV</em> and <em>Object</em>.</p>
+<p>The <em>Generated</em> coordinates range from 0 to 1 on the three axes of the object bounding box. This is the default for the built in Cycles texture nodes. Each sphere starts at (0, 0, 0) of bounding box and extends halfway (Radius=0.5) along the box edge.</p>
+<p><img alt="noodle + render" src="assets/blender_osl_shaders-d3538.png" />
+<em>Generated coordinates on cubes</em></p>
+<p><em>UV</em> needs a UV map assigned to the object and works as usual. Here is a torus with the default <em>Unwrap</em> map applied. The <em>Offset</em> x-value was set to -0.5 to move the texture relative to the quads on the torus.</p>
+<p><img alt="noodle + render" src="assets/blender_osl_shaders-63118.png" />
+<em>Default UV map on torus</em></p>
+<p>The <em>Object</em> coordinates are centered on the object center and are not scaled by the object's bounding box. The texture now moves with the object and is scaled by the <em>Scale</em> values of the object. Below, the left and middle cubes have <em>Scale</em> = (0.5, 1.0, 1.0), <em>Dimensions</em> = (1.0, 2.0, 2.0). The circle pattern appears elliptical on the side faces because the texture is applied before the scale. The cube on the right has the scale applied (<em>Scale</em> = (1.0, 1.0, 1.0), <em>Dimensions</em> = (1.0, 2.0, 2.0)). Its pattern stays circular on all faces.</p>
+<p><img alt="" src="assets/blender_osl_shaders-79d3d.png" />
+<em>In object coordinates the texture is centered on each object and is affected by the scale of the object</em></p>
+<p>To draw an array of spheres we don't want to calculate the distance to every center point in the array and then decide which center point is the closest. This would be really inefficient. Instead we map each input point to a single unit of our pattern, and then do a minimum number of distance calculations.</p>
+<p>For a cubic array this is fairly simple. We use the <em>mod</em> function to map every point into a single cube centered at the origin. For this shader I've added <em>Blur</em>, and <em>Scale</em> inputs. Increasing the scale puts more repeats of the pattern. The scale is a single value to match the built-in Cycles texture nodes. To scale different amounts in different directions use a <em>Mapping</em> node on the <em>Vector</em> input. The <em>Blur</em> input is used in the <em>smoothstep</em> function.</p>
+<div class="codehilite"><pre><span></span><span class="n">shader</span> <span class="nf">sphere_pack_cubic</span><span class="p">(</span>  
+    <span class="n">vector</span> <span class="n">Vector</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span>
+    <span class="kt">float</span> <span class="n">Blur</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="kt">float</span> <span class="n">Radius</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">color</span> <span class="n">ColorA</span> <span class="o">=</span> <span class="n">color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">color</span> <span class="n">ColorB</span> <span class="o">=</span> <span class="n">color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="kt">float</span> <span class="n">Scale</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">vector</span> <span class="n">Offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="n">output</span> <span class="n">color</span> <span class="n">Color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  
+    <span class="n">output</span> <span class="kt">float</span> <span class="n">Fac</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>  
+<span class="p">{</span>  
+    <span class="n">vector</span> <span class="n">svec</span> <span class="o">=</span> <span class="n">Scale</span> <span class="o">*</span> <span class="n">Vector</span> <span class="o">+</span> <span class="n">Offset</span><span class="p">;</span>
+
+    <span class="kt">float</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">svec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>  
+    <span class="kt">float</span> <span class="n">sy</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">svec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>   
+    <span class="kt">float</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">svec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>  
+
+    <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">),</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>  
+
+    <span class="c1">// step from Color A to ColorB at this distance</span>
+    <span class="kt">float</span> <span class="n">inDisk</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">smoothstep</span><span class="p">(</span><span class="n">Radius</span> <span class="o">-</span> <span class="n">Blur</span><span class="p">,</span> <span class="n">Radius</span> <span class="o">+</span> <span class="n">Blur</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+    <span class="n">Color</span>  <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">ColorA</span><span class="p">,</span> <span class="n">ColorB</span><span class="p">,</span> <span class="n">inDisk</span><span class="p">);</span>
+    <span class="n">Fac</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>  
+<span class="p">}</span>
+</pre></div>
+
+
+<p>An easy way to confirm the shader is correct is to plug it into a volume shader.</p>
+<p><img alt="" src="assets/blender_osl_shaders-337c5.png" />
+<img alt="" src="assets/blender_osl_shaders-363a9.png" />
+<em>Using the shader for a volume shader</em></p>
+<p><img alt="" src="assets/blender_osl_shaders-1b914.png" />
+<em>Using the shader on a plane</em></p>
+<p>This fairly simple shader can be used to do some interesting things.</p>
+<p><img alt="" src="assets/blender_osl_shaders-fc058.png" />
+<em>altering the mapping coordinates</em></p>
+<p><img alt="" src="assets/blender_osl_shaders-7ab75.png" />
+<em>overlapping copies at different scales</em></p>
+<p><img alt="" src="assets/blender_osl_shaders-d5201.png" />
+<em>add a random texture to the radius</em></p>
+<p><img alt="" src="assets/blender_osl_shaders-d8d0d.png" />
+<em>Starting to play</em></p>
+<p><img alt="" src="assets/blender_osl_shaders-2cb67.png" />
+<em>more overlapping copies</em></p>
+<p>Make a list of screenshots</p>
+<ul>
+<li>Plug random things in everywhere</li>
+<li>Use mapping node to rotate/ scale vector</li>
+<li>plug shader into a copy of itself</li>
+</ul>
+<p>Stop here and do the rest in a 2nd post</p>
+<p>Thinking in 2D, a triangular array of circles can be constructed in several ways. For example we could rotate a square grid 45 degrees and then apply a scale in one direction to evenly space the circles. Here we want to pack spheres in 3D and can either choose between <a href="https://en.wikipedia.org/wiki/Close-packing_of_equal_spheres">face-centred-cubic or hexagonal-close-pack</a> spheres.
+I'll go for hcp here as fcc has some planes that can look the same as cubic packing. Hexagonal close pack also has only two repeat layers.</p>
+<p>code
+noodle
+png</p>
+<p>The real fun starts when we start to combine multiple circle grids, or feed noise into any of the node inputs. Here are some examples.</p>	
+
+	</article>
+
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "drafts/scripted-shaders-in-blender-packing-spheres.html";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://lookthinkmake.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+		  <h2>Recent Posts</h2>
+			<ul class="archive">
+	
+			      <li>
+<a href="https://www.elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR- color pencil using compositing nodes">NPR- color pencil using compositing nodes</a>
+  <time datetime="2018-05-27T22:00:00+12:00" pubdate>Sun 27 May 2018</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/npr.html">npr  </a><a href="https://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="https://www.elfnor.com/npr-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR using compositing nodes">NPR using compositing nodes</a>
+  <time datetime="2018-05-12T22:00:00+12:00" pubdate>Sat 12 May 2018</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/npr.html">npr  </a><a href="https://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="https://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html" rel="bookmark" title="Permalink to Fermented Feijoa Pickle - sugar free">Fermented Feijoa Pickle - sugar free</a>
+  <time datetime="2018-04-23T22:00:00+12:00" pubdate>Mon 23 April 2018</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="https://www.elfnor.com/update-to-blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Update to Blender Auto Save add-on">Update to Blender Auto Save add-on</a>
+  <time datetime="2018-03-31T22:00:00+13:00" pubdate>Sat 31 March 2018</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/think.html">think  </a><a href="https://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="https://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
+  <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="https://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/think.html">think  </a><a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+		
+	
+			      <li>
+<a href="https://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
+<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/think.html">think  </a><a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+                        </u1>
+		
+		</nav>
+
+	          <h2>Categories</h2>
+	          <ul class = "social">
+		      <li> <a href="https://www.elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="https://www.elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="https://www.elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="https://www.elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="https://www.elfnor.com/category/think.html">think</a></li>
+	          </ul>
+	        
+
+	          <aside>
+	          <h2>Elsewhere</h2>
+			    <ul class="social">
+				  <li><a href="http://elfnor.deviantart.com">on deviant art</a><i></i></li>
+				  <li><a href="http://www.thingiverse.com/elfnor">on thingiverse</a><i></i></li>
+				  <li><a href="https://github.com/elfnor">on github</a><i></i></li>
+			    </ul>
+			  </aside>
+                
+                <h2>Tags</h2>
+	
+                        <ul class="tagcloud">
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-2"><a href="https://www.elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="https://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-2"><a href="https://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-1"><a href="https://www.elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-2"><a href="https://www.elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-1"><a href="https://www.elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-1"><a href="https://www.elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/npr.html">npr</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/compositing.html">compositing</a></li>
+                            <li class="tag-2"><a href="https://www.elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="https://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-2"><a href="https://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="https://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                        </ul>
+                      
+		
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 elfnor - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey"> pelican-simplegrey</a>, modified.
+    	</p>
+
+	  </footer>	
+
+	</div>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=9900594; 
+var sc_invisible=1; 
+var sc_security="efb2c43c"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/9900594/0/efb2c43c/1/"
+alt="free hit counter"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+</html>

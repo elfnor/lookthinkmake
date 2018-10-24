@@ -12,10 +12,10 @@
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="https://www.elfnor.com/theme/css/main.css" type="text/css" />
+	<link rel="stylesheet" href="https://elfnor.com/theme/css/main.css" type="text/css" />
 		
 
-    <link href="https://www.elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
+    <link href="https://elfnor.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Look Think Make Atom Feed" />
 </head>
 	
 <body>
@@ -24,13 +24,13 @@
 	  
 	  <header role="banner">
 	    <div class="feeds">
-	        <a href="https://www.elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
+	        <a href="https://elfnor.com/feeds/all.atom.xml" rel="alternate"><img src="/theme/images/icons/feed-32px.png" alt="atom feed"/></a>
 	    </div>
 	      <nav class="pages">
-			  <a href="https://www.elfnor.com/pages/about-me.html">About Me</a>
--			  <a href="https://www.elfnor.com/pages/galleries.html">Galleries</a>
+			  <a href="https://elfnor.com/pages/about-me.html">About Me</a>
+-			  <a href="https://elfnor.com/pages/galleries.html">Galleries</a>
 	      </nav>
-		<a href="https://www.elfnor.com" class="title">Look Think Make</a>
+		<a href="https://elfnor.com" class="title">Look Think Make</a>
       </header>
 	
 	  <div class="wrapper">
@@ -43,12 +43,12 @@
 <div class="metadata">
   <time datetime="2015-11-06T22:00:00+13:00" pubdate>Fri 06 November 2015</time>
     <address class="vcard author">
-      by <a class="url fn" href="https://www.elfnor.com/author/elfnor.html">elfnor</a>
+      by <a class="url fn" href="https://elfnor.com/author/elfnor.html">elfnor</a>
     </address>
-  in <a href="https://www.elfnor.com/category/think.html">think</a>
-<p class="tags">tagged <a href="https://www.elfnor.com/tag/make.html">make</a>, <a href="https://www.elfnor.com/tag/think.html">think</a>, <a href="https://www.elfnor.com/tag/blender.html">blender</a>, <a href="https://www.elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
+  in <a href="https://elfnor.com/category/think.html">think</a>
+<p class="tags">tagged <a href="https://elfnor.com/tag/make.html">make</a>, <a href="https://elfnor.com/tag/think.html">think</a>, <a href="https://elfnor.com/tag/blender.html">blender</a>, <a href="https://elfnor.com/tag/sverchok.html">sverchok</a></p></div>		
 		<p><img alt="plane, sphere and hyperbolic footbal" src="/images/hexagon_sphere_plane_hyp_032.png" /></p>
-<p>In a previous <a href="https://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html">post</a> I explained the shape of planes, spheres, and hyperbolic planes in terms of hexagons arranged around either another hexagon (plane), a pentagon (sphere) or a heptagon (hyperbolic plane). I used a photo of a hyperbolic plane someone else had made out of paper, as the 3D model produced by my scripted Sverchok node was not meshed in a nice regular tiling. I thought I'd fix this.</p>
+<p>In a previous <a href="https://elfnor.com/blender-adventures-with-hyperbolic-planes.html">post</a> I explained the shape of planes, spheres, and hyperbolic planes in terms of hexagons arranged around either another hexagon (plane), a pentagon (sphere) or a heptagon (hyperbolic plane). I used a photo of a hyperbolic plane someone else had made out of paper, as the 3D model produced by my scripted Sverchok node was not meshed in a nice regular tiling. I thought I'd fix this.</p>
 <p>The first step was to write a Sverchok node to make a Blender mesh of the regular tilings of the <a href="https://en.wikipedia.org/wiki/Poincar%C3%A9_disk_model">Poincaré disk</a>. The Poincaré disk is a model of 2D hyperbolic geometry where the points on an infinite hyperbolic plane are mapped inside a planar disk of unit radius. </p>
 <p>In a plane or a sphere there are only a small number of regular polygons that can be used to tile the surface. For a plane its limited to triangles, squares and hexagons. These tilings can be described with two numbers, p the number of sides to the polygons used and q the number of polygons that meet at each vertex.  </p>
 <p><a href="https://en.wikipedia.org/wiki/Uniform_tilings_in_hyperbolic_plane"><img alt="regular tilings from wikipedia" src="/images/regular_tilings_wikipedia.png" /></a></p>
@@ -65,7 +65,7 @@ $$</div>
 <div class="math">$$
 r^2 = \left |  \overline{OC} \right | * \left |  \overline{OC'} \right | 
 $$</div>
-<p>This Sverchok scripted node <a href="https://github.com/elfnor/hyperbolic_coral">hyperbolic_tiling.py</a> implements the regular tilings of the Poincaré disk. (See <a href="https://www.elfnor.com/blender-adventures-with-hyperbolic-planes.html">earlier post</a> on how to use a Sverchok scripted node in Blender). The hardest part of coding this is keeping track of the vertices and edges that are already in place to avoid making duplicates.</p>
+<p>This Sverchok scripted node <a href="https://github.com/elfnor/hyperbolic_coral">hyperbolic_tiling.py</a> implements the regular tilings of the Poincaré disk. (See <a href="https://elfnor.com/blender-adventures-with-hyperbolic-planes.html">earlier post</a> on how to use a Sverchok scripted node in Blender). The hardest part of coding this is keeping track of the vertices and edges that are already in place to avoid making duplicates.</p>
 <p><img alt="poincare tiling in sverchok" src="/images/poincare_7-3.png" /></p>
 <p>I now want to turn this flat mesh into a 3D mesh where each polygon has equal length sides. This can be done with a mass spring network where each edge of the mesh is modeled as a spring with a fixed rest length. The closest I can get to this in Blender is to use the "Soft Body" physics with the "Soft Body Self Collision" enabled.</p>
 <p>In "Soft Body Self Collision" each vertex is surrounded by an elastic virtual ball. The physics engine stops vertices going inside the balls of other vertices during the simulation. This can be used to unfurl the Poincaré disk tiling into a 3D surface.</p>
@@ -169,45 +169,45 @@ $$</div>
 			<ul class="archive">
 	
 			      <li>
-<a href="https://www.elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR- color pencil using compositing nodes">NPR- color pencil using compositing nodes</a>
+<a href="https://elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR- color pencil using compositing nodes">NPR- color pencil using compositing nodes</a>
   <time datetime="2018-05-27T22:00:00+12:00" pubdate>Sun 27 May 2018</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/npr.html">npr  </a><a href="https://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/npr.html">npr  </a><a href="https://elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
 		
 	
 			      <li>
-<a href="https://www.elfnor.com/npr-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR using compositing nodes">NPR using compositing nodes</a>
+<a href="https://elfnor.com/npr-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR using compositing nodes">NPR using compositing nodes</a>
   <time datetime="2018-05-12T22:00:00+12:00" pubdate>Sat 12 May 2018</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/npr.html">npr  </a><a href="https://www.elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/npr.html">npr  </a><a href="https://elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
 		
 	
 			      <li>
-<a href="https://www.elfnor.com/fermented-feijoa-pickle-sugar-free.html" rel="bookmark" title="Permalink to Fermented Feijoa Pickle - sugar free">Fermented Feijoa Pickle - sugar free</a>
+<a href="https://elfnor.com/fermented-feijoa-pickle-sugar-free.html" rel="bookmark" title="Permalink to Fermented Feijoa Pickle - sugar free">Fermented Feijoa Pickle - sugar free</a>
   <time datetime="2018-04-23T22:00:00+12:00" pubdate>Mon 23 April 2018</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/food.html">food  </a></p></a>      			      </li>
 		
 	
 			      <li>
-<a href="https://www.elfnor.com/update-to-blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Update to Blender Auto Save add-on">Update to Blender Auto Save add-on</a>
+<a href="https://elfnor.com/update-to-blender-auto-save-add-on.html" rel="bookmark" title="Permalink to Update to Blender Auto Save add-on">Update to Blender Auto Save add-on</a>
   <time datetime="2018-03-31T22:00:00+13:00" pubdate>Sat 31 March 2018</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/think.html">think  </a><a href="https://www.elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
 		
 	
 			      <li>
-<a href="https://www.elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
+<a href="https://elfnor.com/literary-voyage-reading-challenge-for-2018.html" rel="bookmark" title="Permalink to Literary Voyage Reading Challenge for 2018">Literary Voyage Reading Challenge for 2018</a>
   <time datetime="2018-02-16T22:00:00+13:00" pubdate>Fri 16 February 2018</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/reading.html">reading  </a></p></a>      			      </li>
 		
 	
 			      <li>
-<a href="https://www.elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
+<a href="https://elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
   <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/think.html">think  </a><a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
 	
 			      <li>
-<a href="https://www.elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
+<a href="https://elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
   <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
-<p class="tags">tags: <a href="https://www.elfnor.com/tag/make.html">make  </a><a href="https://www.elfnor.com/tag/think.html">think  </a><a href="https://www.elfnor.com/tag/blender.html">blender  </a><a href="https://www.elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
+<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
 		
 		
 		
@@ -283,11 +283,11 @@ $$</div>
 
 	          <h2>Categories</h2>
 	          <ul class = "social">
-		      <li> <a href="https://www.elfnor.com/archives.html">everything </a></li>	
-	              <li ><a href="https://www.elfnor.com/category/food.html">food</a></li>
-	              <li ><a href="https://www.elfnor.com/category/look.html">look</a></li>
-	              <li ><a href="https://www.elfnor.com/category/make.html">make</a></li>
-	              <li class="active"><a href="https://www.elfnor.com/category/think.html">think</a></li>
+		      <li> <a href="https://elfnor.com/archives.html">everything </a></li>	
+	              <li ><a href="https://elfnor.com/category/food.html">food</a></li>
+	              <li ><a href="https://elfnor.com/category/look.html">look</a></li>
+	              <li ><a href="https://elfnor.com/category/make.html">make</a></li>
+	              <li class="active"><a href="https://elfnor.com/category/think.html">think</a></li>
 	          </ul>
 	        
 
@@ -303,35 +303,35 @@ $$</div>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/generative-art.html">generative art</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/markdown.html">markdown</a></li>
-                            <li class="tag-2"><a href="https://www.elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-1"><a href="https://www.elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-2"><a href="https://www.elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/ebook.html">ebook</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/processing.html">processing</a></li>
-                            <li class="tag-1"><a href="https://www.elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-2"><a href="https://www.elfnor.com/tag/reading.html">reading</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-1"><a href="https://www.elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/copy2.html">copy2</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-1"><a href="https://www.elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/npr.html">npr</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/kites.html">kites</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/compositing.html">compositing</a></li>
-                            <li class="tag-2"><a href="https://www.elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-3"><a href="https://www.elfnor.com/tag/geocaching.html">geocaching</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-2"><a href="https://www.elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="https://www.elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/structuresynth.html">structuresynth</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/markdown.html">markdown</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/materials.html">materials</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/compositing.html">compositing</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/3d-printing.html">3D Printing</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/structure-synth.html">structure synth</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/sverchok.html">sverchok</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/npr.html">npr</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/reading.html">reading</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/kites.html">kites</a></li>
                         </ul>
                       
 		

@@ -1,12 +1,13 @@
 Title: Scripted Shaders in Blender - Packing Spheres
-Date: 2018-09-07 22:00
+Date: 2018-10-26 22:00
 Tags: make, think, blender
 Category: think
 Author: elfnor
-Status: draft
+Status: published
 
-![](assets/blender_osl_shaders-53a4a.png)
-I've started learning how to write Cycles [script nodes]() for Blender. These are written in Open Shading Language. A couple of good places to start are ...
+![](images/blender_osl_shaders-53a4a.png)
+
+I've started learning how to write Cycles [script nodes]() for Blender. These are written in Open Shading Language. A couple of good places to start are Michael Anders [blog](https://blog.michelanders.nl/search/label/osl) and [book](https://blendermarket.com/products/open-shading-language-for-blender), the [language specification](https://github.com/imageworks/OpenShadingLanguage/blob/master/src/doc/osl-languagespec.pdf) and the last part of Jeremy Behreandt's [article](https://medium.com/@behreajj/creative-coding-in-blender-a-primer-53e79ff71e).
 
 Here are my first experiments with a shader based on packing spheres onto cubic grid. The layering of shaders onto each other is inspired by a [Blender Suhsi ](https://blendersushi.blogspot.com/2013/08/osl-disk-grid.html) post.
 
@@ -40,24 +41,26 @@ The input vector is assigned to *P* if no input is connected to this socket. *P*
 
 The above shader describes a sphere at the origin. In the image below, the circles on each face vary in radius, depending on where the face intersects the texture sphere at the origin. Notice how the texture also intersects the cube on the right just a little.
 
-![noodle + render](assets/blender_osl_shaders-b2b2a.png)
-*A series of cubes (Dimensions = (1.0, 2.0, 2.0)) with the circle shader applied in world coordinates. The texture radius has been increased to 1.2*
+![noodle + render](images/blender_osl_shaders-b2b2a.png)
+*A series of cubes (Dimensions = (1.0, 2.0, 2.0))   
+with the circle shader applied in world coordinates.   
+The texture radius has been increased to 1.2*
 
 We can connect different texture coordinates to the *Vector* input to map the texture to the object in different ways. The most useful are *Generated*, *UV* and *Object*.
 
 The *Generated* coordinates range from 0 to 1 on the three axes of the object bounding box. This is the default for the built in Cycles texture nodes. Each sphere starts at (0, 0, 0) of bounding box and extends halfway (Radius=0.5) along the box edge.
 
-![noodle + render](assets/blender_osl_shaders-d3538.png)
+![noodle + render](images/blender_osl_shaders-d3538.png)
 *Generated coordinates on cubes*
 
 *UV* needs a UV map assigned to the object and works as usual. Here is a torus with the default *Unwrap* map applied. The *Offset* x-value was set to -0.5 to move the texture relative to the quads on the torus.
 
-![noodle + render](assets/blender_osl_shaders-63118.png)
+![noodle + render](images/blender_osl_shaders-63118.png)
 *Default UV map on torus*
 
 The *Object* coordinates are centered on the object center and are not scaled by the object's bounding box. The texture now moves with the object and is scaled by the *Scale* values of the object. Below, the left and middle cubes have *Scale* = (0.5, 1.0, 1.0), *Dimensions* = (1.0, 2.0, 2.0). The circle pattern appears elliptical on the side faces because the texture is applied before the scale. The cube on the right has the scale applied (*Scale* = (1.0, 1.0, 1.0), *Dimensions* = (1.0, 2.0, 2.0)). Its pattern stays circular on all faces.
 
-![](assets/blender_osl_shaders-79d3d.png)
+![noodle + render](images/blender_osl_shaders-79d3d.png)
 *In object coordinates the texture is centered on each object and is affected by the scale of the object*
 
 To draw an array of spheres we don't want to calculate the distance to every center point in the array and then decide which center point is the closest. This would be really inefficient. Instead we map each input point to a single unit of our pattern, and then do a minimum number of distance calculations.
@@ -96,46 +99,26 @@ shader sphere_pack_cubic(
 An easy way to confirm the shader is correct is to plug it into a volume shader.
 
 
-![](assets/blender_osl_shaders-337c5.png)
-![](assets/blender_osl_shaders-363a9.png)
+![](images/blender_osl_shaders-337c5.png)
+![](images/blender_osl_shaders-363a9.png)
 *Using the shader for a volume shader*
 
-![](assets/blender_osl_shaders-1b914.png)
+![](images/blender_osl_shaders-1b914.png)
 *Using the shader on a plane*
 
 This fairly simple shader can be used to do some interesting things.
 
-![](assets/blender_osl_shaders-fc058.png)
+![](images/blender_osl_shaders-fc058.png)
 *altering the mapping coordinates*
 
-![](assets/blender_osl_shaders-7ab75.png)
+![](images/blender_osl_shaders-7ab75.png)
 *overlapping copies at different scales*
 
-![](assets/blender_osl_shaders-d5201.png)
+![](images/blender_osl_shaders-d5201.png)
 *add a random texture to the radius*
 
-![](assets/blender_osl_shaders-d8d0d.png)
+![](images/blender_osl_shaders-d8d0d.png)
 *Starting to play*
 
-
-![](assets/blender_osl_shaders-2cb67.png)
+![](images/blender_osl_shaders-2cb67.png)
 *more overlapping copies*
-
-Make a list of screenshots
-
-*  Plug random things in everywhere
-*  Use mapping node to rotate/ scale vector
-*  plug shader into a copy of itself
-
-
-
-Stop here and do the rest in a 2nd post
-
-Thinking in 2D, a triangular array of circles can be constructed in several ways. For example we could rotate a square grid 45 degrees and then apply a scale in one direction to evenly space the circles. Here we want to pack spheres in 3D and can either choose between [face-centred-cubic or hexagonal-close-pack](https://en.wikipedia.org/wiki/Close-packing_of_equal_spheres) spheres.
-I'll go for hcp here as fcc has some planes that can look the same as cubic packing. Hexagonal close pack also has only two repeat layers.
-
-code
-noodle
-png
-
-The real fun starts when we start to combine multiple circle grids, or feed noise into any of the node inputs. Here are some examples.

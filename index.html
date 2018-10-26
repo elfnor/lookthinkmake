@@ -37,154 +37,98 @@
 
 
       <article>
-        <h1><a href="https://elfnor.com/npr-color-pencil-using-compositing-nodes.html">NPR- color pencil using compositing nodes</a></h1>
-        <p><img alt="" src="./images/fruits_divide_05.png" /></p>
-<p>These are my experiments with getting a color pencil look using the compositing nodes in Blender.</p>
-<p>The original blend file of the bowl of fruit comes from monomorph (David Bornemann) at <a href="https://www.blendswap.com/blends/view/44482">Fruits | Blend Swap</a>.</p>
-<p>The original has beautiful procedural cycles shaders with the skin texture given by voronoi displacements at a couple of scales.</p>
-<p><img alt="" src="./images/fruits_bs_002.png" />
-<em>original render</em></p>
-<p>We're now going to mess with this in the compositor to get a color pencil look. This effect works very well with simple diffuse materials on the scene objects. It can also be used on photos as I'll show at the end of this post.</p>
-<h2 id="edges">Edges</h2>
-<p>In the <a href="https://elfnor.com/npr-using-compositing-nodes.html">previous post</a> I used a freestyle render layer to give line effects. Here we'll produce them directly from the image. We want lines along the edges in the image, or put differently, in the parts of the image where the color or value of the image changes quickly.</p>
-<p>There lots of ways to do this. Here we'll convert the image to values only, then divide the image by a blurred copy of itself.  This works to as a high pass filter to detect the parts of the image where the value changes quickly.</p>
-<p>In the parts of the image with little value change
-</p>
-<div class="math">$$
-\text{blur}(image) \approx image
-$$</div>
-<p>
-therefore
-</p>
-<div class="math">$$
-\frac{image}{\text{blur}(image)} \approx 1
-$$</div>
-<p>
-giving white.  </p>
-<p>Where the image value changes quickly
-</p>
-<div class="math">$$
-\frac{image}{\text{blur}(image)} &lt; 1
-$$</div>
-<p>
-giving dark pixels.</p>
-<p>Here's a toy example. The top row of the table represents the image.  The blur function in the second row just averages across the neighboring 3 pixels. After we divide the image by the blur and clamp the values to between [0, 1] we have a white image with a single dark pixel at the edge.</p>
-<p><img alt="" src="./images/npr_color_pencil_divide-ebd5a.png" /></p>
-<p><a href="./images/node_diagram_div_a.png"><img alt="node a" src="./images/node_diagram_div_a_660.png" /></a>
-<em class="caption">nodes for isolating changes in value</em></p>
-<p><img alt="" src="./images/fruits_dodge_02.png" />
-<em>result</em></p>
-<p>The width of the edge lines can be controlled by the size of the <em>Blur</em>. Also try different blur types for different effects.</p>
-<p>The contrast in the edges can be strengthened with an <em>RGB Curves</em> node. I've also added another <em>RGB Curves</em> before the edge nodes to give some control over how much value change produces an edge.</p>
-<p><a href="./images/node_diagram_div_b.png"><img alt="node a" src="./images/node_diagram_div_b_660.png" /></a>
-<em class="caption">add contrast to the edges</em></p>
-<p><img alt="" src="./images/fruits_dodge_03.png" />
-<em>result</em></p>
-<h2 id="colors">Colors</h2>
-<p>Now we add some color back into the image,using the <em>Value</em> node. This takes the value from the edges, but the hue and saturation from the image. I've also added a <em>Blur</em> to the color pass along with yet another <em>RGB Curves</em> for color adjustment.</p>
-<p><a href="./images/node_diagram_div_c.png"><img alt="node a" src="./images/node_diagram_div_c_660.png" /></a>
-<em class="caption">adding color</em></p>
-<p><img alt="" src="./images/fruits_dodge_04.png" />
-<em>result</em></p>
-<h2 id="textures">Textures</h2>
-<p>The last thing to do is to add a texture to the whole image to simulate pencil strokes. This invloves combining a gray scale pencil stroke texture with the color image using the <em>Overlay</em> mode of the <em>Mix</em> node.</p>
-<p>The overlay mode does different thing depending on whether the background(colored) image is light (&gt; 0.5) or dark (&lt; 0.5).</p>
-<p><img alt="" src="./images/npr_color_pencil_divide-3d2b2.png" /></p>
-<p>This has the effect of overlaying the contrast of the greyscale texture on the colored image. The texture doesn't appear on the white or the black parts of the image.</p>
-<p>Below is an example of a gray scale texture and some color swatches combined with the overlay mode. The circles are all 0.5 gray to show the color of the background square color swatches. Mouse over to show the gray scale texture.</p>
-<p><a ><img src="./images/overlay_example.png" onmouseover="this.src='./images/overlay_example_texture.png'" onmouseout="this.src='./images/overlay_example.png'" /></a>
-<em class="caption">overlay with gray scale texture and color swatches</em></p>
-<p>In the above image, the 9 color swatches on the left have at least one of their RGB channels greater than 0.5. For these colors the dark part of the texture takes the image toward the color defined by these channels. The 9 color swatches on the left have all their channels less than 0.5 and the dark part of the texture takes the image toward black.</p>
-<p>Next, I've used a paper texture taken from the GIMP fill dialog and mixed it with the color swatch image using the overlay mode. This works, a little, to give the effect of light and heavy pencil strokes, with a black pencil being used on the darker parts of the image.</p>
-<p><img alt="" src="./images/paper_gimp.png" />
-<em>paper texture</em></p>
-<p><a ><img src="./images/overlay_colors_paper.png" onmouseover="this.src='./images/overlay_paper.png'" onmouseout="this.src='./images/overlay_colors_paper.png'" /></a>
-<em class="caption">overlay with gray scale paper texture and color swatches</em></p>
-<p>The <em>Soft Light</em> mode would also be a good choice here. It doesn't have a sharp cutoff at 0.5 so gives an overall smother transition. The dark parts of the texture always produce a darker version of the image color.</p>
-<p><a ><img src="./images/soft_light_example.png" onmouseover="this.src='./images/overlay_colors_example.png'" onmouseout="this.src='./images/soft_light_example.png'" /></a>
-<em class="caption">soft light with gray scale texture and color swatches</em></p>
-<p><img alt="" src="./images/soft_light_paper.png" />
-<em>soft light with grey scale paper and color swatches</em></p>
-<p>Anyway, after the digression in to the <em>Overlay</em> mode, here is the node diagram used to combine the pencil texture with the color image to get our final result.</p>
-<p><a href="./images/node_diagram_div_d.png"><img alt="node a" src="./images/node_diagram_div_d_660.png" /></a>
-<em class="caption">adding paper texture</em></p>
-<p><a ><img src="./images/fruits_divide_05.png" onmouseover="this.src='./images/fruits_bs_002.png'" onmouseout="this.src='./images/fruits_divide_05.png'" /></a></p>
-<p>A good result will require tweaking each of the four <em>RGB Curves</em> nodes. It worth while taking some time to understand how grading an image using curves works. Curves can be used to invert, posterize, gamma correct and more all with the same node. See the references below for more detail.</p>
-<p>Many NPR techniques only seem to work well on the particular image or render given in the tutorial. A robust node setup should work over a range of images, with at most some tweaking of the <em>RGB Curves</em> for some fine tuning.</p>
-<p>Here are a series of tests, with the same node setup used for the fruit bowl. Mouse over each to see the original.</p>
-<p><a ><img src="./images/sintel_pencil.png" onmouseover="this.src='./images/sintel_render.png'" onmouseout="this.src='./images/sintel_pencil.png'" /></a></p>
-<p>This render is of Sintel from the Blender movie via <a href="https:final//www.blendswap.com/blends/view/53062">Sintel Lite Cicles - Blender Guru | Blend Swap</a> and has similar settings as the fruit bowl. The next two are photographs and I tweaked the <em>RGB Curves</em> just a little bit to improve the final result.</p>
-<p><a ><img src="./images/feijoas_pencil.png" onmouseover="this.src='./images/feijoas_image.png'" onmouseout="this.src='./images/feijoas_pencil.png'" /></a></p>
-<p><a ><img src="./images/tiger_pencil.png" onmouseover="this.src='./images/tiger_image.png'" onmouseout="this.src='./images/tiger_pencil.png'" /></a></p>
-<h2 id="references">References</h2>
-<p>Working well with compositing (rather than random fiddling, hoping for a good result) requires a good knowledge of how to use the <em>RGB Curves</em> node and the various modes of the <em>Mix</em> node. This knowledge can be gained by making your own experiments similar to my above color swatch tests and by reading other's explanations.</p>
-<p><strong>RGB Curves</strong></p>
-<p><a href="https://docs.blender.org/manual/en/dev/render/blender_render/textures/nodes/types/color/rgb_curves.html">RGB Curves Node — Blender Manual</a> - especially the diagram that shows the curves for lighten, negative, decrease contrast and posterize.</p>
-<p><a href="https://pixls.us/articles/basic-color-curves/">PIXLS.US - Basic Color Curves</a><br />
-<a href="https://pixls.us/articles/color-curves-matching/">PIXLS.US - Color Curves Matching</a></p>
-<p><strong>Mix node modes</strong></p>
-<p><a href="https://en.wikipedia.org/wiki/Blend_modes">Blend modes - Wikipedia</a><br />
-<a href="https://gumroad.com/l/jOAsw">Pixel Math [Ebook]</a> - this gives the mathematics behind each of the mix modes as implemented in the Blender source code.<br />
-<a href="https://clownfishcafe.blogspot.com/2013/11/gimp-layer-modes-normal-to-addition.html">Clown Fish Cafe: GIMP's Layer Modes (Somewhat) Demystified</a><br />
-<a href="https://elbrujodelatribu.blogspot.com/2013/02/color-mix-modes-in-blender-cycles.html">El Brujo de la Tribu: Color Mix Modes in Blender / Cycles</a>  </p>
-<hr />
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
+        <h1><a href="https://elfnor.com/scripted-shaders-in-blender-packing-spheres.html">Scripted Shaders in Blender - Packing Spheres</a></h1>
+        <p><img alt="" src="images/blender_osl_shaders-53a4a.png" /></p>
+<p>I've started learning how to write Cycles <a href="">script nodes</a> for Blender. These are written in Open Shading Language. A couple of good places to start are Michael Anders <a href="https://blog.michelanders.nl/search/label/osl">blog</a> and <a href="https://blendermarket.com/products/open-shading-language-for-blender">book</a>, the <a href="https://github.com/imageworks/OpenShadingLanguage/blob/master/src/doc/osl-languagespec.pdf">language specification</a> and the last part of Jeremy Behreandt's <a href="https://medium.com/@behreajj/creative-coding-in-blender-a-primer-53e79ff71e">article</a>.</p>
+<p>Here are my first experiments with a shader based on packing spheres onto cubic grid. The layering of shaders onto each other is inspired by a <a href="https://blendersushi.blogspot.com/2013/08/osl-disk-grid.html">Blender Suhsi </a> post.</p>
+<p>Shaders make you think about pattern quite differently than when using a drawing package. The shader (as they're used here to create a procedural texture) take a pixel position on an object and decides what color to paint it. The shader is going to be called at least once per pixel and needs to be reasonably efficient, as the OSL script nodes in Blender are calculated on the CPU.</p>
+<p>The shader function only knows about its inputs (and some global variables). It has no information, for example, about the color of neighboring pixels.</p>
+<p>To draw spheres we need to decide whether the current pixel is inside or outside the desired spheres.</p>
+<p>This first shader draws a single sphere. It calculates the distance from the <em>Vector</em> input point to the origin. It then creates a step function where the distance equals the radius and assigns the colors accordingly.</p>
+<div class="codehilite"><pre><span></span><span class="n">shader</span> <span class="nf">sphere</span><span class="p">(</span>
+    <span class="n">vector</span> <span class="n">Vector</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span>    
+    <span class="kt">float</span> <span class="n">Radius</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">vector</span> <span class="n">Offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">color</span> <span class="n">ColorA</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">color</span> <span class="n">ColorB</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
+    <span class="n">output</span> <span class="n">color</span> <span class="n">Color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">output</span> <span class="kt">float</span> <span class="n">Fac</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">){</span>
+  <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">Vector</span> <span class="o">+</span> <span class="n">Offset</span><span class="p">,</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+  <span class="kt">float</span> <span class="n">inDisk</span> <span class="o">=</span> <span class="n">step</span><span class="p">(</span><span class="n">Radius</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+  <span class="n">Color</span>  <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">ColorA</span><span class="p">,</span> <span class="n">ColorB</span><span class="p">,</span> <span class="n">inDisk</span><span class="p">);</span>
+  <span class="n">Fac</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
-	<a href="https://elfnor.com/npr-color-pencil-using-compositing-nodes.html">Permalink, </a>
-	<a href="https://elfnor.com/npr-color-pencil-using-compositing-nodes.html#disqus_thread">Comments</a>
+
+<p>The input vector is assigned to <em>P</em> if no input is connected to this socket. <em>P</em> is a global variable that gives the world coordinates of the pixel being colored. If we move the object away from the origin, the texture will stay at the origin fixed in world space.</p>
+<p>The above shader describes a sphere at the origin. In the image below, the circles on each face vary in radius, depending on where the face intersects the texture sphere at the origin. Notice how the texture also intersects the cube on the right just a little.</p>
+<p><img alt="noodle + render" src="images/blender_osl_shaders-b2b2a.png" />
+<em>A series of cubes (Dimensions = (1.0, 2.0, 2.0)) <br />
+with the circle shader applied in world coordinates. <br />
+The texture radius has been increased to 1.2</em></p>
+<p>We can connect different texture coordinates to the <em>Vector</em> input to map the texture to the object in different ways. The most useful are <em>Generated</em>, <em>UV</em> and <em>Object</em>.</p>
+<p>The <em>Generated</em> coordinates range from 0 to 1 on the three axes of the object bounding box. This is the default for the built in Cycles texture nodes. Each sphere starts at (0, 0, 0) of bounding box and extends halfway (Radius=0.5) along the box edge.</p>
+<p><img alt="noodle + render" src="images/blender_osl_shaders-d3538.png" />
+<em>Generated coordinates on cubes</em></p>
+<p><em>UV</em> needs a UV map assigned to the object and works as usual. Here is a torus with the default <em>Unwrap</em> map applied. The <em>Offset</em> x-value was set to -0.5 to move the texture relative to the quads on the torus.</p>
+<p><img alt="noodle + render" src="images/blender_osl_shaders-63118.png" />
+<em>Default UV map on torus</em></p>
+<p>The <em>Object</em> coordinates are centered on the object center and are not scaled by the object's bounding box. The texture now moves with the object and is scaled by the <em>Scale</em> values of the object. Below, the left and middle cubes have <em>Scale</em> = (0.5, 1.0, 1.0), <em>Dimensions</em> = (1.0, 2.0, 2.0). The circle pattern appears elliptical on the side faces because the texture is applied before the scale. The cube on the right has the scale applied (<em>Scale</em> = (1.0, 1.0, 1.0), <em>Dimensions</em> = (1.0, 2.0, 2.0)). Its pattern stays circular on all faces.</p>
+<p><img alt="noodle + render" src="images/blender_osl_shaders-79d3d.png" />
+<em>In object coordinates the texture is centered on each object and is affected by the scale of the object</em></p>
+<p>To draw an array of spheres we don't want to calculate the distance to every center point in the array and then decide which center point is the closest. This would be really inefficient. Instead we map each input point to a single unit of our pattern, and then do a minimum number of distance calculations.</p>
+<p>For a cubic array this is fairly simple. We use the <em>mod</em> function to map every point into a single cube centered at the origin. For this shader I've added <em>Blur</em>, and <em>Scale</em> inputs. Increasing the scale puts more repeats of the pattern. The scale is a single value to match the built-in Cycles texture nodes. To scale different amounts in different directions use a <em>Mapping</em> node on the <em>Vector</em> input. The <em>Blur</em> input is used in the <em>smoothstep</em> function.</p>
+<div class="codehilite"><pre><span></span><span class="n">shader</span> <span class="nf">sphere_pack_cubic</span><span class="p">(</span>  
+    <span class="n">vector</span> <span class="n">Vector</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span>
+    <span class="kt">float</span> <span class="n">Blur</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="kt">float</span> <span class="n">Radius</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">color</span> <span class="n">ColorA</span> <span class="o">=</span> <span class="n">color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">color</span> <span class="n">ColorB</span> <span class="o">=</span> <span class="n">color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+    <span class="kt">float</span> <span class="n">Scale</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">vector</span> <span class="n">Offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="n">output</span> <span class="n">color</span> <span class="n">Color</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  
+    <span class="n">output</span> <span class="kt">float</span> <span class="n">Fac</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>  
+<span class="p">{</span>  
+    <span class="n">vector</span> <span class="n">svec</span> <span class="o">=</span> <span class="n">Scale</span> <span class="o">*</span> <span class="n">Vector</span> <span class="o">+</span> <span class="n">Offset</span><span class="p">;</span>
+
+    <span class="kt">float</span> <span class="n">sx</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">svec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>  
+    <span class="kt">float</span> <span class="n">sy</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">svec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>   
+    <span class="kt">float</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mod</span><span class="p">(</span><span class="n">svec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>  
+
+    <span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">distance</span><span class="p">(</span><span class="n">vector</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span><span class="p">),</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>  
+
+    <span class="c1">// step from Color A to ColorB at this distance</span>
+    <span class="kt">float</span> <span class="n">inDisk</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">smoothstep</span><span class="p">(</span><span class="n">Radius</span> <span class="o">-</span> <span class="n">Blur</span><span class="p">,</span> <span class="n">Radius</span> <span class="o">+</span> <span class="n">Blur</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+    <span class="n">Color</span>  <span class="o">=</span> <span class="n">mix</span><span class="p">(</span><span class="n">ColorA</span><span class="p">,</span> <span class="n">ColorB</span><span class="p">,</span> <span class="n">inDisk</span><span class="p">);</span>
+    <span class="n">Fac</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>  
+<span class="p">}</span>
+</pre></div>
+
+
+<p>An easy way to confirm the shader is correct is to plug it into a volume shader.</p>
+<p><img alt="" src="images/blender_osl_shaders-337c5.png" />
+<img alt="" src="images/blender_osl_shaders-363a9.png" />
+<em>Using the shader for a volume shader</em></p>
+<p><img alt="" src="images/blender_osl_shaders-1b914.png" />
+<em>Using the shader on a plane</em></p>
+<p>This fairly simple shader can be used to do some interesting things.</p>
+<p><img alt="" src="images/blender_osl_shaders-fc058.png" />
+<em>altering the mapping coordinates</em></p>
+<p><img alt="" src="images/blender_osl_shaders-7ab75.png" />
+<em>overlapping copies at different scales</em></p>
+<p><img alt="" src="images/blender_osl_shaders-d5201.png" />
+<em>add a random texture to the radius</em></p>
+<p><img alt="" src="images/blender_osl_shaders-d8d0d.png" />
+<em>Starting to play</em></p>
+<p><img alt="" src="images/blender_osl_shaders-2cb67.png" />
+<em>more overlapping copies</em></p>
+	<a href="https://elfnor.com/scripted-shaders-in-blender-packing-spheres.html">Permalink, </a>
+	<a href="https://elfnor.com/scripted-shaders-in-blender-packing-spheres.html#disqus_thread">Comments</a>
       </article>
 
       <hr />
@@ -193,6 +137,12 @@ giving dark pixels.</p>
           <h3>Recent posts</h3>
           <ol class="archive">
     
+
+
+      <li>
+<a href="https://elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR- color pencil using compositing nodes">NPR- color pencil using compositing nodes</a>
+  <time datetime="2018-05-27T22:00:00+12:00" pubdate>Sun 27 May 2018</time>
+<p class="tags">tags: <a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/npr.html">npr  </a><a href="https://elfnor.com/tag/compositing.html">compositing  </a></p></a>      </li>
 
 
       <li>
@@ -219,10 +169,6 @@ giving dark pixels.</p>
 <p class="tags">tags: <a href="https://elfnor.com/tag/reading.html">reading  </a></p></a>      </li>
 
 
-      <li>
-<a href="https://elfnor.com/conway-polyhedron-operators-in-sverchok.html" rel="bookmark" title="Permalink to Conway Polyhedron Operators in Sverchok">Conway Polyhedron Operators in Sverchok</a>
-  <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
-<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      </li>
 
 
 
@@ -373,6 +319,12 @@ giving dark pixels.</p>
 			<ul class="archive">
 	
 			      <li>
+<a href="https://elfnor.com/scripted-shaders-in-blender-packing-spheres.html" rel="bookmark" title="Permalink to Scripted Shaders in Blender - Packing Spheres">Scripted Shaders in Blender - Packing Spheres</a>
+  <time datetime="2018-10-26T22:00:00+13:00" pubdate>Fri 26 October 2018</time>
+<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a></p></a>      			      </li>
+		
+	
+			      <li>
 <a href="https://elfnor.com/npr-color-pencil-using-compositing-nodes.html" rel="bookmark" title="Permalink to NPR- color pencil using compositing nodes">NPR- color pencil using compositing nodes</a>
   <time datetime="2018-05-27T22:00:00+12:00" pubdate>Sun 27 May 2018</time>
 <p class="tags">tags: <a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/npr.html">npr  </a><a href="https://elfnor.com/tag/compositing.html">compositing  </a></p></a>      			      </li>
@@ -407,11 +359,6 @@ giving dark pixels.</p>
   <time datetime="2017-12-18T22:00:00+13:00" pubdate>Mon 18 December 2017</time>
 <p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/sverchok.html">sverchok  </a></p></a>      			      </li>
 		
-	
-			      <li>
-<a href="https://elfnor.com/mesh-maze-blender-add-on.html" rel="bookmark" title="Permalink to Mesh Maze Blender Add-On">Mesh Maze Blender Add-On</a>
-  <time datetime="2017-06-25T22:00:00+12:00" pubdate>Sun 25 June 2017</time>
-<p class="tags">tags: <a href="https://elfnor.com/tag/make.html">make  </a><a href="https://elfnor.com/tag/think.html">think  </a><a href="https://elfnor.com/tag/blender.html">blender  </a><a href="https://elfnor.com/tag/maze.html">maze  </a></p></a>      			      </li>
 		
 		
 		
@@ -507,35 +454,35 @@ giving dark pixels.</p>
                 <h2>Tags</h2>
 	
                         <ul class="tagcloud">
-                            <li class="tag-3"><a href="https://elfnor.com/tag/cats.html">cats</a></li>
-                            <li class="tag-1"><a href="https://elfnor.com/tag/make.html">make</a></li>
-                            <li class="tag-4"><a href="https://elfnor.com/tag/photo.html">photo</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/pelican.html">pelican</a></li>
-                            <li class="tag-4"><a href="https://elfnor.com/tag/processing.html">processing</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/food.html">food</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/nonsense.html">nonsense</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/3d-printing.html">3D Printing</a></li>
                             <li class="tag-2"><a href="https://elfnor.com/tag/structuresynth.html">structuresynth</a></li>
-                            <li class="tag-4"><a href="https://elfnor.com/tag/webalbum.html">webalbum</a></li>
-                            <li class="tag-2"><a href="https://elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
-                            <li class="tag-2"><a href="https://elfnor.com/tag/maze.html">maze</a></li>
-                            <li class="tag-4"><a href="https://elfnor.com/tag/astro.html">astro</a></li>
-                            <li class="tag-1"><a href="https://elfnor.com/tag/blender.html">blender</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/cats.html">cats</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/processing.html">processing</a></li>
                             <li class="tag-3"><a href="https://elfnor.com/tag/markdown.html">markdown</a></li>
                             <li class="tag-3"><a href="https://elfnor.com/tag/materials.html">materials</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/compositing.html">compositing</a></li>
-                            <li class="tag-4"><a href="https://elfnor.com/tag/nonsense.html">nonsense</a></li>
-                            <li class="tag-2"><a href="https://elfnor.com/tag/food.html">food</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/micropython.html">micropython</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/3d-printing.html">3D Printing</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/python.html">python</a></li>
-                            <li class="tag-1"><a href="https://elfnor.com/tag/think.html">think</a></li>
-                            <li class="tag-4"><a href="https://elfnor.com/tag/structure-synth.html">structure synth</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/copy2.html">copy2</a></li>
                             <li class="tag-1"><a href="https://elfnor.com/tag/sverchok.html">sverchok</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/npr.html">npr</a></li>
-                            <li class="tag-3"><a href="https://elfnor.com/tag/generative-art.html">generative art</a></li>
                             <li class="tag-2"><a href="https://elfnor.com/tag/reading.html">reading</a></li>
                             <li class="tag-3"><a href="https://elfnor.com/tag/ebook.html">ebook</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/npr.html">npr</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/blender.html">blender</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/webalbum.html">webalbum</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/maze.html">maze</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/compositing.html">compositing</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/pelican.html">pelican</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/astro.html">astro</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/python.html">python</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/make.html">make</a></li>
+                            <li class="tag-2"><a href="https://elfnor.com/tag/symmetrytile.html">symmetrytile</a></li>
                             <li class="tag-4"><a href="https://elfnor.com/tag/kites.html">kites</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/micropython.html">micropython</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/photo.html">photo</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/copy2.html">copy2</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/generative-art.html">generative art</a></li>
+                            <li class="tag-1"><a href="https://elfnor.com/tag/think.html">think</a></li>
+                            <li class="tag-3"><a href="https://elfnor.com/tag/geocaching.html">geocaching</a></li>
+                            <li class="tag-4"><a href="https://elfnor.com/tag/structure-synth.html">structure synth</a></li>
                         </ul>
                       
 		

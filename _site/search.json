@@ -1,0 +1,627 @@
+[
+  
+    {
+      "title"    : "Update on old projects",
+      "category" : "",
+      "tags"     : "blender, generative-art, maze, copy2, and structure-synth",
+      "url"      : "/2020/07/11/my-stuff-around-the-web/",
+      "date"     : "11 Jul, 2020"
+    } ,
+  
+    {
+      "title"    : "New Examples of stuff to test deployment",
+      "category" : "",
+      "tags"     : "deploy, silly, extra, taggly, bits, and blender",
+      "url"      : "/2018/10/27/test_to_remove/",
+      "date"     : "27 Oct, 2018"
+    } ,
+  
+    {
+      "title"    : "Scripted Shaders in Blender - Packing Spheres",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2018/10/26/blender_osl_shaders/",
+      "date"     : "26 Oct, 2018"
+    } ,
+  
+    {
+      "title"    : "NPR- color pencil using compositing nodes",
+      "category" : "",
+      "tags"     : "blender, npr, and compositing",
+      "url"      : "/2018/05/27/npr_color_pencil_divide/",
+      "date"     : "27 May, 2018"
+    } ,
+  
+    {
+      "title"    : "NPR using compositing nodes",
+      "category" : "",
+      "tags"     : "blender, npr, and compositing",
+      "url"      : "/2018/05/12/npr_compositing_shadow/",
+      "date"     : "12 May, 2018"
+    } ,
+  
+    {
+      "title"    : "Fermented Feijoa Pickle - sugar free",
+      "category" : "",
+      "tags"     : "food",
+      "url"      : "/2018/04/23/REC-feijoa_pickle/",
+      "date"     : "23 Apr, 2018"
+    } ,
+  
+    {
+      "title"    : "Example of a log file from Blender Auto Save Add-on",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2018/04/13/celadon_glaze_log/",
+      "date"     : "13 Apr, 2018"
+    } ,
+  
+    {
+      "title"    : "Update to Blender Auto Save add-on",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2018/03/31/blender_auto_save_addon_update/",
+      "date"     : "31 Mar, 2018"
+    } ,
+  
+    {
+      "title"    : "Literary Voyage Reading Challenge for 2018",
+      "category" : "",
+      "tags"     : "reading",
+      "url"      : "/2018/02/16/audio_short_stories_2018/",
+      "date"     : "16 Feb, 2018"
+    } ,
+  
+    {
+      "title"    : "Conway Polyhedron Operators in Sverchok",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2017/12/18/conway_polyhedron_operators/",
+      "date"     : "18 Dec, 2017"
+    } ,
+  
+    {
+      "title"    : "Mesh Maze Blender Add-On",
+      "category" : "",
+      "tags"     : "blender and maze",
+      "url"      : "/2017/06/25/blender_mesh_maze_addon/",
+      "date"     : "25 Jun, 2017"
+    } ,
+  
+    {
+      "title"    : "Blender Shape Keys Cookbook",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2017/03/12/TUT_shape_keys/",
+      "date"     : "12 Mar, 2017"
+    } ,
+  
+    {
+      "title"    : "Shape Shifting Creatures",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2017/03/05/body_volume_animation/",
+      "date"     : "5 Mar, 2017"
+    } ,
+  
+    {
+      "title"    : "Sugar-Free Fermented Marmalade",
+      "category" : "",
+      "tags"     : "food",
+      "url"      : "/2017/01/29/REC-fermented-marmalade/",
+      "date"     : "29 Jan, 2017"
+    } ,
+  
+    {
+      "title"    : "Preserved Lemons",
+      "category" : "",
+      "tags"     : "food",
+      "url"      : "/2017/01/13/REC-preserved-lemons/",
+      "date"     : "13 Jan, 2017"
+    } ,
+  
+    {
+      "title"    : "Fermented Chilli and Garlic sauce",
+      "category" : "",
+      "tags"     : "food",
+      "url"      : "/2017/01/06/REC-chili-sauce/",
+      "date"     : "6 Jan, 2017"
+    } ,
+  
+    {
+      "title"    : "PyBoard Datalogger",
+      "category" : "",
+      "tags"     : "python, micropython, and 3d-printing",
+      "url"      : "/2016/10/21/data-logger/",
+      "date"     : "21 Oct, 2016"
+    } ,
+  
+    {
+      "title"    : "Sverchok Tree Generator",
+      "category" : "",
+      "tags"     : "blender, sverchok, and generative-art",
+      "url"      : "/2016/08/12/tree_generator/",
+      "date"     : "12 Aug, 2016"
+    } ,
+  
+    {
+      "title"    : "Penrose Tile Painting in Blender",
+      "category" : "",
+      "tags"     : "blender and symmetry-tile",
+      "url"      : "/2016/06/04/penrose_tile_painting/",
+      "date"     : "4 Jun, 2016"
+    } ,
+  
+    {
+      "title"    : "Structure Synth eisenscript to xml translator",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, generative-art, and generative-art",
+      "url"      : "/2016/05/29/eisen_translator/",
+      "date"     : "29 May, 2016"
+    } ,
+  
+    {
+      "title"    : "First Milky Way photo",
+      "category" : "",
+      "tags"     : "photo and astro",
+      "url"      : "/2016/05/25/astro/",
+      "date"     : "25 May, 2016"
+    } ,
+  
+    {
+      "title"    : "Generative Art - Penrose Tilings",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2016/04/23/generative_art_penrose/",
+      "date"     : "23 Apr, 2016"
+    } ,
+  
+    {
+      "title"    : "Generative Art - Updated Examples",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2016/04/02/generative_art_example_updates/",
+      "date"     : "2 Apr, 2016"
+    } ,
+  
+    {
+      "title"    : "Generative Art Examples - Fractals on a Plane",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2016/03/27/lsystem_2d_fractal/",
+      "date"     : "27 Mar, 2016"
+    } ,
+  
+    {
+      "title"    : "Generative Art - Sverchok Node Update",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2016/02/28/generative_art_docs/",
+      "date"     : "28 Feb, 2016"
+    } ,
+  
+    {
+      "title"    : "Maze any Mesh in Blender",
+      "category" : "",
+      "tags"     : "blender, sverchok, and maze",
+      "url"      : "/2016/01/29/maze_mesh/",
+      "date"     : "29 Jan, 2016"
+    } ,
+  
+    {
+      "title"    : "Blender 3D Maze Generator",
+      "category" : "",
+      "tags"     : "blender, sverchok, and maze",
+      "url"      : "/2015/12/20/blender_3D_maze_generator/",
+      "date"     : "20 Dec, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender 2D Maze Generator",
+      "category" : "",
+      "tags"     : "blender, sverchok, and maze",
+      "url"      : "/2015/12/11/blender_maze_generator/",
+      "date"     : "11 Dec, 2015"
+    } ,
+  
+    {
+      "title"    : "Larger Hyperbolic Tilings in 3D using Processing",
+      "category" : "",
+      "tags"     : "blender and processing",
+      "url"      : "/2015/11/27/hyperbolic_tilings_processing/",
+      "date"     : "27 Nov, 2015"
+    } ,
+  
+    {
+      "title"    : "Symmetry Tile Painting in Blender",
+      "category" : "",
+      "tags"     : "blender and symmetry-tile",
+      "url"      : "/2015/11/21/symmetry_texturing/",
+      "date"     : "21 Nov, 2015"
+    } ,
+  
+    {
+      "title"    : "Painting in the Hyperbolic Plane",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/11/14/hyperbolic_texturing/",
+      "date"     : "14 Nov, 2015"
+    } ,
+  
+    {
+      "title"    : "Hyperbolic Tiling in 3D",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/11/06/hyperbolic_tilings/",
+      "date"     : "6 Nov, 2015"
+    } ,
+  
+    {
+      "title"    : "Shaders for Sverchok 04 - Vertex Colors Update",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/10/02/shady_sverchok_04/",
+      "date"     : "2 Oct, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Linked Stars",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2015/09/27/blender_linked_stars/",
+      "date"     : "27 Sep, 2015"
+    } ,
+  
+    {
+      "title"    : "Bloom Spheres in Sverchok",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/09/09/bloom_spheres/",
+      "date"     : "9 Sep, 2015"
+    } ,
+  
+    {
+      "title"    : "Micropython - OLED module with the ssd1306 chip",
+      "category" : "",
+      "tags"     : "python and micropython",
+      "url"      : "/2015/07/10/micropython_oled/",
+      "date"     : "10 Jul, 2015"
+    } ,
+  
+    {
+      "title"    : "Reading the World - 10 Audio Online Stories",
+      "category" : "",
+      "tags"     : "reading",
+      "url"      : "/2015/07/04/online_stories_10_audio_01/",
+      "date"     : "4 Jul, 2015"
+    } ,
+  
+    {
+      "title"    : "Micropython - Stepper motor control with a A4988 carrier board",
+      "category" : "",
+      "tags"     : "python and micropython",
+      "url"      : "/2015/07/03/micropython_stepper/",
+      "date"     : "3 Jul, 2015"
+    } ,
+  
+    {
+      "title"    : "Reading the World - 100 Online Stories",
+      "category" : "",
+      "tags"     : "reading",
+      "url"      : "/2015/06/19/online_stories_100/",
+      "date"     : "19 Jun, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Game Level Generator",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2015/06/11/blender_game_level_generator/",
+      "date"     : "11 Jun, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Progress Animations",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2015/06/01/blender_progress_animations/",
+      "date"     : "1 Jun, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Auto Save add-on",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2015/05/29/blender_auto_save_addon/",
+      "date"     : "29 May, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Pipe Generator",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2015/05/24/blender_pipe_generator/",
+      "date"     : "24 May, 2015"
+    } ,
+  
+    {
+      "title"    : "A Git Horror Story",
+      "category" : "",
+      "tags"     : "nonsense",
+      "url"      : "/2015/05/23/curse_of_the_fetched_repo/",
+      "date"     : "23 May, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Ivy Gen Abstracts",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2015/05/17/ivy_generator/",
+      "date"     : "17 May, 2015"
+    } ,
+  
+    {
+      "title"    : "Blender Adventures with Hyperbolic Planes",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/04/15/hyperbolic_planes/",
+      "date"     : "15 Apr, 2015"
+    } ,
+  
+    {
+      "title"    : "Structure Synth meets Sverchok - Animation",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2015/03/22/structure-synth_meets_sverchok_03/",
+      "date"     : "22 Mar, 2015"
+    } ,
+  
+    {
+      "title"    : "Structure Synth meets Sverchok - Mesh mode",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2015/03/15/structure-synth_meets_sverchok_02/",
+      "date"     : "15 Mar, 2015"
+    } ,
+  
+    {
+      "title"    : "Structure Synth meets Sverchok - Generative Art inside Blender",
+      "category" : "",
+      "tags"     : "blender, sverchok, structure-synth, and generative-art",
+      "url"      : "/2015/03/08/structure-synth_meets_sverchok/",
+      "date"     : "8 Mar, 2015"
+    } ,
+  
+    {
+      "title"    : "Shaders for Sverchok 03 - Image Texture Node",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/03/07/shady_sverchok_03/",
+      "date"     : "7 Mar, 2015"
+    } ,
+  
+    {
+      "title"    : "Shaders for Sverchok 02 - Vertex Colors",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/02/26/shady_sverchok_02/",
+      "date"     : "26 Feb, 2015"
+    } ,
+  
+    {
+      "title"    : "Shaders for Sverchok 01 - Object Info node.",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/02/22/shady_sverchok_01/",
+      "date"     : "22 Feb, 2015"
+    } ,
+  
+    {
+      "title"    : "Simple Sverchok 05 - Interpolate and Iterate Matrix",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/01/31/simple_sverchok_05/",
+      "date"     : "31 Jan, 2015"
+    } ,
+  
+    {
+      "title"    : "Arduino Bread Details",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2015/01/19/Arduino-Bread-Details/",
+      "date"     : "19 Jan, 2015"
+    } ,
+  
+    {
+      "title"    : "Simple Sverchok 04 - Apply Matrix",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2015/01/04/simple_sverchok_04/",
+      "date"     : "4 Jan, 2015"
+    } ,
+  
+    {
+      "title"    : "Simple Sverchok 03 - Slope Dependent Trees",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2014/12/30/simple_sverchok_03/",
+      "date"     : "30 Dec, 2014"
+    } ,
+  
+    {
+      "title"    : "Simple Sverchok 02 - Matrix Deform",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2014/12/27/simple_sverchok_02/",
+      "date"     : "27 Dec, 2014"
+    } ,
+  
+    {
+      "title"    : "Simple Sverchok 01 - Centers Polygons",
+      "category" : "",
+      "tags"     : "blender and sverchok",
+      "url"      : "/2014/12/20/simple_sverchok_01/",
+      "date"     : "20 Dec, 2014"
+    } ,
+  
+    {
+      "title"    : "Arduino Bread",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2014/12/12/Arduino-Bread/",
+      "date"     : "12 Dec, 2014"
+    } ,
+  
+    {
+      "title"    : "Notes to Father Christmas re 3D Printer Filament",
+      "category" : "",
+      "tags"     : "3d-printing",
+      "url"      : "/2014/11/30/NZ_printer_filament/",
+      "date"     : "30 Nov, 2014"
+    } ,
+  
+    {
+      "title"    : "Translate cache descriptions and logs",
+      "category" : "",
+      "tags"     : "geocaching",
+      "url"      : "/2014/11/16/translate_caches/",
+      "date"     : "16 Nov, 2014"
+    } ,
+  
+    {
+      "title"    : "A novel use for a 3D heated printer bed.",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2014/11/12/duckling_heater/",
+      "date"     : "12 Nov, 2014"
+    } ,
+  
+    {
+      "title"    : "Off-line caching along a route",
+      "category" : "",
+      "tags"     : "geocaching",
+      "url"      : "/2014/11/09/caches_along_track/",
+      "date"     : "9 Nov, 2014"
+    } ,
+  
+    {
+      "title"    : "Drop down and button select menus for Blender Operator add-ons",
+      "category" : "",
+      "tags"     : "copy2",
+      "url"      : "/2014/09/14/blender_add_on_options/",
+      "date"     : "14 Sep, 2014"
+    } ,
+  
+    {
+      "title"    : "Copy 2 add-on for blender",
+      "category" : "",
+      "tags"     : "copy2 and blender",
+      "url"      : "/2014/09/02/copy2_docs/",
+      "date"     : "2 Sep, 2014"
+    } ,
+  
+    {
+      "title"    : "Parametric Surfaces in Blender",
+      "category" : "",
+      "tags"     : "blender",
+      "url"      : "/2014/08/03/parametric_surfaces_blender/",
+      "date"     : "3 Aug, 2014"
+    } ,
+  
+    {
+      "title"    : "Responsive Theme for gthumb Web Albums",
+      "category" : "",
+      "tags"     : "webalbum",
+      "url"      : "/2014/07/26/responsive_dark/",
+      "date"     : "26 Jul, 2014"
+    } ,
+  
+    {
+      "title"    : "Symmetry Group Links and Notation",
+      "category" : "",
+      "tags"     : "symmetry-tile",
+      "url"      : "/2014/07/18/Symmetry-Group-Links-and-Notation/",
+      "date"     : "18 Jul, 2014"
+    } ,
+  
+    {
+      "title"    : "Symmetry Tile with non-rectangular cells",
+      "category" : "",
+      "tags"     : "symmetry-tile",
+      "url"      : "/2014/07/13/Symmetry-Tile-with-non-rectangular-cells/",
+      "date"     : "13 Jul, 2014"
+    } ,
+  
+    {
+      "title"    : "Using the Symmetry Tile plug-in for Quilt Design",
+      "category" : "",
+      "tags"     : "symmetry-tile",
+      "url"      : "/2014/07/12/Using-the-Symmetry-Tile-plug-in-for-Quilt-Design/",
+      "date"     : "12 Jul, 2014"
+    } ,
+  
+    {
+      "title"    : "Symmetry Tile plug-in for GIMP",
+      "category" : "",
+      "tags"     : "symmetry-tile",
+      "url"      : "/2014/07/05/Symmetry-Tile-plug-in-for-GIMP/",
+      "date"     : "5 Jul, 2014"
+    } ,
+  
+    {
+      "title"    : "Image alignment with markdown",
+      "category" : "",
+      "tags"     : "pelican and markdown",
+      "url"      : "/2014/06/21/test_image_align/",
+      "date"     : "21 Jun, 2014"
+    } ,
+  
+    {
+      "title"    : "Pelican and markdown styling cheat-sheet",
+      "category" : "",
+      "tags"     : "pelican and markdown",
+      "url"      : "/2014/06/19/pelican_markdown_cheatsheet/",
+      "date"     : "19 Jun, 2014"
+    } ,
+  
+    {
+      "title"    : "Cat Scan",
+      "category" : "",
+      "tags"     : "cats, materials, and 3d-printing",
+      "url"      : "/2014/06/13/Cat-Scan/",
+      "date"     : "13 Jun, 2014"
+    } ,
+  
+    {
+      "title"    : "Material Cats",
+      "category" : "",
+      "tags"     : "cats and materials",
+      "url"      : "/2014/02/23/material_cats/",
+      "date"     : "23 Feb, 2014"
+    } ,
+  
+    {
+      "title"    : "The almost invisible kite",
+      "category" : "",
+      "tags"     : "kites",
+      "url"      : "/2014/01/31/invisible_kite/",
+      "date"     : "31 Jan, 2014"
+    } ,
+  
+    {
+      "title"    : "Software for managing (e)books",
+      "category" : "",
+      "tags"     : "ebook and reading",
+      "url"      : "/2014/01/28/ebook_software/",
+      "date"     : "28 Jan, 2014"
+    } ,
+  
+    {
+      "title"    : "Reading Lists",
+      "category" : "",
+      "tags"     : "ebook and reading",
+      "url"      : "/2014/01/26/reading_lists/",
+      "date"     : "26 Jan, 2014"
+    } 
+  
+]
